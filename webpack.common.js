@@ -1,6 +1,13 @@
 const path = require("path");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const Dotenv = require('dotenv-webpack');
+const dotenv = require('dotenv');
+const webpack = require("webpack");
+dotenv.config();
+
+const environmentVariables = [
+    "TEST"
+];
+
 
 module.exports = {
 
@@ -40,8 +47,6 @@ module.exports = {
             filename: "index.html",
             template: "src/template.html"
         }),
-        new Dotenv({
-            ignoreStub: true
-        })
+        new webpack.EnvironmentPlugin(environmentVariables)
     ]
 }
