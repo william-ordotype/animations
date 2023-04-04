@@ -1,13 +1,16 @@
 // noinspection SpellCheckingInspection
 
-function documentTypes() {
-  window.documentTypes = {
+const globals = {}
+
+globals.documentTypes = {
     notes: "Note",
     recommendations: "Fiche conseil",
     prescriptions: "Ordonnance",
-  };
 }
 
-export {
-    documentTypes
+
+globals.run = function () {
+  window.globals = globals;
 }
+
+export default globals;

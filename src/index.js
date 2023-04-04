@@ -1,19 +1,22 @@
 import alpineWebflow from "./modules/alpine-webflow";
 import Alpine from "alpinejs";
-import { documentTypes } from "./utils/globals";
+import globals from "./utils/globals";
 
 window.Alpine = Alpine;
 
 async function init() {
-  documentTypes();
+  globals.run();
   console.log("Inside memberstack check");
   const user = await memberstack.instance.getCurrentMember();
   try {
+    // TODO Refactor to show only in local
     if (!user.data) {
       memberstack.instance.openModal("LOGIN").then(({ data }) => {
         memberstack.instance.hideModal();
         console.log(data);
       });
+
+      // TODO Show unauth state
     }
   } catch (err) {
     console.error(err);
@@ -28,12 +31,14 @@ document.addEventListener("alpine:init", () => {
     documents: [],
     pageNumber: null,
     pageTotal: null,
+    itemsTotal: null,
 
     async init() {
       const documentsResults = await this.getDocuments();
       this.documents = documentsResults["notes"];
       this.pageNumber = documentsResults["page_number"];
       this.pageTotal = documentsResults["page_total"];
+      this.itemsTotal = documentsResults["items_total"];
 
       Alpine.effect(() => {
         // TODO add a poll or throttle
@@ -44,6 +49,7 @@ document.addEventListener("alpine:init", () => {
         }, 1000);
       });
     },
+
     async getDocuments({
       page = 1,
       limit = 10,
@@ -59,8 +65,7 @@ document.addEventListener("alpine:init", () => {
           },
         }
       );
-      const documents = await response.json();
-      return documents;
+      return await response.json();
     },
   });
 
@@ -72,7 +77,7 @@ document.addEventListener("alpine:init", () => {
     },
     textType(d) {
       return {
-        ["x-text"]: "window.documentTypes[d.type]",
+        ["x-text"]: "window.globals.documentTypes[d.type]",
       };
     },
     textDate(d) {
