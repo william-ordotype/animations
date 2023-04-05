@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Last Published: Sun Apr 02 2023 02:38:51 GMT+0000 (Coordinated Universal Time) -->
+<!-- Last Published: Tue Apr 04 2023 23:50:11 GMT+0000 (Coordinated Universal Time) -->
 <html
   data-wf-domain="ordotype.webflow.io"
   data-wf-page="6428de0a13003e96dad78133"
@@ -17,7 +17,7 @@
       name="google-site-verification"
     />
     <link
-      href="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.89f751411.min.css"
+      href="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.331ee87b0.min.css"
       rel="stylesheet"
       type="text/css"
     />
@@ -120,6 +120,10 @@
     />
 
     <style type="text/css">
+      [x-cloak] {
+        display: none;
+      }
+
       .nav-search {
         opacity: 1 !important;
         position: static;
@@ -1158,8 +1162,100 @@
                 </div>
               </div>
               <div class="tabs_documents">
+                <div class="loading_container"><h3>Loading...</h3></div>
+                <div x-cloak="" class="paywall_wrapper">
+                  <div class="contenu-premium">
+                    <div class="w-layout-grid cont_grid">
+                      <img
+                        src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/640de7a644ffd08526acef3d_Icon.svg"
+                        loading="lazy"
+                        id="w-node-_89d354dc-effb-0a61-b581-76d756f42842-dad78133"
+                        alt=""
+                        class="cont_icon"
+                      />
+                      <div
+                        id="w-node-_89d354dc-effb-0a61-b581-76d756f42843-dad78133"
+                        class="cont_header"
+                      >
+                        <h2 class="cont_header_h2">Contenu Premium</h2>
+                        <div class="text-weight-light">
+                          Accéder gratuitement au contenu premium d’Ordotype
+                          pendant 1 mois.
+                        </div>
+                      </div>
+                      <div
+                        id="w-node-_89d354dc-effb-0a61-b581-76d756f42848-dad78133"
+                        class="key_wrapper"
+                      >
+                        <img
+                          src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/640defb985f0c0ee28b8ea2d_3D%20Illustration.png"
+                          srcset="
+                            https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/640defb985f0c0ee28b8ea2d_3D%20Illustration-p-500.png 500w,
+                            https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/640defb985f0c0ee28b8ea2d_3D%20Illustration.png       792w
+                          "
+                          sizes="(max-width: 767px) 100vw, (max-width: 991px) 24vw, (max-width: 1279px) 30vw, (max-width: 1439px) 28vw, 384px"
+                          alt=""
+                          class="key"
+                        />
+                      </div>
+                      <div
+                        id="w-node-_89d354dc-effb-0a61-b581-76d756f4284a-dad78133"
+                        class="text_wrapper"
+                      >
+                        <div class="w-layout-grid text_grid">
+                          <div
+                            id="w-node-_89d354dc-effb-0a61-b581-76d756f4284c-dad78133"
+                            class="text-weight-semibold"
+                          >
+                            Réduisez votre charge mentale
+                          </div>
+                          <div class="text-weight-light text-size-small">
+                            Plus besoin de multiplier les sources pour trouver
+                            une information fiable et à jour. Ordotype
+                            centralise toutes les informations dans un seul
+                            moteur de recherche.
+                          </div>
+                        </div>
+                        <div class="padding-24">
+                          <div class="w-layout-grid text_grid">
+                            <div
+                              id="w-node-_89d354dc-effb-0a61-b581-76d756f42852-dad78133"
+                              class="text-weight-semibold"
+                            >
+                              Gagnez du temps
+                            </div>
+                            <div class="text-weight-light text-size-small">
+                              Ne perdez plus de temps à réécrire les mêmes
+                              informations grâce aux 1500+ ordonnances types et
+                              conseils patients prérédigés.
+                            </div>
+                          </div>
+                        </div>
+                        <div class="w-layout-grid text_grid">
+                          <div
+                            id="w-node-_89d354dc-effb-0a61-b581-76d756f42857-dad78133"
+                            class="text-weight-semibold"
+                          >
+                            Restez à jour
+                          </div>
+                          <div class="text-weight-light text-size-small">
+                            Ordotype veille pour vous et s’adapte en continu aux
+                            nouvelles recommandations. Notre équipe veille à ce
+                            que nos fiches soient toujours d’actualités.
+                          </div>
+                        </div>
+                      </div>
+                      <a
+                        id="w-node-_89d354dc-effb-0a61-b581-76d756f4285b-dad78133"
+                        href="#"
+                        class="button is-docs w-inline-block"
+                        ><div class="button_text">Essayer gratuitement</div></a
+                      >
+                    </div>
+                  </div>
+                </div>
                 <div class="tabs_panel">
-                  <div class="content_main_wrapper">
+                  <div x-cloak="" class="content_main_wrapper">
                     <div class="padding-custom24">
                       <div class="w-layout-grid header_wrapper">
                         <h2
@@ -1169,10 +1265,15 @@
                           Tous mes documents
                         </h2>
                         <div
+                          x-data=""
                           id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0edb-dad78133"
                           class="documents_count text-size-small text-weight-light"
                         >
-                          <div x-data class="doc_number"><div x-text="$store.documentsStore.itemsTotal">128</div></div>
+                          <div class="doc_number">
+                            <div x-text="$store.documentsStore.itemsTotal">
+                              128
+                            </div>
+                          </div>
                           <div>documents</div>
                         </div>
                         <a
@@ -1565,7 +1666,7 @@
                                     class="check_mark"
                                 /></a>
                                 <div
-                                  x-bind="textTitle(d)"
+                                  x-bind="textTitle"
                                   class="text-weight-semibold"
                                 >
                                   Nom du document
@@ -1578,7 +1679,7 @@
                               </div>
                             </div>
                             <div class="type_tag">
-                              <div x-bind="textType(d)">Note</div>
+                              <div x-bind="textType">Note</div>
                             </div>
                             <div class="pathologie_tag">
                               <div>Pathologie</div>
@@ -1589,7 +1690,7 @@
                             >
                               <div class="flex_horizontal">
                                 <div class="date_tag">
-                                  <div x-bind="textDate(d)">12/10/2022</div>
+                                  <div x-bind="textDate">12/10/2022</div>
                                 </div>
                                 <div class="sub_menu">
                                   <div
@@ -1698,14 +1799,19 @@
                     <div class="padding-custom24">
                       <div class="w-layout-grid pagination_grid">
                         <div
+                          x-data="documentsPagination()"
                           id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf10d0-dad78133"
                           class="pagination_left"
-                          x-data="documentsPagination()"
                         >
-                          <div x-for="n in $store.documentsStore.pageTotal" class="page_numbers">
-                            <div x-bind="pageNumber()" class="page_number"><div>1</div></div>
+                          <div
+                            x-for="n in $store.documentsStore.pageTotal"
+                            class="page_numbers"
+                          >
+                            <div x-bind="pageNumber" class="page_number">
+                              <div>1</div>
+                            </div>
                           </div>
-                          <div id="page_next" class="page_number">
+                          <div x-bind="pageNext" id="page_next" class="page_number">
                             <img
                               loading="lazy"
                               src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/6408f49e889404094b168ca4_arr-page.svg"
@@ -1721,6 +1827,7 @@
                           <div
                             data-delay="0"
                             data-hover="false"
+                            x-data=""
                             class="per_page_menu w-dropdown"
                           >
                             <div class="sub_toggle_perpage w-dropdown-toggle">
@@ -2063,7 +2170,7 @@
           </div>
         </div>
       </header>
-      <div class="section_view">
+      <div x-cloak="" class="drawer_view">
         <div class="view_wrapper">
           <div class="padding-xmedium">
             <div class="action_wrapper">
@@ -2435,7 +2542,7 @@
       crossorigin="anonymous"
     ></script>
     <script
-      src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/js/webflow.cd30f3be9.js"
+      src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/js/webflow.e7f8b3788.js"
       type="text/javascript"
     ></script>
     <!--[if lte IE 9
@@ -2869,5 +2976,31 @@
       ></iframe
     ></noscript>
     <!-- End Google Tag Manager (noscript) -->
+
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=302978167"
+    ></script>
+
+    <script defer>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      // Retrieve the Memberstack member ID
+      window.$memberstackDom.getCurrentMember().then(({ data: member }) => {
+        if (member) {
+          let memberId = member.id;
+
+          // Set the User ID in Google Analytics 4
+          gtag("set", { user_id: memberId });
+        }
+      });
+
+      // Send a pageview event
+      gtag("event", "page_view");
+    </script>
   </body>
 </html>

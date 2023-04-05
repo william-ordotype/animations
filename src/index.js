@@ -1,3 +1,4 @@
+import PineconeRouter from "pinecone-router";
 import alpineWebflow from "./modules/alpine-webflow";
 import Alpine from "alpinejs";
 import globals from "./utils/globals";
@@ -7,17 +8,27 @@ window.Alpine = Alpine;
 async function init() {
   globals.run();
   console.log("Inside memberstack check");
-  const user = await memberstack.instance.getCurrentMember();
   try {
-    // TODO Refactor to show only in local
+    // TODO optimize so it doesn't ask two requests in prod
+    const user = await memberstack.instance.getCurrentMember();
     if (!user.data) {
+      // Shows unauthenticated state
+      $(".paywall_wrapper").show();
+
+    // TODO Refactor to show login modal only in local
       memberstack.instance.openModal("LOGIN").then(({ data }) => {
         memberstack.instance.hideModal();
+        $(".paywall_wrapper").hide();
+        $(".content_main_wrapper").show();
         console.log(data);
-      });
-
-      // TODO Show unauth state
+      })
+    } else {
+      // Shows authenticated state
+      $(".content_main_wrapper").show();
     }
+
+    // Removes leading
+    $(".loading_container").hide();
   } catch (err) {
     console.error(err);
   }
@@ -33,13 +44,16 @@ document.addEventListener("alpine:init", () => {
     pageTotal: null,
     itemsTotal: null,
 
-    async init() {
-      const documentsResults = await this.getDocuments();
+    async setDocuments(props) {
+      const documentsResults = await this.getDocuments(props);
       this.documents = documentsResults["notes"];
       this.pageNumber = documentsResults["page_number"];
       this.pageTotal = documentsResults["page_total"];
       this.itemsTotal = documentsResults["items_total"];
+    },
 
+    async init() {
+      await this.setDocuments();
       Alpine.effect(() => {
         // TODO add a poll or throttle
         // Re attach Webflow dropdown events to newly rendered items
@@ -91,10 +105,15 @@ document.addEventListener("alpine:init", () => {
     pageNumber(n) {
       return {
         ["x-text"]: "n",
-        ["x-on:click"]: "console.log(await $store.documentsStore.getDocuments({page:n}))"
+        ["x-on:click"]: "$store.documentsStore.setDocuments({page: +n})",
+      };
+    },
+    pageNext() {
+      return {
+        ["x-on:click"]: "$store.documentsStore.setDocuments({page: +$store.documentsStore.pageNumber+1})"
       }
     }
-  }))
+  }));
 });
 
 document.addEventListener("alpine:initialized", () => {
@@ -107,6 +126,8 @@ if (!window.Webflow) {
 window.Webflow.push(() => {
   init().then(() => {
     alpineWebflow();
+
+    Alpine.plugin(PineconeRouter);
     Alpine.start();
   });
 });
