@@ -29,6 +29,6 @@
     "alpinejs": "^3.12.0",
     "axios": "^1.3.4",
     "dotenv": "^16.0.3",
-    "pinecone-router": "^2.1.3"
+    "pinecone-router": "file:../router"
   }
 }

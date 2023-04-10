@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Last Published: Tue Apr 04 2023 23:50:11 GMT+0000 (Coordinated Universal Time) -->
+<!-- Last Published: Mon Apr 10 2023 03:22:23 GMT+0000 (Coordinated Universal Time) -->
 <html
   data-wf-domain="ordotype.webflow.io"
   data-wf-page="6428de0a13003e96dad78133"
@@ -17,7 +17,7 @@
       name="google-site-verification"
     />
     <link
-      href="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.331ee87b0.min.css"
+      href="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.9a9caecc7.min.css"
       rel="stylesheet"
       type="text/css"
     />
@@ -514,8 +514,25 @@
         a.appendChild(r);
       })(window, document, "https://static.hotjar.com/c/hotjar-", ".js?sv=");
     </script>
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
   </head>
   <body class="body_documents">
+    <div class="w-embed">
+      <div x-data="router()">
+        <template x-route="/notes/:id?" x-handler="notesDocs"></template>
+        <template
+          x-route="/ordonnances/:id?"
+          x-handler="ordonnances"
+        ></template>
+        <template
+          x-route="/fiches-conseils/:id?"
+          x-handler="conseils"
+        ></template>
+        <template x-route="/:id?" x-handler="allDocuments"></template>
+        <!-- 404 handler -->
+        <template x-route="notfound" x-handler="notfound"></template>
+      </div>
+    </div>
     <div class="global-styles w-embed">
       <style>
          html { font-size: 1rem; }
@@ -869,9 +886,7 @@
             </div>
             <div class="documents_tabs hide-mobile-landscape">
               <div class="tabs_menu">
-                <a
-                  href="/notes-documents/mes-documents-mobile"
-                  class="tab_link active w-inline-block"
+                <a href="#/" class="tab_link active w-inline-block"
                   ><div class="w-layout-grid grid_gap_8">
                     <div class="tab_icon w-embed">
                       <svg
@@ -915,9 +930,7 @@
                         stroke-linejoin="round"
                       />
                     </svg></div></a
-                ><a
-                  href="/notes-documents/mes-documents-ordonnances"
-                  class="tab_link w-inline-block"
+                ><a href="#/ordonnances" class="tab_link w-inline-block"
                   ><div class="w-layout-grid grid_gap_8">
                     <div class="tab_icon w-embed">
                       <svg
@@ -954,12 +967,7 @@
                         stroke-linejoin="round"
                       />
                     </svg></div></a
-                ><link
-                  rel="prefetch"
-                  href="/notes-documents/mes-documents-ordonnances"
-                /><a
-                  href="/notes-documents/mes-documents-notes"
-                  class="tab_link w-inline-block"
+                ><a href="#/notes" class="tab_link w-inline-block"
                   ><div class="w-layout-grid grid_gap_8">
                     <div class="tab_icon w-embed">
                       <svg
@@ -996,12 +1004,7 @@
                         stroke-linejoin="round"
                       />
                     </svg></div></a
-                ><link
-                  rel="prefetch"
-                  href="/notes-documents/mes-documents-notes"
-                /><a
-                  href="/notes-documents/mes-documents-fiches-conseils"
-                  class="tab_link w-inline-block"
+                ><a href="#/fiches-conseils" class="tab_link w-inline-block"
                   ><div class="w-layout-grid grid_gap_8">
                     <div class="tab_icon w-embed">
                       <svg
@@ -1038,10 +1041,7 @@
                         stroke-linejoin="round"
                       />
                     </svg></div></a
-                ><link
-                  rel="prefetch"
-                  href="/notes-documents/mes-documents-fiches-conseils"
-                /><a
+                ><a
                   href="/notes-documents/mes-documents-favoris"
                   class="tab_link w-inline-block"
                   ><div class="w-layout-grid grid_gap_8">
@@ -1666,7 +1666,7 @@
                                     class="check_mark"
                                 /></a>
                                 <div
-                                  x-bind="textTitle"
+                                  x-bind="textTitle(d)"
                                   class="text-weight-semibold"
                                 >
                                   Nom du document
@@ -1679,7 +1679,7 @@
                               </div>
                             </div>
                             <div class="type_tag">
-                              <div x-bind="textType">Note</div>
+                              <div x-bind="textType(d)">Note</div>
                             </div>
                             <div class="pathologie_tag">
                               <div>Pathologie</div>
@@ -1690,7 +1690,7 @@
                             >
                               <div class="flex_horizontal">
                                 <div class="date_tag">
-                                  <div x-bind="textDate">12/10/2022</div>
+                                  <div x-bind="textDate(d)">12/10/2022</div>
                                 </div>
                                 <div class="sub_menu">
                                   <div
@@ -1811,7 +1811,7 @@
                               <div>1</div>
                             </div>
                           </div>
-                          <div x-bind="pageNext" id="page_next" class="page_number">
+                          <div id="page_next" class="page_number">
                             <img
                               loading="lazy"
                               src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/6408f49e889404094b168ca4_arr-page.svg"
@@ -2542,7 +2542,7 @@
       crossorigin="anonymous"
     ></script>
     <script
-      src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/js/webflow.e7f8b3788.js"
+      src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/js/webflow.feee86867.js"
       type="text/javascript"
     ></script>
     <!--[if lte IE 9
@@ -2976,31 +2976,5 @@
       ></iframe
     ></noscript>
     <!-- End Google Tag Manager (noscript) -->
-
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=302978167"
-    ></script>
-
-    <script defer>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-
-      // Retrieve the Memberstack member ID
-      window.$memberstackDom.getCurrentMember().then(({ data: member }) => {
-        if (member) {
-          let memberId = member.id;
-
-          // Set the User ID in Google Analytics 4
-          gtag("set", { user_id: memberId });
-        }
-      });
-
-      // Send a pageview event
-      gtag("event", "page_view");
-    </script>
   </body>
 </html>
