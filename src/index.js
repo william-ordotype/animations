@@ -1,6 +1,7 @@
 import PineconeRouter from "pinecone-router";
 import alpineWebflow from "./modules/alpine-webflow";
 import Alpine from "alpinejs";
+
 import globals from "./utils/globals";
 import consultsMemberstackAuthentication from "./authentication";
 import DocumentsDataTable from "./components/DocumentsDataTable";
@@ -8,21 +9,21 @@ import DocumentsPaginationNavigation from "./components/DocumentsPaginationNavig
 
 window.Alpine = Alpine;
 
-var myDocumentType = ""
-document.addEventListener("alpine:initialized", () => {
-  window.PineconeRouter.settings.hash = true;
-  // window.PineconeRouter.settings.basePath = "/notes-documents/mes-documents-sandbox"; // set the base for the URL, doesn't work with hash routing
-});
+window.myDocumentType = ""
 
+/**
+ * Declaring global variables and running auth check before Alpine starts
+ * @returns {Promise<void>}
+ */
 async function init() {
   globals.run();
-  console.log("Inside memberstack check");
   await consultsMemberstackAuthentication();
 }
 
-console.log("inside Alpine init...");
+/**
+ * Declaring global state to be shared among components
+ */
 const memberToken = memberstack.instance.getMemberCookie();
-
 Alpine.store("documentsStore", {
   documents: [],
   pageNumber: null,
@@ -44,7 +45,7 @@ Alpine.store("documentsStore", {
 
     Alpine.effect(() => {
       // TODO add a poll or throttle
-      // Re attach Webflow dropdown events to newly rendered items
+      // Solves Bug: Re attach Webflow dropdown events to newly rendered items
       setTimeout(() => {
         window.Webflow.require("dropdown").ready();
         window.Webflow.require("ix2").init();
@@ -57,7 +58,7 @@ Alpine.store("documentsStore", {
     limit = 10,
     sort = "created_on",
     direction = "DESC",
-    type = myDocumentType,
+    type = "",
   } = {}) {
     const response = await fetch(
       `https://api.ordotype.fr/v1.0.0/notes?page=${page}&limit=${limit}&sort=${sort}&direction=${direction}&type=${type}`,
@@ -72,12 +73,16 @@ Alpine.store("documentsStore", {
   },
 });
 
+/**
+ * Declaring local state for each component
+ */
 DocumentsDataTable();
 DocumentsPaginationNavigation();
 
-document.addEventListener("alpine:initialized", () => {
-  window.Webflow.require("dropdown").ready();
-});
+
+/**
+ Runs program
+ */
 
 if (!window.Webflow) {
   window.Webflow = [];
@@ -91,33 +96,45 @@ window.Webflow.push(() => {
   });
 });
 
+/**
+ * Routing WIP
+ */
+document.addEventListener("alpine:initialized", () => {
+  window.PineconeRouter.settings.hash = true;
+});
+
 window.router = () => {
   return {
     async allDocuments(context) {
       // document.querySelector('#app').innerHTML = `<h1>Home</h1>`;
       console.log("holaa");
-      myDocumentType = ""
+      window.myDocumentType = ""
       console.log('routing all')
       console.log(context)
       console.log(context.params)
       await Alpine.store('documentsStore').setDocuments();
     },
     async notesDocs(context) {
-      myDocumentType = "notes"
+      debugger;
+      window.myDocumentType = "notes"
       // TODO add loading switch in method
       console.log('loading')
       console.log(context)
       await Alpine.store('documentsStore').setDocuments();
     },
-    ordonnances(context) {
-      document.querySelector(
-        "#app"
-      ).innerHTML = `<h1>Hello, ${context.params.name}</h1>`;
+    async ordonnances(context) {
+      window.myDocumentType = "prescriptions"
+      // TODO add loading switch in method
+      console.log('loading')
+      console.log(context)
+      await Alpine.store('documentsStore').setDocuments();
     },
-    conseils(context) {
-      document.querySelector(
-        "#app"
-      ).innerHTML = `<h1>Hello, ${context.params.name}</h1>`;
+    async conseils(context) {
+      window.myDocumentType = "recommendations"
+      // TODO add loading switch in method
+      console.log('loading')
+      console.log(context)
+      await Alpine.store('documentsStore').setDocuments({documentType: window.myDocumentType});
     },
     notfound(context) {
       console.log(context);
