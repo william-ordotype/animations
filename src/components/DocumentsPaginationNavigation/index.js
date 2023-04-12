@@ -10,9 +10,9 @@ function DocumentsPaginationNavigation() {
         },
         pageNext() {
             return {
-                ["x-on:click"]: "$store.documentsStore.setDocuments({page: +$store.documentsStore.pageNumber+1})"
+                ["x-on:click"]: "handlePagination('page', +$store.documentsStore.pageNumber+1, $router.params,)"
             }
-        }
+        },
     }));
 }
 

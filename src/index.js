@@ -1,4 +1,5 @@
-import PineconeRouter from "pinecone-router";
+// import PineconeRouter from 'pinecone-router'
+import PineconeRouter from './modules/pinecone-router-custom'
 import alpineWebflow from "./modules/alpine-webflow";
 import Alpine from "alpinejs";
 
@@ -8,8 +9,6 @@ import DocumentsDataTable from "./components/DocumentsDataTable";
 import DocumentsPaginationNavigation from "./components/DocumentsPaginationNavigation";
 
 window.Alpine = Alpine;
-
-window.myDocumentType = ""
 
 /**
  * Declaring global variables and running auth check before Alpine starts
@@ -23,7 +22,6 @@ async function init() {
 /**
  * Declaring global state to be shared among components
  */
-const memberToken = memberstack.instance.getMemberCookie();
 Alpine.store("documentsStore", {
   documents: [],
   pageNumber: null,
@@ -58,8 +56,9 @@ Alpine.store("documentsStore", {
     limit = 10,
     sort = "created_on",
     direction = "DESC",
-    type = "",
+    type,
   } = {}) {
+    debugger;
     const response = await fetch(
       `https://api.ordotype.fr/v1.0.0/notes?page=${page}&limit=${limit}&sort=${sort}&direction=${direction}&type=${type}`,
       {
@@ -105,36 +104,18 @@ document.addEventListener("alpine:initialized", () => {
 
 window.router = () => {
   return {
-    async allDocuments(context) {
-      // document.querySelector('#app').innerHTML = `<h1>Home</h1>`;
-      console.log("holaa");
-      window.myDocumentType = ""
-      console.log('routing all')
-      console.log(context)
-      console.log(context.params)
-      await Alpine.store('documentsStore').setDocuments();
+    async allDocuments(context, props) {
+      await routing(context, {type: ""})
     },
     async notesDocs(context) {
-      debugger;
-      window.myDocumentType = "notes"
-      // TODO add loading switch in method
-      console.log('loading')
-      console.log(context)
-      await Alpine.store('documentsStore').setDocuments();
+      await routing(context,{type: "notes"});
     },
     async ordonnances(context) {
-      window.myDocumentType = "prescriptions"
-      // TODO add loading switch in method
-      console.log('loading')
-      console.log(context)
-      await Alpine.store('documentsStore').setDocuments();
+      debugger;
+     await routing(context,{type: "prescriptions"});
     },
     async conseils(context) {
-      window.myDocumentType = "recommendations"
-      // TODO add loading switch in method
-      console.log('loading')
-      console.log(context)
-      await Alpine.store('documentsStore').setDocuments({documentType: window.myDocumentType});
+      await routing(context,{type: "recommendations"});
     },
     notfound(context) {
       console.log(context);
@@ -142,3 +123,24 @@ window.router = () => {
     },
   };
 };
+
+async function routing(context, {type}) {
+  console.log(context)
+  const page = context.params.page;
+  await Alpine.store('documentsStore').setDocuments({type, page});
+}
+
+window.handlePagination = (k, v, params ) => {
+  debugger;
+  const [route, hashParams] = location.hash.split('?')
+  const h = hashParams ? hashParams.split('&') : hashParams;
+  let cParams= [];
+
+  for (const [key, value] of Object.entries({...params})) {
+      if(key === k) {
+        cParams.push([key,v].join('=') )
+      }
+  }
+  cParams.length > 0 ? cParams.join("&") : cParams = [k,v].join("=")
+  location.hash=`${route}?${cParams}`
+}

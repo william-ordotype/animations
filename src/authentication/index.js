@@ -15,10 +15,11 @@ async function consultsMemberstackAuthentication () {
             })
         } else {
             // Shows authenticated state
+            window.memberToken = window.memberstack?.instance.getMemberCookie();
             $(".content_main_wrapper").show();
         }
 
-        // Removes leading
+        // Removes loading component
         $(".loading_container").hide();
     } catch (err) {
         console.error(err);
