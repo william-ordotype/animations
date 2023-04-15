@@ -12,7 +12,7 @@ function DocumentsDataTable() {
             return {
 
                 ["x-text"]: "d.title",
-                ["x-on:click"]: "window.handleDrawer({id: d._id})"
+                ["x-on:click"]: "$router.navigate($router.path + '/' + d._id)"
             };
         },
         textType(d) {

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Last Published: Sat Apr 15 2023 01:30:53 GMT+0000 (Coordinated Universal Time) -->
+<!-- Last Published: Sat Apr 15 2023 03:01:42 GMT+0000 (Coordinated Universal Time) -->
 <html
   data-wf-domain="ordotype.webflow.io"
   data-wf-page="6428de0a13003e96dad78133"
@@ -17,7 +17,7 @@
       name="google-site-verification"
     />
     <link
-      href="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.9e1c7877a.min.css"
+      href="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.a7f88ad55.min.css"
       rel="stylesheet"
       type="text/css"
     />
@@ -2291,24 +2291,28 @@
                   src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/6409a60abee24b0929f62f72_cross.svg"
                   loading="lazy"
                   id="w-node-_5e73bd5a-ce56-4459-5f7f-74573fcb3d7f-dad78133"
+                  x-bind="drawerClose"
                   alt=""
                   class="close_icon"
                 />
               </div>
             </div>
-            <div class="w-layout-grid view_grid">
+            <div x-bind="drawerContent" class="w-layout-grid view_grid">
               <h2
-                x-bind="docPreviewTitle"
+                x-bind="getOneTitle"
                 id="w-node-_5e73bd5a-ce56-4459-5f7f-74573fcb3d81-dad78133"
                 class="view_heading"
               >
                 Nom de la note
               </h2>
               <div
+                x-for="ptag in $store.documentsStore.getOne.document.pathology"
                 id="w-node-_5e73bd5a-ce56-4459-5f7f-74573fcb3d83-dad78133"
                 class="tags_wrapper"
               >
-                <div class="view_tag"><div>Pathologie associée</div></div>
+                <div x-text="&#x27;Pathologie&#x27;" class="view_tag">
+                  <div>Pathologie associée</div>
+                </div>
               </div>
               <div
                 id="w-node-_5e73bd5a-ce56-4459-5f7f-74573fcb3d87-dad78133"
@@ -2316,7 +2320,9 @@
               >
                 <div class="display-inlineflex">Créé le</div>
                 <div class="view_date_holder">
-                  <div class="text-weight-semibold">08/11/2022</div>
+                  <div x-bind="getOneCreatedOn" class="text-weight-semibold">
+                    08/11/2022
+                  </div>
                 </div>
                 <div class="display-inlineflex">par</div>
                 <div class="view_author">
@@ -2328,6 +2334,7 @@
                 class="grey_divider"
               ></div>
               <div
+                x-bind="getOneRichText"
                 id="w-node-_5e73bd5a-ce56-4459-5f7f-74573fcb3d93-dad78133"
                 class="text_wrapper"
               >
@@ -2384,6 +2391,9 @@
                     class="icon_copy"
                 /></a>
               </div>
+            </div>
+            <div x-bind="drawerLoading" class="drawer_loading">
+              <h1>Loading...</h1>
             </div>
           </div>
         </div>
