@@ -7,6 +7,7 @@ import globals from "./utils/globals";
 import consultsMemberstackAuthentication from "./authentication";
 import DocumentsDataTable from "./components/DocumentsDataTable";
 import DocumentsPaginationNavigation from "./components/DocumentsPaginationNavigation";
+import DocumentsTypeNavigation from "./components/DocumentsTypeNavigation";
 
 window.Alpine = Alpine;
 
@@ -23,52 +24,79 @@ async function init() {
  * Declaring global state to be shared among components
  */
 Alpine.store("documentsStore", {
-  documents: [],
-  pageNumber: null,
-  pageTotal: null,
-  itemsTotal: null,
-  documentType: null,
+  showModal: false,
+  showDrawer: false,
 
-  async setDocuments(props) {
-    const documentsResults = await this.getDocuments(props);
-    this.documents = documentsResults["notes"];
-    this.pageNumber = documentsResults["page_number"];
-    this.pageTotal = documentsResults["page_total"];
-    this.itemsTotal = documentsResults["items_total"];
+  getOne: {
+    document: {},
+    async getDocument({id} = {}) {
+      const response = await fetch(
+          `https://api.ordotype.fr/v1.0.0/notes/${id}`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${window.memberToken}`,
+            },
+          }
+      );
+      return await response.json();
+    },
+    async setDocument(props) {
+      const {id} = props
+      const res = await this.getDocument({id});
+      this.document = {...res};
+      console.log(this.document.title)
+    },
+  },
+
+  getList: {
+    documents: [],
+    pageNumber: null,
+    pageTotal: null,
+    itemsTotal: null,
+    documentType: null,
+
+    async setDocuments(props) {
+      const documentsResults = await this.getDocuments(props);
+      this.documents = documentsResults["notes"];
+      this.pageNumber = documentsResults["page_number"];
+      this.pageTotal = documentsResults["page_total"];
+      this.itemsTotal = documentsResults["items_total"];
+      this.documentType = props.type
+    },
+    async getDocuments({
+                         page = 1,
+                         limit = 10,
+                         sort = "created_on",
+                         direction = "DESC",
+                         type,
+                       } = {}) {
+      const response = await fetch(
+          `https://api.ordotype.fr/v1.0.0/notes?page=${page}&limit=${limit}&sort=${sort}&direction=${direction}&type=${type}`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${memberToken}`,
+            },
+          }
+      );
+      return await response.json();
+    },
   },
 
   async init() {
     console.log('Alpine init store')
-    // await this.setDocuments(myDocumentType);
-
     Alpine.effect(() => {
-      // TODO add a poll or throttle
       // Solves Bug: Re attach Webflow dropdown events to newly rendered items
-      setTimeout(() => {
-        window.Webflow.require("dropdown").ready();
-        window.Webflow.require("ix2").init();
-      }, 1000);
-    });
-  },
-
-  async getDocuments({
-    page = 1,
-    limit = 10,
-    sort = "created_on",
-    direction = "DESC",
-    type,
-  } = {}) {
-    debugger;
-    const response = await fetch(
-      `https://api.ordotype.fr/v1.0.0/notes?page=${page}&limit=${limit}&sort=${sort}&direction=${direction}&type=${type}`,
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${memberToken}`,
-        },
+      if(this.documents) {
+        setTimeout(() => {
+          window.Webflow.require("dropdown").ready();
+          window.Webflow.require("ix2").init();
+        }, 1000);
       }
-    );
-    return await response.json();
+      // TODO add a poll or throttle
+      console.log('painted')
+    });
   },
 });
 
@@ -77,7 +105,46 @@ Alpine.store("documentsStore", {
  */
 DocumentsDataTable();
 DocumentsPaginationNavigation();
+DocumentsTypeNavigation();
 
+Alpine.data('DocumentsDrawer', () => {
+  return ({
+    drawerBackdrop() {
+      return {
+        ["x-show"]: "$store.documentsStore.showDrawer",
+        ["x-transition"]: ""
+      }
+    },
+    drawerElem() {
+      return {
+        ["x-show"]: "$store.documentsStore.showDrawer",
+        ["x-transition"]: ""
+      }
+    },
+    docPreviewTitle() {
+      return {
+        ["x-text"]: "$store.documentsStore.getOne.document.title"
+      }
+    }
+  })
+})
+
+Alpine.data('DocumentsModal', () => {
+  return ({
+    modalBackdrop() {
+      return {
+        ["x-show"]: "$store.documentsStore.showModal",
+        ["x-transition"]: ""
+      }
+    },
+    modalElem() {
+      return {
+        ["x-show"]: "$store.documentsStore.showDrawer",
+        ["x-transition"]: ""
+      }
+    },
+  })
+})
 
 /**
  Runs program
@@ -104,6 +171,11 @@ document.addEventListener("alpine:initialized", () => {
 
 window.router = () => {
   return {
+    redirectToAll(context) {
+      if(context.path === "/") {
+        context.redirect('/all')
+      }
+    },
     async allDocuments(context, props) {
       await routing(context, {type: ""})
     },
@@ -111,7 +183,6 @@ window.router = () => {
       await routing(context,{type: "notes"});
     },
     async ordonnances(context) {
-      debugger;
      await routing(context,{type: "prescriptions"});
     },
     async conseils(context) {
@@ -127,11 +198,21 @@ window.router = () => {
 async function routing(context, {type}) {
   console.log(context)
   const page = context.params.page;
-  await Alpine.store('documentsStore').setDocuments({type, page});
+  const id = context.params.id;
+
+  if(id === "create") {
+    // TODO show create modal
+  } else if(id) {
+    // TODO show drawer
+
+    console.log('drawer')
+  } else {
+    // show list
+    await Alpine.store('documentsStore').getList.setDocuments({type, page});
+  }
 }
 
 window.handlePagination = (k, v, params ) => {
-  debugger;
   const [route, hashParams] = location.hash.split('?')
   const h = hashParams ? hashParams.split('&') : hashParams;
   let cParams= [];
@@ -143,4 +224,15 @@ window.handlePagination = (k, v, params ) => {
   }
   cParams.length > 0 ? cParams.join("&") : cParams = [k,v].join("=")
   location.hash=`${route}?${cParams}`
+}
+
+window.handleDrawer = async ({id}) => {
+  // TODO Add loading before showing blank drawer
+  Alpine.store('documentsStore').showDrawer = true;
+  Alpine.store('documentsStore').showModal = false;
+
+  await Alpine.store('documentsStore').getOne.setDocument({id})
+}
+window.modal = () => {
+
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Last Published: Mon Apr 10 2023 03:22:23 GMT+0000 (Coordinated Universal Time) -->
+<!-- Last Published: Sat Apr 15 2023 01:30:53 GMT+0000 (Coordinated Universal Time) -->
 <html
   data-wf-domain="ordotype.webflow.io"
   data-wf-page="6428de0a13003e96dad78133"
@@ -17,7 +17,7 @@
       name="google-site-verification"
     />
     <link
-      href="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.9a9caecc7.min.css"
+      href="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.9e1c7877a.min.css"
       rel="stylesheet"
       type="text/css"
     />
@@ -71,7 +71,7 @@
       rel="apple-touch-icon"
     />
     <link
-      href="https://www.ordotype.fr/notes-documents/mes-documents-sandbox"
+      href="https://www.ordotype.fr/mes-documents-sandbox"
       rel="canonical"
     />
     <!-- Memberstack 2.0 -->
@@ -122,6 +122,15 @@
     <style type="text/css">
       [x-cloak] {
         display: none;
+      }
+
+      .drawer_view,
+      .modal_view {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
       }
 
       .nav-search {
@@ -519,6 +528,7 @@
   <body class="body_documents">
     <div class="w-embed">
       <div x-data="router()">
+        <template x-route="/" x-handler="redirectToAll"></template>
         <template x-route="/all/:id?" x-handler="allDocuments"></template>
         <template x-route="/notes/:id?" x-handler="notesDocs"></template>
         <template
@@ -835,7 +845,7 @@
               class="navbar2_link w-nav-link"
               >Mon compte</a
             >
-            <div class="navbar2_menu-buttons">
+            <div data-ms-content="!members" class="navbar2_menu-buttons">
               <a
                 href="https://calendly.com/louis-malachane/ordotype"
                 data-ms-content="!members"
@@ -885,8 +895,8 @@
               </div>
             </div>
             <div class="documents_tabs hide-mobile-landscape">
-              <div class="tabs_menu">
-                <a href="#/all" class="tab_link active w-inline-block"
+              <div x-data="DocumentsNavigation()" class="tabs_menu">
+                <a x-bind="allType" href="#/all" class="tab_link w-inline-block"
                   ><div class="w-layout-grid grid_gap_8">
                     <div class="tab_icon w-embed">
                       <svg
@@ -930,7 +940,10 @@
                         stroke-linejoin="round"
                       />
                     </svg></div></a
-                ><a href="#/ordonnances" class="tab_link w-inline-block"
+                ><a
+                  x-bind="prescriptionsType"
+                  href="#/ordonnances"
+                  class="tab_link w-inline-block"
                   ><div class="w-layout-grid grid_gap_8">
                     <div class="tab_icon w-embed">
                       <svg
@@ -967,7 +980,10 @@
                         stroke-linejoin="round"
                       />
                     </svg></div></a
-                ><a href="#/notes" class="tab_link w-inline-block"
+                ><a
+                  x-bind="notesType"
+                  href="#/notes"
+                  class="tab_link w-inline-block"
                   ><div class="w-layout-grid grid_gap_8">
                     <div class="tab_icon w-embed">
                       <svg
@@ -1004,7 +1020,10 @@
                         stroke-linejoin="round"
                       />
                     </svg></div></a
-                ><a href="#/fiches-conseils" class="tab_link w-inline-block"
+                ><a
+                  x-bind="recommendationsType"
+                  href="#/fiches-conseils"
+                  class="tab_link w-inline-block"
                   ><div class="w-layout-grid grid_gap_8">
                     <div class="tab_icon w-embed">
                       <svg
@@ -1270,7 +1289,9 @@
                           class="documents_count text-size-small text-weight-light"
                         >
                           <div class="doc_number">
-                            <div x-text="$store.documentsStore.itemsTotal">
+                            <div
+                              x-text="$store.documentsStore.getList.itemsTotal"
+                            >
                               128
                             </div>
                           </div>
@@ -1630,7 +1651,7 @@
                         </div>
                       </div>
                       <div
-                        x-for="d in $store.documentsStore.documents"
+                        x-for="d in $store.documentsStore.getList.documents"
                         class="list_items"
                       >
                         <div class="list_item">
@@ -1804,14 +1825,18 @@
                           class="pagination_left"
                         >
                           <div
-                            x-for="n in $store.documentsStore.pageTotal"
+                            x-for="n in $store.documentsStore.getList.pageTotal"
                             class="page_numbers"
                           >
                             <div x-bind="pageNumber" class="page_number">
                               <div>1</div>
                             </div>
                           </div>
-                          <div x-bind="pageNext" id="page_next" class="page_number">
+                          <div
+                            id="page_next"
+                            x-bind="pageNext"
+                            class="page_number"
+                          >
                             <img
                               loading="lazy"
                               src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/6408f49e889404094b168ca4_arr-page.svg"
@@ -2170,8 +2195,13 @@
           </div>
         </div>
       </header>
-      <div x-cloak="" class="drawer_view">
-        <div class="view_wrapper">
+      <div
+        x-bind="drawerBackdrop"
+        x-cloak=""
+        x-data="DocumentsDrawer()"
+        class="drawer_view"
+      >
+        <div x-bind="drawerElem" class="view_wrapper">
           <div class="padding-xmedium">
             <div class="action_wrapper">
               <div class="w-layout-grid action_grid">
@@ -2268,6 +2298,7 @@
             </div>
             <div class="w-layout-grid view_grid">
               <h2
+                x-bind="docPreviewTitle"
                 id="w-node-_5e73bd5a-ce56-4459-5f7f-74573fcb3d81-dad78133"
                 class="view_heading"
               >
@@ -2353,6 +2384,75 @@
                     class="icon_copy"
                 /></a>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        x-bind="modalBackdrop"
+        x-data="DocumentsModal"
+        x-cloak=""
+        class="modal_view"
+      >
+        <div x-bind="modalBackdrop" class="view_wrapper edit_ordonnance">
+          <div class="action_navigation">
+            <div class="action_header">
+              <h2 class="view_heading">Nom de l’ordonnance</h2>
+            </div>
+            <div class="w-layout-grid action_btns">
+              <a href="#" class="button is-annuler w-inline-block"
+                ><div class="button_text">Annuler</div></a
+              ><a href="#" class="button is-docs w-inline-block"
+                ><div class="button_text">Sauvegarder</div></a
+              >
+            </div>
+          </div>
+          <div class="text_editor_wrapper">
+            <img
+              src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/640a20aaaf8b4877a87518ae_menu-bar.png"
+              loading="lazy"
+              sizes="(max-width: 767px) 100vw, (max-width: 1439px) 70vw, 1008px"
+              srcset="
+                https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/640a20aaaf8b4877a87518ae_menu-bar-p-500.png  500w,
+                https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/640a20aaaf8b4877a87518ae_menu-bar-p-800.png  800w,
+                https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/640a20aaaf8b4877a87518ae_menu-bar.png       1013w
+              "
+              alt=""
+              class="delete-when-script"
+            />
+            <div id="editor-container" class="editor-container">
+              <p>
+                Lorem ipsum dolor sit amet consectetur. Placerat augue magna
+                libero odio diam. Lectus orci elit vitae vitae at ipsum eu
+                pharetra. Amet lectus eleifend nec purus vitae eu sed mauris
+                gravida. Nulla habitasse ut eget donec arcu pharetra accumsan.
+                Sollicitudin etiam risus venenatis augue congue. Blandit ut
+                tristique nibh enim in mattis sit odio. Cum hendrerit accumsan
+                sapien sit tincidunt auctor mollis. Commodo et a ut aliquam.
+                Aliquam nunc nisl in gravida orci ut at purus urna. Bibendum
+                magna odio nunc risus non id gravida sagittis aliquam. Imperdiet
+                blandit cursus vitae ornare velit congue libero suspendisse.
+                Ornare at fringilla tempus posuere ut facilisi nunc sagittis.<br /><br />In
+                ac id ullamcorper et amet in consequat tortor. Mattis nulla
+                elementum tincidunt rhoncus aenean scelerisque felis ullamcorper
+                sed. Amet risus consectetur quis enim risus nam nisl magna
+                massa. Mollis enim dapibus vulputate justo sit adipiscing.
+                Ultrices aliquam non congue in eu nibh. Purus at eu lobortis
+                vestibulum tellus turpis sit vulputate egestas. Gravida non nam
+                elementum fames nulla. Diam duis tellus egestas amet. Lacus nunc
+                ornare fames nisl odio fringilla quam ac vel. Volutpat lectus
+                velit eget pellentesque. Magnis et egestas tristique ac urna.<br /><br />Posuere
+                sem enim urna ut. Platea ac ornare elit mi lobortis vitae sed
+                tellus nulla. Ante pharetra porttitor id nibh sed quis. Eu
+                mauris risus pharetra adipiscing risus aliquet. Ultricies mattis
+                pellentesque vestibulum purus bibendum. Condimentum sit id
+                pellentesque viverra sem. Pellentesque eget ac molestie ac nunc
+                proin risus. Ipsum vitae suspendisse velit turpis amet volutpat
+                blandit commodo pellentesque. Pellentesque accumsan porta est
+                ultrices eu turpis volutpat vestibulum. Et laoreet suspendisse
+                at quam tortor. Magna tincidunt sed et nec integer vitae ut
+                etiam lobortis.
+              </p>
             </div>
           </div>
         </div>
@@ -2542,7 +2642,7 @@
       crossorigin="anonymous"
     ></script>
     <script
-      src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/js/webflow.feee86867.js"
+      src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/js/webflow.cabd7dd8d.js"
       type="text/javascript"
     ></script>
     <!--[if lte IE 9
