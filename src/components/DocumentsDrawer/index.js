@@ -49,7 +49,7 @@ function DocumentsDrawer() {
             },
             getOneRichText() {
                 return {
-                    ["x-text"]: "$store.documentsStore.getOne.document.rich_text_ordo",
+                    ["x-html"]: "$store.documentsStore.getOne.document.rich_text_ordo",
                 };
             },
         };

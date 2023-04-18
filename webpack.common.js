@@ -38,6 +38,10 @@ module.exports = {
                         presets: ['@babel/preset-env']
                     }
                 }
+            },
+            {
+                test: /\.svg/,
+                type: 'asset/inline'
             }
         ]
     },

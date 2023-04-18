@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Last Published: Sat Apr 15 2023 03:01:42 GMT+0000 (Coordinated Universal Time) -->
+<!-- Last Published: Mon Apr 17 2023 00:50:55 GMT+0000 (Coordinated Universal Time) -->
 <html
   data-wf-domain="ordotype.webflow.io"
   data-wf-page="6428de0a13003e96dad78133"
@@ -17,7 +17,7 @@
       name="google-site-verification"
     />
     <link
-      href="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.a7f88ad55.min.css"
+      href="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.b99663b5d.min.css"
       rel="stylesheet"
       type="text/css"
     />
@@ -524,6 +524,10 @@
       })(window, document, "https://static.hotjar.com/c/hotjar-", ".js?sv=");
     </script>
     <meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
+    <link
+      href="https://cdn.quilljs.com/1.3.6/quill.snow.css"
+      rel="stylesheet"
+    />
   </head>
   <body class="body_documents">
     <div class="w-embed">
@@ -2202,7 +2206,7 @@
         class="drawer_view"
       >
         <div x-bind="drawerElem" class="view_wrapper">
-          <div class="padding-xmedium">
+          <div class="padding-xmedium-copy">
             <div class="action_wrapper">
               <div class="w-layout-grid action_grid">
                 <div class="sub_menu action_menu">
@@ -2296,6 +2300,9 @@
                   class="close_icon"
                 />
               </div>
+            </div>
+            <div x-bind="drawerLoading" class="drawer_loading">
+              <h1>Loading...</h1>
             </div>
             <div x-bind="drawerContent" class="w-layout-grid view_grid">
               <h2
@@ -2392,9 +2399,6 @@
                 /></a>
               </div>
             </div>
-            <div x-bind="drawerLoading" class="drawer_loading">
-              <h1>Loading...</h1>
-            </div>
           </div>
         </div>
       </div>
@@ -2404,66 +2408,191 @@
         x-cloak=""
         class="modal_view"
       >
-        <div x-bind="modalBackdrop" class="view_wrapper edit_ordonnance">
-          <div class="action_navigation">
-            <div class="action_header">
-              <h2 class="view_heading">Nom de l’ordonnance</h2>
+        <div class="create_document_form w-form">
+          <form
+            id="wf-form-mutateDocument"
+            name="wf-form-mutateDocument"
+            data-name="mutateDocument"
+            method="get"
+            class="create_document_content"
+            x-bind="submitForm"
+          >
+            <div x-bind="modalElem" class="view_wrapper edit_ordonnance">
+              <div class="action_navigation">
+                <div class="action_header">
+                  <h2 class="view_heading">Nom de <span>l’ordonnance</span></h2>
+                </div>
+                <div class="w-layout-grid action_btns">
+                  <a
+                    x-bind="showBeforeCancel(true)"
+                    href="#"
+                    class="button is-annuler w-inline-block"
+                    ><div class="button_text">Annuler</div></a
+                  ><a
+                    x-bind="showBeforeSave(true)"
+                    href="#"
+                    class="button is-docs w-inline-block"
+                    ><div class="button_text">Sauvegarder</div></a
+                  >
+                </div>
+              </div>
+              <div x-bind="createOneRichText" class="modal_text_editor_wrapper">
+                <div id="editor-container" class="editor-container"></div>
+              </div>
+              <div>
+                <div class="w-embed">
+                  <input
+                    type="file"
+                    class="sr-only"
+                    id="customFile1"
+                    multiple="true"
+                    x-on:change="files = Object.values($event.target.files)"
+                  />
+                </div>
+              </div>
             </div>
-            <div class="w-layout-grid action_btns">
-              <a href="#" class="button is-annuler w-inline-block"
-                ><div class="button_text">Annuler</div></a
-              ><a href="#" class="button is-docs w-inline-block"
-                ><div class="button_text">Sauvegarder</div></a
+            <div x-bind="modalDialogBackdrop" class="modal_dialog_backdrop">
+              <div
+                x-bind="beforeCancelDialog"
+                x-cloak=""
+                class="view_wrapper confirm_cancel_dialog"
               >
+                <div class="header_holder context_comment">
+                  <div class="inner_header">
+                    <div class="display-inlineflex text_space">Annuler</div>
+                    <div class="display-inlineflex hide-mobile-landscape">
+                      la modification d’une ordonnance
+                    </div>
+                    <img
+                      src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/6409a60abee24b0929f62f72_cross.svg"
+                      loading="lazy"
+                      x-bind="showBeforeCancel(false)"
+                      alt=""
+                      class="close_icon is_corner"
+                    />
+                  </div>
+                </div>
+                <div class="comment_wrapper">
+                  <p class="context_comment text-weight-light">
+                    Vous êtes sur le point d’annuler la modification d’une
+                    ordonnance. Si vous confirmer, alors les changements seront
+                    définitivement supprimés.
+                  </p>
+                </div>
+                <div class="w-layout-grid action_btns_form ann">
+                  <a
+                    x-bind="showBeforeCancel(false)"
+                    href="#"
+                    class="button is-annuler w-inline-block"
+                    ><div class="button_text">Annuler</div></a
+                  ><a
+                    x-bind="confirmCancel"
+                    href="#"
+                    class="button is-docs w-inline-block"
+                    ><div class="button_text">Confirmer</div></a
+                  >
+                </div>
+              </div>
+              <div
+                x-bind="beforeSaveDialog"
+                x-cloak=""
+                class="view_wrapper sauvegarder-fiche-conseil"
+              >
+                <div class="header_holder context_comment">
+                  <div class="inner_header">
+                    <div class="display-inlineflex text_space">Sauvegarder</div>
+                    <div class="display-inlineflex hide-mobile-landscape">
+                      une nouvelle fiche conseil
+                    </div>
+                    <img
+                      loading="lazy"
+                      src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/6409a60abee24b0929f62f72_cross.svg"
+                      alt=""
+                      class="close_icon is_corner"
+                    />
+                  </div>
+                </div>
+                <div class="inputs_wrapper">
+                  <div class="action_input_wrapper">
+                    <label for="title" class="action_field_label"
+                      >Nom de l’ordonnance</label
+                    ><input
+                      type="text"
+                      class="action_text_field w-input"
+                      maxlength="256"
+                      name="title"
+                      data-name="title"
+                      placeholder="Ma nouvelle ordonnance"
+                      id="title"
+                      required=""
+                    />
+                  </div>
+                  <div class="action_input_wrapper">
+                    <label for="field-2" class="action_field_label"
+                      >Sélectionner le type d’ordonnance</label
+                    ><select
+                      id="field-2"
+                      name="field-2"
+                      data-name="Field 2"
+                      class="action_text_field select_action w-select"
+                    >
+                      <option value="Type d’ordonnance">
+                        Type d’ordonnance
+                      </option>
+                      <option value="Bilan">Bilan</option>
+                      <option value="Second">Second choice</option>
+                      <option value="Third">Third choice</option>
+                    </select>
+                  </div>
+                  <div class="action_search_wrapper">
+                    <div class="text-weight-light context_comment">
+                      Associer une pathologie à cette fiche conseil :
+                    </div>
+                    <div class="action_search_holder">
+                      <div class="w-embed">
+                        <style>
+                          select:nth-of-type(1) {
+                            color: rgba(12, 14, 22, 0.6);
+                          }
+                        </style>
+                        <div>Add custom search input</div>
+                      </div>
+                    </div>
+                    <div class="search_result_wrapper context_comment">
+                      <div class="search_result_holder">
+                        <div class="inner_header">
+                          <div class="display-inlineflex text-weight-semibold">
+                            Pathologie
+                          </div>
+                          <img
+                            loading="lazy"
+                            src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/6409a60abee24b0929f62f72_cross.svg"
+                            alt=""
+                            class="close_icon is_search"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="w-layout-grid action_btns_form">
+                    <a href="#" class="button is-annuler w-inline-block"
+                      ><div class="button_text">Annuler</div></a
+                    ><input
+                      type="submit"
+                      value="Sauvegarder"
+                      data-wait="Please wait..."
+                      class="button is-docs w-button"
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
+          </form>
+          <div class="w-form-done">
+            <div>Thank you! Your submission has been received!</div>
           </div>
-          <div class="text_editor_wrapper">
-            <img
-              src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/640a20aaaf8b4877a87518ae_menu-bar.png"
-              loading="lazy"
-              sizes="(max-width: 767px) 100vw, (max-width: 1439px) 70vw, 1008px"
-              srcset="
-                https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/640a20aaaf8b4877a87518ae_menu-bar-p-500.png  500w,
-                https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/640a20aaaf8b4877a87518ae_menu-bar-p-800.png  800w,
-                https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/640a20aaaf8b4877a87518ae_menu-bar.png       1013w
-              "
-              alt=""
-              class="delete-when-script"
-            />
-            <div id="editor-container" class="editor-container">
-              <p>
-                Lorem ipsum dolor sit amet consectetur. Placerat augue magna
-                libero odio diam. Lectus orci elit vitae vitae at ipsum eu
-                pharetra. Amet lectus eleifend nec purus vitae eu sed mauris
-                gravida. Nulla habitasse ut eget donec arcu pharetra accumsan.
-                Sollicitudin etiam risus venenatis augue congue. Blandit ut
-                tristique nibh enim in mattis sit odio. Cum hendrerit accumsan
-                sapien sit tincidunt auctor mollis. Commodo et a ut aliquam.
-                Aliquam nunc nisl in gravida orci ut at purus urna. Bibendum
-                magna odio nunc risus non id gravida sagittis aliquam. Imperdiet
-                blandit cursus vitae ornare velit congue libero suspendisse.
-                Ornare at fringilla tempus posuere ut facilisi nunc sagittis.<br /><br />In
-                ac id ullamcorper et amet in consequat tortor. Mattis nulla
-                elementum tincidunt rhoncus aenean scelerisque felis ullamcorper
-                sed. Amet risus consectetur quis enim risus nam nisl magna
-                massa. Mollis enim dapibus vulputate justo sit adipiscing.
-                Ultrices aliquam non congue in eu nibh. Purus at eu lobortis
-                vestibulum tellus turpis sit vulputate egestas. Gravida non nam
-                elementum fames nulla. Diam duis tellus egestas amet. Lacus nunc
-                ornare fames nisl odio fringilla quam ac vel. Volutpat lectus
-                velit eget pellentesque. Magnis et egestas tristique ac urna.<br /><br />Posuere
-                sem enim urna ut. Platea ac ornare elit mi lobortis vitae sed
-                tellus nulla. Ante pharetra porttitor id nibh sed quis. Eu
-                mauris risus pharetra adipiscing risus aliquet. Ultricies mattis
-                pellentesque vestibulum purus bibendum. Condimentum sit id
-                pellentesque viverra sem. Pellentesque eget ac molestie ac nunc
-                proin risus. Ipsum vitae suspendisse velit turpis amet volutpat
-                blandit commodo pellentesque. Pellentesque accumsan porta est
-                ultrices eu turpis volutpat vestibulum. Et laoreet suspendisse
-                at quam tortor. Magna tincidunt sed et nec integer vitae ut
-                etiam lobortis.
-              </p>
-            </div>
+          <div class="w-form-fail">
+            <div>Oops! Something went wrong while submitting the form.</div>
           </div>
         </div>
       </div>
@@ -3086,5 +3215,6 @@
       ></iframe
     ></noscript>
     <!-- End Google Tag Manager (noscript) -->
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
   </body>
 </html>

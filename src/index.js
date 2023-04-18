@@ -1,7 +1,13 @@
 // import PineconeRouter from 'pinecone-router'
 import PineconeRouter from "./modules/pinecone-router-custom";
+import focus from '@alpinejs/focus'
 import alpineWebflow from "./modules/alpine-webflow";
 import Alpine from "alpinejs";
+import { ImageHandler, VideoHandler, AttachmentHandler } from "quill-upload";
+
+Quill.register("modules/imageHandler", ImageHandler);
+Quill.register("modules/videoHandler", VideoHandler);
+Quill.register("modules/attachmentHandler", AttachmentHandler);
 
 import globals from "./utils/globals";
 import consultsMemberstackAuthentication from "./authentication";
@@ -9,6 +15,7 @@ import DocumentsDataTable from "./components/DocumentsDataTable";
 import DocumentsPaginationNavigation from "./components/DocumentsPaginationNavigation";
 import DocumentsTypeNavigation from "./components/DocumentsTypeNavigation";
 import DocumentsDrawer from "./components/DocumentsDrawer";
+import DocumentsModal from "./components/DocumentsModal";
 
 window.Alpine = Alpine;
 
@@ -26,8 +33,11 @@ async function init() {
  */
 Alpine.store("documentsStore", {
   showModal: false,
+  showBeforeSave: false,
+  showBeforeCancel: false,
   loadModal: true,
   showDrawer: false,
+  loadDrawer: false,
 
   getOne: {
     document: {},
@@ -86,6 +96,44 @@ Alpine.store("documentsStore", {
     },
   },
 
+  createOne: {
+    document: {
+      title: null,
+      pathology: [],
+      type: null,
+      rich_text_ordo: null,
+      documents: []
+    },
+    async sendDocument(formData) {
+      // TODO get all documents from form and send request
+      const parseDataToJson = Object.fromEntries(formData.entries());
+
+      const document = await this.postDocument(parseDataToJson)
+      console.log(document)
+      debugger
+    },
+    async postDocument(data) {
+
+      const response = await fetch(`https://api.ordotype.fr/v1.0.0/notes`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${window.memberToken}`,
+        },
+        body: JSON.stringify(data),
+      });
+      debugger;
+      return await response.json();
+    },
+    clearFields() {
+      this.document.title = null
+      this.document.pathology = []
+      this.document.type = null
+      this.document.rich_text_ordo = null
+      this.document.documents = []
+    },
+  },
+
   async init() {
     console.log("Alpine init store");
     Alpine.effect(() => {
@@ -109,23 +157,7 @@ DocumentsDataTable();
 DocumentsPaginationNavigation();
 DocumentsTypeNavigation();
 DocumentsDrawer();
-
-Alpine.data("DocumentsModal", () => {
-  return {
-    modalBackdrop() {
-      return {
-        ["x-show"]: "$store.documentsStore.showModal",
-        ["x-transition"]: "",
-      };
-    },
-    modalElem() {
-      return {
-        ["x-show"]: "$store.documentsStore.showDrawer",
-        ["x-transition"]: "",
-      };
-    },
-  };
-});
+DocumentsModal();
 
 /**
  Runs program
@@ -134,12 +166,20 @@ Alpine.data("DocumentsModal", () => {
 if (!window.Webflow) {
   window.Webflow = [];
 }
+
+window.Quill = Quill;
 window.Webflow.push(() => {
   init().then(() => {
     alpineWebflow();
 
+    Alpine.plugin(focus)
     Alpine.plugin(PineconeRouter);
     Alpine.start();
+
+    $('#wf-form-mutateDocument').submit(function() {
+      console.log('WF form submit');
+      return false;
+    });
   });
 });
 
@@ -158,16 +198,16 @@ window.router = () => {
       }
     },
     async allDocuments(context, props) {
-      await routing(context, { type: "" });
+      await handleRouter(context, { type: "" });
     },
     async notesDocs(context) {
-      await routing(context, { type: "notes" });
+      await handleRouter(context, { type: "notes" });
     },
     async ordonnances(context) {
-      await routing(context, { type: "prescriptions" });
+      await handleRouter(context, { type: "prescriptions" });
     },
     async conseils(context) {
-      await routing(context, { type: "recommendations" });
+      await handleRouter(context, { type: "recommendations" });
     },
     notfound(context) {
       console.log(context);
@@ -176,20 +216,23 @@ window.router = () => {
   };
 };
 
-async function routing(context, { type }) {
+async function handleRouter(context, { type }) {
   console.log(context);
   const page = context.params.page;
   const id = context.params.id;
 
   if (id) {
-    // TODO show drawer
+    // Shows getOne drawer
     await window.handleDrawer({ id });
     console.log("drawer");
   } else {
-    // show list
+    // Shows getList items
     Alpine.store("documentsStore").showModal = false;
     Alpine.store("documentsStore").showDrawer = false;
-    if (context.hash.split("/").length !== 3 || Alpine.store("documentsStore").getList.documents.length === 0) {
+    if (
+      context.hash.split("/").length !== 3 ||
+      Alpine.store("documentsStore").getList.documents.length === 0
+    ) {
       await Alpine.store("documentsStore").getList.setDocuments({ type, page });
     }
   }
@@ -211,8 +254,8 @@ window.handlePagination = (k, v, params) => {
 
 window.handleDrawer = async ({ id }) => {
   // TODO Add loading before showing blank drawer
-  Alpine.store("documentsStore").showDrawer = true;
   Alpine.store("documentsStore").loadDrawer = true;
+  Alpine.store("documentsStore").showDrawer = true;
   Alpine.store("documentsStore").showModal = false;
 
   try {
@@ -222,10 +265,7 @@ window.handleDrawer = async ({ id }) => {
     // TODO Show warning error notification
   }
 };
-window.modal = () => {};
-
-window.removeLastUrlParam = (url) => {
-  const params = url.path.split('/')
-  const lastParam = url.pop()
-  return params.join('/')
-}
+window.handleModal = ({type} = {}) => {
+  Alpine.store("documentsStore").showDrawer = false;
+  Alpine.store("documentsStore").showModal = true;
+};

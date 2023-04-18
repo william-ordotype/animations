@@ -12,7 +12,10 @@ function DocumentsDataTable() {
             return {
 
                 ["x-text"]: "d.title",
-                ["x-on:click"]: "$router.navigate($router.path + '/' + d._id)"
+                ["x-on:click"]: `
+                    url = $router.path.split('?')
+                    $router.navigate(url[0] + '/' + d._id)
+                    `
             };
         },
         textType(d) {

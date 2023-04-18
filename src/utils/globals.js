@@ -8,7 +8,6 @@ globals.documentTypes = {
     prescriptions: "Ordonnance",
 }
 
-
 globals.run = function () {
   window.globals = globals;
 }
