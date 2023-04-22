@@ -1,8 +1,11 @@
 import Alpine from "alpinejs";
+import * as DOMPurify from 'dompurify';
+
 
 function DocumentsModal() {
   return Alpine.data("DocumentsModal", () => {
     return {
+      docType: "$store.documentStore.createOne.documentType",
       init() {
         window.globals.createRTE = new Quill(".modal_text_editor_wrapper", {
           theme: "snow",
@@ -59,20 +62,45 @@ function DocumentsModal() {
       },
       showBeforeSave(canShow) {
         return {
-          ["x-on:click.prevent"]: `$store.documentsStore.showBeforeSave = ${canShow}`,
+          ["x-on:click.prevent"]: function () {
+            Alpine.store('documentsStore').showBeforeSave = canShow;
+            window.autocomplete({
+              container: "#pathology-autocomplete",
+              async getSources({ query = "" }) {
+                const res = await Alpine.store(
+                  "documentsStore"
+                ).pathologies.getList(query);
+                return [
+                  {
+                    sourceId: "pathologies",
+                    getItems(query) {
+                      debugger
+                      return res.pathologies || [];
+                    },
+                    getItemInputValue({ item }) {
+                      return item.title;
+                    },
+                    templates: {
+                      item({ item, html }) {
+                        return html`<div>${item.title}</div>`;
+                      },
+                    },
+                    onSelect() {
+                      console.log('selected')
+                    }
+                  },
+                ];
+              },
+              renderNoResults({ state, render }, root) {
+                render(`No results for "${state.query}".`, root);
+              },
+            });
+          },
         };
       },
       submitForm() {
         return {
-          ["x-on:submit"]: function (ev) {
-            ev.preventDefault();
-            const formData = new FormData(ev.target);
-            formData.append(
-              "rich_text_ordo",
-              window.globals.createRTE.root.innerHTML
-            );
-            Alpine.store("documentsStore").createOne.sendDocument(formData);
-          },
+          // ["x-on:submit"]:
         };
       },
       // Cancellation Dialog
@@ -98,8 +126,19 @@ function DocumentsModal() {
   });
 }
 
+window.createForm = async function (ev) {
+  ev.preventDefault();
+
+  const cleanRichText = DOMPurify.sanitize(window.globals.createRTE.root.innerHTML, { USE_PROFILES: { html: true } });
+
+
+  Alpine.store('documentsStore').createOne.rich_text_ordo = cleanRichText;
+  Alpine.store('documentsStore').createOne.title = document.getElementById('title');
+  Alpine.store('documentsStore').createOne.pathology = document.getElementById('field-2');
+
+  await Alpine.store("documentsStore").createOne.sendDocument();
+  Alpine.store("documentsStore").createOne.clearFields()
+  await Alpine.store("documentsStore").getList.setDocuments()
+}
+
 export default DocumentsModal;
-
-
-window.onload = function () { MemberStack.onReady.then(async function(member) { console.log('memberstack is ready, memeber = ', member); var metadata = await member.getMetaData(); if (metadata.signupAt == null) { console.log('memberstack detected new signup'); member.updateMetaData({ signupAt: Date.now() }); window.dataLayer = window.dataLayer || []; window.dataLayer.push({'event': 'new_signup', member_id: member.id }); } }) }
-
