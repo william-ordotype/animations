@@ -1,11 +1,19 @@
 import Alpine from "alpinejs";
-import * as DOMPurify from 'dompurify';
+import * as DOMPurify from "dompurify";
+import handleFormSubmit from "./handleFormSubmit";
 
+import "../../utils/globals";
 
 function DocumentsModal() {
   return Alpine.data("DocumentsModal", () => {
     return {
-      docType: "$store.documentStore.createOne.documentType",
+      docType: Alpine.store("documentsStore").createOne.document.type,
+      content(container, elem) {
+        const dt = Alpine.store("documentsStore").createOne.document.type;
+        const obj = { ...window.globals.modal.content };
+
+        return dt ? obj[dt][container][elem] : undefined;
+      },
       init() {
         window.globals.createRTE = new Quill(".modal_text_editor_wrapper", {
           theme: "snow",
@@ -13,14 +21,8 @@ function DocumentsModal() {
             toolbar: [
               [{ header: [1, 2, 3, 4, 5, 6, false] }],
               ["bold", "italic", "underline", "strike"], // toggled buttons
-              [
-                { list: "ordered" },
-                { list: "bullet" },
-
-                { indent: "-1" },
-                { align: [] },
-                { indent: "+1" },
-              ],
+              [{ list: "ordered" }, { list: "bullet" }],
+              [{ align: [] }],
               ["link"],
               ["blockquote", "code-block"],
               [{ script: "sub" }, { script: "super" }], // superscript/subscript
@@ -63,44 +65,41 @@ function DocumentsModal() {
       showBeforeSave(canShow) {
         return {
           ["x-on:click.prevent"]: function () {
-            Alpine.store('documentsStore').showBeforeSave = canShow;
-            window.autocomplete({
-              container: "#pathology-autocomplete",
-              async getSources({ query = "" }) {
-                const res = await Alpine.store(
-                  "documentsStore"
-                ).pathologies.getList(query);
-                return [
-                  {
-                    sourceId: "pathologies",
-                    getItems(query) {
-                      debugger
-                      return res.pathologies || [];
-                    },
-                    getItemInputValue({ item }) {
-                      return item.title;
-                    },
-                    templates: {
-                      item({ item, html }) {
-                        return html`<div>${item.title}</div>`;
+            Alpine.store("documentsStore").showBeforeSave = canShow;
+            !document.querySelector("#pathology-autocomplete .aa-Input") &&
+              window.globals.autocomplete({
+                container: "#pathology-autocomplete",
+                detachedMediaQuery: "none",
+                debug: true,
+                async getSources({ query = "" }) {
+                  const res = await Alpine.store(
+                    "documentsStore"
+                  ).pathologies.getList(query);
+                  return [
+                    {
+                      sourceId: "pathologies",
+                      getItems(query) {
+                        return res.pathologies || [];
+                      },
+                      getItemInputValue({ item }) {
+                        return item.title;
+                      },
+                      templates: {
+                        item({ item, html }) {
+                          return html`<div>${item.title}</div>`;
+                        },
+                      },
+                      onSelect() {
+                        console.log("selected");
                       },
                     },
-                    onSelect() {
-                      console.log('selected')
-                    }
-                  },
-                ];
-              },
-              renderNoResults({ state, render }, root) {
-                render(`No results for "${state.query}".`, root);
-              },
-            });
+                  ];
+                },
+                renderNoResults({ state, render }, root) {
+                  render(`No results for "${state.query}".`, root);
+                },
+              });
           },
-        };
-      },
-      submitForm() {
-        return {
-          // ["x-on:submit"]:
         };
       },
       // Cancellation Dialog
@@ -111,9 +110,13 @@ function DocumentsModal() {
       },
       confirmCancel() {
         return {
-          ["x-on:click.prevent"]: `$store.documentsStore.createOne.clearFields();
-          $store.documentsStore.showBeforeCancel = false; 
-          $store.documentsStore.showModal = false`,
+          ["x-on:click.prevent"]: () => {
+            Alpine.store("documentsStore").createOne.clearFields();
+            Alpine.store("documentsStore").showBeforeCancel = false;
+            Alpine.store("documentsStore").showModal = false;
+
+            window.globals.modal.form.resetFormFields();
+          },
         };
       },
       beforeCancelDialog(isShow) {
@@ -124,21 +127,6 @@ function DocumentsModal() {
       },
     };
   });
-}
-
-window.createForm = async function (ev) {
-  ev.preventDefault();
-
-  const cleanRichText = DOMPurify.sanitize(window.globals.createRTE.root.innerHTML, { USE_PROFILES: { html: true } });
-
-
-  Alpine.store('documentsStore').createOne.rich_text_ordo = cleanRichText;
-  Alpine.store('documentsStore').createOne.title = document.getElementById('title');
-  Alpine.store('documentsStore').createOne.pathology = document.getElementById('field-2');
-
-  await Alpine.store("documentsStore").createOne.sendDocument();
-  Alpine.store("documentsStore").createOne.clearFields()
-  await Alpine.store("documentsStore").getList.setDocuments()
 }
 
 export default DocumentsModal;

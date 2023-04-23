@@ -34,7 +34,7 @@ async function handleRouter(context, { type }) {
 
   if (id) {
     // Shows getOne drawer
-    await window.handleDrawer({ id });
+    await window.globals.drawer.handleDrawer({ id });
     console.log("drawer");
   } else {
     // Shows getList items
