@@ -43,9 +43,23 @@ DocumentsDrawer();
 DocumentsModal();
 CreateDocumentsNav();
 
+Alpine.data("DataTableSubNav", (d) => {
+  return {
+    showEditModal(ev, d) {
+      ev.preventDefault();
+      window.handleModal({type: d.type})
+      window.globals.modal.form.setModalFields(d)
+    }
+  }
+})
+
 /**
  Runs program
  */
+
+window.memberstack = window.memberstack || {}
+window.memberstack.instance = window.$memberstackDom;
+$('.create_document_form').removeClass('w-form')
 
 if (!window.Webflow) {
   window.Webflow = [];

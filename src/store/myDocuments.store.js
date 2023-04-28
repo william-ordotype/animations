@@ -26,7 +26,20 @@ const myDocumentsStore = {
       const { id } = props;
       const res = await this.getDocument({ id });
       this.document = { ...res };
-      console.log(this.document.title);
+    },
+    setModalDocument(props) {
+      const jsonData = Object.assign({}, props);
+      const pathology = Object.assign({}, jsonData.pathology);
+      const filesIds = Object.assign({}, jsonData.filesIds);
+      const { _id, rich_text_ordo, title } = jsonData;
+      debugger;
+      Alpine.store("documentsStore").showModal = true;
+      window.globals.modal.form.setModalFields({
+        _id,
+        rich_text_ordo,
+        title,
+        pathology,
+      });
     },
   },
 
@@ -75,14 +88,14 @@ const myDocumentsStore = {
       fileIds: [],
     },
     files: [],
-    async sendDocument() {
+    async sendDocument(jsonData, files) {
       // TODO get all documents from form and send request
+      debugger;
       if (this.files.length > 0) {
-        await this.uploadFile();
+        const fileRes = await this.uploadFile(files);
+        jsonData.filesIds = [...fileRes];
       }
-      const res = await this.postDocument(this.document);
-      console.log(res);
-
+      const res = await this.postDocument(jsonData);
       this.clearFields();
     },
     async uploadFile() {
@@ -104,14 +117,19 @@ const myDocumentsStore = {
       } else if (!data.title) {
         return console.error("Title not found");
       }
-      const response = await fetch(`https://api.ordotype.fr/v1.0.0/notes`, {
-        method: data._id ? "PUT" : "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${window.memberToken}`,
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        data._id
+          ? `https://api.ordotype.fr/v1.0.0/notes/${data._id}`
+          : `https://api.ordotype.fr/v1.0.0/notes`,
+        {
+          method: data._id ? "PUT" : "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${window.memberToken}`,
+          },
+          body: JSON.stringify(data),
+        }
+      );
       return await response.json();
     },
     clearFields() {
@@ -127,7 +145,6 @@ const myDocumentsStore = {
       Alpine.store("documentsStore").showBeforeCancel = false;
     },
   },
-
   pathologies: {
     async getList(query) {
       const response = await fetch(
@@ -158,4 +175,4 @@ const myDocumentsStore = {
   },
 };
 
-export default myDocumentsStore
+export default myDocumentsStore;

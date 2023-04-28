@@ -2,15 +2,8 @@ import Alpine from "alpinejs";
 
 function DocumentsDataTable() {
     return Alpine.data("documentsDataTable", () => ({
-        dataTable() {
-          return {
-              // ["x-init"]: "$nextTick(() => { console.log($el.innerText) })",
-              // ["x-effect"]: "items && $nextTick(() => $root.querySelectorAll('input')[0].focus())"
-          }
-        },
         textTitle(d) {
             return {
-
                 ["x-text"]: "d.title",
                 ["x-on:click"]: `
                     url = $router.path.split('?')

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Last Published: Sun Apr 23 2023 21:39:14 GMT+0000 (Coordinated Universal Time) -->
+<!-- Last Published: Wed Apr 26 2023 04:06:29 GMT+0000 (Coordinated Universal Time) -->
 <html
   data-wf-domain="ordotype.webflow.io"
   data-wf-page="6428de0a13003e96dad78133"
@@ -17,7 +17,7 @@
       name="google-site-verification"
     />
     <link
-      href="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.ac14b11e3.min.css"
+      href="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.fc1d6ec97.min.css"
       rel="stylesheet"
       type="text/css"
     />
@@ -96,11 +96,8 @@
       crossorigin
     />
     <link rel="dns-prefetch" href="https://global-uploads.webflow.com/" />
-    <!--
-  <script defer src="https://www.googleoptimize.com/optimize.js?id=OPT-NQF42M4"></script>
-  -->
 
-    <script>
+    <script defer>
       window.dataLayer = window.dataLayer || [];
       $memberstackDom.getCurrentMember().then(({ data }) => {
         const mainPlansIds = [
@@ -158,13 +155,6 @@
     />
 
     <style type="text/css">
-      .autocomplete-active {
-        background-color: rgb(240, 243, 255) !important;
-        color: #ffffff;
-      }
-      .aa-Panel {
-        z-index: 999999 !important;
-      }
       form#wf-form-mutateDocument {
         width: 100% !important;
       }
@@ -205,253 +195,6 @@
         bottom: 0;
       }
 
-      .nav-search {
-        opacity: 1 !important;
-        position: static;
-        /*absolute before */
-        /*width:fit-content; */
-        z-index: 99;
-      }
-
-      .nav-search.active {
-      }
-
-      .nav-search.active .search-dropdown {
-        display: block;
-        background-color: white;
-        opacity: 1;
-      }
-
-      .nav-search.active .search-input {
-        -webkit-animation: expand-search-box-animation 0.5s forwards;
-        animation: expand-search-box-animation 0.5s forwards;
-      }
-
-      .nav-search.active .search-input .close-search {
-        display: inline-block;
-      }
-
-      .nav-search.active .search-input .search-dropdown {
-        display: block;
-      }
-
-      .nav-search .search-input {
-        transition: left 0.2s ease-in-out;
-        transition: width 0s ease-in-out;
-        -webkit-box-shadow: none;
-        -moz-box-shadow: none;
-        box-shadow: none;
-      }
-
-      .nav-search .search-input .search-icon {
-        position: absolute;
-        left: 15px;
-        top: 13px;
-        z-index: 999;
-        color: #153cf5;
-      }
-
-      .nav-search .search-input input {
-        width: 100%;
-        min-height: 35px;
-        /*WAS 75PX*/
-        padding-right: 24px;
-        padding-left: 60px;
-        border-style: solid;
-        border-width: 1px;
-        border-color: #f7f7fb;
-        border-radius: 10px;
-        background-image: url("https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/6062e035b9036a51f4c5dcd5_search-icon.svg");
-        background-position: 20px 50%;
-        background-size: auto;
-        background-repeat: no-repeat;
-        box-shadow: 0 20px 24px 0 rgba(21, 60, 245, 0.06),
-          0 5px 14px 0 rgba(5, 21, 46, 0.05);
-        -webkit-transition: box-shadow 350ms ease, border-color 350ms ease;
-        transition: box-shadow 350ms ease, border-color 350ms ease;
-        font-family: "Inter", sans-serif;
-        color: #858c95;
-        font-size: 20px;
-        line-height: 38px;
-      }
-
-      :root {
-        --aa-selected-color-rgb: 240, 243, 255;
-        --aa-selected-color-alpha: 1;
-      }
-
-      .nav-search .search-input input:focus {
-        outline: none;
-      }
-
-      .search-dropdown {
-        z-index: 999;
-        box-sizing: border-box;
-        opacity: 1 !important;
-        margin-top: 4px;
-        width: 100%;
-        -webkit-animation: expand-search-dropdown-animation 0.5s forwards;
-        animation: expand-search-dropdown-animation 0.5s forwards;
-        overflow-y: scroll;
-        max-height: 600px;
-        border-radius: 0 0 6px 6px;
-        background-color: #fff;
-        border: 1px solid rgba(12, 14, 22, 0.1);
-        display: inline;
-        border-radius: 6px;
-      }
-
-      .search-dropdown .small {
-        -webkit-flex-basis: 35%;
-        -ms-flex-preferred-size: 35%;
-        flex-basis: 35%;
-      }
-
-      .search-dropdown .search-section .hits-blank {
-        color: #666;
-        text-align: center;
-        padding-top: 20px;
-        z-index: 999;
-        opacity: 1 !important;
-      }
-
-      .search-dropdown a {
-        text-decoration: none;
-        color: white;
-        z-index: 999;
-        opacity: 1 !important;
-      }
-
-      .hit .hit-title {
-        color: #0089d7;
-        display: inline-block;
-        margin: 0;
-        font-size: 1rem;
-        font-weight: 400;
-        line-height: 1.5;
-        font-family: "Inter", sans-serif;
-        color: #05152e;
-        z-index: 999;
-        opacity: 1;
-      }
-
-      .nav-search.active .search-input .search-dropdown:empty {
-        border: 0 !important;
-      }
-
-      .hit .hit-description {
-        z-index: 999;
-        opacity: 1;
-      }
-
-      .hit .hit-anchor {
-        font-size: 13px;
-        color: #666;
-        z-index: 999;
-        opacity: 1;
-      }
-
-      .hit .algolia-docsearch-suggestion--highlight {
-        background-color: #ffe9a4;
-        z-index: 999;
-        opacity: 1 !important;
-      }
-
-      .ais-hits--item:last-child .hit {
-        border: 0;
-      }
-
-      .ais-hits--item {
-        z-index: 999;
-        opacity: 1 !important;
-        background-color: white;
-      }
-      /*  styling of the searchbar on the new homepage 2021 11 26*/
-      div#algolia-search {
-        max-width: 800px;
-        position: relative;
-        /*z-index: 1;*/
-        opacity: 1 !important;
-      }
-
-      .ais-search-box {
-        position: relative;
-        z-index: 999;
-        opacity: 1 !important;
-      }
-
-      .hit .hit-title p {
-        z-index: 999;
-        opacity: 1;
-      }
-
-      .hit-content {
-        z-index: 999;
-        opacity: 1;
-      }
-
-      .hit-content p,
-      .hit-content span,
-      .hit-content ul li,
-      .hit-content ul li a {
-        font-size: 16px;
-        font-weight: 400;
-        line-height: 1.4;
-        color: #47505c;
-        font-family: "Inter", sans-serif;
-        list-style: none;
-        z-index: 999;
-        opacity: 1 !important;
-      }
-
-      .ais-hits--item {
-        border-bottom: 1px solid #e9edf2;
-        padding: 12px 18px;
-        cursor: pointer;
-        z-index: 999;
-        opacity: 1 !important;
-      }
-
-      .hit-content ul {
-        padding: 0;
-        padding-left: 17px;
-        margin: 0 !important;
-      }
-
-      .hit-content ul li a {
-        z-index: 999;
-        opacity: 1 !important;
-      }
-
-      .hit-content p:empty {
-        margin-bottom: 0px;
-      }
-
-      div#hits-container {
-        position: absolute;
-        padding-top: 4px;
-        padding-bottom: 4px;
-        z-index: 999;
-        opacity: 1 !important;
-      }
-
-      .ais-hits--item:last-child {
-        border-bottom: 0;
-      }
-
-      div#hits-container:empty {
-        padding: 0;
-      }
-
-      .nav-search .search-input input:hover {
-        border-color: #3454f6;
-        box-shadow: 0 24px 33px 0 rgb(21 60 245 / 10%),
-          0 7px 18px 0 rgb(5 21 46 / 7%);
-      }
-
-      .ais-hits--item.selected {
-        background-color: #f0f3ff;
-      }
       .iframe-src {
         width: 0;
         height: 0;
@@ -459,127 +202,369 @@
         opacity: 0;
       }
 
-      .aa-DetachedSearchButton {
-        border-radius: 4px;
+      .autocomplete-active {
+        background-color: rgb(240, 243, 255) !important;
+        color: #ffffff;
       }
-      .aa-SubmitButton {
-        display: inline-flex;
-        justify-content: end;
-        align-items: center;
-        margin-left: 5px;
-        margin-top: 2px;
-      }
-      .aa-Form {
-        border-radius: 4px;
-      }
-      .aa-Panel {
-        z-index: 9999;
-      }
-      .algolia-item {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        text-align: left;
-        width: 100%;
-      }
+      /*
+   
+   .aa-Panel {
+     z-index: 999999 !important;
+   }
+   
+     .nav-search {
+   opacity: 1 !important;
+   position: static;
 
-      @media only screen and (max-width: 767px) {
-        .algolia-item {
-          flex-direction: column;
-          align-items: flex-start;
-        }
-      }
+   z-index: 99;
+ }
 
-      .algolia-item img {
-        margin-left: auto;
-      }
+ .nav-search.active {}
 
-      @media only screen and (max-width: 767px) {
-        .aa-Item a {
-          display: block;
-          text-align: left;
-        }
+ .nav-search.active .search-dropdown {
+   display: block;
+   background-color: white;
+   opacity: 1;
+ }
 
-        .aa-Item img {
-          display: block;
-          margin: 10px 0;
-        }
-        .aa-Item .algolia-item {
-          color: #0c0e16;
-          text-decoration: none;
-          padding: 4px 4px;
-        }
-      }
-      @media only screen and (min-width: 768px) {
-        .aa-Item a {
-          display: grid;
-          grid-template-columns: 1fr auto;
-          align-items: center;
-        }
+ .nav-search.active .search-input {
+   -webkit-animation: expand-search-box-animation 0.5s forwards;
+   animation: expand-search-box-animation 0.5s forwards;
+ }
 
-        .aa-Item .algolia-item {
-          color: #0c0e16;
-          text-decoration: none;
-          padding: 12px 12px;
-        }
-      }
+ .nav-search.active .search-input .close-search {
+   display: inline-block;
+ }
 
-      .aa-Item {
-        padding: 0;
-        min-height: unset;
-      }
+ .nav-search.active .search-input .search-dropdown {
+   display: block;
+ }
 
-      .algolia-item img {
-        width: 120px;
-        height: 30px;
-      }
+ .nav-search .search-input {
+   transition: left 0.2s ease-in-out;
+   transition: width 0s ease-in-out;
+   -webkit-box-shadow: none;
+   -moz-box-shadow: none;
+   box-shadow: none;
+ }
 
-      .algolia-item img[src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/62553dc7a3e085f76e293108_Empty.png"]
-      {
-        width: 30px;
-        height: 0px;
-      }
+ .nav-search .search-input .search-icon {
+   position: absolute;
+   left: 15px;
+   top: 13px;
+   z-index: 999;
+   color: #153cf5;
+ }
+
+ .nav-search .search-input input {
+   width: 100%;
+   min-height: 35px;
+
+   padding-right: 24px;
+   padding-left: 60px;
+   border-style: solid;
+   border-width: 1px;
+   border-color: #f7f7fb;
+   border-radius: 10px;
+   background-image: url("https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/6062e035b9036a51f4c5dcd5_search-icon.svg");
+   background-position: 20px 50%;
+   background-size: auto;
+   background-repeat: no-repeat;
+   box-shadow: 0 20px 24px 0 rgba(21, 60, 245, 0.06), 0 5px 14px 0 rgba(5, 21, 46, 0.05);
+   -webkit-transition: box-shadow 350ms ease, border-color 350ms ease;
+   transition: box-shadow 350ms ease, border-color 350ms ease;
+   font-family: 'Inter', sans-serif;
+   color: #858c95;
+   font-size: 20px;
+   line-height: 38px;
+ }
+
+  :root {
+   --aa-selected-color-rgb: 240,243,255;
+   --aa-selected-color-alpha: 1;
+   }
+   
+ .nav-search .search-input input:focus {
+   outline: none;
+ }
+
+
+ .search-dropdown {
+   z-index: 999;
+   box-sizing: border-box;
+   opacity: 1 !important;
+   margin-top: 4px;
+   width: 100%;
+   -webkit-animation: expand-search-dropdown-animation 0.5s forwards;
+   animation: expand-search-dropdown-animation 0.5s forwards;
+   overflow-y: scroll;
+   max-height: 600px;
+   border-radius: 0 0 6px 6px;
+   background-color: #fff;
+   border: 1px solid rgba(12, 14, 22, .1);
+   display: inline;
+   border-radius: 6px;
+ }
+
+ .search-dropdown .small {
+   -webkit-flex-basis: 35%;
+   -ms-flex-preferred-size: 35%;
+   flex-basis: 35%;
+ }
+
+ .search-dropdown .search-section .hits-blank {
+   color: #666;
+   text-align: center;
+   padding-top: 20px;
+   z-index: 999;
+   opacity: 1 !important;
+ }
+
+ .search-dropdown a {
+   text-decoration: none;
+   color: white;
+   z-index: 999;
+   opacity: 1 !important;
+ }
+
+ .hit .hit-title {
+   color: #0089d7;
+   display: inline-block;
+   margin: 0;
+   font-size: 1REM;
+   font-weight: 400;
+   line-height: 1.5;
+   font-family: 'Inter', sans-serif;
+   color: #05152e;
+   z-index: 999;
+   opacity: 1;
+ }
+
+ .nav-search.active .search-input .search-dropdown:empty {
+   border: 0 !important;
+ }
+
+ .hit .hit-description {
+   z-index: 999;
+   opacity: 1;
+ }
+
+ .hit .hit-anchor {
+   font-size: 13px;
+   color: #666;
+   z-index: 999;
+   opacity: 1;
+ }
+
+ .hit .algolia-docsearch-suggestion--highlight {
+   background-color: #FFE9A4;
+   z-index: 999;
+   opacity: 1 !important;
+ }
+
+ .ais-hits--item:last-child .hit {
+   border: 0;
+ }
+
+ .ais-hits--item {
+   z-index: 999;
+   opacity: 1 !important;
+   background-color: white;
+ }
+ div#algolia-search {
+   max-width: 800px;
+   position: relative;
+
+   opacity: 1 !important;
+ }
+
+ .ais-search-box {
+   position: relative;
+   z-index: 999;
+   opacity: 1 !important;
+ }
+
+ .hit .hit-title p {
+   z-index: 999;
+   opacity: 1;
+ }
+
+ .hit-content {
+   z-index: 999;
+   opacity: 1;
+ }
+
+ .hit-content p,
+ .hit-content span,
+ .hit-content ul li,
+ .hit-content ul li a {
+   font-size: 16px;
+   font-weight: 400;
+   line-height: 1.4;
+   color: #47505c;
+   font-family: 'Inter', sans-serif;
+   list-style: none;
+   z-index: 999;
+   opacity: 1 !important;
+ }
+
+ .ais-hits--item {
+   border-bottom: 1px solid #E9EDF2;
+   padding: 12px 18px;
+   cursor: pointer;
+   z-index: 999;
+   opacity: 1 !important;
+ }
+
+ .hit-content ul {
+   padding: 0;
+   padding-left: 17px;
+   margin: 0 !important;
+ }
+
+ .hit-content ul li a {
+   z-index: 999;
+   opacity: 1 !important;
+ }
+
+ .hit-content p:empty {
+   margin-bottom: 0px;
+ }
+
+ div#hits-container {
+   position: absolute;
+   padding-top: 4px;
+   padding-bottom: 4px;
+   z-index: 999;
+   opacity: 1 !important;
+ }
+
+ .ais-hits--item:last-child {
+   border-bottom: 0;
+ }
+
+ div#hits-container:empty {
+   padding: 0;
+ }
+
+ .nav-search .search-input input:hover {
+   border-color: #3454F6;
+   box-shadow: 0 24px 33px 0 rgb(21 60 245 / 10%), 0 7px 18px 0 rgb(5 21 46 / 7%);
+ }
+
+    .ais-hits--item.selected {
+   background-color: #F0F3FF;
+ }
+ 
+ .aa-DetachedSearchButton {
+     border-radius: 4px;
+
+ }
+ .aa-SubmitButton {
+   display: inline-flex;
+   justify-content: end;
+   align-items: center;
+   margin-left:5px;
+   margin-top:2px;
+ }
+ .aa-Form {
+   border-radius: 4px;
+ }
+ .aa-Panel {
+   z-index: 9999;
+ }
+.algolia-item {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ text-align: left;
+ width: 100%;
+}
+
+@media only screen and (max-width: 767px) {
+ .algolia-item {
+   flex-direction: column;
+   align-items: flex-start;
+ }
+}
+
+.algolia-item img {
+ margin-left: auto;
+}
+
+ 
+ @media only screen and (max-width: 767px) {
+ .aa-Item a {
+   display: block;
+   text-align:left;
+ }
+ 
+ .aa-Item img {
+   display: block;
+   margin: 10px 0;
+ }
+      .aa-Item .algolia-item {
+ color: #0C0E16;
+   text-decoration: none;
+   padding: 4px 4px;
+}
+
+ 
+ }
+   @media only screen and (min-width: 768px) {
+   .aa-Item a {
+ display: grid;
+ grid-template-columns: 1fr auto;
+ align-items: center;
+}
+     
+      .aa-Item .algolia-item {
+ color: #0C0E16;
+   text-decoration: none;
+   padding: 12px 12px;
+}
+
+   }
+
+
+
+ .aa-Item {
+   padding: 0;
+   min-height: unset;
+ }
+
+.algolia-item img {
+   width: 120px;
+   height: 30px;
+ }
+
+ .algolia-item img[src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/62553dc7a3e085f76e293108_Empty.png"] {
+   width: 30px;
+   height: 0px;
+ }
+*/
     </style>
 
     <meta
       name="google-site-verification"
       content="Sq3ZH7V9LReszDsgNbInbEJ_BR1M7e5yAukJv3MO7LA"
     />
-
-    <script
-      defer
-      src="https://cdn.jsdelivr.net/npm/preact/dist/preact.min.js"
-    ></script>
-
-    <script
-      defer
-      src="https://cdn.jsdelivr.net/npm/@algolia/autocomplete-js"
-    ></script>
-
-    <script
-      defer
-      src="https://cdn.jsdelivr.net/npm/@algolia/autocomplete-plugin-algolia-insights"
-    ></script>
-
-    <script defer>
-      var ALGOLIA_INSIGHTS_SRC =
-        "https://cdn.jsdelivr.net/npm/search-insights@2.1.0";
-
-      !(function (e, a, t, n, s, i, c) {
-        (e.AlgoliaAnalyticsObject = s),
-          (e[s] =
-            e[s] ||
-            function () {
-              (e[s].queue = e[s].queue || []).push(arguments);
-            }),
-          (i = a.createElement(t)),
-          (c = a.getElementsByTagName(t)[0]),
-          (i.async = 1),
-          (i.src = n),
-          c.parentNode.insertBefore(i, c);
-      })(window, document, "script", ALGOLIA_INSIGHTS_SRC, "aa");
-    </script>
-
+    <!--
+  <script defer src="https://cdn.jsdelivr.net/npm/preact/dist/preact.min.js"></script>
+  
+  <script defer src="https://cdn.jsdelivr.net/npm/@algolia/autocomplete-js"></script>
+  
+  <script defer src="https://cdn.jsdelivr.net/npm/@algolia/autocomplete-plugin-algolia-insights"></script>
+  
+  <script defer>
+  var ALGOLIA_INSIGHTS_SRC = "https://cdn.jsdelivr.net/npm/search-insights@2.1.0";
+  
+  !function(e,a,t,n,s,i,c){e.AlgoliaAnalyticsObject=s,e[s]=e[s]||function(){
+  (e[s].queue=e[s].queue||[]).push(arguments)},i=a.createElement(t),c=a.getElementsByTagName(t)[0],
+  i.async=1,i.src=n,c.parentNode.insertBefore(i,c)
+  }(window,document,"script",ALGOLIA_INSIGHTS_SRC,"aa");
+  </script>
+  -->
     <script defer>
       (function (h, o, t, j, a, r) {
         h.hj =
@@ -873,13 +858,6 @@
               class="navbar2_logo"
           /></a>
           <div class="header-search-bar-wrapper nav-bar-size">
-            <div class="algolia-search hidden w-embed">
-              <div
-                id="nav-autocomplete"
-                class="ais-autocomplete"
-                style="width=100%"
-              ></div>
-            </div>
             <div
               id="elastic-search-mobile"
               class="elastic-search-wrapper navbar-size"
@@ -1871,8 +1849,12 @@
                                         class="dero_icon"
                                       />
                                     </div>
-                                    <nav class="sub_list w-dropdown-list">
+                                    <nav
+                                      class="sub_list w-dropdown-list"
+                                      x-data="DataTableSubNav()"
+                                    >
                                       <a
+                                        x-on:click="(ev) => showEditModal(ev, d)"
                                         href="#"
                                         class="sub_link w-inline-block"
                                         ><div class="w-layout-grid grid_gap_8">
@@ -2589,8 +2571,10 @@
               </div>
               <div>
                 <div class="w-embed">
+                  <input type="hidden" name="_id" id="docs-id" />
                   <input
                     type="file"
+                    name="files"
                     class="sr-only"
                     id="docs-files"
                     multiple="true"
@@ -2972,19 +2956,17 @@
       defer
       src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"
     ></script>
-
     <script
       defer
-      src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@e238fb2da59a7b63e1bfa6483bebc7143d6a429c/elastic-v1.js"
+      src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@23e5f1dae7f98be4db3730900831949be39b9587/elastic-v1.js"
     ></script>
 
     <script
+      defer
       src="https://cdn.jsdelivr.net/npm/algoliasearch@4.14.2/dist/algoliasearch.umd.js"
       integrity="sha256-DRnoUQAweVMsVPRMhfHC5zPqUP8s2fWUqD39yBsWg+M="
       crossorigin="anonymous"
     ></script>
-
-    <script src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@main/algolia-v2.js"></script>
 
     <script defer>
       (function () {

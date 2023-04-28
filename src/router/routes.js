@@ -48,6 +48,7 @@ async function handleRouter(context, { type }) {
       Alpine.store("documentsStore").getList.documents.length === 0
     ) {
       await Alpine.store("documentsStore").getList.setDocuments({ type, page });
+
     }
   }
 }

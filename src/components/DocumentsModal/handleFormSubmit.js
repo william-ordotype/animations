@@ -9,14 +9,8 @@ import Alpine from "alpinejs";
 const handleFormSubmit = async function (ev) {
     ev.preventDefault();
 
-    const cleanRichText = DOMPurify.sanitize(window.globals.createRTE.root.innerHTML, { USE_PROFILES: { html: true } });
-
-
-    Alpine.store('documentsStore').createOne.rich_text_ordo = cleanRichText;
-    Alpine.store('documentsStore').createOne.title = document.getElementById('title');
-    Alpine.store('documentsStore').createOne.pathology = document.getElementById('field-2');
-
-    await Alpine.store("documentsStore").createOne.sendDocument();
+    const jsonData = window.globals.modal.form.getModalFields(ev)
+    await Alpine.store("documentsStore").createOne.sendDocument(jsonData);
     Alpine.store("documentsStore").createOne.clearFields()
     await Alpine.store("documentsStore").getList.setDocuments()
 }
