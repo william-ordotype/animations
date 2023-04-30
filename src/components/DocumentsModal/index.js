@@ -8,6 +8,7 @@ function DocumentsModal() {
   return Alpine.data("DocumentsModal", () => {
     return {
       docType: Alpine.store("documentsStore").createOne.document.type,
+      modalStore: Alpine.store('modalStore'),
       content(container, elem) {
         const dt = Alpine.store("documentsStore").createOne.document.type;
         const obj = { ...window.globals.modal.content };
@@ -33,14 +34,14 @@ function DocumentsModal() {
       },
       modalBackdrop() {
         return {
-          ["x-show"]: "$store.documentsStore.showModal",
-          ["x-trap.noscroll"]: "$store.documentsStore.showModal",
+          ["x-show"]: "modalStore.showModal",
+          ["x-trap.noscroll"]: "modalStore.showModal",
           ["x-transition"]: "",
         };
       },
       modalElem() {
         return {
-          ["x-show"]: "$store.documentsStore.showModal",
+          ["x-show"]: "modalStore.showModal",
           ["x-transition"]: "",
         };
       },
@@ -52,35 +53,35 @@ function DocumentsModal() {
       modalDialogBackdrop() {
         return {
           ["x-show"]:
-            "$store.documentsStore.showBeforeSave || $store.documentsStore.showBeforeCancel",
+            "modalStore.showBeforeSave || modalStore.showBeforeCancel",
           ["x-bind:class"]:
-            "($store.documentsStore.showBeforeSave || $store.documentsStore.showBeforeCancel) && 'active'",
+            "(modalStore.showBeforeSave || modalStore.showBeforeCancel) && 'active'",
         };
       },
       beforeSaveDialog(isShow) {
         return {
-          ["x-show"]: "$store.documentsStore.showBeforeSave",
+          ["x-show"]: "modalStore.showBeforeSave",
         };
       },
       showBeforeSave(canShow) {
         return {
           ["x-on:click.prevent"]: function () {
-            Alpine.store("documentsStore").showBeforeSave = canShow;
+            this.modalStore.showBeforeSave = canShow;
           },
         };
       },
       // Cancellation Dialog
       showBeforeCancel(canShow) {
         return {
-          ["x-on:click.prevent"]: `$store.documentsStore.showBeforeCancel = ${canShow}`,
+          ["x-on:click.prevent"]: `modalStore.showBeforeCancel = ${canShow}`,
         };
       },
       confirmCancel() {
         return {
           ["x-on:click.prevent"]: () => {
             Alpine.store("documentsStore").createOne.clearFields();
-            Alpine.store("documentsStore").showBeforeCancel = false;
-            Alpine.store("documentsStore").showModal = false;
+            this.modalStore.showBeforeCancel = false;
+            this.modalStore.showModal = false;
 
             window.globals.modal.form.resetFormFields();
           },
@@ -88,8 +89,8 @@ function DocumentsModal() {
       },
       beforeCancelDialog(isShow) {
         return {
-          ["x-show"]: "$store.documentsStore.showBeforeCancel",
-          ["x-trap"]: "$store.documentsStore.showBeforeCancel",
+          ["x-show"]: "modalStore.showBeforeCancel",
+          ["x-trap"]: "modalStore.showBeforeCancel",
         };
       },
     };

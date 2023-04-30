@@ -5,12 +5,12 @@ function DocumentsPaginationNavigation() {
         pageNumber(n) {
             return {
                 ["x-text"]: "n",
-                ["x-on:click"]: "handlePagination('page', +n, $router.params,)",
+                ["x-on:click"]: "handlePagination($router, n)",
             };
         },
         pageNext() {
             return {
-                ["x-on:click"]: "handlePagination('page', +$store.documentsStore.getList.pageNumber+1, $router.params,)"
+                ["x-on:click"]: "handlePagination($router, +$store.documentsStore.getList.pageNumber+1 )"
             }
         },
     }));

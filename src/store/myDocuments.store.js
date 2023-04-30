@@ -1,13 +1,7 @@
 import Alpine from "alpinejs";
+import {Router} from 'pinecone-router'
 
 const myDocumentsStore = {
-  showModal: false,
-  showBeforeSave: false,
-  showBeforeCancel: false,
-  loadModal: true,
-  showDrawer: false,
-  loadDrawer: false,
-
   getOne: {
     document: {},
     async getDocument({ id } = {}) {

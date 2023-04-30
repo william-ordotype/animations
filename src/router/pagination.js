@@ -1,13 +1,49 @@
-window.handlePagination = (k, v, params) => {
-    const [route, hashParams] = location.hash.split("?");
-    const h = hashParams ? hashParams.split("&") : hashParams;
-    let cParams = [];
+// Function to convert location.hash to an object
+function hashToObject(hash) {
+  let hashObj = {};
 
-    for (const [key, value] of Object.entries({ ...params })) {
-        if (key === k) {
-            cParams.push([key, v].join("="));
-        }
-    }
-    cParams.length > 0 ? cParams.join("&") : (cParams = [k, v].join("="));
-    location.hash = `${route}?${cParams}`;
+  if (hash !== "") {
+    // check if hash is not empty
+    hash.split("&").forEach(function (pair) {
+      // split hash by "&" character
+      let keyValue = pair.split("="); // split each pair by "=" character
+      hashObj[keyValue[0]] = decodeURIComponent(keyValue[1] || ""); // set object property with key and value, decoding the URI component
+    });
+  }
+
+  return hashObj;
+}
+
+// Function to convert an object to location.hash
+function objectToHash(obj) {
+  let hash = "";
+
+  Object.keys(obj).forEach(function (key) {
+    // loop through each object property
+    let value = encodeURIComponent(obj[key]); // encode URI component of the property value
+    hash += key + "=" + value + "&"; // concatenate key-value pair with "&" character
+  });
+
+  if (hash !== "") {
+    // remove the last "&" character if hash is not empty
+    hash = hash.slice(0, -1); // add "#" character to the beginning of the hash string
+  }
+
+  return hash;
+}
+
+window.handlePagination = (routerParams, pageNumber) => {
+  const page = pageNumber || routerParams.page;
+
+  const query = routerParams.hash.split("?");
+  const hashObj = hashToObject(query[1]);
+
+  if (hashObj.page) {
+    hashObj.page = page;
+  }
+
+  const urlHash = objectToHash(hashObj);
+  const newQuery = query[0] + "?" + urlHash;
+  routerParams.navigate(newQuery);
 };
+

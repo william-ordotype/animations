@@ -1,4 +1,3 @@
-// import PineconeRouter from 'pinecone-router'
 import PineconeRouter from "./modules/pinecone-router-custom";
 import focus from "@alpinejs/focus";
 import alpineWebflow from "./modules/alpine-webflow";
@@ -16,6 +15,7 @@ import DocumentsDrawer from "./components/DocumentsDrawer";
 import DocumentsModal from "./components/DocumentsModal";
 import CreateDocumentsNav from "./components/CreateDocumentsNav/CreateDocumentsNav";
 import myDocumentsStore from "./store/myDocuments.store";
+import modalStore from "./store/modal.store";
 
 window.Alpine = Alpine;
 
@@ -32,6 +32,7 @@ async function init() {
  * Declaring global state to be shared among components
  */
 Alpine.store("documentsStore", myDocumentsStore);
+Alpine.store("modalStore", modalStore);
 
 /**
  * Declaring local state for each component
@@ -91,8 +92,8 @@ document.addEventListener("alpine:initialized", () => {
 });
 
 window.handleModal = ({ type }) => {
-  Alpine.store("documentsStore").showDrawer = false;
-  Alpine.store("documentsStore").showModal = true;
+  Alpine.store("modalStore").showDrawer = false;
+  Alpine.store("modalStore").showModal = true;
 
   Alpine.store("documentsStore").createOne.document.type = type;
 };

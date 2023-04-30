@@ -38,8 +38,8 @@ async function handleRouter(context, { type }) {
     console.log("drawer");
   } else {
     // Shows getList items
-    Alpine.store("documentsStore").showModal = false;
-    Alpine.store("documentsStore").showDrawer = false;
+    Alpine.store("modalStore").showModal = false;
+    Alpine.store("modalStore").showDrawer = false;
 
     // Do a reload if necessary
     // TODO could be optimized
