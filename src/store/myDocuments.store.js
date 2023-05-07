@@ -1,5 +1,4 @@
 import Alpine from "alpinejs";
-import {Router} from 'pinecone-router'
 
 const myDocumentsStore = {
   getOne: {
@@ -73,37 +72,34 @@ const myDocumentsStore = {
   },
 
   createOne: {
-    document: {
-      _id: "",
-      type: "",
-      title: "",
-      pathology: [],
-      rich_text_ordo: "",
-      fileIds: [],
-    },
-    files: [],
     async sendDocument(jsonData, files) {
       // TODO get all documents from form and send request
-      debugger;
-      if (this.files.length > 0) {
+      if (files.length > 0) {
         const fileRes = await this.uploadFile(files);
-        jsonData.filesIds = [...fileRes];
+        // const fileIds = fileRes.map((file) => file._id)
+        jsonData.documents = [fileRes._id];
       }
       const res = await this.postDocument(jsonData);
-      this.clearFields();
+      debugger;
+      if (res.errors) {
+        console.error(res);
+      } else {
+        await this.getList.setDocuments({type: res.type})
+        Alpine.store('modalStore').closeModal();
+      }
     },
-    async uploadFile() {
+    async uploadFile(files) {
       const formData = new FormData();
-      formData.append("file", this.files);
+      formData.append("file", files[0]);
 
       const response = await fetch("https://api.ordotype.fr/v1.0.0/documents", {
+        method: "POST",
         headers: {
-          "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${window.memberToken}`,
         },
         body: formData,
       });
-      return (this.document.fileId = response.data.fileId);
+      return await response.json();
     },
     async postDocument(data) {
       if (!data.type) {
@@ -111,6 +107,14 @@ const myDocumentsStore = {
       } else if (!data.title) {
         return console.error("Title not found");
       }
+
+      // Remove null properties
+      for (let prop in data) {
+        if (data[prop] === '' || data[prop] === null || data[prop] === undefined) {
+          delete data[prop];
+        }
+      }
+
       const response = await fetch(
         data._id
           ? `https://api.ordotype.fr/v1.0.0/notes/${data._id}`
@@ -138,6 +142,35 @@ const myDocumentsStore = {
       Alpine.store("documentsStore").showBeforeSave = false;
       Alpine.store("documentsStore").showBeforeCancel = false;
     },
+  },
+
+  deleteOne: {
+    async sendDocument(data) {
+      try {
+        const res = await this.deleteDocument(data)
+        if (!res.ok) {
+          console.error(res.status + " Failed Fetch ");
+        }
+      } catch (err) {
+        console.error('EXCEPTION: ', err)
+      }
+    },
+    async deleteDocument(data) {
+      if(!data._id) {
+        console.error('Id not found')
+        return;
+      }
+      const response = await fetch(`https://api.ordotype.fr/v1.0.0/notes/${data._id}`,
+          {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${window.memberToken}`,
+            },
+          }
+      );
+      return await response.json();
+    }
   },
   pathologies: {
     async getList(query) {

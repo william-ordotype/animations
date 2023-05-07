@@ -1,20 +1,12 @@
 import Alpine from "alpinejs";
-import * as DOMPurify from "dompurify";
-import handleFormSubmit from "./handleFormSubmit";
 
 import "../../utils/globals";
+import modalStore from "../../store/modal.store";
 
 function DocumentsModal() {
   return Alpine.data("DocumentsModal", () => {
     return {
-      docType: Alpine.store("documentsStore").createOne.document.type,
       modalStore: Alpine.store('modalStore'),
-      content(container, elem) {
-        const dt = Alpine.store("documentsStore").createOne.document.type;
-        const obj = { ...window.globals.modal.content };
-
-        return dt ? obj[dt][container][elem] : undefined;
-      },
       init() {
         window.globals.createRTE = new Quill(".modal_text_editor_wrapper", {
           theme: "snow",
@@ -78,13 +70,7 @@ function DocumentsModal() {
       },
       confirmCancel() {
         return {
-          ["x-on:click.prevent"]: () => {
-            Alpine.store("documentsStore").createOne.clearFields();
-            this.modalStore.showBeforeCancel = false;
-            this.modalStore.showModal = false;
-
-            window.globals.modal.form.resetFormFields();
-          },
+          ["x-on:click.prevent"]: "modalStore.closeModal()",
         };
       },
       beforeCancelDialog(isShow) {

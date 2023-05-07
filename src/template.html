@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Last Published: Wed Apr 26 2023 04:06:29 GMT+0000 (Coordinated Universal Time) -->
+<!-- Last Published: Mon May 01 2023 04:44:05 GMT+0000 (Coordinated Universal Time) -->
 <html
   data-wf-domain="ordotype.webflow.io"
   data-wf-page="6428de0a13003e96dad78133"
@@ -17,7 +17,7 @@
       name="google-site-verification"
     />
     <link
-      href="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.fc1d6ec97.min.css"
+      href="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.861d81aa0.min.css"
       rel="stylesheet"
       type="text/css"
     />
@@ -206,380 +206,12 @@
         background-color: rgb(240, 243, 255) !important;
         color: #ffffff;
       }
-      /*
-   
-   .aa-Panel {
-     z-index: 999999 !important;
-   }
-   
-     .nav-search {
-   opacity: 1 !important;
-   position: static;
-
-   z-index: 99;
- }
-
- .nav-search.active {}
-
- .nav-search.active .search-dropdown {
-   display: block;
-   background-color: white;
-   opacity: 1;
- }
-
- .nav-search.active .search-input {
-   -webkit-animation: expand-search-box-animation 0.5s forwards;
-   animation: expand-search-box-animation 0.5s forwards;
- }
-
- .nav-search.active .search-input .close-search {
-   display: inline-block;
- }
-
- .nav-search.active .search-input .search-dropdown {
-   display: block;
- }
-
- .nav-search .search-input {
-   transition: left 0.2s ease-in-out;
-   transition: width 0s ease-in-out;
-   -webkit-box-shadow: none;
-   -moz-box-shadow: none;
-   box-shadow: none;
- }
-
- .nav-search .search-input .search-icon {
-   position: absolute;
-   left: 15px;
-   top: 13px;
-   z-index: 999;
-   color: #153cf5;
- }
-
- .nav-search .search-input input {
-   width: 100%;
-   min-height: 35px;
-
-   padding-right: 24px;
-   padding-left: 60px;
-   border-style: solid;
-   border-width: 1px;
-   border-color: #f7f7fb;
-   border-radius: 10px;
-   background-image: url("https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/6062e035b9036a51f4c5dcd5_search-icon.svg");
-   background-position: 20px 50%;
-   background-size: auto;
-   background-repeat: no-repeat;
-   box-shadow: 0 20px 24px 0 rgba(21, 60, 245, 0.06), 0 5px 14px 0 rgba(5, 21, 46, 0.05);
-   -webkit-transition: box-shadow 350ms ease, border-color 350ms ease;
-   transition: box-shadow 350ms ease, border-color 350ms ease;
-   font-family: 'Inter', sans-serif;
-   color: #858c95;
-   font-size: 20px;
-   line-height: 38px;
- }
-
-  :root {
-   --aa-selected-color-rgb: 240,243,255;
-   --aa-selected-color-alpha: 1;
-   }
-   
- .nav-search .search-input input:focus {
-   outline: none;
- }
-
-
- .search-dropdown {
-   z-index: 999;
-   box-sizing: border-box;
-   opacity: 1 !important;
-   margin-top: 4px;
-   width: 100%;
-   -webkit-animation: expand-search-dropdown-animation 0.5s forwards;
-   animation: expand-search-dropdown-animation 0.5s forwards;
-   overflow-y: scroll;
-   max-height: 600px;
-   border-radius: 0 0 6px 6px;
-   background-color: #fff;
-   border: 1px solid rgba(12, 14, 22, .1);
-   display: inline;
-   border-radius: 6px;
- }
-
- .search-dropdown .small {
-   -webkit-flex-basis: 35%;
-   -ms-flex-preferred-size: 35%;
-   flex-basis: 35%;
- }
-
- .search-dropdown .search-section .hits-blank {
-   color: #666;
-   text-align: center;
-   padding-top: 20px;
-   z-index: 999;
-   opacity: 1 !important;
- }
-
- .search-dropdown a {
-   text-decoration: none;
-   color: white;
-   z-index: 999;
-   opacity: 1 !important;
- }
-
- .hit .hit-title {
-   color: #0089d7;
-   display: inline-block;
-   margin: 0;
-   font-size: 1REM;
-   font-weight: 400;
-   line-height: 1.5;
-   font-family: 'Inter', sans-serif;
-   color: #05152e;
-   z-index: 999;
-   opacity: 1;
- }
-
- .nav-search.active .search-input .search-dropdown:empty {
-   border: 0 !important;
- }
-
- .hit .hit-description {
-   z-index: 999;
-   opacity: 1;
- }
-
- .hit .hit-anchor {
-   font-size: 13px;
-   color: #666;
-   z-index: 999;
-   opacity: 1;
- }
-
- .hit .algolia-docsearch-suggestion--highlight {
-   background-color: #FFE9A4;
-   z-index: 999;
-   opacity: 1 !important;
- }
-
- .ais-hits--item:last-child .hit {
-   border: 0;
- }
-
- .ais-hits--item {
-   z-index: 999;
-   opacity: 1 !important;
-   background-color: white;
- }
- div#algolia-search {
-   max-width: 800px;
-   position: relative;
-
-   opacity: 1 !important;
- }
-
- .ais-search-box {
-   position: relative;
-   z-index: 999;
-   opacity: 1 !important;
- }
-
- .hit .hit-title p {
-   z-index: 999;
-   opacity: 1;
- }
-
- .hit-content {
-   z-index: 999;
-   opacity: 1;
- }
-
- .hit-content p,
- .hit-content span,
- .hit-content ul li,
- .hit-content ul li a {
-   font-size: 16px;
-   font-weight: 400;
-   line-height: 1.4;
-   color: #47505c;
-   font-family: 'Inter', sans-serif;
-   list-style: none;
-   z-index: 999;
-   opacity: 1 !important;
- }
-
- .ais-hits--item {
-   border-bottom: 1px solid #E9EDF2;
-   padding: 12px 18px;
-   cursor: pointer;
-   z-index: 999;
-   opacity: 1 !important;
- }
-
- .hit-content ul {
-   padding: 0;
-   padding-left: 17px;
-   margin: 0 !important;
- }
-
- .hit-content ul li a {
-   z-index: 999;
-   opacity: 1 !important;
- }
-
- .hit-content p:empty {
-   margin-bottom: 0px;
- }
-
- div#hits-container {
-   position: absolute;
-   padding-top: 4px;
-   padding-bottom: 4px;
-   z-index: 999;
-   opacity: 1 !important;
- }
-
- .ais-hits--item:last-child {
-   border-bottom: 0;
- }
-
- div#hits-container:empty {
-   padding: 0;
- }
-
- .nav-search .search-input input:hover {
-   border-color: #3454F6;
-   box-shadow: 0 24px 33px 0 rgb(21 60 245 / 10%), 0 7px 18px 0 rgb(5 21 46 / 7%);
- }
-
-    .ais-hits--item.selected {
-   background-color: #F0F3FF;
- }
- 
- .aa-DetachedSearchButton {
-     border-radius: 4px;
-
- }
- .aa-SubmitButton {
-   display: inline-flex;
-   justify-content: end;
-   align-items: center;
-   margin-left:5px;
-   margin-top:2px;
- }
- .aa-Form {
-   border-radius: 4px;
- }
- .aa-Panel {
-   z-index: 9999;
- }
-.algolia-item {
- display: flex;
- justify-content: space-between;
- align-items: center;
- text-align: left;
- width: 100%;
-}
-
-@media only screen and (max-width: 767px) {
- .algolia-item {
-   flex-direction: column;
-   align-items: flex-start;
- }
-}
-
-.algolia-item img {
- margin-left: auto;
-}
-
- 
- @media only screen and (max-width: 767px) {
- .aa-Item a {
-   display: block;
-   text-align:left;
- }
- 
- .aa-Item img {
-   display: block;
-   margin: 10px 0;
- }
-      .aa-Item .algolia-item {
- color: #0C0E16;
-   text-decoration: none;
-   padding: 4px 4px;
-}
-
- 
- }
-   @media only screen and (min-width: 768px) {
-   .aa-Item a {
- display: grid;
- grid-template-columns: 1fr auto;
- align-items: center;
-}
-     
-      .aa-Item .algolia-item {
- color: #0C0E16;
-   text-decoration: none;
-   padding: 12px 12px;
-}
-
-   }
-
-
-
- .aa-Item {
-   padding: 0;
-   min-height: unset;
- }
-
-.algolia-item img {
-   width: 120px;
-   height: 30px;
- }
-
- .algolia-item img[src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/62553dc7a3e085f76e293108_Empty.png"] {
-   width: 30px;
-   height: 0px;
- }
-*/
     </style>
 
     <meta
       name="google-site-verification"
       content="Sq3ZH7V9LReszDsgNbInbEJ_BR1M7e5yAukJv3MO7LA"
     />
-    <!--
-  <script defer src="https://cdn.jsdelivr.net/npm/preact/dist/preact.min.js"></script>
-  
-  <script defer src="https://cdn.jsdelivr.net/npm/@algolia/autocomplete-js"></script>
-  
-  <script defer src="https://cdn.jsdelivr.net/npm/@algolia/autocomplete-plugin-algolia-insights"></script>
-  
-  <script defer>
-  var ALGOLIA_INSIGHTS_SRC = "https://cdn.jsdelivr.net/npm/search-insights@2.1.0";
-  
-  !function(e,a,t,n,s,i,c){e.AlgoliaAnalyticsObject=s,e[s]=e[s]||function(){
-  (e[s].queue=e[s].queue||[]).push(arguments)},i=a.createElement(t),c=a.getElementsByTagName(t)[0],
-  i.async=1,i.src=n,c.parentNode.insertBefore(i,c)
-  }(window,document,"script",ALGOLIA_INSIGHTS_SRC,"aa");
-  </script>
-  -->
-    <script defer>
-      (function (h, o, t, j, a, r) {
-        h.hj =
-          h.hj ||
-          function () {
-            (h.hj.q = h.hj.q || []).push(arguments);
-          };
-        h._hjSettings = { hjid: 2624404, hjsv: 6 };
-        a = o.getElementsByTagName("head")[0];
-        r = o.createElement("script");
-        r.async = 1;
-        r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
-        a.appendChild(r);
-      })(window, document, "https://static.hotjar.com/c/hotjar-", ".js?sv=");
-    </script>
 
     <meta
       name="viewport"
@@ -836,6 +468,19 @@
            background: radial-gradient(59.25% 131.25% at 0% 0%, #7CD0FF 0%, #3454F6 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
            border-radius: 4px;
          }
+
+
+
+         .button_normal {
+           background: linear-gradient(to right, #7cd0ff, #3454f6, #7cd0ff);
+           background-size: 200%;
+           background-position: left;
+           transition: background-position 500ms ease;
+         }
+
+         .button_normal:hover {
+           background-position: right;
+         }
       </style>
     </div>
     <div
@@ -901,14 +546,8 @@
                     </button>
                   </div>
                 </form>
-                <div class="w-form-done">
-                  <div>Thank you! Your submission has been received!</div>
-                </div>
-                <div class="w-form-fail">
-                  <div>
-                    Oops! Something went wrong while submitting the form.
-                  </div>
-                </div>
+                <div class="hidden w-form-done"></div>
+                <div class="hidden w-form-fail"></div>
               </div>
             </div>
           </div>
@@ -1291,7 +930,21 @@
                 </div>
               </div>
               <div class="tabs_documents">
-                <div class="loading_container"><h3>Loading...</h3></div>
+                <div class="loading_container center">
+                  <div
+                    class="lottie-animation"
+                    data-w-id="cb625c82-be66-9092-c9eb-8b3473677579"
+                    data-animation-type="lottie"
+                    data-src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/61f2cf4b2c288f34818ada35_52601-waiting.json"
+                    data-loop="1"
+                    data-direction="1"
+                    data-autoplay="1"
+                    data-is-ix2-target="0"
+                    data-renderer="svg"
+                    data-default-duration="3.0030028806881908"
+                    data-duration="0"
+                  ></div>
+                </div>
                 <div x-cloak="" class="paywall_wrapper">
                   <div class="contenu-premium">
                     <div class="w-layout-grid cont_grid">
@@ -1384,7 +1037,7 @@
                   </div>
                 </div>
                 <div class="tabs_panel">
-                  <div x-cloak="" class="content_main_wrapper">
+                  <div x-data="" x-cloak="" class="content_main_wrapper">
                     <div class="padding-custom24">
                       <div class="w-layout-grid header_wrapper">
                         <h2
@@ -1850,11 +1503,11 @@
                                       />
                                     </div>
                                     <nav
-                                      class="sub_list w-dropdown-list"
                                       x-data="DataTableSubNav()"
+                                      class="sub_list w-dropdown-list"
                                     >
                                       <a
-                                        x-on:click="(ev) => showEditModal(ev, d)"
+                                        x-on:click="showEditModal($event, d)"
                                         href="#"
                                         class="sub_link w-inline-block"
                                         ><div class="w-layout-grid grid_gap_8">
@@ -1908,6 +1561,7 @@
                                         </div></a
                                       ><a
                                         href="#"
+                                        x-on:click="await deleteDocument($event, d)"
                                         class="sub_link color_red w-inline-block"
                                         ><div class="w-layout-grid grid_gap_8">
                                           <div
@@ -1995,6 +1649,87 @@
                               ><a href="#" class="w-dropdown-link">Link 2</a
                               ><a href="#" class="w-dropdown-link">Link 3</a>
                             </nav>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    x-data=""
+                    x-cloak=""
+                    x-show="false"
+                    class="content_main_wrapper"
+                  >
+                    <div class="padding-custom24">
+                      <div class="w-layout-grid header_wrapper em">
+                        <h2
+                          id="w-node-_1264d39d-4dca-f98d-77d8-4153c34852cd-dad78133"
+                          class="heading-h2-docs"
+                        >
+                          Tous mes documents
+                        </h2>
+                        <div
+                          id="w-node-_1264d39d-4dca-f98d-77d8-4153c34852cf-dad78133"
+                          class="submenu_component empty"
+                        >
+                          <a
+                            href="/notes-documents/mes-documents"
+                            class="context_menu_btn w-inline-block"
+                            ><img
+                              loading="lazy"
+                              src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/64090e58ec104dcb5da0add0_ButtonRounded.svg"
+                              alt=""
+                              class="img_full" /></a
+                          ><link
+                            rel="prefetch"
+                            href="/notes-documents/mes-documents"
+                          />
+                          <form
+                            action="/search"
+                            id="w-node-_1264d39d-4dca-f98d-77d8-4153c34852d2-dad78133"
+                            class="doc_search_wrapper w-form"
+                          >
+                            <input
+                              type="search"
+                              class="doc_search w-input"
+                              maxlength="256"
+                              name="query"
+                              placeholder="Rechercher"
+                              id="search"
+                              required=""
+                            /><input
+                              type="submit"
+                              value="Search"
+                              class="hide w-button"
+                            />
+                          </form>
+                          <div class="divider"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="docs_list_wrapper">
+                      <div class="empty_wrapper">
+                        <img
+                          src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/6408f4a8d32c4d99113f6648_Medical%20Report.png"
+                          loading="lazy"
+                          alt=""
+                          class="image-empty"
+                        />
+                        <div class="max-width-full text-color-base-800">
+                          <h2 class="heading-h2-docs">
+                            Vous n’avez pas encore de documents
+                          </h2>
+                          <div class="padding-top padding-xsmall">
+                            <div class="text-color-base-800">
+                              Ordotype vous permet de créer et stocker vos
+                              notes, ordonnances et fiches conseils
+                              personnalisées en quelques clics.
+                            </div>
+                          </div>
+                          <div class="padding-top padding-xmedium">
+                            <a href="#" class="button is-empty w-button"
+                              >Créer un document</a
+                            >
                           </div>
                         </div>
                       </div>
@@ -2424,7 +2159,21 @@
               </div>
             </div>
             <div x-bind="drawerLoading" class="drawer_loading">
-              <h1>Loading...</h1>
+              <div class="loading_container center">
+                <div
+                  class="lottie-animation"
+                  data-w-id="d08456f3-a02a-a423-a7b3-56fbd60371df"
+                  data-animation-type="lottie"
+                  data-src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/61f2cf4b2c288f34818ada35_52601-waiting.json"
+                  data-loop="1"
+                  data-direction="1"
+                  data-autoplay="1"
+                  data-is-ix2-target="0"
+                  data-renderer="svg"
+                  data-default-duration="3.0030028806881908"
+                  data-duration="0"
+                ></div>
+              </div>
             </div>
             <div x-bind="drawerContent" class="w-layout-grid view_grid">
               <h2
@@ -2542,7 +2291,7 @@
               <div class="action_navigation">
                 <div class="action_header">
                   <h2
-                    x-text="content(&#x27;modal&#x27;,&#x27;title&#x27;)"
+                    x-text="$store.modalStore.content(&#x27;modal&#x27;,&#x27;title&#x27;)"
                     class="view_heading"
                   >
                     Nom de <span>l’ordonnance</span>
@@ -2593,15 +2342,15 @@
                   <div class="inner_header">
                     <div class="display-inlineflex text_space">Annuler</div>
                     <div
-                      x-text="content(&#x27;beforeCancel&#x27;,&#x27;title&#x27;)"
+                      x-text="$store.modalStore.content(&#x27;beforeCancel&#x27;,&#x27;title&#x27;)"
                       class="display-inlineflex hide-mobile-landscape"
                     >
                       la modification d’une ordonnance
                     </div>
                     <img
-                      src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/6409a60abee24b0929f62f72_cross.svg"
-                      loading="lazy"
                       x-bind="showBeforeCancel(false)"
+                      loading="lazy"
+                      src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/6409a60abee24b0929f62f72_cross.svg"
                       alt=""
                       class="close_icon is_corner"
                     />
@@ -2609,7 +2358,7 @@
                 </div>
                 <div class="comment_wrapper">
                   <p
-                    x-text="content(&#x27;beforeCancel&#x27;, &#x27;description&#x27;)"
+                    x-text="$store.modalStore.content(&#x27;beforeCancel&#x27;, &#x27;description&#x27;)"
                     class="context_comment text-weight-light"
                   >
                     Vous êtes sur le point d’annuler la modification d’une
@@ -2640,7 +2389,7 @@
                   <div class="inner_header">
                     <div class="display-inlineflex text_space">Sauvegarder</div>
                     <div
-                      x-text="content(&#x27;beforeSave&#x27;, &#x27;title&#x27;)"
+                      x-text="$store.modalStore.content(&#x27;beforeSave&#x27;, &#x27;title&#x27;)"
                       class="display-inlineflex hide-mobile-landscape"
                     >
                       une nouvelle fiche conseil
@@ -2658,17 +2407,18 @@
                   <div class="action_input_wrapper">
                     <label
                       for="docs-title"
-                      x-text="content(&#x27;beforeSave&#x27;, &#x27;inputTitle&#x27;)"
+                      x-text="$store.modalStore.content(&#x27;beforeSave&#x27;, &#x27;inputTitle&#x27;)"
                       class="action_field_label"
                       >Nom de l’ordonnance</label
                     ><input
                       type="text"
                       class="action_text_field w-input"
                       maxlength="256"
-                      x-bind:placeholder="content(&#x27;beforeSave&#x27;,&#x27;phInputTitle&#x27;)"
+                      x-bind:placeholder="$store.modalStore.content(&#x27;beforeSave&#x27;,&#x27;phInputTitle&#x27;)"
                       name="title"
                       data-name="title"
                       placeholder="Ma nouvelle ordonnance"
+                      x-model="modalStore.form.title"
                       id="docs-title"
                       required=""
                     />
@@ -2676,7 +2426,7 @@
                   <div class="action_input_wrapper">
                     <label
                       for="field-2"
-                      x-text="content(&#x27;beforeSave&#x27;, &#x27;inputTypePrescription&#x27;)"
+                      x-text="$store.modalStore.content(&#x27;beforeSave&#x27;, &#x27;inputTypePrescription&#x27;)"
                       class="action_field_label"
                       >Sélectionner le type d’ordonnance</label
                     ><select
@@ -2695,7 +2445,7 @@
                   </div>
                   <div class="action_search_wrapper">
                     <div
-                      x-text="content(&#x27;beforeSave&#x27;, &#x27;inputPathology&#x27;)"
+                      x-text="$store.modalStore.content(&#x27;beforeSave&#x27;, &#x27;inputPathology&#x27;)"
                       class="text-weight-light context_comment"
                     >
                       Associer une pathologie à cette fiche conseil :
@@ -2958,9 +2708,11 @@
     ></script>
     <script
       defer
-      src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@23e5f1dae7f98be4db3730900831949be39b9587/elastic-v1.js"
+      src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@18bfba1dba61e01f2233f0eb0f040ea98f8fe138/elastic-v2.js"
     ></script>
-
+    <!--
+<script defer src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@2298f811a3fc88f198e0ac3f5114f787eeceff7a/elastic-v1.js"></script>
+-->
     <script
       defer
       src="https://cdn.jsdelivr.net/npm/algoliasearch@4.14.2/dist/algoliasearch.umd.js"
@@ -3029,35 +2781,6 @@
             : $(this).html();
         });
       });
-    </script>
-
-    <!-- Before </body> tag -->
-    <script defer type="text/javascript">
-      $(function () {
-        $("#search-input").on("focus", function () {
-          $(".nav-search").addClass("active");
-        });
-        $("#search-input").on("keyup", function () {
-          $("#hits-container").scrollTop(0);
-        });
-        $(".close-search").on("click", function (evt) {
-          evt.preventDefault();
-          $("#search-input").val("");
-          $(".nav-search").removeClass("active");
-        });
-        $("#search-input").on("blur", function (evt) {
-          if (!evt.isDefaultPrevented) {
-            console.log("blur");
-            $(".nav-search").removeClass("active");
-          }
-        });
-      });
-
-      function toTitleCase(str) {
-        return str.replace(/(?:^|\s)\w/g, function (match) {
-          return match.toUpperCase();
-        });
-      }
     </script>
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@algolia/autocomplete-js"></script>

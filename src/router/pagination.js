@@ -34,16 +34,20 @@ function objectToHash(obj) {
 
 window.handlePagination = (routerParams, pageNumber) => {
   const page = pageNumber || routerParams.page;
+  let newQuery;
 
-  const query = routerParams.hash.split("?");
-  const hashObj = hashToObject(query[1]);
+  if (routerParams.hash.includes("?")) {
+    const query = routerParams.hash.split("?");
+    const hashObj = hashToObject(query[1]);
 
-  if (hashObj.page) {
-    hashObj.page = page;
+    if (hashObj.page) {
+      hashObj.page = page;
+    }
+    const urlHash = objectToHash(hashObj);
+    newQuery = query[0] + "?" + urlHash;
+  } else {
+    newQuery = routerParams.hash + "?page=" + page;
   }
 
-  const urlHash = objectToHash(hashObj);
-  const newQuery = query[0] + "?" + urlHash;
   routerParams.navigate(newQuery);
 };
-

@@ -6,6 +6,7 @@ import Alpine from "alpinejs";
 import "./router/routes";
 import "./router/pagination";
 import globals from "./utils/globals";
+import './styles.scss';
 
 import consultsMemberstackAuthentication from "./authentication";
 import DocumentsDataTable from "./components/DocumentsDataTable";
@@ -46,10 +47,13 @@ CreateDocumentsNav();
 
 Alpine.data("DataTableSubNav", (d) => {
   return {
-    showEditModal(ev, d) {
+    async showEditModal(ev, d) {
       ev.preventDefault();
-      window.handleModal({type: d.type})
-      window.globals.modal.form.setModalFields(d)
+      await Alpine.store('modalStore').openModal(d,{type: d.type})
+    },
+    async deleteDocument(ev, d) {
+      ev.preventDefault();
+      await Alpine.store('documentsStore').deleteOne.sendDocument(d)
     }
   }
 })
@@ -78,7 +82,7 @@ window.Webflow.push(() => {
     $("#wf-form-mutateDocument").submit(async function (ev) {
       console.log("WF form submit");
       ev.preventDefault();
-      await window.globals.modal.form.handleFormSubmit(ev);
+      await Alpine.store('modalStore').submitForm(ev);
       return false;
     });
   });

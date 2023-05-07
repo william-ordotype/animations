@@ -6,21 +6,22 @@ function CreateDocumentsNav() {
       prescriptionsNewType() {
         return {
           // type = ordonnances
-          ["x-on:click.prevent"]: () => {
-
-            handleModal({type: 'prescriptions'})},
+          ["x-on:click.prevent"]:
+            "$store.modalStore.openModal(null, {type: 'prescriptions'})",
         };
       },
       notesNewType() {
         // type = notes
         return {
-          ["x-on:click.prevent"]: "handleModal({type: 'notes'})",
+          ["x-on:click.prevent"]:
+            "$store.modalStore.openModal(null,{type: 'notes'})",
         };
       },
       recommendationsNewType() {
         // type = conseils patient
         return {
-          ["x-on:click.prevent"]: "handleModal({type: 'recommendations'})",
+          ["x-on:click.prevent"]:
+            "$store.modalStore.openModal(null,{type: 'recommendations'})",
         };
       },
     };
