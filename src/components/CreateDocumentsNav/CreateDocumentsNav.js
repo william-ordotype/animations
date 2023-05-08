@@ -15,6 +15,7 @@ function CreateDocumentsNav() {
         return {
           ["x-on:click.prevent"]:
             "$store.modalStore.openModal(null,{type: 'notes'})",
+
         };
       },
       recommendationsNewType() {

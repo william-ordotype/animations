@@ -7,13 +7,13 @@ import Alpine from "alpinejs";
  */
 async function handleDrawer ({ id }){
     // TODO Add loading before showing blank drawer
-    Alpine.store("documentsStore").loadDrawer = true;
-    Alpine.store("documentsStore").showDrawer = true;
-    Alpine.store("documentsStore").showModal = false;
+    Alpine.store("drawerStore").loadDrawer = true;
+    Alpine.store("drawerStore").showDrawer = true;
+    Alpine.store("modalStore").showModal = false;
 
     try {
         await Alpine.store("documentsStore").getOne.setDocument({ id });
-        Alpine.store("documentsStore").loadDrawer = false;
+        Alpine.store("drawerStore").loadDrawer = false;
     } catch (err) {
         // TODO Show warning error notification
     }

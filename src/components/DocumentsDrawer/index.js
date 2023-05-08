@@ -3,15 +3,16 @@ import Alpine from "alpinejs";
 function DocumentsDrawer() {
     return Alpine.data("DocumentsDrawer", () => {
         return {
+            drawerStore: Alpine.store('drawerStore'),
             drawerBackdrop() {
                 return {
-                    ["x-show"]: "$store.documentsStore.showDrawer",
+                    ["x-show"]: "drawerStore.showDrawer",
                     ["x-transition.opacity"]: "",
                 };
             },
             drawerElem() {
                 return {
-                    ["x-show"]: "$store.documentsStore.showDrawer",
+                    ["x-show"]: "drawerStore.showDrawer",
                     ["x-transition.scale.origin.right"]: "",
                     ["x-transition:enter.scale.80"]: "",
                     ["x-transition:enter.scale.90"]: "",
@@ -19,12 +20,12 @@ function DocumentsDrawer() {
             },
             drawerLoading() {
                 return {
-                    ["x-show"]: "$store.documentsStore.loadDrawer",
+                    ["x-show"]: "drawerStore.loadDrawer",
                 };
             },
             drawerContent() {
                 return {
-                    ["x-show"]: "!$store.documentsStore.loadDrawer",
+                    ["x-show"]: "!drawerStore.loadDrawer",
                 };
             },
             drawerClose() {
@@ -33,6 +34,7 @@ function DocumentsDrawer() {
                         url = $router.path.split('/')
                         removeId = url.pop()
                         $router.navigate(url.join('/'))
+                        drawerStore.hideDrawer()
                     `
                 }
             },

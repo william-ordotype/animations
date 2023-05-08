@@ -5,9 +5,8 @@ const modalStore = {
   showModal: false,
   showBeforeSave: false,
   showBeforeCancel: false,
+  showBeforeDelete: false,
   loadModal: true,
-  showDrawer: false,
-  loadDrawer: false,
 
   form: {
     _id: "",
@@ -27,7 +26,6 @@ const modalStore = {
     return dt ? obj[mutation][dt][container][elem] : undefined;
   },
   openModal(note, config) {
-    debugger
     if (note) {
       this.form._id = note._id;
       this.form.title = note.title;

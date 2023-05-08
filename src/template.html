@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Last Published: Mon May 01 2023 04:44:05 GMT+0000 (Coordinated Universal Time) -->
+<!-- Last Published: Mon May 08 2023 04:11:09 GMT+0000 (Coordinated Universal Time) -->
 <html
   data-wf-domain="ordotype.webflow.io"
   data-wf-page="6428de0a13003e96dad78133"
@@ -17,7 +17,7 @@
       name="google-site-verification"
     />
     <link
-      href="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.861d81aa0.min.css"
+      href="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.3c37d0acd.min.css"
       rel="stylesheet"
       type="text/css"
     />
@@ -98,17 +98,17 @@
     <link rel="dns-prefetch" href="https://global-uploads.webflow.com/" />
 
     <script defer>
+      window.mainPlansIds = [
+        "pln_essai-gratuit-5e4s0o0r",
+        "pln_compte-praticien-offre-speciale-500-premiers--893z0o60",
+        "pln_essai-expir--vr4r0ouk",
+        "pln_compte-interne-sy4j0oft",
+        "pln_interne-m-decine-g-n-rale-adh-rent--4a4t0o95",
+        "pln_compte-ouvert-u94k0of5",
+      ];
+
       window.dataLayer = window.dataLayer || [];
       $memberstackDom.getCurrentMember().then(({ data }) => {
-        const mainPlansIds = [
-          "pln_essai-gratuit-5e4s0o0r",
-          "pln_compte-praticien-offre-speciale-500-premiers--893z0o60",
-          "pln_essai-expir--vr4r0ouk",
-          "pln_compte-interne-sy4j0oft",
-          "pln_interne-m-decine-g-n-rale-adh-rent--4a4t0o95",
-          "pln_compte-ouvert-u94k0of5",
-        ];
-
         if (data) {
           const date = new Date(data.createdAt)
             .toLocaleDateString("fr-FR")
@@ -121,15 +121,19 @@
               return mainPlansIds.includes(plan.planId);
             }) || "Not on main list";
 
-          mainPlan.length > 0 &&
-            dataLayer.push({
-              event: "userData",
-              member_id: data.id,
-              member_plan_id: mainPlan[0].planId,
-              member_plan_status: mainPlan[0].status,
-              member_plan_type: mainPlan[0].type,
-              member_signup_date: newDate,
-            });
+          const dataPlan = mainPlan.length > 0 && {
+            member_plan_id: mainPlan[0].planId,
+            member_plan_status: mainPlan[0].status,
+            member_plan_type: mainPlan[0].type,
+          };
+
+          dataLayer.push({
+            event: "userData",
+            member_id: data.id,
+            member_signup_date: newDate,
+            // checks user is signed up to one of the main plan ids
+            ...dataPlan,
+          });
         }
       });
     </script>
@@ -546,8 +550,8 @@
                     </button>
                   </div>
                 </form>
-                <div class="hidden w-form-done"></div>
-                <div class="hidden w-form-fail"></div>
+                <div class="hidden-form w-form-done"></div>
+                <div class="hidden-form w-form-fail"></div>
               </div>
             </div>
           </div>
@@ -602,6 +606,7 @@
                 ><div class="button_text">Demander une démo</div></a
               ><a
                 href="/membership/login-ms"
+                id="connexion-nav-btn"
                 data-ms-content="!members"
                 class="button w-inline-block"
                 ><div class="button_circle-color"></div>
@@ -643,7 +648,322 @@
                 </form>
               </div>
             </div>
-            <div class="documents_tabs hide-mobile-landscape">
+            <div class="tabs_menu--mobile">
+              <div class="tabs_header mobile">
+                <h1 class="heading-h1-docs">Mes documents</h1>
+                <div class="search_mobile">
+                  <form action="/search" class="doc_search_wrapper w-form">
+                    <input
+                      type="search"
+                      class="doc_search w-input"
+                      maxlength="256"
+                      name="query"
+                      placeholder="Rechercher"
+                      id="search"
+                      required=""
+                    /><input
+                      type="submit"
+                      value="Search"
+                      class="hide w-button"
+                    />
+                  </form>
+                </div>
+              </div>
+              <div class="menu_links">
+                <a
+                  href="/notes-documents/mes-documents-mobile"
+                  class="tab_link mobile w-inline-block"
+                  ><div class="w-layout-grid grid_gap_8">
+                    <div class="tab_icon w-embed">
+                      <svg
+                        width="1.25rem"
+                        height="1.25rem"
+                        viewBox="0 0 20 20"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <g clip-path="url(#clip0_802_30030)">
+                          <path
+                            d="M1.66663 14.1667L9.99996 18.3333L18.3333 14.1667M1.66663 10L9.99996 14.1667L18.3333 10M9.99996 1.66667L1.66663 5.83334L9.99996 10L18.3333 5.83334L9.99996 1.66667Z"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                        </g>
+                        <defs>
+                          <clipPath id="clip0_802_30030">
+                            <rect width="20" height="20" fill="currentColor" />
+                          </clipPath>
+                        </defs>
+                      </svg>
+                    </div>
+                    <div class="display-inlineflex">Tous mes documents</div>
+                  </div>
+                  <div class="tab_arrow w-embed">
+                    <svg
+                      width="0.5rem"
+                      height="0.875rem"
+                      viewBox="0 0 8 14"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M1 13L7 7L1 1"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg></div></a
+                ><a
+                  href="/notes-documents/mes-documents-ordonnances"
+                  class="tab_link mobile w-inline-block"
+                  ><div class="w-layout-grid grid_gap_8">
+                    <div class="tab_icon w-embed">
+                      <svg
+                        width="1.25rem"
+                        height="1.25rem"
+                        viewBox="0 0 20 20"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M11.6667 1.66666H5.00004C4.55801 1.66666 4.13409 1.84225 3.82153 2.15481C3.50897 2.46737 3.33337 2.8913 3.33337 3.33332V16.6667C3.33337 17.1087 3.50897 17.5326 3.82153 17.8452C4.13409 18.1577 4.55801 18.3333 5.00004 18.3333H15C15.4421 18.3333 15.866 18.1577 16.1786 17.8452C16.4911 17.5326 16.6667 17.1087 16.6667 16.6667V6.66666M11.6667 1.66666L16.6667 6.66666M11.6667 1.66666V6.66666H16.6667M13.3334 10.8333H6.66671M13.3334 14.1667H6.66671M8.33337 7.49999H6.66671"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </div>
+                    <div class="display-inlineflex">Ordonnances</div>
+                  </div>
+                  <div class="tab_arrow w-embed">
+                    <svg
+                      width="0.5rem"
+                      height="0.875rem"
+                      viewBox="0 0 8 14"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M1 13L7 7L1 1"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg></div></a
+                ><link
+                  rel="prefetch"
+                  href="/notes-documents/mes-documents-ordonnances"
+                /><a
+                  href="/notes-documents/mes-documents-notes"
+                  class="tab_link mobile w-inline-block"
+                  ><div class="w-layout-grid grid_gap_8">
+                    <div class="tab_icon w-embed">
+                      <svg
+                        width="1.25rem"
+                        height="1.25rem"
+                        viewBox="0 0 20 20"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M13.3334 3.33332H15C15.4421 3.33332 15.866 3.50892 16.1786 3.82148C16.4911 4.13404 16.6667 4.55796 16.6667 4.99999V16.6667C16.6667 17.1087 16.4911 17.5326 16.1786 17.8452C15.866 18.1577 15.4421 18.3333 15 18.3333H5.00004C4.55801 18.3333 4.13409 18.1577 3.82153 17.8452C3.50897 17.5326 3.33337 17.1087 3.33337 16.6667V4.99999C3.33337 4.55796 3.50897 4.13404 3.82153 3.82148C4.13409 3.50892 4.55801 3.33332 5.00004 3.33332H6.66671M7.50004 1.66666H12.5C12.9603 1.66666 13.3334 2.03975 13.3334 2.49999V4.16666C13.3334 4.62689 12.9603 4.99999 12.5 4.99999H7.50004C7.0398 4.99999 6.66671 4.62689 6.66671 4.16666V2.49999C6.66671 2.03975 7.0398 1.66666 7.50004 1.66666Z"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </div>
+                    <div class="display-inlineflex">Notes</div>
+                  </div>
+                  <div class="tab_arrow w-embed">
+                    <svg
+                      width="0.5rem"
+                      height="0.875rem"
+                      viewBox="0 0 8 14"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M1 13L7 7L1 1"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg></div></a
+                ><link
+                  rel="prefetch"
+                  href="/notes-documents/mes-documents-notes"
+                /><a
+                  href="/notes-documents/mes-documents-fiches-conseils"
+                  class="tab_link mobile w-inline-block"
+                  ><div class="w-layout-grid grid_gap_8">
+                    <div class="tab_icon w-embed">
+                      <svg
+                        width="1.25rem"
+                        height="1.25rem"
+                        viewBox="0 0 20 20"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M10.8334 1.66666H5.00004C4.55801 1.66666 4.13409 1.84225 3.82153 2.15481C3.50897 2.46737 3.33337 2.8913 3.33337 3.33332V16.6667C3.33337 17.1087 3.50897 17.5326 3.82153 17.8452C4.13409 18.1577 4.55801 18.3333 5.00004 18.3333H15C15.4421 18.3333 15.866 18.1577 16.1786 17.8452C16.4911 17.5326 16.6667 17.1087 16.6667 16.6667V7.49999M10.8334 1.66666L16.6667 7.49999M10.8334 1.66666V7.49999H16.6667"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </div>
+                    <div class="display-inlineflex">Fiches conseils</div>
+                  </div>
+                  <div class="tab_arrow w-embed">
+                    <svg
+                      width="0.5rem"
+                      height="0.875rem"
+                      viewBox="0 0 8 14"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M1 13L7 7L1 1"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg></div></a
+                ><link
+                  rel="prefetch"
+                  href="/notes-documents/mes-documents-fiches-conseils"
+                /><a
+                  href="/notes-documents/mes-documents-favoris"
+                  class="tab_link mobile w-inline-block"
+                  ><div class="w-layout-grid grid_gap_8">
+                    <div class="tab_icon w-embed">
+                      <svg
+                        width="1.25rem"
+                        height="1.25rem"
+                        viewBox="0 0 20 20"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M9.99996 1.66666L12.575 6.88332L18.3333 7.72499L14.1666 11.7833L15.15 17.5167L9.99996 14.8083L4.84996 17.5167L5.83329 11.7833L1.66663 7.72499L7.42496 6.88332L9.99996 1.66666Z"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </div>
+                    <div class="display-inlineflex">Favoris</div>
+                  </div>
+                  <div class="tab_arrow w-embed">
+                    <svg
+                      width="0.5rem"
+                      height="0.875rem"
+                      viewBox="0 0 8 14"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M1 13L7 7L1 1"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg></div></a
+                ><a
+                  href="/notes-documents/mes-documents-partages"
+                  class="tab_link mobile w-inline-block"
+                  ><div class="w-layout-grid grid_gap_8">
+                    <div class="tab_icon w-embed">
+                      <svg
+                        width="1.25rem"
+                        height="1.25rem"
+                        viewBox="0 0 20 20"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <g clip-path="url(#clip0_901_11353)">
+                          <path
+                            d="M14.1667 17.5V15.8333C14.1667 14.9493 13.8155 14.1014 13.1904 13.4763C12.5652 12.8512 11.7174 12.5 10.8333 12.5H4.16667C3.28261 12.5 2.43476 12.8512 1.80964 13.4763C1.18452 14.1014 0.833332 14.9493 0.833332 15.8333V17.5M19.1667 17.5V15.8333C19.1661 15.0948 18.9203 14.3773 18.4678 13.7936C18.0153 13.2099 17.3818 12.793 16.6667 12.6083M13.3333 2.60834C14.0503 2.79192 14.6859 3.20892 15.1397 3.7936C15.5935 4.37827 15.8399 5.09736 15.8399 5.8375C15.8399 6.57765 15.5935 7.29674 15.1397 7.88141C14.6859 8.46609 14.0503 8.88309 13.3333 9.06667M10.8333 5.83333C10.8333 7.67428 9.34095 9.16667 7.5 9.16667C5.65905 9.16667 4.16667 7.67428 4.16667 5.83333C4.16667 3.99238 5.65905 2.5 7.5 2.5C9.34095 2.5 10.8333 3.99238 10.8333 5.83333Z"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                        </g>
+                        <defs>
+                          <clipPath id="clip0_901_11353">
+                            <rect width="20" height="20" fill="white" />
+                          </clipPath>
+                        </defs>
+                      </svg>
+                    </div>
+                    <div class="display-inlineflex">Partagés</div>
+                  </div>
+                  <div class="tab_arrow w-embed">
+                    <svg
+                      width="0.5rem"
+                      height="0.875rem"
+                      viewBox="0 0 8 14"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M1 13L7 7L1 1"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg></div></a
+                ><link
+                  rel="prefetch"
+                  href="/notes-documents/mes-documents-partages"
+                />
+                <div class="espace_wrapper">
+                  <div
+                    class="espace_content text-size-tiny text-color-base-700"
+                  >
+                    <div class="text-weight-semibold">Espace disponible</div>
+                    <div class="espace_bar_wrapper">
+                      <div class="bar_base">
+                        <div class="go_bar"><div class="doc_bar"></div></div>
+                      </div>
+                    </div>
+                    <div class="flex_horizontal">
+                      <div class="doc_bar_dot"></div>
+                      <div class="text_wrapper">
+                        <div class="display-inlineflex">37</div>
+                        <div class="display-inlineflex">
+                          documents créés sur 50
+                        </div>
+                      </div>
+                    </div>
+                    <div class="flex_horizontal">
+                      <div class="go_bar_dot"></div>
+                      <div class="text_wrapper">
+                        <div class="display-inlineflex">3.75</div>
+                        <div class="display-inlineflex">
+                          Go utilisés sur 5 Go
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="documents_tabs">
               <div x-data="DocumentsNavigation()" class="tabs_menu">
                 <a x-bind="allType" href="#/all" class="tab_link w-inline-block"
                   ><div class="w-layout-grid grid_gap_8">
@@ -930,7 +1250,8 @@
                 </div>
               </div>
               <div class="tabs_documents">
-                <div class="loading_container center">
+                <div x-data x-show="$store.documentsStore.getList.isLoading" class="loading_container center">
+                  <div>Loading</div>
                   <div
                     class="lottie-animation"
                     data-w-id="cb625c82-be66-9092-c9eb-8b3473677579"
@@ -945,7 +1266,7 @@
                     data-duration="0"
                   ></div>
                 </div>
-                <div x-cloak="" class="paywall_wrapper">
+                <div x-cloak="" x-data="" x-show="!$store.userStore.isAuth || !$store.userStore.hasPaidSub" class="paywall_wrapper">
                   <div class="contenu-premium">
                     <div class="w-layout-grid cont_grid">
                       <img
@@ -975,7 +1296,7 @@
                             https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/640defb985f0c0ee28b8ea2d_3D%20Illustration-p-500.png 500w,
                             https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/640defb985f0c0ee28b8ea2d_3D%20Illustration.png       792w
                           "
-                          sizes="(max-width: 767px) 100vw, (max-width: 991px) 24vw, (max-width: 1279px) 30vw, (max-width: 1439px) 28vw, 384px"
+                          sizes="100vw"
                           alt=""
                           class="key"
                         />
@@ -1037,7 +1358,7 @@
                   </div>
                 </div>
                 <div class="tabs_panel">
-                  <div x-data="" x-cloak="" class="content_main_wrapper">
+                  <div x-data x-show="$store.userStore.hasPaidSub && !($store.documentsStore.getList.isLoading) && !($store.documentsStore.getList.isEmpty)" x-cloak="" class="content_main_wrapper">
                     <div class="padding-custom24">
                       <div class="w-layout-grid header_wrapper">
                         <h2
@@ -1080,7 +1401,9 @@
                           class="submenu_new w-dropdown"
                         >
                           <div class="button is-plus w-dropdown-toggle">
-                            <div class="button_text">Nouveau</div>
+                            <div class="button_text hide-mobile-landscape">
+                              Nouveau
+                            </div>
                             <img
                               loading="lazy"
                               src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/6408e2066f91b10fe4a53c3c_plus.svg"
@@ -1223,18 +1546,13 @@
                           id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0f04-dad78133"
                           class="submenu_component"
                         >
-                          <a
-                            href="/notes-documents/mes-documents"
-                            class="context_menu_btn w-inline-block"
+                          <a href="#" class="context_menu_btn w-inline-block"
                             ><img
                               loading="lazy"
                               src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/64090e58ec104dcb5da0add0_ButtonRounded.svg"
                               alt=""
-                              class="img_full" /></a
-                          ><link
-                            rel="prefetch"
-                            href="/notes-documents/mes-documents"
-                          />
+                              class="img_full"
+                          /></a>
                           <form
                             action="/search"
                             id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0f07-dad78133"
@@ -1561,7 +1879,6 @@
                                         </div></a
                                       ><a
                                         href="#"
-                                        x-on:click="await deleteDocument($event, d)"
                                         class="sub_link color_red w-inline-block"
                                         ><div class="w-layout-grid grid_gap_8">
                                           <div
@@ -1655,9 +1972,9 @@
                     </div>
                   </div>
                   <div
-                    x-data=""
+                    x-data
+                    x-show="$store.userStore.hasPaidSub && !$store.documentsStore.getList.isLoading && $store.documentsStore.getList.isEmpty"
                     x-cloak=""
-                    x-show="false"
                     class="content_main_wrapper"
                   >
                     <div class="padding-custom24">
@@ -1731,321 +2048,6 @@
                               >Créer un document</a
                             >
                           </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="tabs_menu--mobile">
-              <div class="tabs_header mobile">
-                <h1 class="heading-h1-docs">Mes documents</h1>
-                <div class="search_mobile">
-                  <form action="/search" class="doc_search_wrapper w-form">
-                    <input
-                      type="search"
-                      class="doc_search w-input"
-                      maxlength="256"
-                      name="query"
-                      placeholder="Rechercher"
-                      id="search"
-                      required=""
-                    /><input
-                      type="submit"
-                      value="Search"
-                      class="hide w-button"
-                    />
-                  </form>
-                </div>
-              </div>
-              <div class="menu_links">
-                <a
-                  href="/notes-documents/mes-documents-mobile"
-                  class="tab_link mobile w-inline-block"
-                  ><div class="w-layout-grid grid_gap_8">
-                    <div class="tab_icon w-embed">
-                      <svg
-                        width="1.25rem"
-                        height="1.25rem"
-                        viewBox="0 0 20 20"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <g clip-path="url(#clip0_802_30030)">
-                          <path
-                            d="M1.66663 14.1667L9.99996 18.3333L18.3333 14.1667M1.66663 10L9.99996 14.1667L18.3333 10M9.99996 1.66667L1.66663 5.83334L9.99996 10L18.3333 5.83334L9.99996 1.66667Z"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                        </g>
-                        <defs>
-                          <clipPath id="clip0_802_30030">
-                            <rect width="20" height="20" fill="currentColor" />
-                          </clipPath>
-                        </defs>
-                      </svg>
-                    </div>
-                    <div class="display-inlineflex">Tous mes documents</div>
-                  </div>
-                  <div class="tab_arrow w-embed">
-                    <svg
-                      width="0.5rem"
-                      height="0.875rem"
-                      viewBox="0 0 8 14"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M1 13L7 7L1 1"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                    </svg></div></a
-                ><a
-                  href="/notes-documents/mes-documents-ordonnances"
-                  class="tab_link mobile w-inline-block"
-                  ><div class="w-layout-grid grid_gap_8">
-                    <div class="tab_icon w-embed">
-                      <svg
-                        width="1.25rem"
-                        height="1.25rem"
-                        viewBox="0 0 20 20"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M11.6667 1.66666H5.00004C4.55801 1.66666 4.13409 1.84225 3.82153 2.15481C3.50897 2.46737 3.33337 2.8913 3.33337 3.33332V16.6667C3.33337 17.1087 3.50897 17.5326 3.82153 17.8452C4.13409 18.1577 4.55801 18.3333 5.00004 18.3333H15C15.4421 18.3333 15.866 18.1577 16.1786 17.8452C16.4911 17.5326 16.6667 17.1087 16.6667 16.6667V6.66666M11.6667 1.66666L16.6667 6.66666M11.6667 1.66666V6.66666H16.6667M13.3334 10.8333H6.66671M13.3334 14.1667H6.66671M8.33337 7.49999H6.66671"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                      </svg>
-                    </div>
-                    <div class="display-inlineflex">Ordonnances</div>
-                  </div>
-                  <div class="tab_arrow w-embed">
-                    <svg
-                      width="0.5rem"
-                      height="0.875rem"
-                      viewBox="0 0 8 14"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M1 13L7 7L1 1"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                    </svg></div></a
-                ><link
-                  rel="prefetch"
-                  href="/notes-documents/mes-documents-ordonnances"
-                /><a
-                  href="/notes-documents/mes-documents-notes"
-                  class="tab_link mobile w-inline-block"
-                  ><div class="w-layout-grid grid_gap_8">
-                    <div class="tab_icon w-embed">
-                      <svg
-                        width="1.25rem"
-                        height="1.25rem"
-                        viewBox="0 0 20 20"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M13.3334 3.33332H15C15.4421 3.33332 15.866 3.50892 16.1786 3.82148C16.4911 4.13404 16.6667 4.55796 16.6667 4.99999V16.6667C16.6667 17.1087 16.4911 17.5326 16.1786 17.8452C15.866 18.1577 15.4421 18.3333 15 18.3333H5.00004C4.55801 18.3333 4.13409 18.1577 3.82153 17.8452C3.50897 17.5326 3.33337 17.1087 3.33337 16.6667V4.99999C3.33337 4.55796 3.50897 4.13404 3.82153 3.82148C4.13409 3.50892 4.55801 3.33332 5.00004 3.33332H6.66671M7.50004 1.66666H12.5C12.9603 1.66666 13.3334 2.03975 13.3334 2.49999V4.16666C13.3334 4.62689 12.9603 4.99999 12.5 4.99999H7.50004C7.0398 4.99999 6.66671 4.62689 6.66671 4.16666V2.49999C6.66671 2.03975 7.0398 1.66666 7.50004 1.66666Z"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                      </svg>
-                    </div>
-                    <div class="display-inlineflex">Notes</div>
-                  </div>
-                  <div class="tab_arrow w-embed">
-                    <svg
-                      width="0.5rem"
-                      height="0.875rem"
-                      viewBox="0 0 8 14"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M1 13L7 7L1 1"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                    </svg></div></a
-                ><link
-                  rel="prefetch"
-                  href="/notes-documents/mes-documents-notes"
-                /><a
-                  href="/notes-documents/mes-documents-fiches-conseils"
-                  class="tab_link mobile w-inline-block"
-                  ><div class="w-layout-grid grid_gap_8">
-                    <div class="tab_icon w-embed">
-                      <svg
-                        width="1.25rem"
-                        height="1.25rem"
-                        viewBox="0 0 20 20"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M10.8334 1.66666H5.00004C4.55801 1.66666 4.13409 1.84225 3.82153 2.15481C3.50897 2.46737 3.33337 2.8913 3.33337 3.33332V16.6667C3.33337 17.1087 3.50897 17.5326 3.82153 17.8452C4.13409 18.1577 4.55801 18.3333 5.00004 18.3333H15C15.4421 18.3333 15.866 18.1577 16.1786 17.8452C16.4911 17.5326 16.6667 17.1087 16.6667 16.6667V7.49999M10.8334 1.66666L16.6667 7.49999M10.8334 1.66666V7.49999H16.6667"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                      </svg>
-                    </div>
-                    <div class="display-inlineflex">Fiches conseils</div>
-                  </div>
-                  <div class="tab_arrow w-embed">
-                    <svg
-                      width="0.5rem"
-                      height="0.875rem"
-                      viewBox="0 0 8 14"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M1 13L7 7L1 1"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                    </svg></div></a
-                ><link
-                  rel="prefetch"
-                  href="/notes-documents/mes-documents-fiches-conseils"
-                /><a
-                  href="/notes-documents/mes-documents-favoris"
-                  class="tab_link mobile w-inline-block"
-                  ><div class="w-layout-grid grid_gap_8">
-                    <div class="tab_icon w-embed">
-                      <svg
-                        width="1.25rem"
-                        height="1.25rem"
-                        viewBox="0 0 20 20"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M9.99996 1.66666L12.575 6.88332L18.3333 7.72499L14.1666 11.7833L15.15 17.5167L9.99996 14.8083L4.84996 17.5167L5.83329 11.7833L1.66663 7.72499L7.42496 6.88332L9.99996 1.66666Z"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                      </svg>
-                    </div>
-                    <div class="display-inlineflex">Favoris</div>
-                  </div>
-                  <div class="tab_arrow w-embed">
-                    <svg
-                      width="0.5rem"
-                      height="0.875rem"
-                      viewBox="0 0 8 14"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M1 13L7 7L1 1"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                    </svg></div></a
-                ><a
-                  href="/notes-documents/mes-documents-partages"
-                  class="tab_link mobile w-inline-block"
-                  ><div class="w-layout-grid grid_gap_8">
-                    <div class="tab_icon w-embed">
-                      <svg
-                        width="1.25rem"
-                        height="1.25rem"
-                        viewBox="0 0 20 20"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <g clip-path="url(#clip0_901_11353)">
-                          <path
-                            d="M14.1667 17.5V15.8333C14.1667 14.9493 13.8155 14.1014 13.1904 13.4763C12.5652 12.8512 11.7174 12.5 10.8333 12.5H4.16667C3.28261 12.5 2.43476 12.8512 1.80964 13.4763C1.18452 14.1014 0.833332 14.9493 0.833332 15.8333V17.5M19.1667 17.5V15.8333C19.1661 15.0948 18.9203 14.3773 18.4678 13.7936C18.0153 13.2099 17.3818 12.793 16.6667 12.6083M13.3333 2.60834C14.0503 2.79192 14.6859 3.20892 15.1397 3.7936C15.5935 4.37827 15.8399 5.09736 15.8399 5.8375C15.8399 6.57765 15.5935 7.29674 15.1397 7.88141C14.6859 8.46609 14.0503 8.88309 13.3333 9.06667M10.8333 5.83333C10.8333 7.67428 9.34095 9.16667 7.5 9.16667C5.65905 9.16667 4.16667 7.67428 4.16667 5.83333C4.16667 3.99238 5.65905 2.5 7.5 2.5C9.34095 2.5 10.8333 3.99238 10.8333 5.83333Z"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                        </g>
-                        <defs>
-                          <clipPath id="clip0_901_11353">
-                            <rect width="20" height="20" fill="white" />
-                          </clipPath>
-                        </defs>
-                      </svg>
-                    </div>
-                    <div class="display-inlineflex">Partagés</div>
-                  </div>
-                  <div class="tab_arrow w-embed">
-                    <svg
-                      width="0.5rem"
-                      height="0.875rem"
-                      viewBox="0 0 8 14"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M1 13L7 7L1 1"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                    </svg></div></a
-                ><link
-                  rel="prefetch"
-                  href="/notes-documents/mes-documents-partages"
-                />
-                <div class="espace_wrapper">
-                  <div
-                    class="espace_content text-size-tiny text-color-base-700"
-                  >
-                    <div class="text-weight-semibold">Espace disponible</div>
-                    <div class="espace_bar_wrapper">
-                      <div class="bar_base">
-                        <div class="go_bar"><div class="doc_bar"></div></div>
-                      </div>
-                    </div>
-                    <div class="flex_horizontal">
-                      <div class="doc_bar_dot"></div>
-                      <div class="text_wrapper">
-                        <div class="display-inlineflex">37</div>
-                        <div class="display-inlineflex">
-                          documents créés sur 50
-                        </div>
-                      </div>
-                    </div>
-                    <div class="flex_horizontal">
-                      <div class="go_bar_dot"></div>
-                      <div class="text_wrapper">
-                        <div class="display-inlineflex">3.75</div>
-                        <div class="display-inlineflex">
-                          Go utilisés sur 5 Go
                         </div>
                       </div>
                     </div>
@@ -2160,6 +2162,7 @@
             </div>
             <div x-bind="drawerLoading" class="drawer_loading">
               <div class="loading_container center">
+                <div>Loading</div>
                 <div
                   class="lottie-animation"
                   data-w-id="d08456f3-a02a-a423-a7b3-56fbd60371df"
@@ -2287,7 +2290,7 @@
             method="get"
             class="create_document_content"
           >
-            <div x-bind="modalElem" class="view_wrapper edit_ordonnance">
+            <div x-bind="modalElem" class="view_wrapper edit_document">
               <div class="action_navigation">
                 <div class="action_header">
                   <h2
@@ -2383,7 +2386,7 @@
               <div
                 x-bind="beforeSaveDialog"
                 x-cloak=""
-                class="view_wrapper sauvegarder-fiche-conseil"
+                class="view_wrapper before_cancel_dialog"
               >
                 <div class="header_holder context_comment">
                   <div class="inner_header">
@@ -2488,6 +2491,36 @@
                     />
                   </div>
                 </div>
+              </div>
+            </div>
+            <div class="view_wrapper before_delete_dialog">
+              <div class="header_holder context_comment">
+                <div class="inner_header">
+                  <div class="display-inlineflex text_space">Supprimer</div>
+                  <div class="display-inlineflex hide-mobile-landscape">
+                    une ordonnance
+                  </div>
+                  <img
+                    src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/6409a60abee24b0929f62f72_cross.svg"
+                    loading="lazy"
+                    alt=""
+                    class="close_icon is_corner"
+                  />
+                </div>
+              </div>
+              <div class="comment_wrapper">
+                <p class="context_comment text-weight-light">
+                  Vous êtes sur le point de supprimer une ordonnance. Une fois
+                  la suppression confirmée, vous n’aurez plus accès à cette
+                  ordonnance.
+                </p>
+              </div>
+              <div class="w-layout-grid action_btns_form ann">
+                <a href="#" class="button is-annuler w-inline-block"
+                  ><div class="button_text">Annuler</div></a
+                ><a href="#" class="button is-docs w-inline-block"
+                  ><div class="button_text">Confirmer</div></a
+                >
               </div>
             </div>
           </form>
@@ -2684,7 +2717,7 @@
       crossorigin="anonymous"
     ></script>
     <script
-      src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/js/webflow.a1e51e0c9.js"
+      src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/js/webflow.f718489f7.js"
       type="text/javascript"
     ></script>
     <!--[if lte IE 9

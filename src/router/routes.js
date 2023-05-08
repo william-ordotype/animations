@@ -27,9 +27,12 @@ window.router = () => {
 };
 
 async function handleRouter(context, { type }) {
-  console.log(context);
   const page = context.params.page;
   const id = context.params.id;
+  if(!Alpine.store('userStore').isAuth || !Alpine.store('userStore').hasPaidSub) {
+    console.log('Not authorized to navigate')
+    return
+  }
   Alpine.store("documentsStore").getList.documentType = type;
 
   if (id) {
@@ -39,7 +42,7 @@ async function handleRouter(context, { type }) {
   } else {
     // Shows getList items
     Alpine.store("modalStore").showModal = false;
-    Alpine.store("modalStore").showDrawer = false;
+    Alpine.store("drawerStore").showDrawer = false;
 
     // Do a reload if necessary
     // TODO could be optimized

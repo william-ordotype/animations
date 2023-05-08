@@ -4,22 +4,22 @@ function DocumentsTypeNavigation() {
     return Alpine.data('DocumentsNavigation', () => ({
         allType() {
             return {
-                [":class"]: '$store.documentsStore.documentType === "" && "active"'
+                [":class"]: '$store.documentsStore.getList.documentType === "" && "active"'
             }
         },
         notesType() {
             return {
-                [":class"]: '$store.documentsStore.documentType === "notes" && "active"'
+                [":class"]: '$store.documentsStore.getList.documentType === "notes" && "active"'
             }
         },
         recommendationsType() {
             return {
-                [":class"]: '$store.documentsStore.documentType === "recommendations" && "active"'
+                [":class"]: '$store.documentsStore.getList.documentType === "recommendations" && "active"'
             }
         },
         prescriptionsType() {
             return {
-                [":class"]: '$store.documentsStore.documentType === "prescriptions" && "active"'
+                [":class"]: '$store.documentsStore.getList.documentType === "prescriptions" && "active"'
             }
         },
     }))

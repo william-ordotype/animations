@@ -17,6 +17,8 @@ import DocumentsModal from "./components/DocumentsModal";
 import CreateDocumentsNav from "./components/CreateDocumentsNav/CreateDocumentsNav";
 import myDocumentsStore from "./store/myDocuments.store";
 import modalStore from "./store/modal.store";
+import drawerStore from "./store/drawer.store";
+import userStore from "./store/user.store";
 
 window.Alpine = Alpine;
 
@@ -26,14 +28,19 @@ window.Alpine = Alpine;
  */
 async function init() {
   globals.run();
-  await consultsMemberstackAuthentication();
+  // await consultsMemberstackAuthentication();
+
+  const getUser = await $memberstackDom.getCurrentMember();
+  Alpine.store("userStore", userStore(getUser))
 }
 
 /**
  * Declaring global state to be shared among components
  */
+
 Alpine.store("documentsStore", myDocumentsStore);
 Alpine.store("modalStore", modalStore);
+Alpine.store("drawerStore", drawerStore);
 
 /**
  * Declaring local state for each component
@@ -64,6 +71,7 @@ Alpine.data("DataTableSubNav", (d) => {
 
 window.memberstack = window.memberstack || {}
 window.memberstack.instance = window.$memberstackDom;
+
 $('.create_document_form').removeClass('w-form')
 
 if (!window.Webflow) {
@@ -96,7 +104,7 @@ document.addEventListener("alpine:initialized", () => {
 });
 
 window.handleModal = ({ type }) => {
-  Alpine.store("modalStore").showDrawer = false;
+  Alpine.store("drawerStore").showDrawer = false;
   Alpine.store("modalStore").showModal = true;
 
   Alpine.store("documentsStore").createOne.document.type = type;

@@ -10,7 +10,7 @@ function DocumentsPaginationNavigation() {
         },
         pageNext() {
             return {
-                ["x-on:click"]: "handlePagination($router, +$store.documentsStore.getList.pageNumber+1 )"
+                ["x-on:click"]: "+$store.documentsStore.getList.pageNumber < +$store.documentsStore.getList.pageTotal && handlePagination($router, +$store.documentsStore.getList.pageNumber+1 )",
             }
         },
     }));

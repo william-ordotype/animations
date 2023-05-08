@@ -25,7 +25,7 @@ const myDocumentsStore = {
       const pathology = Object.assign({}, jsonData.pathology);
       const filesIds = Object.assign({}, jsonData.filesIds);
       const { _id, rich_text_ordo, title } = jsonData;
-      debugger;
+
       Alpine.store("documentsStore").showModal = true;
       window.globals.modal.form.setModalFields({
         _id,
@@ -37,6 +37,8 @@ const myDocumentsStore = {
   },
 
   getList: {
+    isLoading: false,
+    isEmpty: false,
     documents: [],
     pageNumber: null,
     pageTotal: null,
@@ -44,12 +46,30 @@ const myDocumentsStore = {
     documentType: null,
 
     async setDocuments(props = {}) {
-      const documentsResults = await this.getDocuments(props);
+      this.isLoading = true;
+      if (!Alpine.store("userStore").isAuth) {
+        this.isLoading = false;
+        return;
+      }
+      let documentsResults;
+      try {
+        documentsResults = await this.getDocuments(props);
+      } catch (err) {
+        console.error("getList error --", err);
+      }
+      // Checks if empty
+      if (documentsResults["notes"].length === 0) {
+        this.isEmpty = true;
+        this.isLoading = false;
+        return;
+      }
+      this.isEmpty = false;
       this.documents = documentsResults["notes"];
       this.pageNumber = documentsResults["page_number"];
       this.pageTotal = documentsResults["page_total"];
       this.itemsTotal = documentsResults["items_total"];
       this.documentType = this.documentType || "";
+      this.isLoading = false;
     },
     async getDocuments({
       page = 1,
@@ -80,12 +100,12 @@ const myDocumentsStore = {
         jsonData.documents = [fileRes._id];
       }
       const res = await this.postDocument(jsonData);
-      debugger;
+
       if (res.errors) {
         console.error(res);
       } else {
-        await this.getList.setDocuments({type: res.type})
-        Alpine.store('modalStore').closeModal();
+        await this.getList.setDocuments({ type: res.type });
+        Alpine.store("modalStore").closeModal();
       }
     },
     async uploadFile(files) {
@@ -110,7 +130,11 @@ const myDocumentsStore = {
 
       // Remove null properties
       for (let prop in data) {
-        if (data[prop] === '' || data[prop] === null || data[prop] === undefined) {
+        if (
+          data[prop] === "" ||
+          data[prop] === null ||
+          data[prop] === undefined
+        ) {
           delete data[prop];
         }
       }
@@ -147,30 +171,31 @@ const myDocumentsStore = {
   deleteOne: {
     async sendDocument(data) {
       try {
-        const res = await this.deleteDocument(data)
+        const res = await this.deleteDocument(data);
         if (!res.ok) {
           console.error(res.status + " Failed Fetch ");
         }
       } catch (err) {
-        console.error('EXCEPTION: ', err)
+        console.error("EXCEPTION: ", err);
       }
     },
     async deleteDocument(data) {
-      if(!data._id) {
-        console.error('Id not found')
+      if (!data._id) {
+        console.error("Id not found");
         return;
       }
-      const response = await fetch(`https://api.ordotype.fr/v1.0.0/notes/${data._id}`,
-          {
-            method: "DELETE",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${window.memberToken}`,
-            },
-          }
+      const response = await fetch(
+        `https://api.ordotype.fr/v1.0.0/notes/${data._id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${window.memberToken}`,
+          },
+        }
       );
       return await response.json();
-    }
+    },
   },
   pathologies: {
     async getList(query) {
