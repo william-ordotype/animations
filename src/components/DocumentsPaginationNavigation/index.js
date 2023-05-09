@@ -6,6 +6,7 @@ function DocumentsPaginationNavigation() {
             return {
                 ["x-text"]: "n",
                 ["x-on:click"]: "handlePagination($router, n)",
+                [":class"]: "+$store.documentsStore.getList.pageNumber === +n && 'active'"
             };
         },
         pageNext() {

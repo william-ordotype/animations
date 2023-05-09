@@ -58,7 +58,12 @@ Alpine.data("DataTableSubNav", (d) => {
       ev.preventDefault();
       await Alpine.store('modalStore').openModal(d,{type: d.type})
     },
-    async deleteDocument(ev, d) {
+    openDeleteDocument(ev, d) {
+      ev.preventDefault();
+      Alpine.store('modalStore').openBeforeDelete(d)
+    },
+
+    async deleteDocument2(ev, d) {
       ev.preventDefault();
       await Alpine.store('documentsStore').deleteOne.sendDocument(d)
     }

@@ -26,7 +26,7 @@ function DocumentsModal() {
       },
       modalBackdrop() {
         return {
-          ["x-show"]: "modalStore.showModal",
+          ["x-show"]: "modalStore.showModal || modalStore.showBeforeDelete",
           ["x-trap.noscroll"]: "modalStore.showModal",
           ["x-transition"]: "",
         };
@@ -45,9 +45,9 @@ function DocumentsModal() {
       modalDialogBackdrop() {
         return {
           ["x-show"]:
-            "modalStore.showBeforeSave || modalStore.showBeforeCancel",
+            "modalStore.showBeforeSave || modalStore.showBeforeCancel || modalStore.showBeforeDelete",
           ["x-bind:class"]:
-            "(modalStore.showBeforeSave || modalStore.showBeforeCancel) && 'active'",
+            "(modalStore.showBeforeSave || modalStore.showBeforeCancel || modalStore.showBeforeDelete) && 'active'",
         };
       },
       beforeSaveDialog(isShow) {
@@ -73,12 +73,18 @@ function DocumentsModal() {
           ["x-on:click.prevent"]: "modalStore.closeModal()",
         };
       },
-      beforeCancelDialog(isShow) {
+      beforeCancelDialog() {
         return {
           ["x-show"]: "modalStore.showBeforeCancel",
           ["x-trap"]: "modalStore.showBeforeCancel",
         };
       },
+      beforeDeleteDialog() {
+        return {
+          ["x-show"]: "modalStore.showBeforeDelete",
+          ["x-trap"]: "modalStore.showBeforeDelete",
+        }
+      }
     };
   });
 }

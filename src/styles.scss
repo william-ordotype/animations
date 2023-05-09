@@ -3,3 +3,9 @@
   background: #fff;
   height: 300px;
 }
+
+.modal_dialog_backdrop.active {
+  position: absolute;
+  inset: 0px;
+  background: rgba(12, 14, 22, 0.5);
+}

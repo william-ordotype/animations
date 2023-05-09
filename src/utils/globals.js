@@ -151,6 +151,29 @@ globals.modal = {
         },
       },
     },
+    delete: {
+      prescriptions: {
+        beforeDelete: {
+          title: "une ordonnance",
+          description:
+            "Vous êtes sur le point de supprimer une ordonnance. Une fois la suppression confirmée, vous n’aurez plus accès à cette ordonnance.",
+        },
+      },
+      notes: {
+        beforeDelete: {
+          title: "une note",
+          description:
+            "Vous êtes sur le point de supprimer une note. Une fois la suppression confirmée, vous n’aurez plus accès à cette note.",
+        },
+      },
+      recommendations: {
+        beforeDelete: {
+          title: "une fiche conseil",
+          description:
+            "Vous êtes sur le point de supprimer une fiche conseil. Une fois la suppression confirmée, vous n’aurez plus accès à cette fiche conseil.",
+        },
+      },
+    },
   },
 };
 

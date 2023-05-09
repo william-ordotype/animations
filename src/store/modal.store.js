@@ -7,7 +7,6 @@ const modalStore = {
   showBeforeCancel: false,
   showBeforeDelete: false,
   loadModal: true,
-
   form: {
     _id: "",
     title: "",
@@ -35,7 +34,8 @@ const modalStore = {
       );
       this.form.documents = note.documents.length > 0 ? note.documents : [];
       this.form.type = note.type;
-      this.form.pathology = note.pathology.length > 0 ? note.pathology[0]._id : [];
+      this.form.pathology =
+        note.pathology.length > 0 ? note.pathology[0]._id : [];
     } else {
       this.form._id = "";
       this.form.title = "";
@@ -45,6 +45,32 @@ const modalStore = {
       this.form.pathology = [];
     }
     this.showModal = true;
+  },
+  deleteObject: {},
+  openBeforeDelete(doc) {
+    this.showBeforeDelete = true;
+    this.deleteObject = doc;
+  },
+  contentBeforeDelete(container, elem) {
+    const type = this.deleteObject.type || "";
+    const mutation = "delete";
+    const obj = { ...window.globals.modal.content };
+
+    return type ? obj[mutation][type][container][elem] : undefined;
+  },
+  closeBeforeDelete(ev) {
+    if (ev) {
+      ev.preventDefault();
+    }
+    this.showBeforeDelete = false;
+    this.deleteObject = {};
+  },
+  async submitDelete(ev) {
+    ev.preventDefault();
+    await Alpine.store("documentsStore").deleteOne.sendDocument(
+      this.deleteObject
+    );
+    this.closeBeforeDelete();
   },
   closeModal() {
     // clear dynamic fields
@@ -59,7 +85,8 @@ const modalStore = {
     this.files = [];
 
     // clear local fields
-    globals.createRTE.container.querySelector('.ql-editor').innerHTML = ""},
+    globals.createRTE.container.querySelector(".ql-editor").innerHTML = "";
+  },
   async submitForm(ev) {
     console.log("submitting");
     this.form.rich_text_ordo = window.globals.createRTE.root.innerHTML;
@@ -76,7 +103,10 @@ const modalStore = {
       // Sanitize the string value of each property using DOMPurify
       form[key] = DOMPurify.sanitize(form[key]);
     });
-    await Alpine.store("documentsStore").createOne.sendDocument(form, this.files);
+    await Alpine.store("documentsStore").createOne.sendDocument(
+      form,
+      this.files
+    );
 
     this.closeModal();
   },
