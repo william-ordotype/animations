@@ -21,41 +21,6 @@ globals.drawer = {
 globals.autocomplete = autocomplete;
 
 globals.modal = {
-  form: {
-    pathologyAutocomplete: globals.autocomplete({
-      container: "#pathology-autocomplete",
-      detachedMediaQuery: "none",
-      debug: true,
-      async getSources({ query = "" }) {
-        const res = await Alpine.store("documentsStore").pathologies.getList(
-          query
-        );
-        return [
-          {
-            sourceId: "pathologies",
-            getItems(query) {
-              return res.pathologies || [];
-            },
-            getItemInputValue({ item }) {
-              return item.title;
-            },
-            templates: {
-              item({ item, html }) {
-                return html`<div>${item.title}</div>`;
-              },
-            },
-            onSelect() {
-              console.log("selected");
-            },
-          },
-        ];
-      },
-      renderNoResults({ state, render }, root) {
-        render(`No results for "${state.query}".`, root);
-      },
-    }),
-    handleFormSubmit,
-  },
   content: {
     create: {
       notes: {

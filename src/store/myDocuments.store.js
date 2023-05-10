@@ -1,11 +1,13 @@
 import Alpine from "alpinejs";
 
+const API_URL = 'https://api.ordotype.fr/v1.0.0/notes'
+
 const myDocumentsStore = {
   getOne: {
     document: {},
     async getDocument({ id } = {}) {
       const response = await fetch(
-        `https://api.ordotype.fr/v1.0.0/notes/${id}`,
+        `${API_URL}/${id}`,
         {
           method: "GET",
           headers: {
@@ -79,7 +81,7 @@ const myDocumentsStore = {
       type = this.documentType || "",
     } = {}) {
       const response = await fetch(
-        `https://api.ordotype.fr/v1.0.0/notes?page=${page}&limit=${limit}&sort=${sort}&direction=${direction}&type=${type}`,
+        `${API_URL}?page=${page}&limit=${limit}&sort=${sort}&direction=${direction}&type=${type}`,
         {
           method: "GET",
           headers: {
@@ -141,8 +143,8 @@ const myDocumentsStore = {
 
       const response = await fetch(
         data._id
-          ? `https://api.ordotype.fr/v1.0.0/notes/${data._id}`
-          : `https://api.ordotype.fr/v1.0.0/notes`,
+          ? `${API_URL}/${data._id}`
+          : `${API_URL}`,
         {
           method: data._id ? "PUT" : "POST",
           headers: {
@@ -185,7 +187,7 @@ const myDocumentsStore = {
         return;
       }
       const response = await fetch(
-        `https://api.ordotype.fr/v1.0.0/notes/${data._id}`,
+        `${API_URL}/${data._id}`,
         {
           method: "DELETE",
           headers: {

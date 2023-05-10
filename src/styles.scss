@@ -1,7 +1,11 @@
 .aa-PanelLayout {
   z-index: 99999;
   background: #fff;
-  height: 300px;
+  max-height: 300px;
+}
+
+#aa-pathology-label {
+  margin-bottom: -2px;
 }
 
 .modal_dialog_backdrop.active {

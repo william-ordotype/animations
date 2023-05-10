@@ -15,6 +15,7 @@ const modalStore = {
     documents: [],
     type: "",
   },
+  pathologyName: "",
   files: [],
   content(container, elem) {
     const dt = this.form.type;

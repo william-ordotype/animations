@@ -2461,7 +2461,7 @@
                       <option value="Third">Third choice</option>
                     </select>
                   </div>
-                  <div class="action_search_wrapper">
+                  <div class="action_search_wrapper" x-data="PathologiesAutocomplete()">
                     <div
                       x-text="$store.modalStore.content(&#x27;beforeSave&#x27;, &#x27;inputPathology&#x27;)"
                       class="text-weight-light context_comment"
@@ -2479,10 +2479,10 @@
                         <div id="pathology-autocomplete"></div>
                       </div>
                     </div>
-                    <div class="search_result_wrapper context_comment">
+                    <div x-bind="showSearchResults" class="search_result_wrapper context_comment">
                       <div class="search_result_holder">
                         <div class="inner_header">
-                          <div class="display-inlineflex text-weight-semibold">
+                          <div x-text="$store.modalStore.pathologyName" class="display-inlineflex text-weight-semibold">
                             Pathologie
                           </div>
                           <img

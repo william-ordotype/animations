@@ -6,7 +6,7 @@ import Alpine from "alpinejs";
 import "./router/routes";
 import "./router/pagination";
 import globals from "./utils/globals";
-import './styles.scss';
+import "./styles.scss";
 
 import consultsMemberstackAuthentication from "./authentication";
 import DocumentsDataTable from "./components/DocumentsDataTable";
@@ -31,7 +31,7 @@ async function init() {
   // await consultsMemberstackAuthentication();
 
   const getUser = await $memberstackDom.getCurrentMember();
-  Alpine.store("userStore", userStore(getUser))
+  Alpine.store("userStore", userStore(getUser));
 }
 
 /**
@@ -56,28 +56,83 @@ Alpine.data("DataTableSubNav", (d) => {
   return {
     async showEditModal(ev, d) {
       ev.preventDefault();
-      await Alpine.store('modalStore').openModal(d,{type: d.type})
+      await Alpine.store("modalStore").openModal(d, { type: d.type });
     },
     openDeleteDocument(ev, d) {
       ev.preventDefault();
-      Alpine.store('modalStore').openBeforeDelete(d)
+      Alpine.store("modalStore").openBeforeDelete(d);
     },
+  };
+});
 
-    async deleteDocument2(ev, d) {
-      ev.preventDefault();
-      await Alpine.store('documentsStore').deleteOne.sendDocument(d)
+Alpine.data("PathologiesAutocomplete", () => ({
+  pathologyInputValue: Alpine.store('modalStore').pathologyName,
+  showSearchResults() {
+    return {
+      ["x-show"]: "$store.modalStore.form.pathology.length",
+      ["x-transition"]: ""
     }
+  },
+  init() {
+    Alpine.effect(() => {
+      console.log('Effected')
+    })
+    globals.autocomplete({
+      container: "#pathology-autocomplete",
+      placeholder: "Rechercher une pathologie",
+      id: 'aa-pathology',
+      detachedMediaQuery: "none",
+      debug: true,
+      async getSources({ query = "" }) {
+        const res = await Alpine.store("documentsStore").pathologies.getList(
+            query
+        );
+        return [
+          {
+            sourceId: "pathologies",
+            getItems(query) {
+              return res.pathologies || [];
+            },
+            getItemInputValue({ item }) {
+              return item.title;
+            },
+            templates: {
+              item({ item, html }) {
+                return html`<div>${item.title}</div>`;
+              },
+            },
+            onSelect(obj) {
+              console.log(obj)
+              Alpine.store('modalStore').form.pathology = [obj.item._id];
+              Alpine.store('modalStore').pathologyName = obj.item.title
+              $('#aa-pathology-input').attr('disabled', true);
+              $('#pathology-autocomplete .aa-InputWrapper, #pathology-autocomplete .aa-InputWrapperSuffix').hide();
+              $('#pathology-autocomplete .aa-Form').css('background', '#ccc')
+            },
+
+          },
+        ];
+      },
+      onReset(obj) {
+        console.log('reset', obj);
+        Alpine.store('modalStore').form.pathology = []
+        Alpine.store('modalStore').pathologyName = ""
+      },
+      renderNoResults({ state, render }, root) {
+        render(`No results for "${state.query}".`, root);
+      },
+    })
   }
-})
+}));
 
 /**
  Runs program
  */
 
-window.memberstack = window.memberstack || {}
+window.memberstack = window.memberstack || {};
 window.memberstack.instance = window.$memberstackDom;
 
-$('.create_document_form').removeClass('w-form')
+$(".create_document_form").removeClass("w-form");
 
 if (!window.Webflow) {
   window.Webflow = [];
@@ -95,7 +150,7 @@ window.Webflow.push(() => {
     $("#wf-form-mutateDocument").submit(async function (ev) {
       console.log("WF form submit");
       ev.preventDefault();
-      await Alpine.store('modalStore').submitForm(ev);
+      await Alpine.store("modalStore").submitForm(ev);
       return false;
     });
   });
