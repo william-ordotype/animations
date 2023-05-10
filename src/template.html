@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Last Published: Tue May 09 2023 03:19:01 GMT+0000 (Coordinated Universal Time) -->
+<!-- Last Published: Wed May 10 2023 23:34:54 GMT+0000 (Coordinated Universal Time) -->
 <html
   data-wf-domain="ordotype.webflow.io"
   data-wf-page="6428de0a13003e96dad78133"
@@ -17,7 +17,7 @@
       name="google-site-verification"
     />
     <link
-      href="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.3c37d0acd.min.css"
+      href="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.38777cb09.min.css"
       rel="stylesheet"
       type="text/css"
     />
@@ -460,8 +460,15 @@
             display: none; /* for Chrome, Safari, and Opera, if remove this the navbar will not consider the scrollbar so is more big than the body */
          }
 
+         /* Removes native scrollbar */
+         .no-scrollbar {
+           -ms-overflow-style: none;  // IE 10+
+         overflow: -moz-scrollbars-none;  // Firefox
+         }
+
          .no-scrollbar::-webkit-scrollbar {
-           display: none; /* for Chrome, Safari, and Opera, if remove this the navbar will not consider the scrollbar so is more big than the body */
+           display: none; // Safari and Chrome
+         } /* for Chrome, Safari, and Opera, if remove this the navbar will not consider the scrollbar so is more big than the body */
          }
 
 
@@ -485,6 +492,14 @@
          .button_normal:hover {
            background-position: right;
          }
+
+
+         .splide__slide {
+           width: auto !important;}
+
+         @media screen and (min-width:767px) {
+           .splide__list {
+             display: grid !important;} }
       </style>
     </div>
     <div
@@ -1305,7 +1320,7 @@
                             https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/640defb985f0c0ee28b8ea2d_3D%20Illustration-p-500.png 500w,
                             https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/640defb985f0c0ee28b8ea2d_3D%20Illustration.png       792w
                           "
-                          sizes="(max-width: 767px) 100vw, (max-width: 991px) 24vw, (max-width: 1279px) 30vw, (max-width: 1439px) 28vw, 384px"
+                          sizes="100vw"
                           alt=""
                           class="key"
                         />
@@ -1893,7 +1908,6 @@
                                         </div></a
                                       ><a
                                         href="#"
-                                        x-on:click="openDeleteDocument($event, d)"
                                         class="sub_link color_red w-inline-block"
                                         ><div class="w-layout-grid grid_gap_8">
                                           <div
@@ -2059,9 +2073,157 @@
                             </div>
                           </div>
                           <div class="padding-top padding-xmedium">
-                            <a href="#" class="button is-empty w-button"
-                              >Créer un document</a
+                            <div
+                              data-hover="false"
+                              data-delay="0"
+                              class="submenu_new w-dropdown"
                             >
+                              <div class="button is-plus w-dropdown-toggle">
+                                <div class="button_text hide-mobile-landscape">
+                                  Créer un document
+                                </div>
+                                <img
+                                  loading="lazy"
+                                  src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/6408e2066f91b10fe4a53c3c_plus.svg"
+                                  alt=""
+                                  class="icon_plus"
+                                />
+                              </div>
+                              <nav
+                                x-data="CreateDocumentsNav()"
+                                class="sub_list_new w-dropdown-list"
+                              >
+                                <a
+                                  x-bind="prescriptionsNewType"
+                                  href="#"
+                                  class="sub_link w-inline-block"
+                                  ><div class="w-layout-grid grid_gap_8">
+                                    <div class="tab_icon w-embed">
+                                      <svg
+                                        width="1.25rem"
+                                        height="1.25rem"
+                                        viewBox="0 0 20 20"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                      >
+                                        <path
+                                          d="M11.6667 1.66666H5.00004C4.55801 1.66666 4.13409 1.84225 3.82153 2.15481C3.50897 2.46737 3.33337 2.8913 3.33337 3.33332V16.6667C3.33337 17.1087 3.50897 17.5326 3.82153 17.8452C4.13409 18.1577 4.55801 18.3333 5.00004 18.3333H15C15.4421 18.3333 15.866 18.1577 16.1786 17.8452C16.4911 17.5326 16.6667 17.1087 16.6667 16.6667V6.66666M11.6667 1.66666L16.6667 6.66666M11.6667 1.66666V6.66666H16.6667M13.3334 10.8333H6.66671M13.3334 14.1667H6.66671M8.33337 7.49999H6.66671"
+                                          stroke="currentColor"
+                                          stroke-width="2"
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round"
+                                        />
+                                      </svg>
+                                    </div>
+                                    <div class="display-inlineflex">
+                                      Ordonnance
+                                    </div>
+                                  </div></a
+                                ><a
+                                  x-bind="notesNewType"
+                                  href="#"
+                                  class="sub_link borders w-inline-block"
+                                  ><div class="w-layout-grid grid_gap_8">
+                                    <div class="tab_icon w-embed">
+                                      <svg
+                                        width="1.25rem"
+                                        height="1.25rem"
+                                        viewBox="0 0 20 20"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                      >
+                                        <path
+                                          d="M13.3334 3.33332H15C15.4421 3.33332 15.866 3.50892 16.1786 3.82148C16.4911 4.13404 16.6667 4.55796 16.6667 4.99999V16.6667C16.6667 17.1087 16.4911 17.5326 16.1786 17.8452C15.866 18.1577 15.4421 18.3333 15 18.3333H5.00004C4.55801 18.3333 4.13409 18.1577 3.82153 17.8452C3.50897 17.5326 3.33337 17.1087 3.33337 16.6667V4.99999C3.33337 4.55796 3.50897 4.13404 3.82153 3.82148C4.13409 3.50892 4.55801 3.33332 5.00004 3.33332H6.66671M7.50004 1.66666H12.5C12.9603 1.66666 13.3334 2.03975 13.3334 2.49999V4.16666C13.3334 4.62689 12.9603 4.99999 12.5 4.99999H7.50004C7.0398 4.99999 6.66671 4.62689 6.66671 4.16666V2.49999C6.66671 2.03975 7.0398 1.66666 7.50004 1.66666Z"
+                                          stroke="currentColor"
+                                          stroke-width="2"
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round"
+                                        />
+                                      </svg>
+                                    </div>
+                                    <div class="display-inlineflex">Note</div>
+                                  </div></a
+                                ><a
+                                  x-bind="recommendationsNewType"
+                                  href="#"
+                                  class="sub_link w-inline-block"
+                                  ><div class="w-layout-grid grid_gap_8">
+                                    <div class="tab_icon w-embed">
+                                      <svg
+                                        width="1.25rem"
+                                        height="1.25rem"
+                                        viewBox="0 0 20 20"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                      >
+                                        <path
+                                          d="M9.66732 1.66666H3.00065C2.55862 1.66666 2.1347 1.84225 1.82214 2.15481C1.50958 2.46737 1.33398 2.8913 1.33398 3.33332V16.6667C1.33398 17.1087 1.50958 17.5326 1.82214 17.8452C2.1347 18.1577 2.55862 18.3333 3.00065 18.3333H13.0007C13.4427 18.3333 13.8666 18.1577 14.1792 17.8452C14.4917 17.5326 14.6673 17.1087 14.6673 16.6667V6.66666M9.66732 1.66666L14.6673 6.66666M9.66732 1.66666V6.66666H14.6673M8.00065 15V9.99999M5.50065 12.5H10.5007"
+                                          stroke="currentColor"
+                                          stroke-width="2"
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round"
+                                        />
+                                      </svg>
+                                    </div>
+                                    <div class="display-inlineflex">
+                                      Fiche conseil
+                                    </div>
+                                  </div></a
+                                ><a
+                                  href="#"
+                                  class="sub_link borders w-inline-block"
+                                  ><div class="w-layout-grid grid_gap_8">
+                                    <div
+                                      class="tab_icon display-inlineflex w-embed"
+                                    >
+                                      <svg
+                                        width="1.25rem"
+                                        height="1.25rem"
+                                        viewBox="0 0 20 20"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                      >
+                                        <path
+                                          d="M13.3325 12.3333L9.99922 9.00001M9.99922 9.00001L6.66588 12.3333M9.99922 9.00001V16.5M16.9909 14.325C17.8037 13.8819 18.4458 13.1807 18.8158 12.3322C19.1858 11.4836 19.2627 10.536 19.0344 9.63891C18.8061 8.74179 18.2855 7.94626 17.5548 7.37787C16.8241 6.80948 15.925 6.50061 14.9992 6.5H13.9492C13.697 5.52436 13.2269 4.61861 12.5742 3.85082C11.9215 3.08304 11.1033 2.47321 10.181 2.06717C9.2587 1.66113 8.25636 1.46946 7.24933 1.50657C6.2423 1.54367 5.25679 1.80858 4.36688 2.28138C3.47697 2.75419 2.70583 3.42258 2.11142 4.23632C1.51701 5.05005 1.11481 5.98794 0.935051 6.97949C0.755293 7.97104 0.802655 8.99044 1.07358 9.96105C1.3445 10.9317 1.83194 11.8282 2.49923 12.5833"
+                                          stroke="currentColor"
+                                          stroke-width="2"
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round"
+                                        />
+                                      </svg>
+                                    </div>
+                                    <div class="display-inlineflex">
+                                      Importer un fichier
+                                    </div>
+                                  </div></a
+                                ><a href="#" class="sub_link w-inline-block"
+                                  ><div class="w-layout-grid grid_gap_8">
+                                    <div
+                                      class="tab_icon display-inlineflex w-embed"
+                                    >
+                                      <svg
+                                        width="1.25rem"
+                                        height="1.25rem"
+                                        viewBox="0 0 20 20"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                      >
+                                        <path
+                                          d="M18.3327 14.8333C18.3327 15.2754 18.1571 15.6993 17.8445 16.0118C17.532 16.3244 17.108 16.5 16.666 16.5H3.33268C2.89065 16.5 2.46673 16.3244 2.15417 16.0118C1.84161 15.6993 1.66602 15.2754 1.66602 14.8333V3.16667C1.66602 2.72464 1.84161 2.30072 2.15417 1.98816C2.46673 1.67559 2.89065 1.5 3.33268 1.5H7.49935L9.16602 4H16.666C17.108 4 17.532 4.17559 17.8445 4.48816C18.1571 4.80072 18.3327 5.22464 18.3327 5.66667V14.8333Z"
+                                          stroke="currentColor"
+                                          stroke-width="2"
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round"
+                                        />
+                                      </svg>
+                                    </div>
+                                    <div class="display-inlineflex">
+                                      Créer un dossier
+                                    </div>
+                                  </div></a
+                                >
+                              </nav>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -2461,7 +2623,10 @@
                       <option value="Third">Third choice</option>
                     </select>
                   </div>
-                  <div class="action_search_wrapper" x-data="PathologiesAutocomplete()">
+                  <div
+                    x-data="PathologiesAutocomplete()"
+                    class="action_search_wrapper"
+                  >
                     <div
                       x-text="$store.modalStore.content(&#x27;beforeSave&#x27;, &#x27;inputPathology&#x27;)"
                       class="text-weight-light context_comment"
@@ -2479,10 +2644,16 @@
                         <div id="pathology-autocomplete"></div>
                       </div>
                     </div>
-                    <div x-bind="showSearchResults" class="search_result_wrapper context_comment">
-                      <div class="search_result_holder">
+                    <div class="search_result_wrapper context_comment">
+                      <div
+                        x-bind="showSearchResults"
+                        class="search_result_holder"
+                      >
                         <div class="inner_header">
-                          <div x-text="$store.modalStore.pathologyName" class="display-inlineflex text-weight-semibold">
+                          <div
+                            x-text="$store.modalStore.pathologyName"
+                            class="display-inlineflex text-weight-semibold"
+                          >
                             Pathologie
                           </div>
                           <img
@@ -2508,14 +2679,14 @@
                 </div>
               </div>
               <div
-                class="view_wrapper before_delete_dialog"
                 x-bind="beforeDeleteDialog"
+                class="view_wrapper before_delete_dialog"
               >
                 <div class="header_holder context_comment">
                   <div class="inner_header">
                     <div class="display-inlineflex text_space">Supprimer</div>
                     <div
-                      x-text="$store.modalStore.contentBeforeDelete('beforeDelete','title')"
+                      x-text="$store.modalStore.contentBeforeDelete(&#x27;beforeDelete&#x27;,&#x27;title&#x27;)"
                       class="display-inlineflex hide-mobile-landscape"
                     >
                       une ordonnance
@@ -2523,15 +2694,15 @@
                     <img
                       src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/6409a60abee24b0929f62f72_cross.svg"
                       loading="lazy"
+                      x-on:click="$store.modalStore.closeBeforeDelete()"
                       alt=""
                       class="close_icon is_corner"
-                      x-on:click="$store.modalStore.closeBeforeDelete()"
                     />
                   </div>
                 </div>
                 <div class="comment_wrapper">
                   <p
-                    x-text="$store.modalStore.contentBeforeDelete('beforeDelete','description')"
+                    x-text="$store.modalStore.contentBeforeDelete(&#x27;beforeDelete&#x27;,&#x27;description&#x27;)"
                     class="context_comment text-weight-light"
                   >
                     Vous êtes sur le point de supprimer une ordonnance. Une fois
@@ -2748,12 +2919,9 @@
       crossorigin="anonymous"
     ></script>
     <script
-      src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/js/webflow.f718489f7.js"
+      src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/js/webflow.cb438acff.js"
       type="text/javascript"
     ></script>
-    <!--[if lte IE 9
-      ]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script
-    ><![endif]-->
     <!-- Google Tag Manager (noscript) -->
     <noscript
       ><iframe
@@ -2770,13 +2938,12 @@
       defer
       src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"
     ></script>
+    <!--<script defer src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@18bfba1dba61e01f2233f0eb0f040ea98f8fe138/elastic-v2.js"></script>-->
     <script
       defer
-      src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@18bfba1dba61e01f2233f0eb0f040ea98f8fe138/elastic-v2.js"
+      src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@077d0cd4885e788e7fcadfe4195f33acdf2936c1/ordotype-index-2023-05-09.js"
     ></script>
-    <!--
-<script defer src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@2298f811a3fc88f198e0ac3f5114f787eeceff7a/elastic-v1.js"></script>
--->
+
     <script
       defer
       src="https://cdn.jsdelivr.net/npm/algoliasearch@4.14.2/dist/algoliasearch.umd.js"

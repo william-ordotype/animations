@@ -1,20 +1,17 @@
 import Alpine from "alpinejs";
 
-const API_URL = 'https://api.ordotype.fr/v1.0.0/notes'
+const API_URL = "https://api.ordotype.fr/v1.0.0/notes";
 
 const myDocumentsStore = {
   getOne: {
     document: {},
     async getDocument({ id } = {}) {
-      const response = await fetch(
-        `${API_URL}/${id}`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${window.memberToken}`,
-          },
-        }
-      );
+      const response = await fetch(`${API_URL}/${id}`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${window.memberToken}`,
+        },
+      });
       return await response.json();
     },
     async setDocument(props) {
@@ -46,6 +43,7 @@ const myDocumentsStore = {
     pageTotal: null,
     itemsTotal: null,
     documentType: null,
+    documentTypeTitle: null,
 
     async setDocuments(props = {}) {
       this.isLoading = true;
@@ -106,7 +104,9 @@ const myDocumentsStore = {
       if (res.errors) {
         console.error(res);
       } else {
-        await this.getList.setDocuments({ type: res.type });
+        await Alpine.store("documentsStore").getList.setDocuments({
+          type: res.type,
+        });
         Alpine.store("modalStore").closeModal();
       }
     },
@@ -142,9 +142,7 @@ const myDocumentsStore = {
       }
 
       const response = await fetch(
-        data._id
-          ? `${API_URL}/${data._id}`
-          : `${API_URL}`,
+        data._id ? `${API_URL}/${data._id}` : `${API_URL}`,
         {
           method: data._id ? "PUT" : "POST",
           headers: {
@@ -186,16 +184,13 @@ const myDocumentsStore = {
         console.error("Id not found");
         return;
       }
-      const response = await fetch(
-        `${API_URL}/${data._id}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${window.memberToken}`,
-          },
-        }
-      );
+      const response = await fetch(`${API_URL}/${data._id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${window.memberToken}`,
+        },
+      });
       return await response.json();
     },
   },

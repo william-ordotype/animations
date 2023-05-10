@@ -148,6 +148,7 @@ window.Webflow.push(() => {
     Alpine.start();
 
     $("#wf-form-mutateDocument").submit(async function (ev) {
+      debugger;
       console.log("WF form submit");
       ev.preventDefault();
       await Alpine.store("modalStore").submitForm(ev);

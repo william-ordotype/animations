@@ -8,15 +8,19 @@ window.router = () => {
       }
     },
     async allDocuments(context, props) {
+      Alpine.store('documentsStore').getList.documentTypeTitle = "Tous mes documents"
       await handleRouter(context, { type: "" });
     },
     async notesDocs(context) {
+      Alpine.store('documentsStore').getList.documentTypeTitle = "Notes"
       await handleRouter(context, { type: "notes" });
     },
     async ordonnances(context) {
+      Alpine.store('documentsStore').getList.documentTypeTitle = "Ordonannces"
       await handleRouter(context, { type: "prescriptions" });
     },
     async conseils(context) {
+      Alpine.store('documentsStore').getList.documentTypeTitle = "Conseils patients"
       await handleRouter(context, { type: "recommendations" });
     },
     notfound(context) {
