@@ -74,7 +74,6 @@ const modalStore = {
     this.closeBeforeDelete();
   },
   closeModal() {
-    debugger;
     // clear dynamic fields
     this.showModal = false;
     this.showBeforeSave = false;
@@ -110,7 +109,6 @@ const modalStore = {
       this.files
     );
 
-    debugger;
     this.closeModal();
   },
 };

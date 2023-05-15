@@ -28,7 +28,6 @@ async function consultsMemberstackAuthentication() {
     // Shows authenticated state
     window.memberToken = window.memberstack?.instance.getMemberCookie();
     $(".paywall_wrapper").hide();
-    debugger
     $(".content_main_wrapper").show();
 
     window.memberstack.user = window.memberstack.user || user.data;

@@ -35,7 +35,7 @@ function objectToHash(obj) {
 window.handlePagination = (routerParams, pageNumber) => {
   const page = pageNumber || routerParams.page;
   let newQuery;
-debugger;
+
   if(pageNumber > Alpine.store('documentsStore').getList.pageTotal) {
     console.log('No more pages')
     return;

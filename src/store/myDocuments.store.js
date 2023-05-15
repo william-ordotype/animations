@@ -3,6 +3,7 @@ import Alpine from "alpinejs";
 const API_URL = "https://api.ordotype.fr/v1.0.0/notes";
 
 const myDocumentsStore = {
+  completedAction: false,
   getOne: {
     document: {},
     async getDocument({ id } = {}) {
@@ -104,10 +105,12 @@ const myDocumentsStore = {
       if (res.errors) {
         console.error(res);
       } else {
-        await Alpine.store("documentsStore").getList.setDocuments({
-          type: res.type,
-        });
         Alpine.store("modalStore").closeModal();
+        Alpine.store("documentsStore").getList.isLoading = true;
+        await Alpine.store("documentsStore").getList.setDocuments({
+          type: Alpine.store('documentsStore').getList.documentType,
+        });
+        Alpine.store("documentsStore").getList.isLoading = false;
       }
     },
     async uploadFile(files) {
