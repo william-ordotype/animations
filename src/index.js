@@ -8,7 +8,6 @@ import "./router/pagination";
 import globals from "./utils/globals";
 import "./styles.scss";
 
-import consultsMemberstackAuthentication from "./authentication";
 import DocumentsDataTable from "./components/DocumentsDataTable";
 import DocumentsPaginationNavigation from "./components/DocumentsPaginationNavigation";
 import DocumentsTypeNavigation from "./components/DocumentsTypeNavigation";
