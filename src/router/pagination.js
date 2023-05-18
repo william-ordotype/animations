@@ -33,6 +33,7 @@ function objectToHash(obj) {
 }
 
 window.handlePagination = (routerParams, pageNumber) => {
+  debugger;
   const page = pageNumber || routerParams.page;
   let newQuery;
 
@@ -40,8 +41,8 @@ window.handlePagination = (routerParams, pageNumber) => {
     console.log('No more pages')
     return;
   }
-  if (routerParams.hash.includes("?")) {
-    const query = routerParams.hash.split("?");
+  if (routerParams.path.includes("?")) {
+    const query = routerParams.path.split("?");
     const hashObj = hashToObject(query[1]);
 
     if (hashObj.page) {
@@ -50,7 +51,7 @@ window.handlePagination = (routerParams, pageNumber) => {
     const urlHash = objectToHash(hashObj);
     newQuery = query[0] + "?" + urlHash;
   } else {
-    newQuery = routerParams.hash + "?page=" + page;
+    newQuery = routerParams.path + "?page=" + page;
   }
 
   routerParams.navigate(newQuery);

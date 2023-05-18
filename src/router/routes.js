@@ -4,24 +4,39 @@ window.router = () => {
   return {
     redirectToAll(context) {
       if (context.path === "/") {
-        context.redirect("/all");
+        context.redirect("/list");
       }
     },
-    async allDocuments(context, props) {
-      Alpine.store('documentsStore').getList.documentTypeTitle = "Tous mes documents"
-      await handleRouter(context, { type: "" });
+    async listDocuments(context) {
+      let type;
+      let listTitle;
+      switch(context.params.type) {
+        case 'notes':
+          type = context.params.type;
+          listTitle = "Notes"
+          break;
+        case 'recommendations':
+          type = context.params.type;
+          listTitle = "Recommendations"
+          break;
+        case 'prescriptions':
+          type = context.params.type;
+          listTitle = "prescriptions"
+          break;
+        default:
+          type = '';
+          listTitle = "Tous mes documents"
+      }
+      Alpine.store("documentsStore").getList.documentTypeTitle = listTitle
+      await handleRouter(context, { type });
     },
-    async notesDocs(context) {
-      Alpine.store('documentsStore').getList.documentTypeTitle = "Notes"
-      await handleRouter(context, { type: "notes" });
-    },
-    async ordonnances(context) {
-      Alpine.store('documentsStore').getList.documentTypeTitle = "Ordonannces"
-      await handleRouter(context, { type: "prescriptions" });
-    },
-    async conseils(context) {
-      Alpine.store('documentsStore').getList.documentTypeTitle = "Conseils patients"
-      await handleRouter(context, { type: "recommendations" });
+    async viewDocuments(context) {
+      const id = context.params.id;
+      if (id) {
+        // Shows getOne drawer
+        await window.globals.drawer.handleDrawer({ id });
+        console.log("drawer");
+      } 
     },
     notfound(context) {
       console.log(context);
@@ -33,15 +48,17 @@ window.router = () => {
 async function handleRouter(context, { type }) {
   const page = context.params.page;
   const id = context.params.id;
-  if(!Alpine.store('userStore').isAuth || !Alpine.store('userStore').hasPaidSub) {
-    console.log('Not authorized to navigate')
-    return
+  if (
+    !Alpine.store("userStore").isAuth ||
+    !Alpine.store("userStore").hasPaidSub
+  ) {
+    console.log("Not authorized to navigate");
+    return;
   }
   Alpine.store("documentsStore").getList.documentType = type;
-
+console.log(context)
   if (id) {
     // Shows getOne drawer
-    await window.globals.drawer.handleDrawer({ id });
     console.log("drawer");
   } else {
     // Shows getList items
@@ -55,7 +72,6 @@ async function handleRouter(context, { type }) {
       Alpine.store("documentsStore").getList.documents.length === 0
     ) {
       await Alpine.store("documentsStore").getList.setDocuments({ type, page });
-
     }
   }
 }

@@ -3,6 +3,8 @@ import Alpine from "alpinejs";
 import "../../utils/globals";
 import modalStore from "../../store/modal.store";
 
+
+
 function DocumentsModal() {
   return Alpine.data("DocumentsModal", () => {
     return {
@@ -20,11 +22,13 @@ function DocumentsModal() {
               ["blockquote", "code-block"],
               [{ script: "sub" }, { script: "super" }], // superscript/subscript
               [{ color: [] }, { background: [] }], // outdent/indent
+              ['image']
             ],
           },
         });
+        
       },
-      modalBackdrop() {
+           modalBackdrop() {
         return {
           ["x-show"]: "modalStore.showModal || modalStore.showBeforeDelete",
           ["x-trap.noscroll"]: "modalStore.showModal",

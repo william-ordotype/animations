@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Last Published: Tue May 16 2023 03:52:55 GMT+0000 (Coordinated Universal Time) -->
+<!-- Last Published: Thu May 18 2023 00:05:17 GMT+0000 (Coordinated Universal Time) -->
 <html
   data-wf-domain="ordotype.webflow.io"
   data-wf-page="6428de0a13003e96dad78133"
@@ -17,7 +17,7 @@
       name="google-site-verification"
     />
     <link
-      href="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.5b729a31f.min.css"
+      href="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.0fd13428f.min.css"
       rel="stylesheet"
       type="text/css"
     />
@@ -62,7 +62,7 @@
       })(window, document);
     </script>
     <link
-      href="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/63e9f1e023ec191254f20a09_logo_256_good-removebg-preview.png"
+      href="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/646489f6ff1b9504a8e033be_My%20project.png"
       rel="shortcut icon"
       type="image/x-icon"
     />
@@ -235,16 +235,8 @@
     <div class="w-embed">
       <div x-data="router()">
         <template x-route="/" x-handler="redirectToAll"></template>
-        <template x-route="/all/:id?" x-handler="allDocuments"></template>
-        <template x-route="/notes/:id?" x-handler="notesDocs"></template>
-        <template
-          x-route="/ordonnances/:id?"
-          x-handler="ordonnances"
-        ></template>
-        <template
-          x-route="/fiches-conseils/:id?"
-          x-handler="conseils"
-        ></template>
+        <template x-route="/list" x-handler="listDocuments"></template>
+        <template x-route="/view/:id" x-handler="viewDocuments"></template>
         <!-- 404 handler -->
         <template x-route="notfound" x-handler="notfound"></template>
       </div>
@@ -500,6 +492,9 @@
         @media screen and (min-width:767px) {
            .splide__list {
               display: grid !important;} }
+
+        .header_image-wrapper {
+           overflow: hidden !important;}
       </style>
     </div>
     <div
@@ -512,7 +507,7 @@
       role="banner"
       class="navbar2_component w-nav"
     >
-      <div class="padding-global">
+      <div class="padding-global notice">
         <div class="navbar2_container">
           <a href="/" class="navbar2_logo-link w-nav-brand"
             ><img
@@ -978,7 +973,7 @@
             </div>
             <div class="documents_tabs">
               <div x-data="DocumentsNavigation()" class="tabs_menu">
-                <a x-bind="allType" href="#/all" class="tab_link w-inline-block"
+                <a x-bind="allType" href="#/list?type=all" class="tab_link w-inline-block"
                   ><div class="w-layout-grid grid_gap_8">
                     <div class="tab_icon w-embed">
                       <svg
@@ -1024,7 +1019,7 @@
                     </svg></div></a
                 ><a
                   x-bind="prescriptionsType"
-                  href="#/ordonnances"
+                  href="#/list?type=prescriptions"
                   class="tab_link w-inline-block"
                   ><div class="w-layout-grid grid_gap_8">
                     <div class="tab_icon w-embed">
@@ -1064,7 +1059,7 @@
                     </svg></div></a
                 ><a
                   x-bind="notesType"
-                  href="#/notes"
+                  href="#/list?type=notes"
                   class="tab_link w-inline-block"
                   ><div class="w-layout-grid grid_gap_8">
                     <div class="tab_icon w-embed">
@@ -1104,7 +1099,7 @@
                     </svg></div></a
                 ><a
                   x-bind="recommendationsType"
-                  href="#/fiches-conseils"
+                  href="#/list?type=recommendations"
                   class="tab_link w-inline-block"
                   ><div class="w-layout-grid grid_gap_8">
                     <div class="tab_icon w-embed">
@@ -1422,10 +1417,11 @@
                     <div class="padding-custom24">
                       <div class="w-layout-grid header_wrapper">
                         <h2
+                          x-text="$store.documentsStore.getList.documentTypeTitle"
                           id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0ed9-dad78133"
                           class="heading-h2-docs"
                         >
-                          Tous mes documents
+                          {{Tous mes documents}}
                         </h2>
                         <div
                           x-data=""
@@ -1436,7 +1432,7 @@
                             <div
                               x-text="$store.documentsStore.getList.itemsTotal"
                             >
-                              128
+                              {{128}}
                             </div>
                           </div>
                           <div>documents</div>
@@ -1842,7 +1838,7 @@
                                   x-bind="textTitle(d)"
                                   class="text-weight-semibold"
                                 >
-                                  Nom du document
+                                  {{Nom du document}}
                                 </div>
                                 <div class="file_type_holder">
                                   <div class="file_type_icon pdf">
@@ -1852,21 +1848,25 @@
                               </div>
                             </div>
                             <div class="type_tag">
-                              <div x-bind="textType(d)">Note</div>
+                              <div x-bind="textType(d)">{{Note}}</div>
                             </div>
-                            <a
-                              x-on:click="pathologyRef(d)"
-                              href="#"
-                              class="pathologie_tag w-inline-block"
-                              ><div>Pathologie</div></a
-                            >
+                            <div class="div-block-415">
+                              <a
+                                x-on:click="pathologyRef(d)"
+                                href="#"
+                                class="pathologie_tag w-inline-block"
+                                x-bind:class="d.pathology.length && 'active'"
+                                x-text="d.pathology.length ? 'Pathologie' : '-'"
+                                ><div>{{Pathologie}}</div></a
+                              >
+                            </div>
                             <div
                               id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0f92-dad78133"
                               class="inside_right"
                             >
                               <div class="flex_horizontal">
                                 <div class="date_tag">
-                                  <div x-bind="textDate(d)">12/10/2022</div>
+                                  <div x-bind="textDate(d)">{{12/10/2022}}</div>
                                 </div>
                                 <div class="sub_menu">
                                   <div
@@ -1989,7 +1989,7 @@
                             class="page_numbers"
                           >
                             <div x-bind="pageNumber" class="page_number">
-                              <div>1</div>
+                              <div>{{1}}</div>
                             </div>
                           </div>
                           <div
@@ -2043,10 +2043,11 @@
                     <div class="padding-custom24">
                       <div class="w-layout-grid header_wrapper em">
                         <h2
+                          x-text="$store.documentsStore.getList.documentTypeTitle"
                           id="w-node-_1264d39d-4dca-f98d-77d8-4153c34852cd-dad78133"
                           class="heading-h2-docs"
                         >
-                          Tous mes documents
+                          {{Tous mes documents}}
                         </h2>
                         <div
                           id="w-node-_1264d39d-4dca-f98d-77d8-4153c34852cf-dad78133"
@@ -2394,7 +2395,7 @@
                 id="w-node-_5e73bd5a-ce56-4459-5f7f-74573fcb3d81-dad78133"
                 class="view_heading"
               >
-                Nom de la note
+                {{Nom de la note}}
               </h2>
               <div
                 x-for="ptag in $store.documentsStore.getOne.document.pathology"
@@ -2412,7 +2413,7 @@
                 <div class="display-inlineflex">Créé le</div>
                 <div class="view_date_holder">
                   <div x-bind="getOneCreatedOn" class="text-weight-semibold">
-                    08/11/2022
+                    {{08/11/2022}}
                   </div>
                 </div>
                 <div class="display-inlineflex">par</div>
@@ -2430,7 +2431,7 @@
                 class="text_wrapper"
               >
                 <p class="text-size-small">
-                  Lorem ipsum dolor sit amet consectetur. Lacus viverra ac at
+                  {{Lorem ipsum dolor sit amet consectetur. Lacus viverra ac at
                   convallis diam diam aliquet aliquam. Arcu enim mi enim elit et
                   nisl mi ut. Purus sed volutpat cursus faucibus elementum odio.
                   Purus elementum praesent fusce adipiscing odio. Tempor odio
@@ -2466,7 +2467,7 @@
                   aliquam. Aliquam fusce aliquam habitasse condimentum. Nec in
                   sed hac pharetra faucibus. Pretium tellus parturient tempus
                   justo. Adipiscing tortor enim consectetur tortor at tortor
-                  dolor commodo.
+                  dolor commodo.}}
                 </p>
               </div>
               <div
@@ -2507,7 +2508,7 @@
                     x-text="$store.modalStore.content(&#x27;modal&#x27;,&#x27;title&#x27;)"
                     class="view_heading"
                   >
-                    Nom de <span>l’ordonnance</span>
+                    Nom de {<span>l’ordonnance}</span>
                   </h2>
                 </div>
                 <div class="w-layout-grid action_btns">
@@ -2532,6 +2533,12 @@
                 <div id="editor-container" class="editor-container"></div>
               </div>
               <div>
+                <a
+                  x-show="$store.modalStore.form.type === &#x27;recommendation&#x27;"
+                  href="#"
+                  class="button is-url-copy w-inline-block"
+                  ><div class="button_text">Ajouter l’URL d’un site</div></a
+                >
                 <div class="w-embed">
                   <input type="hidden" name="_id" id="docs-id" />
                   <input
@@ -2546,6 +2553,64 @@
               </div>
             </div>
             <div x-bind="modalDialogBackdrop" class="modal_dialog_backdrop">
+              <div class="view_wrapper insert_url_dialog">
+                <div class="header_holder context_comment">
+                  <div class="inner_header">
+                    <div class="display-inlineflex text_space">
+                      Ajouter une URL
+                    </div>
+                    <img
+                      loading="lazy"
+                      src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/6409a60abee24b0929f62f72_cross.svg"
+                      alt=""
+                      class="close_icon is_corner"
+                    />
+                  </div>
+                </div>
+                <div class="inputs_wrapper">
+                  <div
+                    id="w-node-de1e0b49-e7f5-086d-127e-445f6b0164b7-dad78133"
+                    class="action_input_wrapper"
+                  >
+                    <label for="recommendation-url" class="action_field_label"
+                      >Nom de l&#x27;URL</label
+                    ><input
+                      type="text"
+                      class="action_text_field w-input"
+                      maxlength="256"
+                      name="recommendation-url"
+                      data-name="recommendation-url"
+                      placeholder="https://example.com"
+                      id="recommendation-url"
+                    />
+                  </div>
+                  <div class="action_input_wrapper">
+                    <label
+                      for="recommendation-url-qr"
+                      class="action_field_label"
+                      >Caption</label
+                    ><input
+                      type="text"
+                      class="action_text_field w-input"
+                      maxlength="256"
+                      name="recommendation-url-qr"
+                      data-name="recommendation-url-qr"
+                      placeholder="Caption of the QR"
+                      id="recommendation-url-qr"
+                    />
+                  </div>
+                  <div class="w-layout-grid action_btns_form">
+                    <a href="#" class="button is-annuler w-inline-block"
+                      ><div class="button_text">Annuler</div></a
+                    ><input
+                      type="submit"
+                      value="Sauvegarder"
+                      data-wait="Please wait..."
+                      class="button is-docs w-button"
+                    />
+                  </div>
+                </div>
+              </div>
               <div
                 x-bind="beforeCancelDialog"
                 x-cloak=""
@@ -2554,12 +2619,6 @@
                 <div class="header_holder context_comment">
                   <div class="inner_header">
                     <div class="display-inlineflex text_space">Annuler</div>
-                    <div
-                      x-text="$store.modalStore.content(&#x27;beforeCancel&#x27;,&#x27;title&#x27;)"
-                      class="display-inlineflex hide-mobile-landscape"
-                    >
-                      la modification d’une ordonnance
-                    </div>
                     <img
                       x-bind="showBeforeCancel(false)"
                       loading="lazy"
@@ -2567,6 +2626,12 @@
                       alt=""
                       class="close_icon is_corner"
                     />
+                    <div
+                      x-text="$store.modalStore.content(&#x27;beforeCancel&#x27;,&#x27;title&#x27;)"
+                      class="display-inlineflex hide-mobile-landscape"
+                    >
+                      {{la modification d’une ordonnance}}
+                    </div>
                   </div>
                 </div>
                 <div class="comment_wrapper">
@@ -2574,9 +2639,9 @@
                     x-text="$store.modalStore.content(&#x27;beforeCancel&#x27;, &#x27;description&#x27;)"
                     class="context_comment text-weight-light"
                   >
-                    Vous êtes sur le point d’annuler la modification d’une
+                    {{Vous êtes sur le point d’annuler la modification d’une
                     ordonnance. Si vous confirmer, alors les changements seront
-                    définitivement supprimés.
+                    définitivement supprimés.}}
                   </p>
                 </div>
                 <div class="w-layout-grid action_btns_form ann">
@@ -2605,7 +2670,7 @@
                       x-text="$store.modalStore.content(&#x27;beforeSave&#x27;, &#x27;title&#x27;)"
                       class="display-inlineflex hide-mobile-landscape"
                     >
-                      une nouvelle fiche conseil
+                      {une nouvelle fiche conseil}
                     </div>
                     <img
                       x-bind="showBeforeSave(false)"
@@ -2622,7 +2687,7 @@
                       for="docs-title"
                       x-text="$store.modalStore.content(&#x27;beforeSave&#x27;, &#x27;inputTitle&#x27;)"
                       class="action_field_label"
-                      >Nom de l’ordonnance</label
+                      >{{Nom de l’ordonnance}}</label
                     ><input
                       type="text"
                       class="action_text_field w-input"
@@ -2630,7 +2695,7 @@
                       x-bind:placeholder="$store.modalStore.content(&#x27;beforeSave&#x27;,&#x27;phInputTitle&#x27;)"
                       name="title"
                       data-name="title"
-                      placeholder="Ma nouvelle ordonnance"
+                      placeholder="{{Ma nouvelle ordonnance}}"
                       x-model="modalStore.form.title"
                       id="docs-title"
                       required=""
@@ -2663,7 +2728,7 @@
                       x-text="$store.modalStore.content(&#x27;beforeSave&#x27;, &#x27;inputPathology&#x27;)"
                       class="text-weight-light context_comment"
                     >
-                      Associer une pathologie à cette fiche conseil :
+                      {{Associer une pathologie à cette fiche conseil :}}
                     </div>
                     <div class="action_search_holder">
                       <div class="html-embed-39 w-embed">
@@ -2686,7 +2751,7 @@
                             x-text="$store.modalStore.pathologyName"
                             class="display-inlineflex text-weight-semibold"
                           >
-                            Pathologie
+                            {{Pathologie}}
                           </div>
                           <img
                             loading="lazy"
@@ -2717,19 +2782,19 @@
                 <div class="header_holder context_comment">
                   <div class="inner_header">
                     <div class="display-inlineflex text_space">Supprimer</div>
+                    <img
+                      x-on:click="$store.modalStore.closeBeforeDelete()"
+                      loading="lazy"
+                      src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/6409a60abee24b0929f62f72_cross.svg"
+                      alt=""
+                      class="close_icon is_corner"
+                    />
                     <div
                       x-text="$store.modalStore.contentBeforeDelete(&#x27;beforeDelete&#x27;,&#x27;title&#x27;)"
                       class="display-inlineflex hide-mobile-landscape"
                     >
-                      une ordonnance
+                      {{une ordonnance}}
                     </div>
-                    <img
-                      src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/6409a60abee24b0929f62f72_cross.svg"
-                      loading="lazy"
-                      x-on:click="$store.modalStore.closeBeforeDelete()"
-                      alt=""
-                      class="close_icon is_corner"
-                    />
                   </div>
                 </div>
                 <div class="comment_wrapper">
@@ -2737,9 +2802,9 @@
                     x-text="$store.modalStore.contentBeforeDelete(&#x27;beforeDelete&#x27;,&#x27;description&#x27;)"
                     class="context_comment text-weight-light"
                   >
-                    Vous êtes sur le point de supprimer une ordonnance. Une fois
-                    la suppression confirmée, vous n’aurez plus accès à cette
-                    ordonnance.
+                    {{Vous êtes sur le point de supprimer une ordonnance. Une
+                    fois la suppression confirmée, vous n’aurez plus accès à
+                    cette ordonnance.}}
                   </p>
                 </div>
                 <div class="w-layout-grid action_btns_form ann">
@@ -2767,7 +2832,7 @@
         </div>
       </div>
       <div class="footer_component">
-        <div class="padding-global">
+        <div class="padding-global notice">
           <div class="container-large">
             <div class="padding-vertical padding-xmedium">
               <div class="text-color-white">
@@ -2951,7 +3016,7 @@
       crossorigin="anonymous"
     ></script>
     <script
-      src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/js/webflow.cb438acff.js"
+      src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/js/webflow.5a29ce799.js"
       type="text/javascript"
     ></script>
     <!-- Google Tag Manager (noscript) -->
@@ -2967,8 +3032,8 @@
     <!-- End Google Tag Manager (noscript) -->
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <!--<script src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@497b6d4712136c39380d93e7408159c042f7cfb8/ordotype-index-2023-05-12.js"></script>-->
-    <script src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@96cc821a85d4617cde3ad809286d8e22d5fc15fc/ordotype-index-2023-05-15-f.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@bcc66ec097a3618008800a1753503ed5321005f7/ordotype-index-2023-05-16.js"></script>
+    <!--<script src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@c03980155bd40174b4db55cd1c673d7f9dca31a7/ordotype-index-2023-05-16-b.js"></script>-->
 
     <script
       defer

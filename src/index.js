@@ -2,6 +2,7 @@ import PineconeRouter from "./modules/pinecone-router-custom";
 import focus from "@alpinejs/focus";
 import alpineWebflow from "./modules/alpine-webflow";
 import Alpine from "alpinejs";
+import QrCreator from 'qr-creator';
 
 import "./router/routes";
 import "./router/pagination";
@@ -168,3 +169,4 @@ window.handleModal = ({ type }) => {
 
   Alpine.store("documentsStore").createOne.document.type = type;
 };
+
