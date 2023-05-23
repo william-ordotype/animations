@@ -101,7 +101,7 @@ globals.modal = {
         },
       },
       recommendations: {
-        modal: { title: "Nom de la note" },
+        modal: { title: "Nom de la fiche conseil" },
         beforeSave: {
           title: "une fiche conseil",
           inputTitle: "Nom de la fiche conseil",

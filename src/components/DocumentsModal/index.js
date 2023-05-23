@@ -28,7 +28,7 @@ function DocumentsModal() {
       },
       modalBackdrop() {
         return {
-          ["x-show"]: "modalStore.showModal || modalStore.showBeforeDelete",
+          ["x-show"]: "modalStore.showModal || modalStore.showBeforeDelete ",
           ["x-trap.noscroll"]: "modalStore.showModal",
           ["x-transition"]: "",
         };
@@ -113,6 +113,7 @@ function DocumentsModal() {
       insertUrlDialog() {
         return {
           ["x-show"]: "modalStore.showInsertUrl",
+          ["x-trap"]: "modalStore.showInsertUrl",
         };
       },
       showInsertUrlDialog(canShow) {

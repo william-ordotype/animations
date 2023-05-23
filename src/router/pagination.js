@@ -33,26 +33,21 @@ function objectToHash(obj) {
 }
 
 window.handlePagination = (routerParams, pageNumber) => {
-  debugger;
   const page = pageNumber || routerParams.page;
   let newQuery;
 
-  if(pageNumber > Alpine.store('documentsStore').getList.pageTotal) {
-    console.log('No more pages')
+  if (pageNumber > Alpine.store("documentsStore").getList.pageTotal) {
+    console.log("No more pages");
     return;
   }
   if (routerParams.path.includes("?")) {
     const query = routerParams.path.split("?");
     const hashObj = hashToObject(query[1]);
-
-    if (hashObj.page) {
-      hashObj.page = page;
-    }
+    hashObj.page = page;
     const urlHash = objectToHash(hashObj);
     newQuery = query[0] + "?" + urlHash;
   } else {
     newQuery = routerParams.path + "?page=" + page;
   }
-
   routerParams.navigate(newQuery);
 };
