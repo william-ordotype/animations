@@ -1655,7 +1655,7 @@
                             class="sort_cover first"
                           >
                             <div class="flex_horizontal">
-                              <a href="#" class="check_box w-inline-block"
+                              <a class="check_box w-inline-block"
                                 ><img
                                   loading="lazy"
                                   src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/6408f49c84b6bf6fb46c68cf_check-mark.svg"
@@ -1812,7 +1812,7 @@
                         </div>
                       </div>
                       <div
-                        x-for="d in $store.documentsStore.getList.documents"
+                        x-for="(d, index)  in $store.documentsStore.getList.documents"
                         class="list_items"
                       >
                         <div class="list_item">
@@ -1840,7 +1840,7 @@
                               class="inside_left"
                             >
                               <div class="flex_horizontal">
-                                <a href="#" class="check_box w-inline-block"
+                                <a x-data="{checked: $store.documentsStore.getList.documents[index].completed}" x-on:click="$event.preventDefault(); checked = !checked;" href="#" x-bind:class="checked && 'active'" href="#" class="check_box w-inline-block"
                                   ><img
                                     loading="lazy"
                                     src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/6408f49c84b6bf6fb46c68cf_check-mark.svg"

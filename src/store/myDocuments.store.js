@@ -53,6 +53,7 @@ const myDocumentsStore = {
         return;
       }
       let documentsResults;
+      this.documents = []; // Reset checkboxes
       try {
         documentsResults = await this.getDocuments(props);
       } catch (err) {

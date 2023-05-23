@@ -21,8 +21,10 @@ function DocumentsDataTable() {
       };
     },
     pathologyRef(d) {
-        console.log(d)
-        d.pathology.length > 0 ? location.href = `/pathologies/${d.pathology[0].slug}` : console.log('no pathology');
+      console.log(d);
+      d.pathology.length > 0
+        ? (location.href = `/pathologies/${d.pathology[0].slug}`)
+        : console.log("no pathology");
     },
   }));
 }
