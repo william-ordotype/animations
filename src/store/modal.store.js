@@ -6,6 +6,7 @@ const modalStore = {
   showBeforeSave: false,
   showBeforeCancel: false,
   showBeforeDelete: false,
+  showInsertUrl: false,
   loadModal: true,
   form: {
     _id: "",
