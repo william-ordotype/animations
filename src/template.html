@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Last Published: Tue May 23 2023 00:00:25 GMT+0000 (Coordinated Universal Time) -->
+<!-- Last Published: Wed May 24 2023 02:15:24 GMT+0000 (Coordinated Universal Time) -->
 <html
   data-wf-domain="ordotype.webflow.io"
   data-wf-page="6428de0a13003e96dad78133"
@@ -17,7 +17,7 @@
       name="google-site-verification"
     />
     <link
-      href="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.be507235d.min.css"
+      href="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.508e2c60a.min.css"
       rel="stylesheet"
       type="text/css"
     />
@@ -482,6 +482,11 @@
 
         .splide__slide {
           width: auto !important;}
+
+        @media screen and (max-width:479px) {
+           .splide__slide.tes {
+          width: 100% !important;} }
+
 
         @media screen and (min-width:767px) {
            .splide__list {
@@ -1655,7 +1660,7 @@
                             class="sort_cover first"
                           >
                             <div class="flex_horizontal">
-                              <a class="check_box w-inline-block"
+                              <a href="#" class="check_box w-inline-block"
                                 ><img
                                   loading="lazy"
                                   src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/6408f49c84b6bf6fb46c68cf_check-mark.svg"
@@ -1812,7 +1817,7 @@
                         </div>
                       </div>
                       <div
-                        x-for="(d, index)  in $store.documentsStore.getList.documents"
+                        x-for="d in $store.documentsStore.getList.documents"
                         class="list_items"
                       >
                         <div class="list_item">
@@ -1840,7 +1845,7 @@
                               class="inside_left"
                             >
                               <div class="flex_horizontal">
-                                <a x-data="{checked: $store.documentsStore.getList.documents[index].completed}" x-on:click="$event.preventDefault(); checked = !checked;" href="#" x-bind:class="checked && 'active'" href="#" class="check_box w-inline-block"
+                                <a href="#" class="check_box w-inline-block"
                                   ><img
                                     loading="lazy"
                                     src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/6408f49c84b6bf6fb46c68cf_check-mark.svg"
@@ -2735,13 +2740,12 @@
                       id="prescription_type"
                       name="prescription_type"
                       data-name="prescription_type"
+                      x-model="modalStore.form.prescription_type"
                       class="action_text_field select_action w-select"
                     >
-                      <option value="Type d’ordonnance">
-                        Type d’ordonnance
-                      </option>
-                      <option value="Bilan">Bilan</option>
-                      <option value="Second">Traitement</option>
+                      <option value="">Type d’ordonnance</option>
+                      <option value="balance_sheet">Bilan</option>
+                      <option value="treatment">Traitement</option>
                     </select>
                   </div>
                   <div
@@ -2778,6 +2782,7 @@
                             {{Pathologie}}
                           </div>
                           <img
+                            x-on:click="clearSearchResults"
                             loading="lazy"
                             src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/6409a60abee24b0929f62f72_cross.svg"
                             alt=""
@@ -3043,7 +3048,7 @@
       crossorigin="anonymous"
     ></script>
     <script
-      src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/js/webflow.3c2a9d39b.js"
+      src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/js/webflow.ab0f92476.js"
       type="text/javascript"
     ></script>
     <!-- Google Tag Manager (noscript) -->

@@ -12,6 +12,7 @@ const modalStore = {
     _id: "",
     title: "",
     rich_text_ordo: "",
+    prescription_type: "",
     pathology: [],
     documents: [],
     type: "",
@@ -38,6 +39,7 @@ const modalStore = {
       this.form.type = note.type;
       this.form.pathology =
         note.pathology.length > 0 ? note.pathology[0]._id : [];
+        this.form.prescription_type  = note.prescription_type
     } else {
       this.form._id = "";
       this.form.title = "";
@@ -45,6 +47,7 @@ const modalStore = {
       this.form.documents = [];
       this.form.type = config.type;
       this.form.pathology = [];
+      this.form.prescription_type = "";
     }
     this.showModal = true;
   },
@@ -85,11 +88,15 @@ const modalStore = {
     this.form.pathology = [];
     this.form.documents = [];
     this.files = [];
-
+    this.prescription_type = ""
     // clear local fields
     globals.createRTE.container.querySelector(".ql-editor").innerHTML = "";
+
+    // clear autocomplete
+    $("#pathology-autocomplete form")[0].reset()
   },
   async submitForm(ev) {
+    debugger;
     console.log("submitting");
     this.form.rich_text_ordo = window.globals.createRTE.root.innerHTML;
 

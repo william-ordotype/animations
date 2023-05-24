@@ -65,26 +65,38 @@ Alpine.data("DataTableSubNav", (d) => {
 });
 
 Alpine.data("PathologiesAutocomplete", () => ({
-  pathologyInputValue: Alpine.store('modalStore').pathologyName,
+  pathologyInputValue: Alpine.store("modalStore").pathologyName,
   showSearchResults() {
     return {
       ["x-show"]: "$store.modalStore.form.pathology.length",
-      ["x-transition"]: ""
-    }
+      ["x-transition"]: "",
+    };
   },
-  init() {
-    Alpine.effect(() => {
-      console.log('Effected')
-    })
+  clearSearchResults() {
+    Alpine.store("modalStore").form.pathology = [];
+    Alpine.store("modalStore").pathologyName = "";
+    $("#aa-pathology-input").attr("disabled", false).val('');
+    $(
+      "#pathology-autocomplete .aa-InputWrapper, #pathology-autocomplete .aa-InputWrapperSuffix"
+    ).show();
+    $("#pathology-autocomplete .aa-Form").css("background", "#fff");
+    $("#pathology-autocomplete form")[0].reset()
+  },
+  init() { 
     globals.autocomplete({
+      onStateChange( {state}) {
+        if(state.isOpen === false && state.status === "idle") {
+          state.completion = ''
+        }
+      },
       container: "#pathology-autocomplete",
       placeholder: "Rechercher une pathologie",
-      id: 'aa-pathology',
+      id: "aa-pathology",
       detachedMediaQuery: "none",
-      debug: true,
+      debug: false,
       async getSources({ query = "" }) {
         const res = await Alpine.store("documentsStore").pathologies.getList(
-            query
+          query
         );
         return [
           {
@@ -101,27 +113,31 @@ Alpine.data("PathologiesAutocomplete", () => ({
               },
             },
             onSelect(obj) {
-              console.log(obj)
-              Alpine.store('modalStore').form.pathology = [obj.item._id];
-              Alpine.store('modalStore').pathologyName = obj.item.title
-              $('#aa-pathology-input').attr('disabled', true);
-              $('#pathology-autocomplete .aa-InputWrapper, #pathology-autocomplete .aa-InputWrapperSuffix').hide();
-              $('#pathology-autocomplete .aa-Form').css('background', '#ccc')
+              Alpine.store("modalStore").form.pathology = [obj.item._id];
+              Alpine.store("modalStore").pathologyName = obj.item.title;
+              $("#aa-pathology-input").attr("disabled", true);
+              $(
+                "#pathology-autocomplete .aa-InputWrapper, #pathology-autocomplete .aa-InputWrapperSuffix"
+              ).hide();
+              $("#pathology-autocomplete .aa-Form").css("background", "#eee");
             },
-
           },
         ];
       },
       onReset(obj) {
-        console.log('reset', obj);
-        Alpine.store('modalStore').form.pathology = []
-        Alpine.store('modalStore').pathologyName = ""
+        Alpine.store("modalStore").form.pathology = [];
+        Alpine.store("modalStore").pathologyName = "";
+        $("#aa-pathology-input").attr("disabled", false).val('');
+    $(
+      "#pathology-autocomplete .aa-InputWrapper, #pathology-autocomplete .aa-InputWrapperSuffix"
+    ).show();
+    $("#pathology-autocomplete .aa-Form").css("background", "#fff");
       },
       renderNoResults({ state, render }, root) {
         render(`No results for "${state.query}".`, root);
       },
-    })
-  }
+    });
+  },
 }));
 
 /**
@@ -168,4 +184,3 @@ window.handleModal = ({ type }) => {
 
   Alpine.store("documentsStore").createOne.document.type = type;
 };
-

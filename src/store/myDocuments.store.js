@@ -179,6 +179,7 @@ const myDocumentsStore = {
         if (!res.ok) {
           console.error(res.status + " Failed Fetch ");
         }
+        await Alpine.store('documentsStore').getList.setDocuments()
       } catch (err) {
         console.error("EXCEPTION: ", err);
       }
