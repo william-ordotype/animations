@@ -56,12 +56,22 @@ Alpine.data("DataTableSubNav", DataTableSubNav);
 Alpine.data("PathologiesAutocomplete", PathologiesAutocomplete);
 Alpine.data("FormFiles", () => {
   return {
-  files: null,
-  handleFileChange(ev) {
-    this.files = ev.target.files.length === 0 ? this.files : ev.target.files; console.log(ev.target.files);
-  }
-  }
-})
+    filesUploaded: [],
+    async handleFileChange(ev) {
+      const filesInputValue = Array.from(ev.target.files);
+      // const uploadedFiles = await Alpine.store('documentsStore').files.createOne.uploadFile(filesInputValue);
+
+      filesInputValue.forEach((file) => {
+        this.filesUploaded.push(file);
+      });
+    },
+    handleDeleteFile(_, index) {
+      debugger;
+      console.log(index);
+      console.log("files", this.files);
+    },
+  };
+});
 
 /**
  Runs program

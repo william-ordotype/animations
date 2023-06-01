@@ -7,13 +7,22 @@ const myDocumentsStore = {
   getOne: {
     document: {},
     async getDocument({ id } = {}) {
-      const response = await fetch(`${API_URL}/${id}`, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${window.memberToken}`,
-        },
-      });
-      return await response.json();
+      try {
+        const response = await fetch(`${API_URL}/${id}`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${window.memberToken}`,
+          },
+        });
+        if (response.ok) {
+          const responseData = await response.json();
+          return responseData;
+        } else {
+          throw new Error("Upload failed.");
+        }
+      } catch (err) {
+        throw err;
+      }
     },
     async setDocument(props) {
       const { id } = props;
@@ -80,16 +89,25 @@ const myDocumentsStore = {
       direction = "DESC",
       type = this.documentType || "",
     } = {}) {
-      const response = await fetch(
-        `${API_URL}?page=${page}&limit=${limit}&sort=${sort}&direction=${direction}&type=${type}`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${memberToken}`,
-          },
+      try {
+        const response = await fetch(
+          `${API_URL}?page=${page}&limit=${limit}&sort=${sort}&direction=${direction}&type=${type}`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${memberToken}`,
+            },
+          }
+        );
+        if (response.ok) {
+          const responseData = await response.json();
+          return responseData;
+        } else {
+          throw new Error("Upload failed.");
         }
-      );
-      return await response.json();
+      } catch (err) {
+        throw err;
+      }
     },
   },
 
@@ -109,7 +127,7 @@ const myDocumentsStore = {
         Alpine.store("modalStore").closeModal();
         Alpine.store("documentsStore").getList.isLoading = true;
         await Alpine.store("documentsStore").getList.setDocuments({
-          type: Alpine.store('documentsStore').getList.documentType,
+          type: Alpine.store("documentsStore").getList.documentType,
         });
         Alpine.store("documentsStore").getList.isLoading = false;
       }
@@ -145,30 +163,27 @@ const myDocumentsStore = {
         }
       }
 
-      const response = await fetch(
-        data._id ? `${API_URL}/${data._id}` : `${API_URL}`,
-        {
-          method: data._id ? "PUT" : "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${window.memberToken}`,
-          },
-          body: JSON.stringify(data),
+      try {
+        const response = await fetch(
+          data._id ? `${API_URL}/${data._id}` : `${API_URL}`,
+          {
+            method: data._id ? "PUT" : "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${window.memberToken}`,
+            },
+            body: JSON.stringify(data),
+          }
+        );
+        if (response.ok) {
+          const responseData = await response.json();
+          return responseData;
+        } else {
+          throw new Error("Upload failed.");
         }
-      );
-      return await response.json();
-    },
-    clearFields() {
-      this.document.title = null;
-      this.document.pathology = [];
-      this.document.type = this.documentType;
-      this.document.rich_text_ordo = null;
-      this.document.documents = [];
-
-      Alpine.store("documentsStore").showDrawer = false;
-      Alpine.store("documentsStore").showModal = false;
-      Alpine.store("documentsStore").showBeforeSave = false;
-      Alpine.store("documentsStore").showBeforeCancel = false;
+      } catch (err) {
+        throw err;
+      }
     },
   },
 
@@ -179,7 +194,7 @@ const myDocumentsStore = {
         if (!res.ok) {
           console.error(res.status + " Failed Fetch ");
         }
-        await Alpine.store('documentsStore').getList.setDocuments()
+        await Alpine.store("documentsStore").getList.setDocuments();
       } catch (err) {
         console.error("EXCEPTION: ", err);
       }
@@ -189,16 +204,26 @@ const myDocumentsStore = {
         console.error("Id not found");
         return;
       }
-      const response = await fetch(`${API_URL}/${data._id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${window.memberToken}`,
-        },
-      });
-      return await response.json();
+      try {
+        const response = await fetch(`${API_URL}/${data._id}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${window.memberToken}`,
+          },
+        });
+        if (response.ok) {
+          const responseData = await response.json();
+          return responseData;
+        } else {
+          throw new Error("Upload failed.");
+        }
+      } catch (err) {
+        throw err;
+      }
     },
   },
+  deleteMany: {},
   pathologies: {
     async getList(query) {
       const response = await fetch(
