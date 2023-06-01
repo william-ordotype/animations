@@ -10,24 +10,25 @@ window.router = () => {
     async listDocuments(context) {
       let type;
       let listTitle;
-      switch(context.params.type) {
-        case 'notes':
+      switch (context.params.type) {
+        case "notes":
           type = context.params.type;
-          listTitle = "Notes"
+          listTitle = globals.documentTypes["notes"];
           break;
-        case 'recommendations':
+        case "recommendations":
           type = context.params.type;
-          listTitle = "Recommendations"
+          listTitle = globals.documentTypes["recommendations"];
           break;
-        case 'prescriptions':
+        case "prescriptions":
           type = context.params.type;
-          listTitle = "prescriptions"
+          listTitle = globals.documentTypes["prescriptions"];
           break;
         default:
-          type = '';
-          listTitle = "Tous mes documents"
+          type = "";
+          listTitle = "Tous mes documents";
       }
-      Alpine.store("documentsStore").getList.documentTypeTitle = listTitle
+      debugger;
+      Alpine.store("documentsStore").getList.documentTypeTitle = listTitle;
       await handleRouter(context, { type });
     },
     async viewDocuments(context) {
@@ -36,7 +37,7 @@ window.router = () => {
         // Shows getOne drawer
         await window.globals.drawer.handleDrawer({ id });
         console.log("drawer");
-      } 
+      }
     },
     notfound(context) {
       console.log(context);
@@ -56,7 +57,7 @@ async function handleRouter(context, { type }) {
     return;
   }
   Alpine.store("documentsStore").getList.documentType = type;
-console.log(context)
+  console.log(context);
   if (id) {
     // Shows getOne drawer
     console.log("drawer");

@@ -1,17 +1,14 @@
 // noinspection SpellCheckingInspection
 import { autocomplete } from "@algolia/autocomplete-js";
 
-import handleFormSubmit from "../components/DocumentsModal/handleFormSubmit";
 import handleDrawer from "../components/DocumentsDrawer/handleDrawer";
-import Alpine from "alpinejs";
-import * as DOMPurify from "dompurify";
 
 const globals = {};
 
 globals.documentTypes = {
-  notes: "Note",
-  recommendations: "Fiche conseil",
-  prescriptions: "Ordonnance",
+  notes: "Notes",
+  recommendations: "Fiches conseils",
+  prescriptions: "Ordonnances",
 };
 
 globals.drawer = {
@@ -146,20 +143,20 @@ globals.statusMessages = {
   createOne: {
     201: "",
     400: "",
-    500: ""
+    500: "",
   },
   editOne: {},
   deleteOne: {},
   getList: {
     403: "Bad request",
     401: "Unauthorized",
-    500: "Server error"
+    500: "Server error",
   },
   static: {
     success: "Success",
-    error: "There was an error. Please, contact with the administator"
-  }
-}
+    error: "There was an error. Please, contact with the administator",
+  },
+};
 
 globals.run = function () {
   window.globals = globals;

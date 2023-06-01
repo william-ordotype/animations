@@ -18,10 +18,10 @@ const myDocumentsStore = {
           const responseData = await response.json();
           return responseData;
         } else {
-          throw new Error("Upload failed.");
+          throw new Error("document - getOne - fetch failed.");
         }
       } catch (err) {
-        throw err;
+        console.error(err);
       }
     },
     async setDocument(props) {
@@ -103,17 +103,16 @@ const myDocumentsStore = {
           const responseData = await response.json();
           return responseData;
         } else {
-          throw new Error("Upload failed.");
+          throw new Error("document - getList - fetch failed.");
         }
       } catch (err) {
-        throw err;
+        console.error(err);
       }
     },
   },
-
   createOne: {
     async sendDocument(jsonData, files) {
-      // TODO get all documents from form and send request
+      // TODO send files in the same fetch
       if (files.length > 0) {
         const fileRes = await this.uploadFile(files);
         // const fileIds = fileRes.map((file) => file._id)
@@ -131,19 +130,6 @@ const myDocumentsStore = {
         });
         Alpine.store("documentsStore").getList.isLoading = false;
       }
-    },
-    async uploadFile(files) {
-      const formData = new FormData();
-      formData.append("file", files[0]);
-
-      const response = await fetch("https://api.ordotype.fr/v1.0.0/documents", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${window.memberToken}`,
-        },
-        body: formData,
-      });
-      return await response.json();
     },
     async postDocument(data) {
       if (!data.type) {
@@ -179,10 +165,10 @@ const myDocumentsStore = {
           const responseData = await response.json();
           return responseData;
         } else {
-          throw new Error("Upload failed.");
+          throw new Error("document - mutateOne - fetch failed.");
         }
       } catch (err) {
-        throw err;
+        console.error(err);
       }
     },
   },
@@ -216,10 +202,10 @@ const myDocumentsStore = {
           const responseData = await response.json();
           return responseData;
         } else {
-          throw new Error("Upload failed.");
+          throw new Error("document - deleteOne - fetch failed.");
         }
       } catch (err) {
-        throw err;
+        console.error(err);
       }
     },
   },
