@@ -142,6 +142,25 @@ globals.modal = {
   },
 };
 
+globals.statusMessages = {
+  createOne: {
+    201: "",
+    400: "",
+    500: ""
+  },
+  editOne: {},
+  deleteOne: {},
+  getList: {
+    403: "Bad request",
+    401: "Unauthorized",
+    500: "Server error"
+  },
+  static: {
+    success: "Success",
+    error: "There was an error. Please, contact with the administator"
+  }
+}
+
 globals.run = function () {
   window.globals = globals;
 };
