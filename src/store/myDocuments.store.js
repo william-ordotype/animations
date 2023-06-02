@@ -67,6 +67,7 @@ const myDocumentsStore = {
       this.pageNumber = documentsResults["page_number"];
       this.pageTotal = documentsResults["page_total"];
       this.itemsTotal = documentsResults["items_total"];
+      this.limit = documentsResults["items_per_page"];
       this.documentType = this.documentType || "";
       this.isLoading = false;
     },
@@ -79,7 +80,7 @@ const myDocumentsStore = {
     } = {}) {
       try {
         const response = await fetch(
-          `${API_URL}?page=${page}&limit=${limit}&sort=${sort}&direction=${direction}&type=${type}`,
+          `${API_URL}?page=${page}&&limit=${limit}&sort=${sort}&direction=${direction}&type=${type}`,
           {
             method: "GET",
             headers: {

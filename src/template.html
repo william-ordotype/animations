@@ -2745,7 +2745,10 @@
                       required=""
                     />
                   </div>
-                  <div class="action_input_wrapper">
+                  <div
+                    class="action_input_wrapper"
+                    x-show="modalStore.form.type === 'prescriptions'"
+                  >
                     <label
                       for="prescription_type"
                       x-text="$store.modalStore.content(&#x27;beforeSave&#x27;, &#x27;inputTypePrescription&#x27;)"
@@ -2757,6 +2760,7 @@
                       data-name="prescription_type"
                       x-model="modalStore.form.prescription_type"
                       class="action_text_field select_action w-select"
+                      x-bind:disabled="modalStore.form.type !== 'prescriptions'"
                     >
                       <option value="">Type d’ordonnance</option>
                       <option value="balance_sheet">Bilan</option>
