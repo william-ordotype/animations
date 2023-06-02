@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Last Published: Fri Jun 02 2023 01:57:20 GMT+0000 (Coordinated Universal Time) -->
+<!-- Last Published: Fri Jun 02 2023 03:58:36 GMT+0000 (Coordinated Universal Time) -->
 <html
   data-wf-domain="ordotype.webflow.io"
   data-wf-page="6428de0a13003e96dad78133"
@@ -1819,7 +1819,7 @@
                         </div>
                       </div>
                       <div
-                        x-for="d in $store.documentsStore.getList.documents"
+                        x-for="(d, index) in $store.documentsStore.getList.documents"
                         class="list_items"
                       >
                         <div class="list_item">
@@ -1848,8 +1848,9 @@
                             >
                               <div class="flex_horizontal">
                                 <a
-                                  x-on:click="$event.preventDefault(); checked = !checked;"
+                                  x-bind:class="checked &amp;&amp; &#x27;active&#x27;"
                                   x-data="{checked: $store.documentsStore.getList.documents[index].completed}"
+                                  x-on:click="$event.preventDefault(); checked = !checked;"
                                   href="#"
                                   class="check_box w-inline-block"
                                   ><img
@@ -2395,7 +2396,7 @@
                   src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/6409a60abee24b0929f62f72_cross.svg"
                   loading="lazy"
                   id="w-node-_5e73bd5a-ce56-4459-5f7f-74573fcb3d7f-dad78133"
-                  x-bind="drawerClose($event)"
+                  x-on:click="drawerClose($event)"
                   alt=""
                   class="close_icon"
                 />

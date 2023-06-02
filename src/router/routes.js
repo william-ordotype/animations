@@ -46,7 +46,7 @@ window.router = () => {
 };
 
 async function handleRouter(context, { type }) {
-  const page = context.params.page;
+  const { page, perPage } = context.params;
   if (
     !Alpine.store("userStore").isAuth ||
     !Alpine.store("userStore").hasPaidSub
@@ -66,6 +66,10 @@ async function handleRouter(context, { type }) {
     !context.hash.split("/").includes("view") ||
     Alpine.store("documentsStore").getList.documents.length === 0
   ) {
-    await Alpine.store("documentsStore").getList.setDocuments({ type, page });
+    await Alpine.store("documentsStore").getList.setDocuments({
+      type,
+      page,
+      limit: perPage,
+    });
   }
 }

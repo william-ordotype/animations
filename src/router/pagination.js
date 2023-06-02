@@ -51,3 +51,19 @@ window.handlePagination = (routerParams, pageNumber) => {
   }
   routerParams.navigate(newQuery);
 };
+
+window.handleItemsPerPage = (routerParams, limit) => {
+  const perPage = limit || routerParams.perPage;
+  let newQuery;
+
+  if (routerParams.path.includes("?")) {
+    const query = routerParams.path.split("?");
+    const hashObj = hashToObject(query[1]);
+    hashObj.perPage = perPage;
+    const urlHash = objectToHash(hashObj);
+    newQuery = query[0] + "?" + urlHash;
+  } else {
+    newQuery = routerParams.path + "?limit=" + page;
+  }
+  routerParams.navigate(newQuery);
+};
