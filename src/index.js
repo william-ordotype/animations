@@ -66,7 +66,6 @@ Alpine.data("FormFiles", () => {
       });
     },
     handleDeleteFile(_, index) {
-      debugger;
       console.log(index);
       console.log("files", this.files);
     },

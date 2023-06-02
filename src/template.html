@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Last Published: Wed May 24 2023 02:15:24 GMT+0000 (Coordinated Universal Time) -->
+<!-- Last Published: Fri Jun 02 2023 01:57:20 GMT+0000 (Coordinated Universal Time) -->
 <html
   data-wf-domain="ordotype.webflow.io"
   data-wf-page="6428de0a13003e96dad78133"
@@ -17,7 +17,7 @@
       name="google-site-verification"
     />
     <link
-      href="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.508e2c60a.min.css"
+      href="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.b8bf16b9f.min.css"
       rel="stylesheet"
       type="text/css"
     />
@@ -479,6 +479,8 @@
           background-position: right;
         }
 
+        .splide__track, .splide__list {
+          overflow: visible !important;}
 
         .splide__slide {
           width: auto !important;}
@@ -1314,7 +1316,7 @@
                   x-data=""
                   class="loading_container center"
                 >
-                  <div>Loading</div>
+                  <div class="hide">Loading</div>
                   <div
                     class="lottie-animation"
                     data-w-id="cb625c82-be66-9092-c9eb-8b3473677579"
@@ -1660,7 +1662,7 @@
                             class="sort_cover first"
                           >
                             <div class="flex_horizontal">
-                              <a href="#" class="c heck_box w-inline-block"
+                              <a href="#" class="check_box w-inline-block"
                                 ><img
                                   loading="lazy"
                                   src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/6408f49c84b6bf6fb46c68cf_check-mark.svg"
@@ -1817,7 +1819,7 @@
                         </div>
                       </div>
                       <div
-                        x-for="(d, index) in $store.documentsStore.getList.documents"
+                        x-for="d in $store.documentsStore.getList.documents"
                         class="list_items"
                       >
                         <div class="list_item">
@@ -1846,10 +1848,8 @@
                             >
                               <div class="flex_horizontal">
                                 <a
-                                  x-data="{checked: $store.documentsStore.getList.documents[index].completed}"
                                   x-on:click="$event.preventDefault(); checked = !checked;"
-                                  href="#"
-                                  x-bind:class="checked && 'active'"
+                                  x-data="{checked: $store.documentsStore.getList.documents[index].completed}"
                                   href="#"
                                   class="check_box w-inline-block"
                                   ><img
@@ -1864,7 +1864,7 @@
                                 >
                                   {{Nom du document}}
                                 </div>
-                                <div class="file_type_holder">
+                                <div x-show="false" class="file_type_holder">
                                   <div class="file_type_icon pdf">
                                     <div>pdf</div>
                                   </div>
@@ -2318,7 +2318,10 @@
                       />
                     </div>
                     <nav class="sub_list_action w-dropdown-list">
-                      <a href="#" class="sub_link w-inline-block"
+                      <a
+                        x-on:click="drawerEdit($event)"
+                        href="#"
+                        class="sub_link w-inline-block"
                         ><div class="w-layout-grid grid_gap_8">
                           <div class="tab_icon w-embed">
                             <svg
@@ -2360,7 +2363,10 @@
                           </div>
                           <div class="display-inlineflex">Partager</div>
                         </div></a
-                      ><a href="#" class="sub_link color_red w-inline-block"
+                      ><a
+                        x-on:click="drawerDeleteOne($event)"
+                        href="#"
+                        class="sub_link color_red w-inline-block"
                         ><div class="w-layout-grid grid_gap_8">
                           <div class="tab_icon color_red w-embed">
                             <svg
@@ -2389,7 +2395,7 @@
                   src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/6409a60abee24b0929f62f72_cross.svg"
                   loading="lazy"
                   id="w-node-_5e73bd5a-ce56-4459-5f7f-74573fcb3d7f-dad78133"
-                  x-bind="drawerClose"
+                  x-bind="drawerClose($event)"
                   alt=""
                   class="close_icon"
                 />
@@ -2397,7 +2403,7 @@
             </div>
             <div x-bind="drawerLoading" class="drawer_loading">
               <div class="loading_container center">
-                <div>Loading</div>
+                <div class="hide">Loading</div>
                 <div
                   class="lottie-animation"
                   data-w-id="d08456f3-a02a-a423-a7b3-56fbd60371df"
@@ -2426,8 +2432,8 @@
                 id="w-node-_5e73bd5a-ce56-4459-5f7f-74573fcb3d83-dad78133"
                 class="tags_wrapper"
               >
-                <div x-text="&#x27;Pathologie&#x27;" class="view_tag">
-                  <div>Pathologie associée</div>
+                <div x-text="ptag.title" class="view_tag">
+                  <div>{{Pathologie associée}}</div>
                 </div>
               </div>
               <div
@@ -2442,7 +2448,9 @@
                 </div>
                 <div class="display-inlineflex">par</div>
                 <div class="view_author">
-                  <div class="text-weight-semibold">AlineDieu</div>
+                  <div x-bind="getAuthor" class="text-weight-semibold">
+                    {{AlineDieu}}
+                  </div>
                 </div>
               </div>
               <div
@@ -2574,61 +2582,6 @@
                     multiple="true"
                     x-on:change="files = Object.values($event.target.files)"
                   />
-
-                  <div class="file-upload-wrapper">
-                    <div
-                      x-data="FormFiles"
-                      id="FileUpload"
-                      class="file-upload__bg"
-                    >
-                      <div x-if="filesUploaded !== null">
-                        <div class="columns">
-                          <div
-                            x-for="(fileUpload,index) in filesUploaded"
-                          >
-                            <div class="rows">
-                
-                              <button x-on:click="handleDeleteFile(fileUpload, index)">
-                                x
-                              </button>
-                              <span
-                                class="font-medium text-gray-900"
-                                x-text="filesUploaded[index].file_name"
-                                >Uploading</span
-                              >
-                              <span
-                                class="text-xs self-end text-gray-500"
-                                x-text="filesUploaded[index].file_url"
-                                >...</span
-                              >
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="input_container">
-                        <input
-                          type="file"
-                          multiple
-                          class="file-upload__input"
-                          x-on:change="handleFileChange($event)"
-                          x-on:dragover="$el.classList.add('active')"
-                          x-on:dragleave="$el.classList.remove('active')"
-                          x-on:drop="$el.classList.remove('active')"
-                        />
-                        <div class="empty-cols">
-                          <i
-                            class="fas fa-cloud-upload-alt fa-3x text-currentColor"
-                          ></i>
-                          <p class="text-gray-700">
-                            Drag your files here or click in this area.
-                          </p>
-                          <a href="javascript:void(0)" class="file-select__btn"
-                            >Select a file</a
-                          >
-                        </div>
-                      </div>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -3076,6 +3029,16 @@
                         class="footer3_link"
                         >Toutes les pathologies</a
                       ><a
+                        data-ms-content="!essai-expir"
+                        href="/toutes-les-ordonnances"
+                        class="footer3_link"
+                        >Toutes les ordonnances</a
+                      ><a
+                        data-ms-content="!essai-expir"
+                        href="/toutes-les-conseils-patients"
+                        class="footer3_link"
+                        >Toutes les conseils patient</a
+                      ><a
                         href="https://www.ordotype.fr/specialites"
                         class="footer3_link"
                         >Toutes les spécialités</a
@@ -3092,7 +3055,13 @@
                         class="footer3_link"
                         >Confidentialité</a
                       ><a href="/faq" class="footer3_link">FAQ</a
-                      ><a href="/blog" class="footer3_link">Blog</a>
+                      ><a href="/blog" class="footer3_link">Blog</a
+                      ><a
+                        href="https://calendly.com/louis-malachane/ordotype"
+                        target="_blank"
+                        class="footer3_link"
+                        >Demander une démo</a
+                      >
                     </div>
                   </div>
                 </div>
@@ -3109,7 +3078,7 @@
       crossorigin="anonymous"
     ></script>
     <script
-      src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/js/webflow.ab0f92476.js"
+      src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/js/webflow.2b75e4740.js"
       type="text/javascript"
     ></script>
     <!-- Google Tag Manager (noscript) -->
@@ -3125,8 +3094,8 @@
     <!-- End Google Tag Manager (noscript) -->
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@bcc66ec097a3618008800a1753503ed5321005f7/ordotype-index-2023-05-16.js"></script>
-    <!--<script src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@c03980155bd40174b4db55cd1c673d7f9dca31a7/ordotype-index-2023-05-16-b.js"></script>-->
+    <!--<script src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@bcc66ec097a3618008800a1753503ed5321005f7/ordotype-index-2023-05-16.js"></script>-->
+    <script src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@d55336453f5aaa96045554154f0b2afead4a4cfe/ordotype-index-2023-05-30b.js"></script>
 
     <script
       defer

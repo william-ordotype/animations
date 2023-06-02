@@ -27,21 +27,9 @@ const myDocumentsStore = {
     async setDocument(props) {
       const { id } = props;
       const res = await this.getDocument({ id });
-      this.document = { ...res };
-    },
-    setModalDocument(props) {
-      const jsonData = Object.assign({}, props);
-      const pathology = Object.assign({}, jsonData.pathology);
-      const filesIds = Object.assign({}, jsonData.filesIds);
-      const { _id, rich_text_ordo, title } = jsonData;
-
-      Alpine.store("documentsStore").showModal = true;
-      window.globals.modal.form.setModalFields({
-        _id,
-        rich_text_ordo,
-        title,
-        pathology,
-      });
+      this.document = {
+        ...res,
+      };
     },
   },
 
@@ -172,23 +160,15 @@ const myDocumentsStore = {
       }
     },
   },
-
   deleteOne: {
     async sendDocument(data) {
-      try {
-        const res = await this.deleteDocument(data);
-        if (!res.ok) {
-          console.error(res.status + " Failed Fetch ");
-        }
-        await Alpine.store("documentsStore").getList.setDocuments();
-      } catch (err) {
-        console.error("EXCEPTION: ", err);
-      }
+      await this.deleteDocument(data);
+      await Alpine.store("documentsStore").getList.setDocuments();
+      await Alpine.store("documentsStore").getOne.setDocument();
     },
     async deleteDocument(data) {
       if (!data._id) {
-        console.error("Id not found");
-        return;
+        throw new Error("Id not found");
       }
       try {
         const response = await fetch(`${API_URL}/${data._id}`, {
@@ -202,10 +182,10 @@ const myDocumentsStore = {
           const responseData = await response.json();
           return responseData;
         } else {
-          throw new Error("document - deleteOne - fetch failed.");
+          throw new Error("fetch failed.");
         }
       } catch (err) {
-        console.error(err);
+        console.error("deleteOne - err", err);
       }
     },
   },

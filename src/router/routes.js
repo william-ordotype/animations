@@ -27,7 +27,6 @@ window.router = () => {
           type = "";
           listTitle = "Tous mes documents";
       }
-      debugger;
       Alpine.store("documentsStore").getList.documentTypeTitle = listTitle;
       await handleRouter(context, { type });
     },
@@ -48,7 +47,6 @@ window.router = () => {
 
 async function handleRouter(context, { type }) {
   const page = context.params.page;
-  const id = context.params.id;
   if (
     !Alpine.store("userStore").isAuth ||
     !Alpine.store("userStore").hasPaidSub
@@ -57,22 +55,17 @@ async function handleRouter(context, { type }) {
     return;
   }
   Alpine.store("documentsStore").getList.documentType = type;
-  console.log(context);
-  if (id) {
-    // Shows getOne drawer
-    console.log("drawer");
-  } else {
-    // Shows getList items
-    Alpine.store("modalStore").showModal = false;
-    Alpine.store("drawerStore").showDrawer = false;
 
-    // Do a reload if necessary
-    // TODO could be optimized
-    if (
-      context.hash.split("/").length !== 3 ||
-      Alpine.store("documentsStore").getList.documents.length === 0
-    ) {
-      await Alpine.store("documentsStore").getList.setDocuments({ type, page });
-    }
+  // Shows getList items
+  Alpine.store("modalStore").showModal = false;
+  Alpine.store("drawerStore").showDrawer = false;
+
+  // Do a reload if necessary
+  // AKA if when closing the drawer there are not documents loaded
+  if (
+    !context.hash.split("/").includes("view") ||
+    Alpine.store("documentsStore").getList.documents.length === 0
+  ) {
+    await Alpine.store("documentsStore").getList.setDocuments({ type, page });
   }
 }

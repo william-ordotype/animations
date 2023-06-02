@@ -28,18 +28,31 @@ function DocumentsDrawer() {
           ["x-show"]: "!drawerStore.loadDrawer",
         };
       },
-      drawerClose() {
-        return {
-          ["x-on:click"]: function () {
-            const pageNumber = Alpine.store("documentsStore").getList.pageNumber || '';
-            const documentType = Alpine.store("documentsStore").getList.documentType;
-            PineconeRouter.currentContext.navigate(
-              `/list?type=${documentType ? documentType : "all"}${
-                pageNumber && "&page=" + pageNumber
-              }`
-            );
-          },
-        };
+      drawerClose(ev) {
+        ev.preventDefault();
+        const pageNumber =
+          Alpine.store("documentsStore").getList.pageNumber || "";
+        const documentType =
+          Alpine.store("documentsStore").getList.documentType;
+        PineconeRouter.currentContext.navigate(
+          `/list?type=${documentType ? documentType : "all"}${
+            pageNumber && "&page=" + pageNumber
+          }`
+        );
+        Alpine.store("documentsStore").getOne.document = {};
+      },
+      async drawerDeleteOne(ev) {
+        ev.preventDefault();
+        await Alpine.store("modalStore").openBeforeDelete(
+          Alpine.store("documentsStore").getOne.document
+        );
+        this.drawerClose();
+      },
+      drawerEdit(ev) {
+        ev.preventDefault();
+        Alpine.store("modalStore").openModal(
+          Alpine.store("documentsStore").getOne.document
+        );
       },
       getOneTitle() {
         return {
@@ -55,6 +68,17 @@ function DocumentsDrawer() {
       getOneRichText() {
         return {
           ["x-html"]: "$store.documentsStore.getOne.document.rich_text_ordo",
+        };
+      },
+      getAuthor() {
+        return {
+          ["x-text"]:
+            "$store.documentsStore.getOne.document.memeber ? $store.documentsStore.getOne.document.memeber.customFields.nom + ' '+ $store.documentsStore.getOne.document.memeber.customFields.prnom : '{{undefined}}'",
+        };
+      },
+      getPathology() {
+        return {
+          ["x-text"]: "$store.documentsStore.getOne.document.pathology[0]",
         };
       },
     };

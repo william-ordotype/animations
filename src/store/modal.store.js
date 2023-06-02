@@ -39,7 +39,7 @@ const modalStore = {
       this.form.type = note.type;
       this.form.pathology =
         note.pathology.length > 0 ? note.pathology[0]._id : [];
-        this.form.prescription_type  = note.prescription_type
+      this.form.prescription_type = note.prescription_type;
     } else {
       this.form._id = "";
       this.form.title = "";
@@ -51,6 +51,7 @@ const modalStore = {
     }
     this.showModal = true;
   },
+  // Delete Path
   deleteObject: {},
   openBeforeDelete(doc) {
     this.showBeforeDelete = true;
@@ -77,6 +78,7 @@ const modalStore = {
     );
     this.closeBeforeDelete();
   },
+  // Create/Edit Path
   closeModal() {
     // clear dynamic fields
     this.showModal = false;
@@ -88,12 +90,12 @@ const modalStore = {
     this.form.pathology = [];
     this.form.documents = [];
     this.files = [];
-    this.prescription_type = ""
+    this.prescription_type = "";
     // clear local fields
     globals.createRTE.container.querySelector(".ql-editor").innerHTML = "";
 
     // clear autocomplete
-    $("#pathology-autocomplete form")[0].reset()
+    $("#pathology-autocomplete form")[0].reset();
   },
   async submitForm(ev) {
     debugger;

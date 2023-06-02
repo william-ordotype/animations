@@ -154,7 +154,7 @@ globals.statusMessages = {
   },
   static: {
     success: "Success",
-    error: "There was an error. Please, contact with the administator",
+    error: "There was an error. Please, contact with the administrator",
   },
 };
 

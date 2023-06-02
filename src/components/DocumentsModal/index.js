@@ -2,7 +2,6 @@ import Alpine from "alpinejs";
 import QRCode from "easyqrcodejs";
 
 import "../../utils/globals";
-import modalStore from "../../store/modal.store";
 import globals from "../../utils/globals";
 
 function DocumentsModal() {
@@ -68,7 +67,7 @@ function DocumentsModal() {
       url: "",
       urlTitle: "",
       insertUrlSubmit() {
-        const quill = globals.createRTE
+        const quill = globals.createRTE;
         const qrWrapper = document.createElement("div");
         const options = {
           text: this.url,
@@ -84,7 +83,6 @@ function DocumentsModal() {
         const qrCode = new QRCode(qrWrapper, options);
 
         var range = quill.getSelection(true);
-        debugger
         if (range) {
           if (range.length == 0) {
             // Inserts QR at cursor position
