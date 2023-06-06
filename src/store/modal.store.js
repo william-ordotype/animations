@@ -70,6 +70,7 @@ const modalStore = {
     }
     this.showBeforeDelete = false;
     this.deleteObject = {};
+    Alpine.store('drawerStore').hideDrawer();
   },
   async submitDelete(ev) {
     ev.preventDefault();

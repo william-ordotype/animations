@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Last Published: Fri Jun 02 2023 03:58:36 GMT+0000 (Coordinated Universal Time) -->
+<!-- Last Published: Tue Jun 06 2023 02:03:26 GMT+0000 (Coordinated Universal Time) -->
 <html
   data-wf-domain="ordotype.webflow.io"
   data-wf-page="6428de0a13003e96dad78133"
@@ -17,7 +17,7 @@
       name="google-site-verification"
     />
     <link
-      href="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.b8bf16b9f.min.css"
+      href="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.454a3b6b4.min.css"
       rel="stylesheet"
       type="text/css"
     />
@@ -68,8 +68,9 @@
       href="https://www.ordotype.fr/mes-documents-sandbox"
       rel="canonical"
     />
-    <!-- Memberstack 2.0 -->
+    <!-- Memberstack webflow package -->
     <script
+      data-memberstack-domain="https://memberstack-client.ordotype.fr"
       data-memberstack-app="app_cl2r62rnv000w0uhy1nstfc3r"
       src="https://static.memberstack.com/scripts/v1/memberstack.js"
       type="text/javascript"
@@ -2037,11 +2038,11 @@
                           <div
                             data-delay="0"
                             data-hover="false"
-                            x-data=""
+                            x-data="DropdownPerPage"
                             class="per_page_menu w-dropdown"
                           >
                             <div class="sub_toggle_perpage w-dropdown-toggle">
-                              <div>Afficher 10 par page</div>
+                              <div x-text="showDropdownText">Afficher 10 par page</div>
                               <img
                                 loading="lazy"
                                 src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/6408f49ea5cfb4c0a65ce1d0_arr-down.svg"
@@ -2050,9 +2051,13 @@
                               />
                             </div>
                             <nav class="sub_list_perpage w-dropdown-list">
-                              <a href="#" class="w-dropdown-link">Link 1</a
-                              ><a href="#" class="w-dropdown-link">Link 2</a
-                              ><a href="#" class="w-dropdown-link">Link 3</a>
+                              <a x-text="dropdownText(50)" x-on:click="changePerPage($event, $router, 50)" href="#" class="w-dropdown-link"
+                                >Afficher 50 par page</a
+                              ><a x-text="dropdownText(5)" x-on:click="changePerPage($event, $router, 20)" href="#" class="w-dropdown-link"
+                                >Afficher 5 par page</a
+                              ><a x-text="dropdownText(10)" x-on:click="changePerPage($event, $router, 5)" href="#" class="w-dropdown-link"
+                                >Afficher 10 par page</a
+                              >
                             </nav>
                           </div>
                         </div>
@@ -2746,8 +2751,8 @@
                     />
                   </div>
                   <div
+                    x-show="modalStore.form.type === &#x27;prescriptions&#x27;"
                     class="action_input_wrapper"
-                    x-show="modalStore.form.type === 'prescriptions'"
                   >
                     <label
                       for="prescription_type"
@@ -2759,8 +2764,8 @@
                       name="prescription_type"
                       data-name="prescription_type"
                       x-model="modalStore.form.prescription_type"
+                      x-bind:disabled="modalStore.form.type !== &#x27;prescriptions&#x27;"
                       class="action_text_field select_action w-select"
-                      x-bind:disabled="modalStore.form.type !== 'prescriptions'"
                     >
                       <option value="">Type d’ordonnance</option>
                       <option value="balance_sheet">Bilan</option>
@@ -2976,7 +2981,7 @@
                       </div>
                     </div>
                     <div class="margin-bottom-4 margin-small">
-                      <div class="div-block-39">
+                      <div class="switch_tabs-wrapper">
                         <div class="button-footer">
                           <img
                             src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/62a8a85946267b2f7c2fd0f3_no-money.png"

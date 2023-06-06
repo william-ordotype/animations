@@ -20,6 +20,7 @@ import drawerStore from "../../store/drawer.store";
 import userStore from "../../store/user.store";
 import PathologiesAutocomplete from "../../components/PathologiesAutocomplete";
 import DataTableSubNav from "../../components/DataTableSubnav";
+import DropdownPerPage from "../../components/DropdownPerPage";
 
 window.Alpine = Alpine;
 
@@ -71,6 +72,7 @@ Alpine.data("FormFiles", () => {
     },
   };
 });
+Alpine.data("DropdownPerPage", DropdownPerPage);
 
 /**
  Runs program

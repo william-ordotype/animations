@@ -46,7 +46,6 @@ function DocumentsDrawer() {
         await Alpine.store("modalStore").openBeforeDelete(
           Alpine.store("documentsStore").getOne.document
         );
-        this.drawerClose(ev);
       },
       drawerEdit(ev) {
         ev.preventDefault();

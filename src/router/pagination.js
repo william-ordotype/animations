@@ -63,7 +63,7 @@ window.handleItemsPerPage = (routerParams, limit) => {
     const urlHash = objectToHash(hashObj);
     newQuery = query[0] + "?" + urlHash;
   } else {
-    newQuery = routerParams.path + "?limit=" + page;
+    newQuery = routerParams.path + "?perPage=" + perPage;
   }
   routerParams.navigate(newQuery);
 };
