@@ -1460,6 +1460,7 @@
                         </div>
                         <a
                           id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0ee1-dad78133"
+                          x-on:click.prevent="const docs = $store.documentsStore.getList.documents.filter(elem => elem.completed); $store.modalStore.openBeforeDelete(docs, true) "
                           href="#"
                           class="button is-delete w-inline-block"
                           ><div class="button_text hide-mobile-landscape">
@@ -1663,7 +1664,11 @@
                             class="sort_cover first"
                           >
                             <div class="flex_horizontal">
-                              <a href="#" class="check_box w-inline-block"
+                              <a
+                              x-bind:class="checked &amp;&amp; &#x27;active&#x27;"
+                              x-data="{checked: false}"
+                              x-on:click.prevent="checked = !checked; Alpine.store('documentsStore').getList.documents.forEach((doc) => doc.completed = checked)"
+                               href="#" class="check_box w-inline-block"
                                 ><img
                                   loading="lazy"
                                   src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/6408f49c84b6bf6fb46c68cf_check-mark.svg"
@@ -1850,8 +1855,9 @@
                               <div class="flex_horizontal">
                                 <a
                                   x-bind:class="checked &amp;&amp; &#x27;active&#x27;"
-                                  x-data="{checked: $store.documentsStore.getList.documents[index].completed}"
-                                  x-on:click="$event.preventDefault(); checked = !checked;"
+                                  x-effect="checked = $store.documentsStore.getList.documents[index].completed"
+                                  x-data="{checked: $store.documentsStore.getList.documents[index].completed || false}"
+                                  x-on:click="$event.preventDefault(); $store.documentsStore.getList.documents[index].completed = !checked"
                                   href="#"
                                   class="check_box w-inline-block"
                                   ><img
@@ -2053,9 +2059,9 @@
                             <nav class="sub_list_perpage w-dropdown-list">
                               <a x-text="dropdownText(50)" x-on:click="changePerPage($event, $router, 50)" href="#" class="w-dropdown-link"
                                 >Afficher 50 par page</a
-                              ><a x-text="dropdownText(5)" x-on:click="changePerPage($event, $router, 20)" href="#" class="w-dropdown-link"
+                              ><a x-text="dropdownText(20)" x-on:click="changePerPage($event, $router, 20)" href="#" class="w-dropdown-link"
                                 >Afficher 5 par page</a
-                              ><a x-text="dropdownText(10)" x-on:click="changePerPage($event, $router, 5)" href="#" class="w-dropdown-link"
+                              ><a x-text="dropdownText(5)" x-on:click="changePerPage($event, $router, 5)" href="#" class="w-dropdown-link"
                                 >Afficher 10 par page</a
                               >
                             </nav>
@@ -2870,7 +2876,7 @@
                     class="button is-annuler w-inline-block"
                     ><div class="button_text">Annuler</div></a
                   ><a
-                    x-on:click="$store.modalStore.submitDelete($event)"
+                    x-on:click="$store.modalStore.submitDelete($event, $store.modalStore.deleteList.length)"
                     href="#"
                     class="button is-docs w-inline-block"
                     ><div class="button_text">Confirmer</div></a

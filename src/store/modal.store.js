@@ -53,16 +53,27 @@ const modalStore = {
   },
   // Delete Path
   deleteObject: {},
-  openBeforeDelete(doc) {
+  deleteList: [],
+  openBeforeDelete(doc, isList = false) {
+    if (isList === false) {
+      this.deleteObject = doc;
+    } else {
+      this.deleteList = doc;
+    }
     this.showBeforeDelete = true;
-    this.deleteObject = doc;
   },
   contentBeforeDelete(container, elem) {
-    const type = this.deleteObject.type || "";
-    const mutation = "delete";
+    let type = "";
     const obj = { ...window.globals.modal.content };
-
-    return type ? obj[mutation][type][container][elem] : undefined;
+    if (this.deleteList.length === 0) {
+      type = this.deleteObject.type || "";
+      const mutation = "delete";
+  
+      return type ? obj[mutation][type][container][elem] : undefined;
+    } else {
+      return obj['deleteMany']['list'][container][elem]
+    }
+  
   },
   closeBeforeDelete(ev) {
     if (ev) {
@@ -70,13 +81,17 @@ const modalStore = {
     }
     this.showBeforeDelete = false;
     this.deleteObject = {};
-    Alpine.store('drawerStore').hideDrawer();
+    Alpine.store("drawerStore").hideDrawer();
   },
-  async submitDelete(ev) {
+  async submitDelete(ev, list = false) {
     ev.preventDefault();
-    await Alpine.store("documentsStore").deleteOne.sendDocument(
-      this.deleteObject
-    );
+    if(!list) {
+      await Alpine.store("documentsStore").deleteOne.sendDocument(
+        this.deleteObject
+      );
+    } else {
+      await Alpine.store("documentsStore").deleteMany.exec(this.deleteList)
+    }
     this.closeBeforeDelete();
   },
   // Create/Edit Path

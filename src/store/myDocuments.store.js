@@ -190,7 +190,45 @@ const myDocumentsStore = {
       }
     },
   },
-  deleteMany: {},
+  deleteMany: {
+    async exec(documentList) {
+      const deletePromises = documentList.map(async (docItem) => {
+        return await this.query(docItem);
+      });
+
+      try {
+        const responses = await Promise.all(deletePromises).catch((err) =>
+          console.log("promise error", err)
+        );
+        console.log("Files deleted:", responses);
+        await Alpine.store("documentsStore").getList.setDocuments();
+      } catch (err) {
+        console.error("Error deleting files:", err);
+      }
+    },
+    async query(data) {
+      if (!data._id) {
+        throw new Error("Id not found");
+      }
+      try {
+        const response = await fetch(`${API_URL}/${data._id}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${window.memberToken}`,
+          },
+        });
+        if (response.ok) {
+          const responseData = await response.json();
+          return responseData;
+        } else {
+          throw new Error("fetch failed.");
+        }
+      } catch (err) {
+        console.error("deleteOne - err", err);
+      }
+    },
+  },
   pathologies: {
     async getList(query) {
       const response = await fetch(

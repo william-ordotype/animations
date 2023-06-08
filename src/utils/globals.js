@@ -136,6 +136,15 @@ globals.modal = {
         },
       },
     },
+    deleteMany: {
+      list: {
+        beforeDelete: {
+          title: "many documents",
+          description:
+            "Confirm you would like to delete many documents",
+        },
+      }
+    }
   },
 };
 
