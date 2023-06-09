@@ -21,6 +21,7 @@ import userStore from "../../store/user.store";
 import PathologiesAutocomplete from "../../components/PathologiesAutocomplete";
 import DataTableSubNav from "../../components/DataTableSubnav";
 import DropdownPerPage from "../../components/DropdownPerPage";
+import toasterStore from "../../store/toaster.store";
 
 window.Alpine = Alpine;
 
@@ -43,6 +44,7 @@ async function init() {
 Alpine.store("documentsStore", myDocumentsStore);
 Alpine.store("modalStore", modalStore);
 Alpine.store("drawerStore", drawerStore);
+Alpine.store("toasterStore", toasterStore);
 
 /**
  * Declaring local state for each component
@@ -73,6 +75,8 @@ Alpine.data("FormFiles", () => {
   };
 });
 Alpine.data("DropdownPerPage", DropdownPerPage);
+
+// Alpine.store('toasterStore').toasterMsg('This is a toaster message', 'success', 2000)
 
 /**
  Runs program

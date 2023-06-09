@@ -34,6 +34,7 @@ const myDocumentsStore = {
   },
 
   getList: {
+    allChecked: false,
     isLoading: false,
     isEmpty: false,
     documents: [],
@@ -45,6 +46,7 @@ const myDocumentsStore = {
 
     async setDocuments(props = {}) {
       this.isLoading = true;
+      this.allChecked = false;
       if (!Alpine.store("userStore").isAuth) {
         this.isLoading = false;
         return;

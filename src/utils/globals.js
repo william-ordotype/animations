@@ -162,10 +162,18 @@ globals.statusMessages = {
     500: "Server error",
   },
   static: {
-    success: "Success",
-    error: "There was an error. Please, contact with the administrator",
+    success: "Succès",
+    error: "Il y avait une erreur. Veuillez contacter l'administrateur du site.",
   },
 };
+
+globals.toaster = {
+  statusTypes: {
+    success: "success",
+    error: "error",
+    info: "info",
+  }
+}
 
 globals.run = function () {
   window.globals = globals;

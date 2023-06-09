@@ -1,21 +1,29 @@
-const toasterStore = {
-    showToaster: false,
-    message: '',
-    toasterMsg(msg ='', type, time = 2000) {
-        this.message = msg;
-        if(type === 'error') {
-
-        } else if( type === 'success') {
-
-        } else {
-            console.error('Type does not exist')
-        }
-        this.showToaster = true;
-        setTimeout(function() {
-            this.message = '';
-            this.showToaster = false;
-        }, time)
+const STATUS_TYPES = {
+      success: "success",
+      error: "error",
+      info: "info",
     }
-}
 
-export default toasterStore
+const toasterStore = {
+  showToaster: false,
+  message: "",
+  type: "none",
+  toasterMsg(msg = "", type = "none", time = 2000) {
+    debugger
+    if (STATUS_TYPES[type] === undefined) {
+      this.type = "none";
+      console.error("Toaster type not found");
+    } else {
+      this.type = type;
+    }
+    this.message = msg;
+    this.showToaster = true;
+    setTimeout(() => {
+      this.message = "";
+      this.showToaster = false;
+      this.type = "none";
+    }, time);
+  },
+};
+
+export default toasterStore;
