@@ -139,12 +139,12 @@ globals.modal = {
     deleteMany: {
       list: {
         beforeDelete: {
-          title: "many documents",
+          title: "plusieurs documents",
           description:
-            "Confirm you would like to delete many documents",
+            "Vous êtes sur le point de supprimer plusieurs documents. Une fois la suppression confirmée, vous n’aurez plus accès à ces documents.",
         },
-      }
-    }
+      },
+    },
   },
 };
 
@@ -163,7 +163,8 @@ globals.statusMessages = {
   },
   static: {
     success: "Succès",
-    error: "Il y avait une erreur. Veuillez contacter l'administrateur du site.",
+    error:
+      "Il y avait une erreur. Veuillez contacter l'administrateur du site.",
   },
 };
 
@@ -172,8 +173,8 @@ globals.toaster = {
     success: "success",
     error: "error",
     info: "info",
-  }
-}
+  },
+};
 
 globals.run = function () {
   window.globals = globals;

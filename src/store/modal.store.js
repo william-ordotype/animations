@@ -85,13 +85,20 @@ const modalStore = {
   },
   async submitDelete(ev, list = false) {
     ev.preventDefault();
-    if(!list) {
-      await Alpine.store("documentsStore").deleteOne.sendDocument(
-        this.deleteObject
-      );
-    } else {
-      await Alpine.store("documentsStore").deleteMany.exec(this.deleteList)
-    }
+    try {
+
+      if(!list) {
+        await Alpine.store("documentsStore").deleteOne.sendDocument(
+          this.deleteObject
+          );
+          Alpine.store('toasterStore').toasterMsg('Document supprimé avec succès', 'success', 2000);
+        } else {
+          await Alpine.store("documentsStore").deleteMany.exec(this.deleteList)
+          Alpine.store('toasterStore').toasterMsg('Documents supprimés avec succès', 'success', 2000);
+        }
+      } catch(err) {
+        Alpine.store('toasterStore').toasterMsg('Une erreur est survenue', 'error', 2000);
+      }
     this.closeBeforeDelete();
   },
   // Create/Edit Path
@@ -114,7 +121,6 @@ const modalStore = {
     $("#pathology-autocomplete form")[0].reset();
   },
   async submitForm(ev) {
-    debugger;
     console.log("submitting");
     this.form.rich_text_ordo = window.globals.createRTE.root.innerHTML;
 
@@ -130,12 +136,20 @@ const modalStore = {
       // Sanitize the string value of each property using DOMPurify
       form[key] = DOMPurify.sanitize(form[key]);
     });
-    await Alpine.store("documentsStore").createOne.sendDocument(
-      form,
-      this.files
-    );
+    try {
 
-    this.closeModal();
+      await Alpine.store("documentsStore").createOne.sendDocument(
+        form,
+        this.files
+        );
+        
+        this.closeModal();
+        
+        Alpine.store('toasterStore').toasterMsg('Document créé avec succès', 'success', 2000);
+      } catch (err) {
+        console.error(err);
+        Alpine.store('toasterStore').toasterMsg('Une erreur est survenue', 'error', 2000);
+      }
   },
 };
 
