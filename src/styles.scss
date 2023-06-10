@@ -112,3 +112,27 @@
   border-color: transparent;
   outline: 0;
 }
+
+.check_box-copy.active {
+  background-color: #3454f6;
+  border-color: #3454f6;
+}
+
+.pathologie_tag.active {
+  background-color: #f2fdf5;
+}
+
+.sort_cover.active {
+  color: #0c0e16;
+  background-color: rgba(12, 14, 22, 0.05);
+  font-weight: 600;
+}
+
+.sort_arrow.active {
+  color: #3454f6;
+}
+
+.tab_link.active {
+  color: #fff;
+  background-color: #3454f6;
+}

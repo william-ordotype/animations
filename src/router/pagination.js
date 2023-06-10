@@ -67,3 +67,21 @@ window.handleItemsPerPage = (routerParams, limit) => {
   }
   routerParams.navigate(newQuery);
 };
+
+window.handleSorting = (routerParams, sortBy, directionOrder = "DESC" ) => {
+  const sort = sortBy || routerParams.sort;
+  const direction = directionOrder || routerParams.directionOrder;
+  let newQuery;
+
+  if (routerParams.path.includes("?")) {
+    const query = routerParams.path.split("?");
+    const hashObj = hashToObject(query[1]);
+    hashObj.sort = sort;
+    hashObj.direction = direction;
+    const urlHash = objectToHash(hashObj);
+    newQuery = query[0] + "?" + urlHash;
+  } else {
+    newQuery = routerParams.path + "?sort=" + sort + "&direction=" + direction;
+  }
+  routerParams.navigate(newQuery);
+}

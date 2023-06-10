@@ -46,7 +46,7 @@ window.router = () => {
 };
 
 async function handleRouter(context, { type }) {
-  const { page, perPage } = context.params;
+  const { page, perPage, sortBy, direction } = context.params;
   if (
     !Alpine.store("userStore").isAuth ||
     !Alpine.store("userStore").hasPaidSub
@@ -70,6 +70,8 @@ async function handleRouter(context, { type }) {
       type,
       page,
       limit: perPage,
+      sort: sortBy,
+      direction,
     });
   }
 }

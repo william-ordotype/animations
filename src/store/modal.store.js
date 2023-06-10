@@ -68,12 +68,11 @@ const modalStore = {
     if (this.deleteList.length === 0) {
       type = this.deleteObject.type || "";
       const mutation = "delete";
-  
+
       return type ? obj[mutation][type][container][elem] : undefined;
     } else {
-      return obj['deleteMany']['list'][container][elem]
+      return obj["deleteMany"]["list"][container][elem];
     }
-  
   },
   closeBeforeDelete(ev) {
     if (ev) {
@@ -86,19 +85,30 @@ const modalStore = {
   async submitDelete(ev, list = false) {
     ev.preventDefault();
     try {
-
-      if(!list) {
+      if (!list) {
         await Alpine.store("documentsStore").deleteOne.sendDocument(
           this.deleteObject
-          );
-          Alpine.store('toasterStore').toasterMsg('Document supprimé avec succès', 'success', 2000);
-        } else {
-          await Alpine.store("documentsStore").deleteMany.exec(this.deleteList)
-          Alpine.store('toasterStore').toasterMsg('Documents supprimés avec succès', 'success', 2000);
-        }
-      } catch(err) {
-        Alpine.store('toasterStore').toasterMsg('Une erreur est survenue', 'error', 2000);
+        );
+        Alpine.store("toasterStore").toasterMsg(
+          "Document supprimé avec succès",
+          "success",
+          2000
+        );
+      } else {
+        await Alpine.store("documentsStore").deleteMany.exec(this.deleteList);
+        Alpine.store("toasterStore").toasterMsg(
+          "Documents supprimés avec succès",
+          "success",
+          2000
+        );
       }
+    } catch (err) {
+      Alpine.store("toasterStore").toasterMsg(
+        "Une erreur est survenue",
+        "error",
+        2000
+      );
+    }
     this.closeBeforeDelete();
   },
   // Create/Edit Path
@@ -137,19 +147,25 @@ const modalStore = {
       form[key] = DOMPurify.sanitize(form[key]);
     });
     try {
-
       await Alpine.store("documentsStore").createOne.sendDocument(
         form,
         this.files
-        );
-        
-        this.closeModal();
-        
-        Alpine.store('toasterStore').toasterMsg('Document créé avec succès', 'success', 2000);
-      } catch (err) {
-        console.error(err);
-        Alpine.store('toasterStore').toasterMsg('Une erreur est survenue', 'error', 2000);
-      }
+      );
+      this.closeModal();
+
+      Alpine.store("toasterStore").toasterMsg(
+        "Document créé avec succès",
+        "success",
+        2000
+      );
+    } catch (err) {
+      console.error(err);
+      Alpine.store("toasterStore").toasterMsg(
+        "Une erreur est survenue",
+        "error",
+        2000
+      );
+    }
   },
 };
 

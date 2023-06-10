@@ -8,7 +8,7 @@ import "../../router/pagination";
 import globals from "../../utils/globals";
 import "../../styles.scss";
 
-import DocumentsDataTable from "../../components/DocumentsDataTable";
+import DocumentsDataTable, { HeaderRow } from "../../components/DocumentsDataTable";
 import DocumentsPaginationNavigation from "../../components/DocumentsPaginationNavigation";
 import DocumentsTypeNavigation from "../../components/DocumentsTypeNavigation";
 import DocumentsDrawer from "../../components/DocumentsDrawer";
@@ -75,6 +75,7 @@ Alpine.data("FormFiles", () => {
   };
 });
 Alpine.data("DropdownPerPage", DropdownPerPage);
+Alpine.data("HeaderRow", HeaderRow)
 
 // Alpine.store('toasterStore').toasterMsg('This is a toaster message', 'success', 2000)
 

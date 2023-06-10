@@ -3,7 +3,6 @@ import Alpine from "alpinejs";
 const API_URL = "https://api.ordotype.fr/v1.0.0/notes";
 
 const myDocumentsStore = {
-  completedAction: false,
   getOne: {
     document: {},
     async getDocument({ id } = {}) {
@@ -43,6 +42,8 @@ const myDocumentsStore = {
     itemsTotal: null,
     documentType: null,
     documentTypeTitle: null,
+    sort: "created_on",
+    direction: "DESC",
 
     async setDocuments(props = {}) {
       this.isLoading = true;
@@ -70,6 +71,8 @@ const myDocumentsStore = {
       this.pageTotal = documentsResults["page_total"];
       this.itemsTotal = documentsResults["items_total"];
       this.limit = documentsResults["items_per_page"];
+      this.sort = documentsResults["sort"];
+      this.direction = documentsResults["direction"];
       this.documentType = this.documentType || "";
       this.isLoading = false;
     },
@@ -82,7 +85,7 @@ const myDocumentsStore = {
     } = {}) {
       try {
         const response = await fetch(
-          `${API_URL}?page=${page}&&limit=${limit}&sort=${sort}&direction=${direction}&type=${type}`,
+          `${API_URL}?page=${page}&limit=${limit}&sort=${sort}&direction=${direction}&type=${type}`,
           {
             method: "GET",
             headers: {
