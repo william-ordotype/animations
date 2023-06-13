@@ -53,6 +53,8 @@ function DocumentsDrawer() {
           Alpine.store("documentsStore").getOne.document
         );
       },
+
+      // Getters
       getOneTitle() {
         return {
           ["x-text"]: "$store.documentsStore.getOne.document.title",
