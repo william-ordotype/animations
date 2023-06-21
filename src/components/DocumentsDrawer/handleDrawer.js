@@ -5,18 +5,24 @@ import Alpine from "alpinejs";
  * @param id
  * @returns {Promise<void>}
  */
-async function handleDrawer ({ id }){
-    // TODO Add loading before showing blank drawer
-    Alpine.store("drawerStore").loadDrawer = true;
-    Alpine.store("drawerStore").showDrawer = true;
-    Alpine.store("modalStore").showModal = false;
+async function handleDrawer({ id }) {
+  // TODO Add loading before showing blank drawer
+  Alpine.store("drawerStore").loadDrawer = true;
+  Alpine.store("drawerStore").showDrawer = true;
+  Alpine.store("modalStore").showModal = false;
 
-    try {
-        await Alpine.store("documentsStore").getOne.setDocument({ id });
-        Alpine.store("drawerStore").loadDrawer = false;
-    } catch (err) {
-        // TODO Show warning error notification
+  try {
+    await Alpine.store("documentsStore").getOne.setDocument({ id });
+    if (Alpine.store("documentsStore").getOne.document._id) {
+      Alpine.store("drawerStore").loadDrawer = false;
+    } else {
+      Alpine.store("drawerStore").hideDrawer();
+      Alpine.store("toasterStore").toasterMsg("Id not found", "error", 3500);
     }
-};
+    debugger;
+  } catch (err) {
+    // TODO Show warning error notification
+  }
+}
 
-export default handleDrawer
+export default handleDrawer;

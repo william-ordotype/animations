@@ -8,19 +8,25 @@ import "../../router/pagination";
 import globals from "../../utils/globals";
 import "../../styles.scss";
 
-import DocumentsDataTable, { HeaderRow } from "../../components/DocumentsDataTable";
-import DocumentsPaginationNavigation from "../../components/DocumentsPaginationNavigation";
+import {
+  DataTablePaginationMenu,
+  DataTableListItem,
+  DataTableListItemSubmenu,
+  DataTableHeader,
+  DataTablePerPageDropdown,
+} from "../../components/DocumentsDataTable";
+
 import DocumentsTypeNavigation from "../../components/DocumentsTypeNavigation";
 import DocumentsDrawer from "../../components/DocumentsDrawer";
-import DocumentsModal from "../../components/DocumentsModal";
-import CreateDocumentsNav from "../../components/CreateDocumentsNav/CreateDocumentsNav";
+import {
+  DocumentsModal,
+  OpenModalByType,
+  PathologiesAutocomplete,
+} from "../../components/DocumentsModal";
 import myDocumentsStore from "../../store/myDocuments.store";
 import modalStore from "../../store/modal.store";
 import drawerStore from "../../store/drawer.store";
 import userStore from "../../store/user.store";
-import PathologiesAutocomplete from "../../components/PathologiesAutocomplete";
-import DataTableSubNav from "../../components/DataTableSubnav";
-import DropdownPerPage from "../../components/DropdownPerPage";
 import toasterStore from "../../store/toaster.store";
 
 window.Alpine = Alpine;
@@ -49,13 +55,19 @@ Alpine.store("toasterStore", toasterStore);
 /**
  * Declaring local state for each component
  */
-DocumentsDataTable();
-DocumentsPaginationNavigation();
 DocumentsTypeNavigation();
 DocumentsDrawer();
-DocumentsModal();
-CreateDocumentsNav();
-Alpine.data("DataTableSubNav", DataTableSubNav);
+
+// Documents Datatable
+Alpine.data("DataTableHeader", DataTableHeader);
+Alpine.data("DataTableListItem", DataTableListItem);
+Alpine.data("DataTableListItemSubmenu", DataTableListItemSubmenu);
+Alpine.data("DataTablePaginationMenu", DataTablePaginationMenu);
+Alpine.data("DataTablePerPageDropdown", DataTablePerPageDropdown);
+
+// Documents Modal
+Alpine.data("DocumentsModal", DocumentsModal);
+Alpine.data("OpenModalByType", OpenModalByType);
 Alpine.data("PathologiesAutocomplete", PathologiesAutocomplete);
 Alpine.data("FormFiles", () => {
   return {
@@ -74,8 +86,6 @@ Alpine.data("FormFiles", () => {
     },
   };
 });
-Alpine.data("DropdownPerPage", DropdownPerPage);
-Alpine.data("HeaderRow", HeaderRow)
 
 // Alpine.store('toasterStore').toasterMsg('This is a toaster message', 'success', 2000)
 
@@ -116,10 +126,3 @@ window.Webflow.push(() => {
 document.addEventListener("alpine:initialized", () => {
   window.PineconeRouter.settings.hash = true;
 });
-
-window.handleModal = ({ type }) => {
-  Alpine.store("drawerStore").showDrawer = false;
-  Alpine.store("modalStore").showModal = true;
-
-  Alpine.store("documentsStore").createOne.document.type = type;
-};

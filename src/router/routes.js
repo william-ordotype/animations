@@ -39,6 +39,7 @@ window.router = () => {
       }
     },
     notfound(context) {
+      Alpine.store("toasterStore").toasterMsg("Not found", "error");
       console.log(context);
       console.log("Not found");
     },
@@ -46,7 +47,7 @@ window.router = () => {
 };
 
 async function handleRouter(context, { type }) {
-  const { page, perPage, sortBy, direction } = context.params;
+  const { page, perPage, sort, direction } = context.params;
   if (
     !Alpine.store("userStore").isAuth ||
     !Alpine.store("userStore").hasPaidSub
@@ -70,7 +71,7 @@ async function handleRouter(context, { type }) {
       type,
       page,
       limit: perPage,
-      sort: sortBy,
+      sort,
       direction,
     });
   }

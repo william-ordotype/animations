@@ -84,6 +84,7 @@ const modalStore = {
   },
   async submitDelete(ev, list = false) {
     ev.preventDefault();
+
     try {
       if (!list) {
         await Alpine.store("documentsStore").deleteOne.sendDocument(
@@ -102,14 +103,10 @@ const modalStore = {
           2000
         );
       }
+      this.closeBeforeDelete();
     } catch (err) {
-      Alpine.store("toasterStore").toasterMsg(
-        "Une erreur est survenue",
-        "error",
-        2000
-      );
+      console.error(err);
     }
-    this.closeBeforeDelete();
   },
   // Create/Edit Path
   closeModal() {
@@ -147,6 +144,7 @@ const modalStore = {
       form[key] = DOMPurify.sanitize(form[key]);
     });
     try {
+      debugger;
       await Alpine.store("documentsStore").createOne.sendDocument(
         form,
         this.files

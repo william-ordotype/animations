@@ -1,8 +1,9 @@
 import Alpine from "alpinejs";
 
-function DocumentsDataTable() {
-  return Alpine.data("documentsDataTable", () => ({
-    textTitle(d) {
+function DataTableListItem() {
+  return {
+    // Binders
+    textTitle() {
       return {
         ["x-text"]: "d.title",
         ["x-on:click"]: `
@@ -10,26 +11,38 @@ function DocumentsDataTable() {
                     `,
       };
     },
-    textType(d) {
+    textType() {
       return {
         ["x-text"]: "window.globals.documentTypes[d.type]",
       };
     },
-    textDate(d) {
+    textDate() {
       return {
         ["x-text"]: "new Date(d.updated_on).toLocaleDateString('fr-FR')",
       };
     },
     pathologyRef(d) {
-      console.log(d);
       d.pathology.length > 0
         ? (location.href = `/pathologies/${d.pathology[0].slug}`)
         : console.log("no pathology");
     },
-  }));
+  };
 }
 
-export function HeaderRow() {
+function DataTableListItemSubmenu() {
+  return {
+    async showEditModal(ev, d) {
+      ev.preventDefault();
+      await Alpine.store("modalStore").openModal(d, { type: d.type });
+    },
+    openDeleteDocument(ev, d) {
+      ev.preventDefault();
+      Alpine.store("modalStore").openBeforeDelete(d);
+    },
+  };
+}
+
+function DataTableHeader() {
   const initialState = {
     sortByTitle: {
       propertyName: "title",
@@ -56,20 +69,25 @@ export function HeaderRow() {
   function toggleDirection(direction) {
     if (direction === "ASC") {
       return "DESC";
-    } else if (direction === "DESC") {
-      return "ASC";
-    } else {
-      return "DESC";
     }
+    if (direction === "DESC") {
+      return "ASC";
+    }
+    return "DESC";
   }
 
   function toggleActive(state, sortByN) {
     Array.from(Object.keys(state)).forEach((key) => {
+      debugger;
       if (key === sortByN) {
         state[key].isActive = true;
         state[key].direction = toggleDirection(state[key].direction);
 
-        window.handleSorting(window.PineconeRouter.currentContext, state[key].propertyName, state[key].direction)
+        window.handleSorting(
+          window.PineconeRouter.currentContext,
+          state[key].propertyName,
+          state[key].direction
+        );
       } else {
         state[key].isActive = false;
         state[key].direction = null;
@@ -123,4 +141,51 @@ export function HeaderRow() {
   };
 }
 
-export default DocumentsDataTable;
+function DataTablePaginationMenu() {
+  return {
+    pageNumber() {
+      return {
+        ["x-text"]: "n",
+        ["x-on:click"]: "handlePagination($router, n)",
+        [":class"]:
+          "+$store.documentsStore.getList.pageNumber === +n && 'active'",
+      };
+    },
+    pageNext() {
+      return {
+        ["x-on:click"]:
+          "+$store.documentsStore.getList.pageNumber < +$store.documentsStore.getList.pageTotal && handlePagination($router, +$store.documentsStore.getList.pageNumber+1 )",
+      };
+    },
+  };
+}
+
+function DataTablePerPageDropdown() {
+  return {
+    dropdownText(number) {
+      return `Afficher ${number} par page`;
+    },
+    showDropdownText: "Afficher 10 par page",
+    changePerPage(ev, routerParams, number) {
+      ev.preventDefault();
+      debugger;
+      $(ev.target)
+        .closest(".w-dropdown-list")
+        .removeClass("w--open")
+        .siblings(".w-dropdown")
+        .find(".w-dropdown-toggle")
+        .removeClass("w--open");
+      this.showDropdownText = this.dropdownText(number);
+
+      handleItemsPerPage(routerParams, number); // function available in window scope
+    },
+  };
+}
+
+export {
+  DataTableHeader,
+  DataTableListItem,
+  DataTableListItemSubmenu,
+  DataTablePaginationMenu,
+  DataTablePerPageDropdown,
+};

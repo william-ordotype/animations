@@ -1,4 +1,5 @@
 function PathologiesNoteList() {
+  const pathology = window.location.pathname.split("/")[2];
 
   return {
     // Getters
@@ -11,12 +12,17 @@ function PathologiesNoteList() {
 
     // Lifecycle hooks
     async init() {
-        await Alpine.store("documentsStore").getList.setDocuments();
-        
-        this.allDocuments = [...Alpine.store("documentsStore").getList.documents];
-        this.notesDocuments = this.allDocuments.filter((doc) => doc.type === "notes");
-        console.log(this.notesDocuments);
-    }
+      await Alpine.store("documentsStore").getList.setDocuments({
+        limit: 10,
+        pathology: pathology,
+      });
+
+      this.allDocuments = [...Alpine.store("documentsStore").getList.documents];
+      this.notesDocuments = this.allDocuments.filter(
+        (doc) => doc.type === "notes"
+      );
+      console.log(this.notesDocuments);
+    },
   };
 }
 

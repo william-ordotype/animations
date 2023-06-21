@@ -5,9 +5,9 @@ const API_URL = "https://api.ordotype.fr/v1.0.0/notes";
 const myDocumentsStore = {
   getOne: {
     document: {},
-    async getDocument({ id } = {}) {
+    async getDocument({ _id } = {}) {
       try {
-        const response = await fetch(`${API_URL}/${id}`, {
+        const response = await fetch(`${API_URL}/${_id}`, {
           method: "GET",
           headers: {
             Authorization: `Bearer ${window.memberToken}`,
@@ -17,17 +17,19 @@ const myDocumentsStore = {
           const responseData = await response.json();
           return responseData;
         } else {
-          throw new Error("document - getOne - fetch failed.");
+          throw new Error(window.globals.statusMessages.static.error);
         }
       } catch (err) {
         console.error(err);
+        Alpine.store("toasterStore").toasterMsg(err, "error");
       }
     },
     async setDocument(props) {
-      const { id } = props;
-      const res = await this.getDocument({ id });
+      debugger;
+      const { _id } = props;
+      const res = await this.getDocument({ _id });
       this.document = {
-        ...res,
+        ...res.note,
       };
     },
   },
@@ -60,13 +62,13 @@ const myDocumentsStore = {
         console.error("getList error --", err);
       }
       // Checks if empty
-      if (documentsResults["notes"].length === 0) {
+      if (documentsResults["data"].length === 0) {
         this.isEmpty = true;
         this.isLoading = false;
         return;
       }
       this.isEmpty = false;
-      this.documents = documentsResults["notes"];
+      this.documents = documentsResults["data"];
       this.pageNumber = documentsResults["page_number"];
       this.pageTotal = documentsResults["page_total"];
       this.itemsTotal = documentsResults["items_total"];
@@ -82,6 +84,7 @@ const myDocumentsStore = {
       sort = "created_on",
       direction = "DESC",
       type = this.documentType || "",
+      pathology = "",
     } = {}) {
       try {
         const response = await fetch(
@@ -125,7 +128,7 @@ const myDocumentsStore = {
         Alpine.store("documentsStore").getList.isLoading = false;
       }
     },
-    async postDocument(data) {
+    async postDocument(data, files) {
       if (!data.type) {
         return console.error("Document type not sent");
       } else if (!data.title) {
@@ -143,6 +146,13 @@ const myDocumentsStore = {
         }
       }
 
+      const getFormData = (object) =>
+        Object.keys(object).reduce((formData, key) => {
+          formData.append(key, object[key]);
+          return formData;
+        }, new FormData());
+
+      const newFormData = getFormData(data);
       try {
         const response = await fetch(
           data._id ? `${API_URL}/${data._id}` : `${API_URL}`,
@@ -152,7 +162,7 @@ const myDocumentsStore = {
               "Content-Type": "application/json",
               Authorization: `Bearer ${window.memberToken}`,
             },
-            body: JSON.stringify(data),
+            body: newFormData,
           }
         );
         if (response.ok) {
@@ -170,7 +180,7 @@ const myDocumentsStore = {
     async sendDocument(data) {
       await this.deleteDocument(data);
       await Alpine.store("documentsStore").getList.setDocuments();
-      await Alpine.store("documentsStore").getOne.setDocument();
+      // await Alpine.store("documentsStore").getOne.setDocument();
     },
     async deleteDocument(data) {
       if (!data._id) {
@@ -184,6 +194,7 @@ const myDocumentsStore = {
             Authorization: `Bearer ${window.memberToken}`,
           },
         });
+        debugger;
         if (response.ok) {
           const responseData = await response.json();
           return responseData;

@@ -1,4 +1,4 @@
-import '../../styles.scss';
+import "../../styles.scss";
 import focus from "@alpinejs/focus";
 import alpineWebflow from "../../modules/alpine-webflow";
 import Alpine from "alpinejs";
@@ -10,9 +10,12 @@ import myDocumentsStore from "../../store/myDocuments.store";
 import modalStore from "../../store/modal.store";
 import drawerStore from "../../store/drawer.store";
 import toasterStore from "../../store/toaster.store";
-import PathologiesAutocomplete from "../../components/PathologiesAutocomplete";
 import DocumentsDrawer from "../../components/DocumentsDrawer";
-import DocumentsModal from "../../components/DocumentsModal";
+import {
+  DocumentsModal,
+  OpenModalByType,
+  PathologiesAutocomplete,
+} from "../../components/DocumentsModal";
 
 console.log("pathologies");
 
@@ -45,9 +48,10 @@ Alpine.store("toasterStore", toasterStore);
 
 Alpine.data("PathologiesNoteList", PathologiesNoteList);
 DocumentsDrawer();
-DocumentsModal();
+// Documents Modal
+Alpine.data("DocumentsModal", DocumentsModal);
+Alpine.data("OpenModalByType", OpenModalByType);
 Alpine.data("PathologiesAutocomplete", PathologiesAutocomplete);
-
 
 /**
  Runs program

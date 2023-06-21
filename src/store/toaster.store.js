@@ -1,15 +1,14 @@
 const STATUS_TYPES = {
-      success: "success",
-      error: "error",
-      info: "info",
-    }
+  success: "success",
+  error: "error",
+  info: "info",
+};
 
 const toasterStore = {
   showToaster: false,
   message: "",
   type: "none",
-  toasterMsg(msg = "", type = "none", time = 2000) {
-    debugger
+  toasterMsg(msg = "", type = "none", time = 3000) {
     if (STATUS_TYPES[type] === undefined) {
       this.type = "none";
       console.error("Toaster type not found");
