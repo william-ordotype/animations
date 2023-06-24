@@ -5,9 +5,9 @@ const API_URL = "https://api.ordotype.fr/v1.0.0/notes";
 const myDocumentsStore = {
   getOne: {
     document: {},
-    async getDocument({ _id } = {}) {
+    async getDocument({ id } = {}) {
       try {
-        const response = await fetch(`${API_URL}/${_id}`, {
+        const response = await fetch(`${API_URL}/${id}`, {
           method: "GET",
           headers: {
             Authorization: `Bearer ${window.memberToken}`,
@@ -25,9 +25,8 @@ const myDocumentsStore = {
       }
     },
     async setDocument(props) {
-      debugger;
-      const { _id } = props;
-      const res = await this.getDocument({ _id });
+      const { id } = props;
+      const res = await this.getDocument({ id });
       this.document = {
         ...res.note,
       };
@@ -135,31 +134,31 @@ const myDocumentsStore = {
         return console.error("Title not found");
       }
 
-      // Remove null properties
-      for (let prop in data) {
-        if (
-          data[prop] === "" ||
-          data[prop] === null ||
-          data[prop] === undefined
-        ) {
-          delete data[prop];
-        }
-      }
+      // // Remove null properties
+      // for (let prop in data) {
+      //   if (
+      //     data[prop] === "" ||
+      //     data[prop] === null ||
+      //     data[prop] === undefined
+      //   ) {
+      //     delete data[prop];
+      //   }
+      // }
 
-      const getFormData = (object) =>
+      const parseFormData = (object) =>
         Object.keys(object).reduce((formData, key) => {
           formData.append(key, object[key]);
           return formData;
         }, new FormData());
 
-      const newFormData = getFormData(data);
+      const newFormData = parseFormData(data);
       try {
         const response = await fetch(
           data._id ? `${API_URL}/${data._id}` : `${API_URL}`,
           {
             method: data._id ? "PUT" : "POST",
             headers: {
-              "Content-Type": "application/json",
+              // "Content-Type": "multipart/form-data",
               Authorization: `Bearer ${window.memberToken}`,
             },
             body: newFormData,

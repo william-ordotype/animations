@@ -13,7 +13,7 @@ const modalStore = {
     title: "",
     rich_text_ordo: "",
     prescription_type: "",
-    pathology: [],
+    pathologies: [],
     documents: [],
     type: "",
   },
@@ -37,8 +37,8 @@ const modalStore = {
       );
       this.form.documents = note.documents.length > 0 ? note.documents : [];
       this.form.type = note.type;
-      this.form.pathology =
-        note.pathology.length > 0 ? note.pathology[0]._id : [];
+      this.form.pathologies =
+        note.pathologies.length > 0 ? note.pathologies[0]._id : [];
       this.form.prescription_type = note.prescription_type;
     } else {
       this.form._id = "";
@@ -46,7 +46,7 @@ const modalStore = {
       this.form.rich_text_ordo = "";
       this.form.documents = [];
       this.form.type = config.type;
-      this.form.pathology = [];
+      this.form.pathologies = [];
       this.form.prescription_type = "";
     }
     this.showModal = true;
@@ -117,7 +117,7 @@ const modalStore = {
     this.form._id = null;
     this.form.title = "";
     this.form.rich_text_ordo = "";
-    this.form.pathology = [];
+    this.form.pathologies = [];
     this.form.documents = [];
     this.files = [];
     this.prescription_type = "";
@@ -144,7 +144,6 @@ const modalStore = {
       form[key] = DOMPurify.sanitize(form[key]);
     });
     try {
-      debugger;
       await Alpine.store("documentsStore").createOne.sendDocument(
         form,
         this.files

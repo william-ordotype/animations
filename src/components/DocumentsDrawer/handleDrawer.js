@@ -19,7 +19,6 @@ async function handleDrawer({ id }) {
       Alpine.store("drawerStore").hideDrawer();
       Alpine.store("toasterStore").toasterMsg("Id not found", "error", 3500);
     }
-    debugger;
   } catch (err) {
     // TODO Show warning error notification
   }

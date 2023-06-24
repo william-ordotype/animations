@@ -151,12 +151,12 @@ function PathologiesAutocomplete() {
     pathologyInputValue: Alpine.store("modalStore").pathologyName,
     showSearchResults() {
       return {
-        ["x-show"]: "$store.modalStore.form.pathology.length",
+        ["x-show"]: "$store.modalStore.form.pathologies.length",
         ["x-transition"]: "",
       };
     },
     clearSearchResults() {
-      Alpine.store("modalStore").form.pathology = [];
+      Alpine.store("modalStore").form.pathologies = [];
       Alpine.store("modalStore").pathologyName = "";
       $("#aa-pathology-input").attr("disabled", false).val("");
       $(
@@ -185,7 +185,7 @@ function PathologiesAutocomplete() {
             {
               sourceId: "pathologies",
               getItems(query) {
-                return res.pathologies || [];
+                return res.data || [];
               },
               getItemInputValue({ item }) {
                 return item.title;
@@ -196,8 +196,8 @@ function PathologiesAutocomplete() {
                 },
               },
               onSelect(obj) {
-                Alpine.store("modalStore").form.pathology = [obj.item._id];
-                Alpine.store("modalStore").pathologyName = obj.item.title;
+                Alpine.store("modalStore").form.pathologies = [obj.item._id];
+                Alpine.store("modalStore").pathologyName = obj.itemInputValue;
                 $("#aa-pathology-input").attr("disabled", true);
                 $(
                   "#pathology-autocomplete .aa-InputWrapper, #pathology-autocomplete .aa-InputWrapperSuffix"

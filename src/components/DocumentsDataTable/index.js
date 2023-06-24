@@ -22,8 +22,8 @@ function DataTableListItem() {
       };
     },
     pathologyRef(d) {
-      d.pathology.length > 0
-        ? (location.href = `/pathologies/${d.pathology[0].slug}`)
+      d.pathologies.length > 0
+        ? (location.href = `/pathologies/${d.pathologies[0].slug}`)
         : console.log("no pathology");
     },
   };
