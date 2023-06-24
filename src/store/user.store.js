@@ -7,11 +7,19 @@ const userStore = (getUser) => {
       try {
         if (!getUser.data) {
           this.isAuth = false;
-          window.memberstack.instance.openModal("LOGIN").then(({data}) => {
-            this.user = data;
-            this.isAuth = true;
-            memberstack.instance.hideModal();
-          }).catch(err => console.error('auth modal error', err));
+          window.memberstack.instance
+            .openModal("LOGIN")
+            .then(({ data }) => {
+              this.user = data;
+              this.isAuth = true;
+              memberstack.instance.hideModal();
+              Alpine.store("toasterStore").toasterMsg(
+                "Please, refresh the page",
+                "success",
+                3000
+              );
+            })
+            .catch((err) => console.error("auth modal error", err));
           return;
         }
         this.isAuth = true;
@@ -28,7 +36,7 @@ const userStore = (getUser) => {
         console.error("user error", err);
       }
     },
-  }
+  };
 };
 
 export default userStore;
