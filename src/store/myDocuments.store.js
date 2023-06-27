@@ -96,8 +96,7 @@ const myDocumentsStore = {
           }
         );
         if (response.ok) {
-          const responseData = await response.json();
-          return responseData;
+          return await response.json();
         } else {
           throw new Error("document - getList - fetch failed.");
         }
@@ -175,72 +174,51 @@ const myDocumentsStore = {
       }
     },
   },
-  deleteOne: {
-    async sendDocument(data) {
-      await this.deleteDocument(data);
-      await Alpine.store("documentsStore").getList.setDocuments();
-      // await Alpine.store("documentsStore").getOne.setDocument();
-    },
-    async deleteDocument(data) {
-      if (!data._id) {
-        throw new Error("Id not found");
-      }
-      try {
-        const response = await fetch(`${API_URL}/${data._id}`, {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${window.memberToken}`,
-          },
-        });
-        debugger;
-        if (response.ok) {
-          const responseData = await response.json();
-          return responseData;
-        } else {
-          throw new Error("fetch failed.");
-        }
-      } catch (err) {
-        console.error("deleteOne - err", err);
-      }
-    },
-  },
   deleteMany: {
     async exec(documentList) {
-      const deletePromises = documentList.map(async (docItem) => {
-        return await this.query(docItem);
-      });
-
+      // Delete execution
       try {
-        const responses = await Promise.all(deletePromises).catch((err) =>
-          console.log("promise error", err)
-        );
-        console.log("Files deleted:", responses);
+        await this.query(documentList);
         await Alpine.store("documentsStore").getList.setDocuments();
       } catch (err) {
-        console.error("Error deleting files:", err);
+        console.error("deleteMany - err", err);
       }
     },
-    async query(data) {
-      if (!data._id) {
-        throw new Error("Id not found");
+    async query(payload) {
+      // Validators
+      if (!Array.isArray(payload)) {
+        throw new Error("Payload is not an array");
+      } else if (payload.length === 0) {
+        throw new Error("Payload array is empty");
+      } else if (!payload.every((item) => item._id && item._id.trim() !== "")) {
+        throw new Error(
+          "Payload array contains items without a valid _id property"
+        );
       }
+
+      // Transform payload to array of ids
+      const ids = payload.map((item) => item._id);
+
       try {
-        const response = await fetch(`${API_URL}/${data._id}`, {
+        const response = await fetch(`${API_URL}/`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${window.memberToken}`,
           },
+          body: JSON.stringify({ note_ids: [...ids] }),
         });
         if (response.ok) {
-          const responseData = await response.json();
-          return responseData;
+          return await response.json();
         } else {
-          throw new Error("fetch failed.");
+          const errorInfo = {
+            status: response.status,
+            statusText: response.statusText,
+          };
+          throw new Error(`Request failed: ${JSON.stringify(errorInfo)}`);
         }
       } catch (err) {
-        console.error("deleteOne - err", err);
+        throw new Error(`deleteMany - error: ${err}`);
       }
     },
   },

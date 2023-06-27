@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Last Published: Sat Jun 24 2023 22:48:21 GMT+0000 (Coordinated Universal Time) -->
+<!-- Last Published: Tue Jun 27 2023 03:13:07 GMT+0000 (Coordinated Universal Time) -->
 <html
   data-wf-domain="ordotype.webflow.io"
   data-wf-page="6428de0a13003e96dad78133"
@@ -17,7 +17,7 @@
       name="google-site-verification"
     />
     <link
-      href="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.c2f32cf0b.min.css"
+      href="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.e01e6c455.min.css"
       rel="stylesheet"
       type="text/css"
     />
@@ -1482,7 +1482,7 @@
                         </div>
                         <a
                           x-effect="hasChecks = $store.documentsStore.getList.documents.some(e =&gt; e.completed)"
-                          x-on:click="$event.preventDefault(); const docs = $store.documentsStore.getList.documents.filter(elem =&gt; elem.completed); $store.modalStore.openBeforeDelete(docs, true)"
+                          x-on:click="$event.preventDefault(); const docs = $store.documentsStore.getList.documents.filter(elem =&gt; elem.completed); $store.modalStore.openBeforeDelete(docs)"
                           x-show="hasChecks"
                           x-data="{hasChecks: $store.documentsStore.getList.documents.some(e =&gt; e.completed)}"
                           id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0ee1-dad78133"
@@ -1927,9 +1927,18 @@
                                 >
                                   {{Nom du document}}
                                 </div>
-                                <div x-show="false" class="file_type_holder">
-                                  <div class="file_type_icon pdf">
-                                    <div>pdf</div>
+                                <div
+                                  x-for="icon in fileIcons"
+                                  x-init="checkFileIcons(d)"
+                                  class="file_type_holder"
+                                >
+                                  <div
+                                    x-bind:class="fileIconType(icon)"
+                                    class="file_type_icon pdf"
+                                  >
+                                    <div x-text="fileIconType(icon)">
+                                      {{pdf}}
+                                    </div>
                                   </div>
                                 </div>
                               </div>
@@ -1965,7 +1974,7 @@
                                       <img
                                         loading="lazy"
                                         src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/6408f49fe058903e30fd205f_drop-dots.svg"
-                                        alt=""
+                                        alt="burger menu"
                                         class="dero_icon"
                                       />
                                     </div>
@@ -2394,7 +2403,7 @@
                       <img
                         loading="lazy"
                         src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/6408f49fe058903e30fd205f_drop-dots.svg"
-                        alt=""
+                        alt="burger menu"
                         class="dero_icon ac"
                       />
                     </div>
@@ -2477,7 +2486,7 @@
                   loading="lazy"
                   id="w-node-_5e73bd5a-ce56-4459-5f7f-74573fcb3d7f-dad78133"
                   x-on:click="drawerClose($event)"
-                  alt=""
+                  alt="exit croix"
                   class="close_icon"
                 />
               </div>
@@ -2592,9 +2601,49 @@
                   <img
                     loading="lazy"
                     src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/6408f49dd8cc0c80bdf6c081_copi.svg"
-                    alt=""
+                    alt="copy button"
                     class="icon_copy"
                 /></a>
+              </div>
+              <div class="files_wrapper" x-data="">
+                <div class="files_holder" >
+                  <a x-for="file in $store.documentsStore.getOne.document.documents" :key="file._id"  href="#" class="file_block w-inline-block"
+                    ><div  x-data="DocumentFileListItem(file)" class="w-layout-grid file_grid">
+                      <div
+                        id="w-node-f7619463-5fd8-f02d-64a4-0a18c56fb2d3-dad78133"
+                        class="file_img_wrapper"
+                        x-if="isImg"
+                      >
+                        <img
+                          src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/649a52cf2ee9756547f93e3a_SCR-20230626-tzag.png"
+                          x-bind:src="isImg && fileSrc"
+                          loading="lazy"
+                          alt=""
+                          class="file_img"
+                        />
+                      </div>
+                      <div
+                        id="w-node-f7619463-5fd8-f02d-64a4-0a18c56fb2d5-dad78133"
+                        class="file_description"
+                      >
+                        <div class="flex_horizontal">
+                          <div class="file_type_holder action">
+                            <div class="file_type_icon pdf"><div>pdf</div></div>
+                          </div>
+                          <div class="file_title">
+                            <div x-text="fileName" class="display-inlineflex">FileName</div>
+                            <div x-text="fileExt" class="display-inlineflex extention">.ext</div>
+                          </div>
+                        </div>
+                        <img
+                          src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/640b498538ea4d0ffac77e07_Butt-cross.svg"
+                          loading="lazy"
+                          alt=""
+                          class="close_file"
+                        />
+                      </div></div
+                  ></a>
+                </div>
               </div>
             </div>
           </div>
@@ -2682,7 +2731,7 @@
                       x-bind="showInsertUrlDialog(false)"
                       loading="lazy"
                       src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/6409a60abee24b0929f62f72_cross.svg"
-                      alt=""
+                      alt="exit croix"
                       class="close_icon is_corner"
                     />
                   </div>
@@ -2749,7 +2798,7 @@
                       x-bind="showBeforeCancel(false)"
                       loading="lazy"
                       src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/6409a60abee24b0929f62f72_cross.svg"
-                      alt=""
+                      alt="exit croix"
                       class="close_icon is_corner"
                     />
                     <div
@@ -2802,7 +2851,7 @@
                       x-bind="showBeforeSave(false)"
                       loading="lazy"
                       src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/6409a60abee24b0929f62f72_cross.svg"
-                      alt=""
+                      alt="exit croix"
                       class="close_icon is_corner"
                     />
                   </div>
@@ -2886,7 +2935,7 @@
                             x-on:click="clearSearchResults"
                             loading="lazy"
                             src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/6409a60abee24b0929f62f72_cross.svg"
-                            alt=""
+                            alt="exit croix"
                             class="close_icon is_search"
                           />
                         </div>
@@ -2919,7 +2968,7 @@
                       x-on:click="$store.modalStore.closeBeforeDelete()"
                       loading="lazy"
                       src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/6409a60abee24b0929f62f72_cross.svg"
-                      alt=""
+                      alt="exit croix"
                       class="close_icon is_corner"
                     />
                     <div
@@ -2947,7 +2996,7 @@
                     class="button is-annuler w-inline-block"
                     ><div class="button_text">Annuler</div></a
                   ><a
-                    x-on:click="$store.modalStore.submitDelete($event, $store.modalStore.deleteList.length)"
+                    x-on:click="$store.modalStore.submitDelete($event)"
                     href="#"
                     class="button is-docs w-inline-block"
                     ><div class="button_text">Confirmer</div></a

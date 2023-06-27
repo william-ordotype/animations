@@ -52,60 +52,38 @@ const modalStore = {
     this.showModal = true;
   },
   // Delete Path
-  deleteObject: {},
   deleteList: [],
-  openBeforeDelete(doc, isList = false) {
-    if (isList === false) {
-      this.deleteObject = doc;
-    } else {
-      this.deleteList = doc;
-    }
+  openBeforeDelete(docsToDelete) {
+    // Convert docsToDelete to array if it's not already
+    docsToDelete = Array.isArray(docsToDelete) ? docsToDelete : [docsToDelete];
+    this.deleteList = [...docsToDelete];
     this.showBeforeDelete = true;
   },
   contentBeforeDelete(container, elem) {
-    let type = "";
     const obj = { ...window.globals.modal.content };
-    if (this.deleteList.length === 0) {
-      type = this.deleteObject.type || "";
-      const mutation = "delete";
-
-      return type ? obj[mutation][type][container][elem] : undefined;
-    } else {
-      return obj["deleteMany"]["list"][container][elem];
-    }
+    return obj["deleteMany"]["list"][container][elem];
   },
   closeBeforeDelete(ev) {
     if (ev) {
       ev.preventDefault();
     }
     this.showBeforeDelete = false;
-    this.deleteObject = {};
     Alpine.store("drawerStore").hideDrawer();
   },
-  async submitDelete(ev, list = false) {
+  async submitDelete(ev) {
     ev.preventDefault();
+    this.closeBeforeDelete();
 
     try {
-      if (!list) {
-        await Alpine.store("documentsStore").deleteOne.sendDocument(
-          this.deleteObject
-        );
-        Alpine.store("toasterStore").toasterMsg(
-          "Document supprimé avec succès",
-          "success",
-          2000
-        );
-      } else {
-        await Alpine.store("documentsStore").deleteMany.exec(this.deleteList);
-        Alpine.store("toasterStore").toasterMsg(
-          "Documents supprimés avec succès",
-          "success",
-          2000
-        );
-      }
-      this.closeBeforeDelete();
+      await Alpine.store("documentsStore").deleteMany.exec(this.deleteList);
+      Alpine.store("toasterStore").toasterMsg(
+        "Documents supprimés avec succès",
+        "success",
+        2000
+      );
     } catch (err) {
       console.error(err);
+      Alpine.store("toasterStore").toasterMsg("Erreur", "error", 2000);
     }
   },
   // Create/Edit Path

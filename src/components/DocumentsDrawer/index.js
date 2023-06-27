@@ -86,4 +86,27 @@ function DocumentsDrawer() {
   });
 }
 
+export function DocumentFileListItem(file = {}) {
+  const { file_name, mime_type, file_url, size, _id } = file;
+
+  const getFileName = () => {
+    return file_name.split(".").shift();
+  };
+  const getFileExt = () => {
+    const ext = file_name.split(".");
+    return `.${ext[ext.length - 1]}`;
+  };
+  const getFileSrc = () => {
+    return file_url;
+  };
+
+  return {
+    fileName: getFileName(),
+    fileExt: getFileExt(),
+    isImg: mime_type.includes("image"),
+    fileSrc: getFileSrc(),
+    _id,
+  };
+}
+
 export default DocumentsDrawer;

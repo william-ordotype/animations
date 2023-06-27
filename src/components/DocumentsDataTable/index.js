@@ -26,6 +26,23 @@ function DataTableListItem() {
         ? (location.href = `/pathologies/${d.pathologies[0].slug}`)
         : console.log("no pathology");
     },
+
+    // file icons
+    fileIcons: [],
+    // Sets file icon variables on load
+    checkFileIcons(d) {
+      const { documents } = d;
+      const allDocTypes = documents.map((elem) => {
+        return elem.mime_type;
+      });
+      const uniqueDocTypes = new Set(allDocTypes);
+      this.fileIcons = [...uniqueDocTypes];
+    },
+    // Returns fileType. Used in className and in icon text
+    fileIconType(mime_type) {
+      const fileType = mime_type.split("/");
+      return fileType[1];
+    },
   };
 }
 

@@ -17,7 +17,9 @@ import {
 } from "../../components/DocumentsDataTable";
 
 import DocumentsTypeNavigation from "../../components/DocumentsTypeNavigation";
-import DocumentsDrawer from "../../components/DocumentsDrawer";
+import DocumentsDrawer, {
+  DocumentFileListItem,
+} from "../../components/DocumentsDrawer";
 import {
   DocumentsModal,
   OpenModalByType,
@@ -69,6 +71,7 @@ Alpine.data("DataTablePerPageDropdown", DataTablePerPageDropdown);
 Alpine.data("DocumentsModal", DocumentsModal);
 Alpine.data("OpenModalByType", OpenModalByType);
 Alpine.data("PathologiesAutocomplete", PathologiesAutocomplete);
+Alpine.data("DocumentFileListItem", DocumentFileListItem);
 Alpine.data("FormFiles", () => {
   return {
     filesUploaded: [],
