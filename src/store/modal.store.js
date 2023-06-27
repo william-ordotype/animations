@@ -13,7 +13,7 @@ const modalStore = {
     title: "",
     rich_text_ordo: "",
     prescription_type: "",
-    pathologies: [],
+    pathology: [],
     documents: [],
     type: "",
   },
@@ -37,16 +37,15 @@ const modalStore = {
       );
       this.form.documents = note.documents.length > 0 ? note.documents : [];
       this.form.type = note.type;
-      this.form.pathologies =
+      this.form.pathology =
         note.pathologies.length > 0 ? note.pathologies[0]._id : [];
       this.form.prescription_type = note.prescription_type;
     } else {
       this.form._id = "";
       this.form.title = "";
       this.form.rich_text_ordo = "";
-      this.form.documents = [];
       this.form.type = config.type;
-      this.form.pathologies = [];
+      this.form.pathology = [];
       this.form.prescription_type = "";
     }
     this.showModal = true;

@@ -133,6 +133,12 @@ const myDocumentsStore = {
         return console.error("Title not found");
       }
 
+      // Remove _id property
+      delete data._id;
+      delete data.documents;
+      data.files = "";
+
+      debugger;
       // // Remove null properties
       // for (let prop in data) {
       //   if (
