@@ -14,8 +14,7 @@ const myDocumentsStore = {
           },
         });
         if (response.ok) {
-          const responseData = await response.json();
-          return responseData;
+          return await response.json();
         } else {
           throw new Error(window.globals.statusMessages.static.error);
         }
@@ -106,14 +105,14 @@ const myDocumentsStore = {
     },
   },
   createOne: {
-    async sendDocument(jsonData, files) {
+    async sendDocument(jsonData, files = []) {
       // TODO send files in the same fetch
-      if (files.length > 0) {
-        const fileRes = await this.uploadFile(files);
-        // const fileIds = fileRes.map((file) => file._id)
-        jsonData.documents = [fileRes._id];
-      }
-      const res = await this.postDocument(jsonData);
+      // if (files.length > 0) {
+      //   const fileRes = await this.uploadFile(files);
+      //   // const fileIds = fileRes.map((file) => file._id)
+      //   jsonData.documents = [fileRes._id];
+      // }
+      const res = await this.postDocument(jsonData, files);
 
       if (res.errors) {
         console.error(res);
@@ -133,10 +132,7 @@ const myDocumentsStore = {
         return console.error("Title not found");
       }
 
-      // Remove _id property
-      delete data._id;
-      delete data.documents;
-      data.files = "";
+      // Convert files proxy array to normal array
 
       debugger;
       // // Remove null properties
@@ -157,6 +153,12 @@ const myDocumentsStore = {
         }, new FormData());
 
       const newFormData = parseFormData(data);
+      // Add files to formData
+
+      for (let i = 0; i < files.length; i++) {
+        newFormData.append("files", files[i]);
+      }
+
       try {
         const response = await fetch(
           data._id ? `${API_URL}/${data._id}` : `${API_URL}`,
@@ -170,8 +172,7 @@ const myDocumentsStore = {
           }
         );
         if (response.ok) {
-          const responseData = await response.json();
-          return responseData;
+          return await response.json();
         } else {
           throw new Error("document - mutateOne - fetch failed.");
         }

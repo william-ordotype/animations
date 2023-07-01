@@ -14,8 +14,6 @@ const modalStore = {
     rich_text_ordo: "",
     prescription_type: "",
     pathology: [],
-    documents: [],
-    type: "",
   },
   pathologyName: "",
   files: [],
@@ -28,10 +26,10 @@ const modalStore = {
     return dt ? obj[mutation][dt][container][elem] : undefined;
   },
   openModal(note, config) {
+    // If modal is open from edit button
     if (note) {
       this.form._id = note._id;
       this.form.title = note.title;
-      // this.form.rich_text_ordo = note.rich_text_ordo;
       window.globals.createRTE.clipboard.dangerouslyPasteHTML(
         note.rich_text_ordo
       );
@@ -41,6 +39,7 @@ const modalStore = {
         note.pathologies.length > 0 ? note.pathologies[0]._id : [];
       this.form.prescription_type = note.prescription_type;
     } else {
+      // If modal is open from create button
       this.form._id = "";
       this.form.title = "";
       this.form.rich_text_ordo = "";
@@ -94,7 +93,7 @@ const modalStore = {
     this.form._id = null;
     this.form.title = "";
     this.form.rich_text_ordo = "";
-    this.form.pathologies = [];
+    this.form.pathology = [];
     this.form.documents = [];
     this.files = [];
     this.prescription_type = "";
@@ -105,12 +104,15 @@ const modalStore = {
     $("#pathology-autocomplete form")[0].reset();
   },
   async submitForm(ev) {
-    console.log("submitting");
     this.form.rich_text_ordo = window.globals.createRTE.root.innerHTML;
 
     const form = this.form;
+    const files = this.files;
+
     // Iterate through each property of the object
     Object.keys(form).forEach((key) => {
+      // Skip if property is files
+      if (key === "files" || key === "pathology") return;
       // Sanitize the html value of each property using DOMPurify
       if (key === "rich_text_ordo") {
         form[key] = DOMPurify.sanitize(form[key], {
@@ -120,11 +122,10 @@ const modalStore = {
       // Sanitize the string value of each property using DOMPurify
       form[key] = DOMPurify.sanitize(form[key]);
     });
+
+    // If form was open using create button use createOne
     try {
-      await Alpine.store("documentsStore").createOne.sendDocument(
-        form,
-        this.files
-      );
+      await Alpine.store("documentsStore").createOne.sendDocument(form, files);
       this.closeModal();
 
       Alpine.store("toasterStore").toasterMsg(

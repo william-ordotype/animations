@@ -86,9 +86,13 @@ function DocumentsDrawer() {
   });
 }
 
-export function DocumentFileListItem(file = {}) {
-  const { file_name, mime_type, file_url, size, _id } = file;
-
+export function DocumentFileListItem({
+  file_name,
+  mime_type,
+  file_url,
+  size,
+  _id,
+} = {}) {
   const getFileName = () => {
     return file_name.split(".").shift();
   };

@@ -72,20 +72,33 @@ Alpine.data("DocumentsModal", DocumentsModal);
 Alpine.data("OpenModalByType", OpenModalByType);
 Alpine.data("PathologiesAutocomplete", PathologiesAutocomplete);
 Alpine.data("DocumentFileListItem", DocumentFileListItem);
-Alpine.data("FormFiles", () => {
+Alpine.data("DocumentFileInput", () => {
   return {
-    filesUploaded: [],
+    filesAttached: [],
     async handleFileChange(ev) {
+      debugger;
       const filesInputValue = Array.from(ev.target.files);
       // const uploadedFiles = await Alpine.store('documentsStore').files.createOne.uploadFile(filesInputValue);
 
       filesInputValue.forEach((file) => {
-        this.filesUploaded.push(file);
+        this.filesAttached.push(file);
       });
+      Alpine.store("modalStore").files = this.filesAttached;
+
+      // Clear input value to allow upload of same file
+      ev.target.value = "";
     },
     handleDeleteFile(_, index) {
+      // Delete file from array
+      this.filesAttached.splice(index, 1);
+      Alpine.store("modalStore").files = this.filesAttached;
       console.log(index);
-      console.log("files", this.files);
+    },
+    getFileExtension(filename) {
+      return filename.slice(((filename.lastIndexOf(".") - 1) >>> 0) + 2);
+    },
+    removeFileExtension(filename) {
+      return filename.split(".").slice(0, -1).join(".");
     },
   };
 });
