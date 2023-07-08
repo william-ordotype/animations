@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<!-- Last Published: Wed Jun 28 2023 04:02:02 GMT+0000 (Coordinated Universal Time) -->
+<!-- Last Published: Sat Jul 08 2023 14:32:20 GMT+0000 (Coordinated Universal Time) -->
 <html
   data-wf-domain="ordotype.webflow.io"
-  data-wf-page="6428de0a13003e96dad78133"
+  data-wf-page="64a834ded7afdb556f14296d"
   data-wf-site="604b9ac88b080efc7ce802bd"
   lang="fr"
 >
@@ -17,7 +17,7 @@
       name="google-site-verification"
     />
     <link
-      href="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.b3e719cc6.min.css"
+      href="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.18623362d.min.css"
       rel="stylesheet"
       type="text/css"
     />
@@ -69,6 +69,42 @@
       rel="canonical"
     />
     <!-- Memberstack webflow package -->
+    <script defer>
+      window.addEventListener("load", (event) => {
+        console.log("Onload fired");
+        setTimeout(function () {
+          // If a member exists, create a cookie
+          // Check if the user has the "_ms-mid" item in local storage
+          if (localStorage.getItem("_ms-mid")) {
+            if (localStorage.getItem("userExists")) {
+              // If the user has already logged in and their cookie is registered, do nothing
+              return;
+            }
+            console.log("Found '_ms-mid' item in local storage");
+            // Set a flag to indicate that the user exists
+            localStorage.setItem("userExists", true);
+          } else {
+            // If a member does not exist
+            // Check if there was a previously set cookie
+            if (localStorage.getItem("userExists")) {
+              // Remove the existing cookie
+              localStorage.removeItem("userExists");
+
+              // Inserting redirecting logic
+              // Check if the user is not already on the /modale-deconnexion page
+              if (window.location.pathname !== "/modale-deconnexion") {
+                console.log("Not on /modale-deconnexion, redirecting...");
+
+                // Redirect the user to /modale-deconnexion
+                window.location.href = "/modale-deconnexion";
+              } else {
+                console.log("Already on /modale-deconnexion page");
+              }
+            }
+          }
+        }, 500);
+      });
+    </script>
     <script
       data-memberstack-domain="https://memberstack-client.ordotype.fr"
       data-memberstack-app="app_cl2r62rnv000w0uhy1nstfc3r"
@@ -154,6 +190,37 @@
     />
 
     <style type="text/css">
+      .skeleton-loader {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        border-radius: inherit; /* Inherit the border-radius of the parent element */
+        background: linear-gradient(
+          to right,
+          #f6f7f8 25%,
+          #e0e0e0 50%,
+          #f6f7f8 75%
+        );
+        background-size: 200% 100%; /* Increase the size of the background image */
+        z-index: 1; /* Make sure the skeleton loader is on top of the content */
+        animation: skeleton 1s infinite linear;
+      }
+
+      @keyframes skeleton {
+        0% {
+          background-position: -100% 0;
+        }
+        100% {
+          background-position: 100% 0;
+        }
+      }
+
+      [ms-code-skeleton] {
+        background-clip: padding-box;
+      }
+
       form#wf-form-mutateDocument {
         width: 100% !important;
       }
@@ -540,7 +607,7 @@
                   data-name="search bar form"
                   method="get"
                   class="form-large"
-                  data-wf-page-id="6428de0a13003e96dad78133"
+                  data-wf-page-id="64a834ded7afdb556f14296d"
                   data-wf-element-id="c662c3d1-e20f-ffa3-1c6d-05370242f28b"
                 >
                   <input
@@ -1365,12 +1432,12 @@
                       <img
                         src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/640de7a644ffd08526acef3d_Icon.svg"
                         loading="lazy"
-                        id="w-node-_89d354dc-effb-0a61-b581-76d756f42842-dad78133"
+                        id="w-node-_89d354dc-effb-0a61-b581-76d756f42842-6f14296d"
                         alt=""
                         class="cont_icon"
                       />
                       <div
-                        id="w-node-_89d354dc-effb-0a61-b581-76d756f42843-dad78133"
+                        id="w-node-_89d354dc-effb-0a61-b581-76d756f42843-6f14296d"
                         class="cont_header"
                       >
                         <h2 class="cont_header_h2">Contenu Premium</h2>
@@ -1380,7 +1447,7 @@
                         </div>
                       </div>
                       <div
-                        id="w-node-_89d354dc-effb-0a61-b581-76d756f42848-dad78133"
+                        id="w-node-_89d354dc-effb-0a61-b581-76d756f42848-6f14296d"
                         class="key_wrapper"
                       >
                         <img
@@ -1395,12 +1462,12 @@
                         />
                       </div>
                       <div
-                        id="w-node-_89d354dc-effb-0a61-b581-76d756f4284a-dad78133"
+                        id="w-node-_89d354dc-effb-0a61-b581-76d756f4284a-6f14296d"
                         class="text_wrapper"
                       >
                         <div class="w-layout-grid text_grid">
                           <div
-                            id="w-node-_89d354dc-effb-0a61-b581-76d756f4284c-dad78133"
+                            id="w-node-_89d354dc-effb-0a61-b581-76d756f4284c-6f14296d"
                             class="text-weight-semibold"
                           >
                             Réduisez votre charge mentale
@@ -1415,7 +1482,7 @@
                         <div class="padding-24">
                           <div class="w-layout-grid text_grid">
                             <div
-                              id="w-node-_89d354dc-effb-0a61-b581-76d756f42852-dad78133"
+                              id="w-node-_89d354dc-effb-0a61-b581-76d756f42852-6f14296d"
                               class="text-weight-semibold"
                             >
                               Gagnez du temps
@@ -1429,7 +1496,7 @@
                         </div>
                         <div class="w-layout-grid text_grid">
                           <div
-                            id="w-node-_89d354dc-effb-0a61-b581-76d756f42857-dad78133"
+                            id="w-node-_89d354dc-effb-0a61-b581-76d756f42857-6f14296d"
                             class="text-weight-semibold"
                           >
                             Restez à jour
@@ -1442,7 +1509,7 @@
                         </div>
                       </div>
                       <a
-                        id="w-node-_89d354dc-effb-0a61-b581-76d756f4285b-dad78133"
+                        id="w-node-_89d354dc-effb-0a61-b581-76d756f4285b-6f14296d"
                         href="#"
                         class="button is-docs w-inline-block"
                         ><div class="button_text">Essayer gratuitement</div></a
@@ -1461,14 +1528,14 @@
                       <div class="w-layout-grid header_wrapper">
                         <h2
                           x-text="$store.documentsStore.getList.documentTypeTitle"
-                          id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0ed9-dad78133"
+                          id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0ed9-6f14296d"
                           class="heading-h2-docs"
                         >
                           {{Tous mes documents}}
                         </h2>
                         <div
                           x-data=""
-                          id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0edb-dad78133"
+                          id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0edb-6f14296d"
                           class="documents_count text-size-small text-weight-light"
                         >
                           <div class="doc_number">
@@ -1485,7 +1552,7 @@
                           x-on:click="$event.preventDefault(); const docs = $store.documentsStore.getList.documents.filter(elem =&gt; elem.completed); $store.modalStore.openBeforeDelete(docs)"
                           x-show="hasChecks"
                           x-data="{hasChecks: $store.documentsStore.getList.documents.some(e =&gt; e.completed)}"
-                          id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0ee1-dad78133"
+                          id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0ee1-6f14296d"
                           href="#"
                           class="button is-delete w-inline-block"
                           ><img
@@ -1501,7 +1568,7 @@
                         <div
                           data-hover="false"
                           data-delay="0"
-                          id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0ee5-dad78133"
+                          id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0ee5-6f14296d"
                           class="submenu_new w-dropdown"
                         >
                           <div class="button is-plus w-dropdown-toggle">
@@ -1647,7 +1714,7 @@
                           </nav>
                         </div>
                         <div
-                          id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0f04-dad78133"
+                          id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0f04-6f14296d"
                           class="submenu_component"
                         >
                           <a href="#" class="context_menu_btn w-inline-block"
@@ -1659,7 +1726,7 @@
                           /></a>
                           <form
                             action="/search"
-                            id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0f07-dad78133"
+                            id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0f07-6f14296d"
                             class="doc_search_wrapper w-form"
                           >
                             <input
@@ -1685,7 +1752,7 @@
                           <div
                             x-bind:class="sortByHeadClass(&#x27;sortByTitle&#x27;)"
                             x-on:click="sortByClick(&#x27;sortByTitle&#x27;)"
-                            id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0f0e-dad78133"
+                            id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0f0e-6f14296d"
                             class="sort_cover first"
                           >
                             <div class="flex_horizontal">
@@ -1742,7 +1809,7 @@
                           <div
                             x-bind:class="sortByHeadClass(&#x27;sortByType&#x27;)"
                             x-on:click="sortByClick(&#x27;sortByType&#x27;)"
-                            id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0f17-dad78133"
+                            id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0f17-6f14296d"
                             class="sort_cover"
                           >
                             <div class="flex_horizontal">
@@ -1788,7 +1855,7 @@
                           <div
                             x-on:click="sortByClick(&#x27;sortByPathology&#x27;)"
                             x-bind:class="sortByHeadClass(&#x27;sortByPathology&#x27;)"
-                            id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0f1e-dad78133"
+                            id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0f1e-6f14296d"
                             class="sort_cover"
                           >
                             <div class="flex_horizontal">
@@ -1834,7 +1901,7 @@
                           <div
                             x-bind:class="sortByHeadClass(&#x27;sortByDate&#x27;)"
                             x-on:click="sortByClick(&#x27;sortByDate&#x27;)"
-                            id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0f25-dad78133"
+                            id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0f25-6f14296d"
                             class="sort_cover"
                           >
                             <div class="flex_horizontal">
@@ -1904,7 +1971,7 @@
                           ></a>
                           <div class="w-layout-grid doc_item_grid">
                             <div
-                              id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0f82-dad78133"
+                              id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0f82-6f14296d"
                               class="inside_left"
                             >
                               <div class="flex_horizontal">
@@ -1957,7 +2024,7 @@
                               >
                             </div>
                             <div
-                              id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0f92-dad78133"
+                              id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0f92-6f14296d"
                               class="inside_right"
                             >
                               <div class="flex_horizontal">
@@ -2077,7 +2144,7 @@
                       <div class="w-layout-grid pagination_grid">
                         <div
                           x-data="DataTablePaginationMenu"
-                          id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf10d0-dad78133"
+                          id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf10d0-6f14296d"
                           class="pagination_left"
                         >
                           <div
@@ -2102,7 +2169,7 @@
                           </div>
                         </div>
                         <div
-                          id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf10dc-dad78133"
+                          id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf10dc-6f14296d"
                           class="pagination_right"
                         >
                           <div
@@ -2158,13 +2225,13 @@
                       <div class="w-layout-grid header_wrapper em">
                         <h2
                           x-text="$store.documentsStore.getList.documentTypeTitle"
-                          id="w-node-_1264d39d-4dca-f98d-77d8-4153c34852cd-dad78133"
+                          id="w-node-_1264d39d-4dca-f98d-77d8-4153c34852cd-6f14296d"
                           class="heading-h2-docs"
                         >
                           {{Tous mes documents}}
                         </h2>
                         <div
-                          id="w-node-_1264d39d-4dca-f98d-77d8-4153c34852cf-dad78133"
+                          id="w-node-_1264d39d-4dca-f98d-77d8-4153c34852cf-6f14296d"
                           class="submenu_component empty"
                         >
                           <a
@@ -2181,7 +2248,7 @@
                           />
                           <form
                             action="/search"
-                            id="w-node-_1264d39d-4dca-f98d-77d8-4153c34852d2-dad78133"
+                            id="w-node-_1264d39d-4dca-f98d-77d8-4153c34852d2-6f14296d"
                             class="doc_search_wrapper w-form"
                           >
                             <input
@@ -2484,7 +2551,7 @@
                 <img
                   src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/6409a60abee24b0929f62f72_cross.svg"
                   loading="lazy"
-                  id="w-node-_5e73bd5a-ce56-4459-5f7f-74573fcb3d7f-dad78133"
+                  id="w-node-_5e73bd5a-ce56-4459-5f7f-74573fcb3d7f-6f14296d"
                   x-on:click="drawerClose($event)"
                   alt="exit croix"
                   class="close_icon"
@@ -2512,14 +2579,14 @@
             <div x-bind="drawerContent" class="w-layout-grid view_grid">
               <h2
                 x-bind="getOneTitle"
-                id="w-node-_5e73bd5a-ce56-4459-5f7f-74573fcb3d81-dad78133"
+                id="w-node-_5e73bd5a-ce56-4459-5f7f-74573fcb3d81-6f14296d"
                 class="view_heading"
               >
                 {{Nom de la note}}
               </h2>
               <div
                 x-for="ptag in $store.documentsStore.getOne.document.pathologies"
-                id="w-node-_5e73bd5a-ce56-4459-5f7f-74573fcb3d83-dad78133"
+                id="w-node-_5e73bd5a-ce56-4459-5f7f-74573fcb3d83-6f14296d"
                 class="tags_wrapper"
               >
                 <div x-text="ptag.title" class="view_tag">
@@ -2527,7 +2594,7 @@
                 </div>
               </div>
               <div
-                id="w-node-_5e73bd5a-ce56-4459-5f7f-74573fcb3d87-dad78133"
+                id="w-node-_5e73bd5a-ce56-4459-5f7f-74573fcb3d87-6f14296d"
                 class="view_date"
               >
                 <div class="display-inlineflex">Créé le</div>
@@ -2544,12 +2611,12 @@
                 </div>
               </div>
               <div
-                id="w-node-_5e73bd5a-ce56-4459-5f7f-74573fcb3d92-dad78133"
+                id="w-node-_5e73bd5a-ce56-4459-5f7f-74573fcb3d92-6f14296d"
                 class="grey_divider"
               ></div>
               <div
                 x-bind="getOneRichText"
-                id="w-node-_5e73bd5a-ce56-4459-5f7f-74573fcb3d93-dad78133"
+                id="w-node-_5e73bd5a-ce56-4459-5f7f-74573fcb3d93-6f14296d"
                 class="text_wrapper"
               >
                 <p class="text-size-small">
@@ -2593,7 +2660,7 @@
                 </p>
               </div>
               <div
-                id="w-node-_5e73bd5a-ce56-4459-5f7f-74573fcb3d9f-dad78133"
+                id="w-node-_5e73bd5a-ce56-4459-5f7f-74573fcb3d9f-6f14296d"
                 class="align-right hide"
               >
                 <a href="#" class="button is-copy w-inline-block"
@@ -2618,19 +2685,25 @@
                     >
                       <div
                         x-if="isImg"
-                        id="w-node-f7619463-5fd8-f02d-64a4-0a18c56fb2d3-dad78133"
+                        id="w-node-f7619463-5fd8-f02d-64a4-0a18c56fb2d3-6f14296d"
                         class="file_img_wrapper"
                       >
                         <img
                           src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/649a52cf2ee9756547f93e3a_SCR-20230626-tzag.png"
                           loading="lazy"
                           x-bind:src="isImg &amp;&amp; fileSrc"
+                          sizes="(max-width: 479px) 286px, (max-width: 767px) 60vw, (max-width: 991px) 28vw, (max-width: 1279px) 26vw, (max-width: 1439px) 24vw, 334px"
+                          srcset="
+                            https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/649a52cf2ee9756547f93e3a_SCR-20230626-tzag-p-500.png 500w,
+                            https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/649a52cf2ee9756547f93e3a_SCR-20230626-tzag-p-800.png 800w,
+                            https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/649a52cf2ee9756547f93e3a_SCR-20230626-tzag.png       826w
+                          "
                           alt=""
                           class="file_img"
                         />
                       </div>
                       <div
-                        id="w-node-f7619463-5fd8-f02d-64a4-0a18c56fb2d5-dad78133"
+                        id="w-node-f7619463-5fd8-f02d-64a4-0a18c56fb2d5-6f14296d"
                         class="file_description"
                       >
                         <div class="flex_horizontal">
@@ -2676,7 +2749,7 @@
             data-name="mutateDocument"
             method="get"
             class="create_document_content"
-            data-wf-page-id="6428de0a13003e96dad78133"
+            data-wf-page-id="64a834ded7afdb556f14296d"
             data-wf-element-id="3fab5c17-9b38-81a4-0d63-6e5414850d5c"
           >
             <div x-bind="modalElem" class="view_wrapper edit_document">
@@ -2823,7 +2896,7 @@
                 </div>
                 <div class="inputs_wrapper">
                   <div
-                    id="w-node-de1e0b49-e7f5-086d-127e-445f6b0164b7-dad78133"
+                    id="w-node-de1e0b49-e7f5-086d-127e-445f6b0164b7-6f14296d"
                     class="action_input_wrapper"
                   >
                     <label for="recommendation-url" class="action_field_label"
@@ -3299,7 +3372,7 @@
       crossorigin="anonymous"
     ></script>
     <script
-      src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/js/webflow.3f4821d76.js"
+      src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/js/webflow.07e48e131.js"
       type="text/javascript"
     ></script>
     <!-- Google Tag Manager (noscript) -->
@@ -3315,8 +3388,8 @@
     <!-- End Google Tag Manager (noscript) -->
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <!--<script src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@bcc66ec097a3618008800a1753503ed5321005f7/ordotype-index-2023-05-16.js"></script>-->
-    <script src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@d55336453f5aaa96045554154f0b2afead4a4cfe/ordotype-index-2023-05-30b.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@bcc66ec097a3618008800a1753503ed5321005f7/ordotype-index-2023-05-16.js"></script>
+    <!--<script src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@d55336453f5aaa96045554154f0b2afead4a4cfe/ordotype-index-2023-05-30b.js"></script>-->
 
     <script
       defer
@@ -3375,8 +3448,39 @@
       }
     </script>
 
-    <!-- HTML Rich text reader -->
+    <!-- 💙 MEMBERSCRIPT #23 v0.1 💙 SKELETON SCREENS/CONTENT LOADERS -->
+    <script>
+      window.addEventListener("DOMContentLoaded", (event) => {
+        const skeletonElements =
+          document.querySelectorAll("[ms-code-skeleton]");
 
+        skeletonElements.forEach((element) => {
+          // Create a skeleton div
+          const skeletonDiv = document.createElement("div");
+          skeletonDiv.classList.add("skeleton-loader");
+
+          // Add the skeleton div to the current element
+          element.style.position = "relative";
+          element.appendChild(skeletonDiv);
+
+          // Get delay from the attribute
+          let delay = element.getAttribute("ms-code-skeleton");
+
+          // If attribute value is not a number, set default delay as 2000ms
+          if (isNaN(delay)) {
+            delay = 2000;
+          }
+
+          setTimeout(() => {
+            // Remove the skeleton loader div after delay
+            const skeletonDiv = element.querySelector(".skeleton-loader");
+            element.removeChild(skeletonDiv);
+          }, delay);
+        });
+      });
+    </script>
+
+    <!-- HTML Rich text reader -->
     <script defer>
       Webflow.push(function () {
         $(".w-richtext p").html(function () {
@@ -3385,6 +3489,47 @@
             ? $(this).text()
             : $(this).html();
         });
+      });
+    </script>
+
+    <script defer>
+      window.mainPlansIds = [
+        "pln_essai-gratuit-5e4s0o0r",
+        "pln_compte-praticien-offre-speciale-500-premiers--893z0o60",
+        "pln_essai-expir--vr4r0ouk",
+        "pln_compte-interne-sy4j0oft",
+        "pln_interne-m-decine-g-n-rale-adh-rent--4a4t0o95",
+        "pln_compte-ouvert-u94k0of5",
+      ];
+
+      window.dataLayer = window.dataLayer || [];
+      $memberstackDom.getCurrentMember().then(({ data }) => {
+        if (data) {
+          const date = new Date(data.createdAt)
+            .toLocaleDateString("fr-FR")
+            .split("/");
+          const removeDD = date.shift();
+          const newDate = date.join("/");
+
+          const mainPlan =
+            data.planConnections.filter((plan) => {
+              return mainPlansIds.includes(plan.planId);
+            }) || "Not on main list";
+
+          const dataPlan = mainPlan.length > 0 && {
+            member_plan_id: mainPlan[0].planId,
+            member_plan_status: mainPlan[0].status,
+            member_plan_type: mainPlan[0].type,
+          };
+
+          dataLayer.push({
+            event: "userData",
+            member_id: data.id,
+            member_signup_date: newDate,
+            // checks user is signed up to one of the main plan ids
+            ...dataPlan,
+          });
+        }
       });
     </script>
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>

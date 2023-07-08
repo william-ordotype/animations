@@ -13,7 +13,7 @@ async function handleDrawer({ id }) {
 
   try {
     await Alpine.store("documentsStore").getOne.setDocument({ id });
-    if (Alpine.store("documentsStore").getOne.document._id) {
+    if (Alpine.store("documentsStore").getOne.document.note._id) {
       Alpine.store("drawerStore").loadDrawer = false;
     } else {
       Alpine.store("drawerStore").hideDrawer();

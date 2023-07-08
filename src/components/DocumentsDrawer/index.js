@@ -30,16 +30,22 @@ function DocumentsDrawer() {
       },
       drawerClose(ev) {
         ev.preventDefault();
+        // Reset drawer
         const pageNumber =
           Alpine.store("documentsStore").getList.pageNumber || "";
         const documentType =
           Alpine.store("documentsStore").getList.documentType;
+        // Redirect to list
         PineconeRouter.currentContext.navigate(
           `/list?type=${documentType ? documentType : "all"}${
             pageNumber && "&page=" + pageNumber
           }`
         );
-        Alpine.store("documentsStore").getOne.document = {};
+        // Reset document object in store
+        Alpine.store("documentsStore").getOne.document = {
+          note: {},
+          member: {},
+        };
       },
       async drawerDeleteOne(ev) {
         ev.preventDefault();
@@ -57,29 +63,30 @@ function DocumentsDrawer() {
       // Getters
       getOneTitle() {
         return {
-          ["x-text"]: "$store.documentsStore.getOne.document.title",
+          ["x-text"]: "$store.documentsStore.getOne.document.note.title",
         };
       },
       getOneCreatedOn() {
         return {
           ["x-text"]:
-            "new Date($store.documentsStore.getOne.document.created_on).toLocaleDateString('fr-FR')",
+            "new Date($store.documentsStore.getOne.document.note.created_on).toLocaleDateString('fr-FR')",
         };
       },
       getOneRichText() {
         return {
-          ["x-html"]: "$store.documentsStore.getOne.document.rich_text_ordo",
+          ["x-html"]:
+            "$store.documentsStore.getOne.document.note.rich_text_ordo",
         };
       },
       getAuthor() {
         return {
           ["x-text"]:
-            "$store.documentsStore.getOne.document.memeber ? $store.documentsStore.getOne.document.memeber.customFields.nom + ' '+ $store.documentsStore.getOne.document.memeber.customFields.prnom : '{{undefined}}'",
+            "$store.documentsStore.getOne.document.member ? $store.documentsStore.getOne.document.member.lastName + ' '+ $store.documentsStore.getOne.document.member.name : '{{undefined}}'",
         };
       },
       getPathology() {
         return {
-          ["x-text"]: "$store.documentsStore.getOne.document.pathology[0]",
+          ["x-text"]: "$store.documentsStore.getOne.document.note.pathology[0]",
         };
       },
     };

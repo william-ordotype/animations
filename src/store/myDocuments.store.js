@@ -4,7 +4,10 @@ const API_URL = "https://api.ordotype.fr/v1.0.0/notes";
 
 const myDocumentsStore = {
   getOne: {
-    document: {},
+    document: {
+      note: {},
+      member: {},
+    },
     async getDocument({ id } = {}) {
       try {
         const response = await fetch(`${API_URL}/${id}`, {
@@ -27,7 +30,7 @@ const myDocumentsStore = {
       const { id } = props;
       const res = await this.getDocument({ id });
       this.document = {
-        ...res.note,
+        ...res,
       };
     },
   },
