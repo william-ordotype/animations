@@ -84,11 +84,6 @@ function DocumentsDrawer() {
             "$store.documentsStore.getOne.document.member ? $store.documentsStore.getOne.document.member.lastName + ' '+ $store.documentsStore.getOne.document.member.name : '{{undefined}}'",
         };
       },
-      getPathology() {
-        return {
-          ["x-text"]: "$store.documentsStore.getOne.document.note.pathology[0]",
-        };
-      },
     };
   });
 }
