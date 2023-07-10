@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Last Published: Sat Jul 08 2023 14:32:20 GMT+0000 (Coordinated Universal Time) -->
+<!-- Last Published: Sun Jul 09 2023 17:26:07 GMT+0000 (Coordinated Universal Time) -->
 <html
   data-wf-domain="ordotype.webflow.io"
   data-wf-page="64a834ded7afdb556f14296d"
@@ -17,7 +17,7 @@
       name="google-site-verification"
     />
     <link
-      href="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.18623362d.min.css"
+      href="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.f761dc789.min.css"
       rel="stylesheet"
       type="text/css"
     />
@@ -2585,7 +2585,7 @@
                 {{Nom de la note}}
               </h2>
               <div
-                x-for="ptag in $store.documentsStore.getOne.document.note.pathologies"
+                x-for="ptag in $store.documentsStore.getOne.document.pathologies"
                 id="w-node-_5e73bd5a-ce56-4459-5f7f-74573fcb3d83-6f14296d"
                 class="tags_wrapper"
               >
@@ -2675,8 +2675,9 @@
               <div x-data="" class="files_wrapper">
                 <div class="files_holder">
                   <a
-                    x-bind:key="file._id"
-                    x-for="file in $store.documentsStore.getOne.document.documents"
+                    x-on:click="$event.preventDefault()"
+                    x-for="file in $store.documentsStore.getOne.document.note.documents"
+                    x-key="file._id"
                     href="#"
                     class="file_block w-inline-block"
                     ><div
@@ -2722,14 +2723,9 @@
                             </div>
                           </div>
                         </div>
-                        <img
-                          src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/640b498538ea4d0ffac77e07_Butt-cross.svg"
-                          loading="lazy"
-                          alt=""
-                          class="close_file"
-                        />
-                      </div></div
-                  ></a>
+                      </div>
+                    </div></a
+                  >
                 </div>
               </div>
             </div>
@@ -2783,7 +2779,7 @@
               >
                 <div id="editor-container" class="editor-container"></div>
               </div>
-              <div>
+              <div class="modal_footer">
                 <a
                   x-bind="showInsertUrlDialog(true)"
                   x-show="$store.modalStore.form.type === &#x27;recommendations&#x27;"
@@ -2791,84 +2787,205 @@
                   class="button is-url-copy w-inline-block"
                   ><div class="button_text">Ajouter l’URL d’un site</div></a
                 >
-                <div class="w-embed">
-                  <div
-                    x-data="DocumentFileInput"
-                    id="FileUpload"
-                    class="file-upload__bg"
-                  >
-                    <div x-if="filesAttached !== null">
-                      <div x-data="" class="files_wrapper">
-                        <div class="files_holder">
-                          <a
-                            x-for="(fileItem, index) in filesAttached"
-                            href="#"
-                            class="file_block w-inline-block"
-                            ><div class="w-layout-grid file_grid">
-                              <div
-                                id="w-node-f7619463-5fd8-f02d-64a4-0a18c56fb2d5-dad78133"
-                                class="file_description"
-                              >
-                                <div class="flex_horizontal">
-                                  <div class="file_type_holder action">
-                                    <div
-                                      class="file_type_icon pdf"
-                                      x-bind:class="getFileExtension(fileItem.name)"
-                                    >
-                                      <div
-                                        x-text="getFileExtension(fileItem.name)"
-                                      >
-                                        pdf
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="file_title">
-                                    <div
-                                      x-text="removeFileExtension(fileItem.name)"
-                                      class="display-inlineflex"
-                                    >
-                                      FileName
-                                    </div>
-                                    <div
-                                      x-text="getFileExtension(fileItem.name)"
-                                      class="display-inlineflex extention"
-                                    >
-                                      .ext
-                                    </div>
+                <div x-data="DocumentFileInput" class="files_container">
+                  <div class="files_modal_columns">
+                    <div
+                      id="files-server"
+                      x-data=""
+                      class="files_wrapper_modal"
+                    >
+                      <div class="files_holder">
+                        <div
+                          x-key="file_.id"
+                          x-for="file in $store.modalStore.form.files"
+                          class="file_block"
+                        >
+                          <div
+                            x-data="DocumentFileListItem(file)"
+                            class="w-layout-grid file_grid"
+                          >
+                            <div
+                              x-if="isImg"
+                              id="w-node-_5047aa32-b096-f60a-acfe-c7971ac334c1-6f14296d"
+                              class="file_img_wrapper"
+                            >
+                              <div class="w-embed">
+                                <img
+                                  src=""
+                                  x-bind:src="fileSrc"
+                                  class="file_img"
+                                />
+                              </div>
+                            </div>
+                            <div
+                              id="w-node-_5047aa32-b096-f60a-acfe-c7971ac334c3-6f14296d"
+                              class="file_description"
+                            >
+                              <div class="flex_horizontal">
+                                <div class="file_type_holder action">
+                                  <div
+                                    x-bind:class="fileExt"
+                                    class="file_type_icon pdf"
+                                  >
+                                    <div x-text="fileExt">pdf</div>
                                   </div>
                                 </div>
-                                <img
-                                  src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/640b498538ea4d0ffac77e07_Butt-cross.svg"
-                                  loading="lazy"
-                                  alt=""
-                                  class="close_file"
-                                  x-on:click="handleDeleteFile(fileItem, index)"
-                                />
-                              </div></div
-                          ></a>
+                                <div class="file_title">
+                                  <div
+                                    x-text="fileName"
+                                    class="display-inlineflex"
+                                  >
+                                    {{FileName}}
+                                  </div>
+                                  <div
+                                    x-text="fileExt"
+                                    class="display-inlineflex extention"
+                                  >
+                                    .{{ext}}
+                                  </div>
+                                </div>
+                              </div>
+                              <img
+                                src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/640b498538ea4d0ffac77e07_Butt-cross.svg"
+                                loading="lazy"
+                                alt=""
+                                class="close_file"
+                              />
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
-                    <div class="input_container">
-                      <input
-                        type="file"
-                        multiple
-                        class="file-upload__input"
-                        x-on:change="handleFileChange($event)"
-                        x-on:dragover="$el.parentElement.classList.add('active')"
-                        x-on:dragleave="$el.parentElement.classList.remove('active')"
-                        x-on:drop="$el.parentElement.classList.remove('active')"
-                      />
-                      <div class="empty-cols">
-                        <i
-                          class="fas fa-cloud-upload-alt fa-3x text-currentColor"
-                        ></i>
-                        <p class="text-gray-700">
-                          Drag your files here or click in this area.
-                        </p>
-                        <a href="javascript:void(0)" class="file-select__btn"
-                          >Select a file</a
+                    <div
+                      id="files-local"
+                      x-if="filesAttached !== null"
+                      class="files_wrapper_modal"
+                    >
+                      <div class="files_holder">
+                        <div
+                          x-for="(fileItem, index) in $store.modalStore.files"
+                          class="file_block"
                         >
+                          <div class="w-layout-grid file_grid">
+                            <div
+                              id="w-node-_166d42f0-63e1-c5fc-3c52-b37d7bb076b0-6f14296d"
+                              class="file_description"
+                            >
+                              <div class="flex_horizontal">
+                                <div class="file_type_holder action">
+                                  <div
+                                    x-bind:class="getFileExtension(fileItem.name)"
+                                    class="file_type_icon pdf"
+                                  >
+                                    <div
+                                      x-text="getFileExtension(fileItem.name)"
+                                    >
+                                      pdf
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="file_title">
+                                  <div
+                                    x-text="removeFileExtension(fileItem.name)"
+                                    class="display-inlineflex"
+                                  >
+                                    {{FileName}}
+                                  </div>
+                                  <div
+                                    x-text="getFileExtension(fileItem.name)"
+                                    class="display-inlineflex extention"
+                                  >
+                                    .{{ext}}
+                                  </div>
+                                </div>
+                              </div>
+                              <img
+                                src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/640b498538ea4d0ffac77e07_Butt-cross.svg"
+                                loading="lazy"
+                                x-on:click="handleDeleteFile(fileItem, index)"
+                                alt=""
+                                class="close_file"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="w-embed">
+                    <div id="FileUpload" class="file-upload__bg">
+                      <!-- <div x-if="filesAttached !== null">
+      <div x-data="" class="files_wrapper">
+        <div class="files_holder">
+          <a
+            x-for="(fileItem, index) in filesAttached"
+            href="#"
+            class="file_block w-inline-block"
+            ><div class="w-layout-grid file_grid">
+              <div
+                id="w-node-f7619463-5fd8-f02d-64a4-0a18c56fb2d5-dad78133"
+                class="file_description"
+              >
+                <div class="flex_horizontal">
+                  <div class="file_type_holder action">
+                    <div
+                      class="file_type_icon pdf"
+                      x-bind:class="getFileExtension(fileItem.name)"
+                    >
+                      <div
+                        x-text="getFileExtension(fileItem.name)"
+                      >
+                        pdf
+                      </div>
+                    </div>
+                  </div>
+                  <div class="file_title">
+                    <div
+                      x-text="removeFileExtension(fileItem.name)"
+                      class="display-inlineflex"
+                    >
+                      FileName
+                    </div>
+                    <div
+                      x-text="getFileExtension(fileItem.name)"
+                      class="display-inlineflex extention"
+                    >
+                      .ext
+                    </div>
+                  </div>
+                </div>
+                <img
+                  src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/640b498538ea4d0ffac77e07_Butt-cross.svg"
+                  loading="lazy"
+                  alt=""
+                  class="close_file"
+                  x-on:click="handleDeleteFile(fileItem, index)"
+                />
+              </div></div
+          ></a>
+        </div>
+      </div>
+    </div> --->
+                      <div class="input_container">
+                        <input
+                          type="file"
+                          multiple
+                          class="file-upload__input"
+                          x-on:change="handleFileChange($event)"
+                          x-on:dragover="$el.parentElement.classList.add('active')"
+                          x-on:dragleave="$el.parentElement.classList.remove('active')"
+                          x-on:drop="$el.parentElement.classList.remove('active')"
+                        />
+                        <div class="empty-cols">
+                          <i
+                            class="fas fa-cloud-upload-alt fa-3x text-currentColor"
+                          ></i>
+                          <p class="text-gray-700">
+                            Drag your files here or click in this area.
+                          </p>
+                          <!-- <a href="javascript:void(0)" class="file-select__btn"
+              >Select a file</a> -->
+                        </div>
                       </div>
                     </div>
                   </div>

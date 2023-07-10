@@ -74,7 +74,7 @@ Alpine.data("PathologiesAutocomplete", PathologiesAutocomplete);
 Alpine.data("DocumentFileListItem", DocumentFileListItem);
 Alpine.data("DocumentFileInput", () => {
   return {
-    filesAttached: [],
+    filesAttached: Alpine.store("modalStore").files,
     async handleFileChange(ev) {
       debugger;
       const filesInputValue = Array.from(ev.target.files);

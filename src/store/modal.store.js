@@ -36,8 +36,11 @@ const modalStore = {
       this.form.documents = note.documents.length > 0 ? note.documents : [];
       this.form.type = note.type;
       this.form.pathology =
-        note.pathologies.length > 0 ? note.pathologies[0]._id : [];
+        note.pathologies.length > 0 ? [note.pathologies[0]._id] : [];
+      this.pathologyName =
+        note.pathologies.length > 0 ? note.pathologies[0].title : "";
       this.form.prescription_type = note.prescription_type;
+      this.form.files = note.documents.length > 0 ? note.documents : [];
     } else {
       // If modal is open from create button
       this.form._id = "";
@@ -97,6 +100,7 @@ const modalStore = {
     this.form.documents = [];
     this.files = [];
     this.prescription_type = "";
+    this.pathologyName = "";
     // clear local fields
     globals.createRTE.container.querySelector(".ql-editor").innerHTML = "";
 
@@ -107,11 +111,12 @@ const modalStore = {
     this.form.rich_text_ordo = window.globals.createRTE.root.innerHTML;
 
     const form = this.form;
+    debugger;
     const files = this.files;
 
     // Iterate through each property of the object
     Object.keys(form).forEach((key) => {
-      // Skip if property is files
+      // Skip if property is files or pathology
       if (key === "files" || key === "pathology") return;
       // Sanitize the html value of each property using DOMPurify
       if (key === "rich_text_ordo") {
@@ -123,10 +128,16 @@ const modalStore = {
       form[key] = DOMPurify.sanitize(form[key]);
     });
 
-    // If form was open using create button use createOne
     try {
-      await Alpine.store("documentsStore").createOne.sendDocument(form, files);
+      await Alpine.store("documentsStore").mutateOne.exec(form, files);
       this.closeModal();
+
+      Alpine.store("documentsStore").getList.isLoading = true;
+      await Alpine.store("documentsStore").getList.setDocuments({
+        type: Alpine.store("documentsStore").getList.documentType,
+      });
+
+      Alpine.store("documentsStore").getList.isLoading = false;
 
       Alpine.store("toasterStore").toasterMsg(
         "Document créé avec succès",

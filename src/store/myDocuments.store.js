@@ -1,6 +1,6 @@
 import Alpine from "alpinejs";
 
-const API_URL = "https://api.ordotype.fr/v1.0.0/notes";
+const API_URL = "https://api.ordotype.fr/v1.0.0";
 
 const myDocumentsStore = {
   getOne: {
@@ -10,7 +10,7 @@ const myDocumentsStore = {
     },
     async getDocument({ id } = {}) {
       try {
-        const response = await fetch(`${API_URL}/${id}`, {
+        const response = await fetch(`${API_URL}/notes/${id}`, {
           method: "GET",
           headers: {
             Authorization: `Bearer ${window.memberToken}`,
@@ -85,11 +85,10 @@ const myDocumentsStore = {
       sort = "created_on",
       direction = "DESC",
       type = this.documentType || "",
-      pathology = "",
     } = {}) {
       try {
         const response = await fetch(
-          `${API_URL}?page=${page}&limit=${limit}&sort=${sort}&direction=${direction}&type=${type}`,
+          `${API_URL}/notes?page=${page}&limit=${limit}&sort=${sort}&direction=${direction}&type=${type}`,
           {
             method: "GET",
             headers: {
@@ -107,78 +106,108 @@ const myDocumentsStore = {
       }
     },
   },
-  createOne: {
-    async sendDocument(jsonData, files = []) {
-      // TODO send files in the same fetch
-      // if (files.length > 0) {
-      //   const fileRes = await this.uploadFile(files);
-      //   // const fileIds = fileRes.map((file) => file._id)
-      //   jsonData.documents = [fileRes._id];
-      // }
-      const res = await this.postDocument(jsonData, files);
-
-      if (res.errors) {
-        console.error(res);
-      } else {
-        Alpine.store("modalStore").closeModal();
-        Alpine.store("documentsStore").getList.isLoading = true;
-        await Alpine.store("documentsStore").getList.setDocuments({
-          type: Alpine.store("documentsStore").getList.documentType,
-        });
-        Alpine.store("documentsStore").getList.isLoading = false;
+  mutateOne: {
+    async exec(payload, files = []) {
+      debugger;
+      try {
+        return payload._id
+          ? await this.updateReq(payload, files)
+          : await this.createReq(payload, files);
+      } catch (err) {
+        console.error(err);
       }
     },
-    async postDocument(data, files) {
-      if (!data.type) {
-        return console.error("Document type not sent");
-      } else if (!data.title) {
-        return console.error("Title not found");
+    _validatePayload(payload, isUpdate = false) {
+      if (isUpdate) {
+        if (!payload._id) {
+          throw new Error("Document id not found");
+        }
       }
-
-      // Convert files proxy array to normal array
-
-      debugger;
-      // // Remove null properties
-      // for (let prop in data) {
-      //   if (
-      //     data[prop] === "" ||
-      //     data[prop] === null ||
-      //     data[prop] === undefined
-      //   ) {
-      //     delete data[prop];
-      //   }
-      // }
-
-      const parseFormData = (object) =>
-        Object.keys(object).reduce((formData, key) => {
-          formData.append(key, object[key]);
-          return formData;
-        }, new FormData());
-
-      const newFormData = parseFormData(data);
-      // Add files to formData
-
-      for (let i = 0; i < files.length; i++) {
-        newFormData.append("files", files[i]);
+      if (!payload.title) {
+        throw new Error("Title not found");
       }
-
+      if (!payload.type) {
+        throw new Error("Document type not found");
+      }
+      return payload;
+    },
+    /**
+     * Create request
+     * @param {Object} formFields
+     * @param {Array} files
+     * @returns {Promise}
+     */
+    async createReq(formFields, files) {
       try {
-        const response = await fetch(
-          data._id ? `${API_URL}/${data._id}` : `${API_URL}`,
-          {
-            method: data._id ? "PUT" : "POST",
+        const validatedPayload = this._validatePayload(formFields);
+        const documentFormData = parseFormData(validatedPayload);
+        // Add files to formData
+        for (let i = 0; i < files.length; i++) {
+          documentFormData.append("files", files[i]);
+        }
+        const response = await fetch(`${API_URL}/notes`, {
+          method: "POST",
+          headers: {
+            // "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${window.memberToken}`,
+          },
+          body: documentFormData,
+        });
+        return handleRequestErrors(response);
+      } catch (err) {
+        console.error(err);
+      }
+    },
+
+    /**
+     * Update request
+     * @param {Object} formFields
+     * @param {Array} files
+     * @returns {Promise<*>}
+     */
+    async updateReq(formFields, files) {
+      try {
+        const validatedPayload = this._validatePayload(formFields, true);
+        // remove files and documents from formFields
+        delete validatedPayload.files;
+        delete validatedPayload.documents;
+
+        // Convert files proxy array to normal array
+        const filesArr = Array.from(files);
+        // Prepare files formData
+        const filesFormData = new FormData();
+        for (let i = 0; i < filesArr.length; i++) {
+          filesFormData.append("files", filesArr[i]);
+        }
+        filesFormData.append("noteId", formFields._id.toString());
+
+        debugger;
+        const sendDocumentsPromise = async () =>
+          await fetch(`${API_URL}/notes/${formFields._id}`, {
+            method: "PUT",
             headers: {
-              // "Content-Type": "multipart/form-data",
+              "Content-Type": "application/json",
               Authorization: `Bearer ${window.memberToken}`,
             },
-            body: newFormData,
-          }
-        );
-        if (response.ok) {
-          return await response.json();
-        } else {
-          throw new Error("document - mutateOne - fetch failed.");
-        }
+            body: JSON.stringify(validatedPayload),
+          });
+
+        const sendFilesPromise = async () =>
+          await fetch(`${API_URL}/documents`, {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${window.memberToken}`,
+            },
+            body: filesFormData,
+          });
+        debugger;
+        const response = await Promise.all([
+          sendDocumentsPromise(),
+          files.length > 0 && sendFilesPromise(),
+        ]);
+
+        // run handleRequestErrors in array promises
+        return response.map((res) => handleRequestErrors(res));
       } catch (err) {
         console.error(err);
       }
@@ -186,16 +215,14 @@ const myDocumentsStore = {
   },
   deleteMany: {
     async exec(documentList) {
-      // Delete execution
       try {
-        await this.query(documentList);
+        await this.request(documentList);
         await Alpine.store("documentsStore").getList.setDocuments();
       } catch (err) {
         console.error("deleteMany - err", err);
       }
     },
-    async query(payload) {
-      // Validators
+    _validatePayload(payload) {
       if (!Array.isArray(payload)) {
         throw new Error("Payload is not an array");
       } else if (payload.length === 0) {
@@ -205,12 +232,14 @@ const myDocumentsStore = {
           "Payload array contains items without a valid _id property"
         );
       }
-
-      // Transform payload to array of ids
-      const ids = payload.map((item) => item._id);
-
+      return payload;
+    },
+    async request(payload) {
       try {
-        const response = await fetch(`${API_URL}/`, {
+        const validatedPayload = this._validatePayload(payload);
+        // Transform payload to array of ids
+        const ids = validatedPayload.map((item) => item._id);
+        const response = await fetch(`${API_URL}/notes`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
@@ -218,24 +247,17 @@ const myDocumentsStore = {
           },
           body: JSON.stringify({ note_ids: [...ids] }),
         });
-        if (response.ok) {
-          return await response.json();
-        } else {
-          const errorInfo = {
-            status: response.status,
-            statusText: response.statusText,
-          };
-          throw new Error(`Request failed: ${JSON.stringify(errorInfo)}`);
-        }
+
+        return await handleRequestErrors(response);
       } catch (err) {
-        throw new Error(`deleteMany - error: ${err}`);
+        throw new Error(err);
       }
     },
   },
   pathologies: {
-    async getList(query) {
+    async getList(payload) {
       const response = await fetch(
-        `https://api.ordotype.fr/v1.0.0/pathologies?page=1&limit=10&sort=title&direction=DESC&title=${query}`,
+        `${API_URL}/pathologies?page=1&limit=10&sort=title&direction=DESC&title=${payload}`,
         {
           method: "GET",
           headers: {
@@ -261,5 +283,31 @@ const myDocumentsStore = {
     });
   },
 };
+
+/**
+ * Handle request errors
+ * @param response
+ * @returns {Object | Error}
+ */
+function handleRequestErrors(response) {
+  if (response === false) return;
+
+  if (!response.ok) {
+    throw Error(response.statusText);
+  }
+  return response.json();
+}
+
+/**
+ * Convert form fields to FormData
+ * @param formFieldValues
+ * @returns {FormData}
+ */
+function parseFormData(formFieldValues) {
+  return Object.keys(formFieldValues).reduce((formData, key) => {
+    formData.append(key, formFieldValues[key]);
+    return formData;
+  }, new FormData());
+}
 
 export default myDocumentsStore;
