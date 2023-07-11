@@ -107,11 +107,11 @@ const myDocumentsStore = {
     },
   },
   mutateOne: {
-    async exec(payload, files = []) {
+    async exec(payload, files = [], filesToDelete = []) {
       debugger;
       try {
         return payload._id
-          ? await this.updateReq(payload, files)
+          ? await this.updateReq(payload, files, filesToDelete)
           : await this.createReq(payload, files);
       } catch (err) {
         console.error(err);
@@ -163,9 +163,10 @@ const myDocumentsStore = {
      * Update request
      * @param {Object} formFields
      * @param {Array} files
+     * @param {Array} filesToDelete
      * @returns {Promise<*>}
      */
-    async updateReq(formFields, files) {
+    async updateReq(formFields, files, filesToDelete) {
       try {
         const validatedPayload = this._validatePayload(formFields, true);
         // remove files and documents from formFields
@@ -180,8 +181,6 @@ const myDocumentsStore = {
           filesFormData.append("files", filesArr[i]);
         }
         filesFormData.append("noteId", formFields._id.toString());
-
-        debugger;
         const sendDocumentsPromise = async () =>
           await fetch(`${API_URL}/notes/${formFields._id}`, {
             method: "PUT",
@@ -191,7 +190,6 @@ const myDocumentsStore = {
             },
             body: JSON.stringify(validatedPayload),
           });
-
         const sendFilesPromise = async () =>
           await fetch(`${API_URL}/documents`, {
             method: "POST",
@@ -200,10 +198,20 @@ const myDocumentsStore = {
             },
             body: filesFormData,
           });
-        debugger;
+        const deleteFilesPromise = async () =>
+          await fetch(`${API_URL}/documents`, {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${window.memberToken}`,
+            },
+            body: JSON.stringify({ document_id: filesToDelete }),
+          });
+
         const response = await Promise.all([
           sendDocumentsPromise(),
           files.length > 0 && sendFilesPromise(),
+          filesToDelete.length > 0 && deleteFilesPromise(),
         ]);
 
         // run handleRequestErrors in array promises

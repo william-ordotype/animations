@@ -17,6 +17,7 @@ const modalStore = {
   },
   pathologyName: "",
   files: [],
+  filesToDelete: [],
   content(container, elem) {
     const dt = this.form.type;
     const id = this.form._id;
@@ -101,6 +102,7 @@ const modalStore = {
     this.files = [];
     this.prescription_type = "";
     this.pathologyName = "";
+    this.filesToDelete = [];
     // clear local fields
     globals.createRTE.container.querySelector(".ql-editor").innerHTML = "";
 
@@ -111,8 +113,9 @@ const modalStore = {
     this.form.rich_text_ordo = window.globals.createRTE.root.innerHTML;
 
     const form = this.form;
-    debugger;
     const files = this.files;
+    const filesToDelete = this.filesToDelete;
+    debugger;
 
     // Iterate through each property of the object
     Object.keys(form).forEach((key) => {
@@ -129,7 +132,11 @@ const modalStore = {
     });
 
     try {
-      await Alpine.store("documentsStore").mutateOne.exec(form, files);
+      await Alpine.store("documentsStore").mutateOne.exec(
+        form,
+        files,
+        filesToDelete
+      );
       this.closeModal();
 
       Alpine.store("documentsStore").getList.isLoading = true;

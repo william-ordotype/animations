@@ -17,9 +17,7 @@ import {
 } from "../../components/DocumentsDataTable";
 
 import DocumentsTypeNavigation from "../../components/DocumentsTypeNavigation";
-import DocumentsDrawer, {
-  DocumentFileListItem,
-} from "../../components/DocumentsDrawer";
+import DocumentsDrawer from "../../components/DocumentsDrawer";
 import {
   DocumentsModal,
   OpenModalByType,
@@ -30,6 +28,10 @@ import modalStore from "../../store/modal.store";
 import drawerStore from "../../store/drawer.store";
 import userStore from "../../store/user.store";
 import toasterStore from "../../store/toaster.store";
+import {
+  DocumentFileInput,
+  DocumentFileListItem,
+} from "../../components/DocumentsFiles";
 
 window.Alpine = Alpine;
 
@@ -72,38 +74,7 @@ Alpine.data("DocumentsModal", DocumentsModal);
 Alpine.data("OpenModalByType", OpenModalByType);
 Alpine.data("PathologiesAutocomplete", PathologiesAutocomplete);
 Alpine.data("DocumentFileListItem", DocumentFileListItem);
-Alpine.data("DocumentFileInput", () => {
-  return {
-    filesAttached: Alpine.store("modalStore").files,
-    async handleFileChange(ev) {
-      debugger;
-      const filesInputValue = Array.from(ev.target.files);
-      // const uploadedFiles = await Alpine.store('documentsStore').files.createOne.uploadFile(filesInputValue);
-
-      filesInputValue.forEach((file) => {
-        this.filesAttached.push(file);
-      });
-      Alpine.store("modalStore").files = this.filesAttached;
-
-      // Clear input value to allow upload of same file
-      ev.target.value = "";
-    },
-    handleDeleteFile(_, index) {
-      // Delete file from array
-      this.filesAttached.splice(index, 1);
-      Alpine.store("modalStore").files = this.filesAttached;
-      console.log(index);
-    },
-    getFileExtension(filename) {
-      return filename.slice(((filename.lastIndexOf(".") - 1) >>> 0) + 2);
-    },
-    removeFileExtension(filename) {
-      return filename.split(".").slice(0, -1).join(".");
-    },
-  };
-});
-
-// Alpine.store('toasterStore').toasterMsg('This is a toaster message', 'success', 2000)
+Alpine.data("DocumentFileInput", DocumentFileInput);
 
 /**
  Runs program
@@ -127,7 +98,7 @@ window.Webflow.push(() => {
     Alpine.plugin(PineconeRouter);
     Alpine.start();
 
-    $("#wf-form-mutateDocument").submit(async function (ev) {
+    $("#wf-form-mutateDocument").on("submit", async function (ev) {
       console.log("WF form submit");
       ev.preventDefault();
       await Alpine.store("modalStore").submitForm(ev);

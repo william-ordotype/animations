@@ -1,8 +1,8 @@
 import Alpine from "alpinejs";
 import QRCode from "easyqrcodejs";
 
-import "../../utils/globals";
-import globals from "../../utils/globals";
+import "../utils/globals";
+import globals from "../utils/globals";
 
 function DocumentsModal() {
   return {
