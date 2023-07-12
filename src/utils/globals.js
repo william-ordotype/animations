@@ -1,7 +1,7 @@
 // noinspection SpellCheckingInspection
 import { autocomplete } from "@algolia/autocomplete-js";
 
-import handleDrawer from "../components/DocumentsDrawer/handleDrawer";
+import { handleDrawer } from "../components/DocumentsDrawer";
 
 const globals = {};
 

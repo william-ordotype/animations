@@ -39,9 +39,14 @@ window.router = () => {
       }
     },
     notfound(context) {
-      Alpine.store("toasterStore").toasterMsg("Not found", "error");
-      console.log(context);
-      console.log("Not found");
+      debugger;
+      if (context.path.includes("list") || context.path.includes("view")) {
+        Alpine.store("toasterStore").toasterMsg("Not found", "error");
+        console.log(context);
+        console.log("Not found");
+      } else {
+        location.href = context.path;
+      }
     },
   };
 };

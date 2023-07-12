@@ -5,7 +5,7 @@ import Alpine from "alpinejs";
 
 import globals from "../../utils/globals";
 import userStore from "../../store/user.store";
-import PathologiesNoteList from "../../components/PathologiesNotesList";
+import PathologiesNoteList from "../../components/PathologiesNoteList";
 import myDocumentsStore from "../../store/myDocuments.store";
 import modalStore from "../../store/modal.store";
 import drawerStore from "../../store/drawer.store";

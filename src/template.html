@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Last Published: Tue Jul 11 2023 02:07:52 GMT+0000 (Coordinated Universal Time) -->
+<!-- Last Published: Tue Jul 11 2023 21:04:41 GMT+0000 (Coordinated Universal Time) -->
 <html
   data-wf-domain="ordotype.webflow.io"
   data-wf-page="64a834ded7afdb556f14296d"
@@ -17,7 +17,7 @@
       name="google-site-verification"
     />
     <link
-      href="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.734f5eb9a.min.css"
+      href="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.3265c95c0.min.css"
       rel="stylesheet"
       type="text/css"
     />
@@ -656,7 +656,10 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
             </div>
           </div>
           <nav role="navigation" class="navbar2_menu w-nav-menu">
-            <a href="/membership/pricing" class="navbar2_link w-nav-link"
+            <a
+              href="/membership/pricing"
+              native=""
+              class="navbar2_link w-nav-link"
               >Tarifs</a
             ><a href="/specialites" class="navbar2_link w-nav-link"
               >Spécialités</a
@@ -2023,14 +2026,17 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                               <div x-bind="textType(d)">{{Note}}</div>
                             </div>
                             <div class="div-block-415">
-                              <a
-                                x-bind:class="d.pathologies.length &amp;&amp; &#x27;active&#x27;"
-                                x-on:click="pathologyRef(d)"
-                                x-text="d.pathologies.length ? &#x27;Pathologie&#x27; : &#x27;-&#x27;"
-                                href="#"
-                                class="pathologie_tag w-inline-block"
-                                ><div>{{Pathologie}}</div></a
-                              >
+                              <div class="w-embed">
+                                <a
+                                  native
+                                  x-bind:class="d.pathologies.length &amp;&amp; &#x27;active&#x27;"
+                                  x-on:click="pathologyRef(d)"
+                                  x-text="d.pathologies.length ? &#x27;Pathologie&#x27; : &#x27;-&#x27;"
+                                  x-bind:href="d.pathologies.length ? '/pathologies/' + d.pathologies[0].slug : null"
+                                  class="pathologie_tag w-inline-block"
+                                  ><div>{{Pathologie}}</div></a
+                                >
+                              </div>
                             </div>
                             <div
                               id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0f92-6f14296d"
@@ -2698,19 +2704,16 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                         id="w-node-f7619463-5fd8-f02d-64a4-0a18c56fb2d3-6f14296d"
                         class="file_img_wrapper"
                       >
-                        <img
-                          src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/649a52cf2ee9756547f93e3a_SCR-20230626-tzag.png"
-                          loading="lazy"
-                          x-bind:src="isImg &amp;&amp; fileSrc"
-                          sizes="(max-width: 479px) 286px, (max-width: 767px) 60vw, (max-width: 991px) 28vw, (max-width: 1279px) 26vw, (max-width: 1439px) 24vw, 334px"
-                          srcset="
-                            https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/649a52cf2ee9756547f93e3a_SCR-20230626-tzag-p-500.png 500w,
-                            https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/649a52cf2ee9756547f93e3a_SCR-20230626-tzag-p-800.png 800w,
-                            https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/649a52cf2ee9756547f93e3a_SCR-20230626-tzag.png       826w
-                          "
-                          alt=""
-                          class="file_img"
-                        />
+                        <div class="w-embed">
+                          <img
+                            src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/649a52cf2ee9756547f93e3a_SCR-20230626-tzag.png"
+                            loading="lazy"
+                            x-bind:src="isImg &amp;&amp; fileSrc"
+                            sizes="(max-width: 479px) 286px, (max-width: 767px) 60vw, (max-width: 991px) 28vw, (max-width: 1279px) 26vw, (max-width: 1439px) 24vw, 334px"
+                            alt=""
+                            class="file_img"
+                          />
+                        </div>
                       </div>
                       <div
                         id="w-node-f7619463-5fd8-f02d-64a4-0a18c56fb2d5-6f14296d"
@@ -3501,7 +3504,7 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
       crossorigin="anonymous"
     ></script>
     <script
-      src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/js/webflow.8280da210.js"
+      src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/js/webflow.b835f4557.js"
       type="text/javascript"
     ></script>
     <!-- Google Tag Manager (noscript) -->
@@ -3663,5 +3666,6 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
     </script>
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@algolia/autocomplete-js"></script>
+    <!-- <script src="https://static.ordotype.fr/my-documents.js"></script> -->
   </body>
 </html>
