@@ -225,7 +225,6 @@ const myDocumentsStore = {
     async exec(documentList) {
       try {
         await this.request(documentList);
-        await Alpine.store("documentsStore").getList.setDocuments();
       } catch (err) {
         console.error("deleteMany - err", err);
       }

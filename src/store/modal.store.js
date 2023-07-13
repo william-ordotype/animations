@@ -14,6 +14,7 @@ const modalStore = {
     rich_text_ordo: "",
     prescription_type: "",
     pathology: [],
+    documents: [],
   },
   pathologyName: "",
   files: [],
@@ -31,17 +32,18 @@ const modalStore = {
     if (note) {
       this.form._id = note._id;
       this.form.title = note.title;
-      window.globals.createRTE.clipboard.dangerouslyPasteHTML(
-        note.rich_text_ordo
-      );
-      this.form.documents = note.documents.length > 0 ? note.documents : [];
+      note.rich_text_ordo &&
+        window.globals.createRTE.clipboard.dangerouslyPasteHTML(
+          note.rich_text_ordo
+        );
+      this.form.documents = note.documents?.length > 0 ? note.documents : [];
       this.form.type = note.type;
       this.form.pathology =
-        note.pathologies.length > 0 ? [note.pathologies[0]._id] : [];
+        note.pathologies?.length > 0 ? [note.pathologies[0]._id] : [];
       this.pathologyName =
-        note.pathologies.length > 0 ? note.pathologies[0].title : "";
+        note.pathologies?.length > 0 ? note.pathologies[0].title : "";
       this.form.prescription_type = note.prescription_type;
-      this.form.files = note.documents.length > 0 ? note.documents : [];
+      this.form.files = note.documents?.length > 0 ? note.documents : [];
     } else {
       // If modal is open from create button
       this.form._id = "";
@@ -56,8 +58,10 @@ const modalStore = {
   // Delete Path
   deleteList: [],
   openBeforeDelete(docsToDelete) {
-    // Convert docsToDelete to array if it's not already
-    docsToDelete = Array.isArray(docsToDelete) ? docsToDelete : [docsToDelete];
+    // Convert docsToDelete to array if object comes from getOne
+    docsToDelete = Array.isArray(docsToDelete)
+      ? docsToDelete
+      : [docsToDelete.note];
     this.deleteList = [...docsToDelete];
     this.showBeforeDelete = true;
   },
@@ -70,14 +74,30 @@ const modalStore = {
       ev.preventDefault();
     }
     this.showBeforeDelete = false;
-    Alpine.store("drawerStore").hideDrawer();
   },
   async submitDelete(ev) {
     ev.preventDefault();
     this.closeBeforeDelete();
-
     try {
       await Alpine.store("documentsStore").deleteMany.exec(this.deleteList);
+      if (Alpine.store("drawerStore").showDrawer === true) {
+        Alpine.store("drawerStore").hideDrawer();
+        const pageNumber =
+          Alpine.store("documentsStore").getList.pageNumber || "";
+        const documentType =
+          Alpine.store("documentsStore").getList.documentType;
+        // Redirect to list
+        PineconeRouter.currentContext.redirect(
+          `/list?type=${documentType ? documentType : "all"}${
+            pageNumber && "&page=" + pageNumber
+          }`
+        );
+        Alpine.store("documentsStore").getOne.document = {
+          note: {},
+          member: {},
+        };
+      }
+      await Alpine.store("documentsStore").getList.setDocuments();
       Alpine.store("toasterStore").toasterMsg(
         "Documents supprimés avec succès",
         "success",
@@ -115,7 +135,6 @@ const modalStore = {
     const form = this.form;
     const files = this.files;
     const filesToDelete = this.filesToDelete;
-    debugger;
 
     // Iterate through each property of the object
     Object.keys(form).forEach((key) => {

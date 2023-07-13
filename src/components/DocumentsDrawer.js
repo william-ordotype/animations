@@ -56,7 +56,7 @@ function DocumentsDrawer() {
       drawerEdit(ev) {
         ev.preventDefault();
         Alpine.store("modalStore").openModal(
-          Alpine.store("documentsStore").getOne.document
+          Alpine.store("documentsStore").getOne.document.note
         );
       },
 
