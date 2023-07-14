@@ -58,7 +58,6 @@ const modalStore = {
   // Delete Path
   deleteList: [],
   openBeforeDelete(docsToDelete) {
-    debugger;
     // Convert docsToDelete to array if it's not already
     if (!Array.isArray(docsToDelete)) {
       if (docsToDelete.note) {

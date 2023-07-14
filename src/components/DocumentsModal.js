@@ -185,7 +185,6 @@ function PathologiesAutocomplete() {
             {
               sourceId: "pathologies",
               getItems() {
-                debugger;
                 return (
                   res.data.filter((pathology) => {
                     return pathology.is_ok_for_posos === "true";
