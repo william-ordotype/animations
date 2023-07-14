@@ -53,6 +53,7 @@ function DataTableListItemSubmenu() {
       await Alpine.store("modalStore").openModal(d, { type: d.type });
     },
     openDeleteDocument(ev, d) {
+      debugger;
       ev.preventDefault();
       Alpine.store("modalStore").openBeforeDelete(d);
     },

@@ -58,10 +58,16 @@ const modalStore = {
   // Delete Path
   deleteList: [],
   openBeforeDelete(docsToDelete) {
-    // Convert docsToDelete to array if object comes from getOne
-    docsToDelete = Array.isArray(docsToDelete)
-      ? docsToDelete
-      : [docsToDelete.note];
+    debugger;
+    // Convert docsToDelete to array if it's not already
+    if (!Array.isArray(docsToDelete)) {
+      if (docsToDelete.note) {
+        // If docsToDelete is from the getOne request, use the note property and convert to array
+        docsToDelete = [docsToDelete.note];
+      } else {
+        docsToDelete = [docsToDelete];
+      }
+    }
     this.deleteList = [...docsToDelete];
     this.showBeforeDelete = true;
   },
