@@ -2031,7 +2031,7 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                   native
                                   x-bind:class="d.pathologies.length &amp;&amp; &#x27;active&#x27;"
                                   x-on:click="pathologyRef(d)"
-                                  x-text="d.pathologies.length ? &#x27;Pathologie&#x27; : &#x27;-&#x27;"
+                                  x-text="d.pathologies.length ? d.pathologies[0].title : &#x27;-&#x27;"
                                   x-bind:href="d.pathologies.length ? '/pathologies/' + d.pathologies[0].slug : null"
                                   class="pathologie_tag w-inline-block"
                                   ><div>{{Pathologie}}</div></a
