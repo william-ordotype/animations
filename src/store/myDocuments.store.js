@@ -108,7 +108,6 @@ const myDocumentsStore = {
   },
   mutateOne: {
     async exec(payload, files = [], filesToDelete = []) {
-      debugger;
       try {
         return payload._id
           ? await this.updateReq(payload, files, filesToDelete)

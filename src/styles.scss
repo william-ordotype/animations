@@ -139,3 +139,11 @@
   transform: translateX(-50%) !important;
   left: 50% !important;
 }
+
+.pathologie_tag {
+  max-width: 270px;
+  overflow: hidden;
+  display: inline-block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
