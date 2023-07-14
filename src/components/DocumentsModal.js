@@ -184,8 +184,13 @@ function PathologiesAutocomplete() {
           return [
             {
               sourceId: "pathologies",
-              getItems(query) {
-                return res.data || [];
+              getItems() {
+                debugger;
+                return (
+                  res.data.filter((pathology) => {
+                    return pathology.is_ok_for_posos === "true";
+                  }) || []
+                );
               },
               getItemInputValue({ item }) {
                 return item.title;
