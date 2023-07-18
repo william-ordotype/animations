@@ -7,6 +7,7 @@ function DocumentsDrawer() {
       drawerBackdrop() {
         return {
           ["x-show"]: "drawerStore.showDrawer",
+          ["x-on:click"]: "drawerClose($event)",
           ["x-transition.opacity"]: "",
         };
       },
@@ -30,6 +31,9 @@ function DocumentsDrawer() {
       },
       drawerClose(ev) {
         ev.preventDefault();
+        if (ev.target !== ev.currentTarget) {
+          return false;
+        }
         // Reset drawer
         const pageNumber =
           Alpine.store("documentsStore").getList.pageNumber || "";
