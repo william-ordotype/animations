@@ -71,8 +71,8 @@ function DocumentsModal() {
       const options = {
         text: this.url,
         title: this.urlTitle,
-        width: 130,
-        height: 130,
+        width: 80,
+        height: 80,
         quietZone: 15,
         titleHeight: 20,
         titleTop: 10,

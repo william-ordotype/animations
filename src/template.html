@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Last Published: Tue Jul 11 2023 21:04:41 GMT+0000 (Coordinated Universal Time) -->
+<!-- Last Published: Tue Jul 18 2023 03:06:54 GMT+0000 (Coordinated Universal Time) -->
 <html
   data-wf-domain="ordotype.webflow.io"
   data-wf-page="64a834ded7afdb556f14296d"
@@ -17,7 +17,7 @@
       name="google-site-verification"
     />
     <link
-      href="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.3265c95c0.min.css"
+      href="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.03e60432c.min.css"
       rel="stylesheet"
       type="text/css"
     />
@@ -104,6 +104,7 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
   }, 500);
 });
 </script> -->
+
     <script
       data-memberstack-domain="https://memberstack-client.ordotype.fr"
       data-memberstack-app="app_cl2r62rnv000w0uhy1nstfc3r"
@@ -291,6 +292,7 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/@algolia/autocomplete-theme-classic"
     />
+    <link href="https://static.ordotype.fr/my-documents.css" rel="stylesheet" />
   </head>
   <body class="body_documents">
     <div class="w-embed">
@@ -597,7 +599,7 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
     >
       <div class="padding-global notice">
         <div class="navbar2_container">
-          <a href="/" class="navbar2_logo-link w-nav-brand"
+          <a href="/" native="" class="navbar2_logo-link w-nav-brand"
             ><img
               src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/63dbc38b0006fbfb30cbcd64_Logo.svg"
               loading="lazy"
@@ -661,7 +663,7 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
               native=""
               class="navbar2_link w-nav-link"
               >Tarifs</a
-            ><a href="/specialites" class="navbar2_link w-nav-link"
+            ><a href="/specialites" native="" class="navbar2_link w-nav-link"
               >Spécialités</a
             >
             <div
@@ -675,20 +677,23 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                 data-ms-content="premium-pages"
                 class="mes-documents-dropdown w-dropdown"
               >
-                <div class="navbar2_link w-dropdown-toggle">
+                <div native="" class="navbar2_link w-dropdown-toggle">
                   <div>Mes documents</div>
                 </div>
                 <nav class="dropdown-list-10 w-dropdown-list">
                   <a
                     href="/tools/ordonnances-personnalisees"
+                    native=""
                     class="w-dropdown-link"
                     >Ordonnances personnalisées</a
                   ><a
                     href="/tools/ordonnances-favorites-v2"
+                    native=""
                     class="w-dropdown-link"
                     >Ordonnances favorites</a
                   ><a
                     href="/tools/conseils-patients-favoris-v2"
+                    native=""
                     class="w-dropdown-link"
                     >Fiches conseils favorites</a
                   >
@@ -697,6 +702,7 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
             </div>
             <a
               href="/membership/profile"
+              native=""
               data-ms-content="members"
               class="navbar2_link w-nav-link"
               >Mon compte</a
@@ -706,12 +712,14 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                 href="/membership/demander-une-demo"
                 id="navbar-calendly"
                 data-ms-content="!members"
+                native=""
                 class="button is-secondary larger w-inline-block"
                 ><div class="button_text">Demander une démo</div></a
               ><a
                 href="/membership/login-ms"
                 id="connexion-nav-btn"
                 data-ms-content="!members"
+                native=""
                 class="button w-inline-block"
                 ><div class="button_circle-color"></div>
                 <div class="button_text">Connexion</div></a
@@ -1521,6 +1529,7 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                         </div>
                       </div>
                       <a
+                        native=""
                         id="w-node-_89d354dc-effb-0a61-b581-76d756f4285b-6f14296d"
                         href="#"
                         class="button is-docs w-inline-block"
@@ -1672,7 +1681,10 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                   Fiche conseil
                                 </div>
                               </div></a
-                            ><a href="#" class="sub_link borders w-inline-block"
+                            ><a
+                              x-show="false"
+                              href="#"
+                              class="sub_link borders w-inline-block"
                               ><div class="w-layout-grid grid_gap_8">
                                 <div
                                   class="tab_icon display-inlineflex w-embed"
@@ -1697,7 +1709,10 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                   Importer un fichier
                                 </div>
                               </div></a
-                            ><a href="#" class="sub_link w-inline-block"
+                            ><a
+                              x-show="false"
+                              href="#"
+                              class="sub_link w-inline-block"
                               ><div class="w-layout-grid grid_gap_8">
                                 <div
                                   class="tab_icon display-inlineflex w-embed"
@@ -1743,11 +1758,12 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                           >
                             <input
                               type="search"
-                              placeholder="Rechercher"
+                              class="doc_search w-input"
                               maxlength="256"
                               name="query"
+                              x-show="false"
+                              placeholder="Rechercher"
                               required=""
-                              class="doc_search w-input"
                             /><input
                               type="submit"
                               value="Search"
@@ -1760,7 +1776,10 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                     </div>
                     <div class="docs_list_wrapper">
                       <div x-data="DataTableHeader" class="list_header">
-                        <div class="w-layout-grid doc_item_grid header_g">
+                        <div
+                          x-bind="tableHeadGrid"
+                          class="w-layout-grid doc_item_grid header_g"
+                        >
                           <div
                             x-bind:class="sortByHeadClass(&#x27;sortByTitle&#x27;)"
                             x-on:click="sortByClick(&#x27;sortByTitle&#x27;)"
@@ -1819,13 +1838,59 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                             </div>
                           </div>
                           <div
-                            x-bind:class="sortByHeadClass(&#x27;sortByType&#x27;)"
+                            x-bind="headType"
                             x-on:click="sortByClick(&#x27;sortByType&#x27;)"
+                            x-bind:class="sortByHeadClass(&#x27;sortByType&#x27;)"
                             id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0f17-6f14296d"
-                            class="sort_cover"
+                            class="sort_cover document_type"
                           >
                             <div class="flex_horizontal">
                               <div>Type</div>
+                              <div class="sort_wrapper">
+                                <div
+                                  x-bind:class="sortByArrowClass(&#x27;sortByType&#x27;, &#x27;ASC&#x27;)"
+                                  class="sort_arrow w-embed"
+                                >
+                                  <svg
+                                    width="0.75rem"
+                                    height="0.375rem"
+                                    viewBox="0 0 12 6"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      d="M12 6L6 -5.24537e-07L0 6"
+                                      fill="currentColor"
+                                    />
+                                  </svg>
+                                </div>
+                                <div
+                                  x-bind:class="sortByArrowClass(&#x27;sortByType&#x27;, &#x27;DESC&#x27;)"
+                                  class="sort_arrow w-embed"
+                                >
+                                  <svg
+                                    width="0.75rem"
+                                    height="0.375rem"
+                                    viewBox="0 0 12 6"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      d="M0 0L6 6L12 0"
+                                      fill="currentColor"
+                                    />
+                                  </svg>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div
+                            x-bind="headPrescriptionType"
+                            id="w-node-_2c9703a0-0ecd-95c4-ddaa-e2b8af7a4a60-6f14296d"
+                            class="sort_cover prescription_type"
+                          >
+                            <div class="flex_horizontal">
+                              <div>Prescription Type</div>
                               <div class="sort_wrapper">
                                 <div
                                   x-bind:class="sortByArrowClass(&#x27;sortByType&#x27;, &#x27;ASC&#x27;)"
@@ -1981,7 +2046,10 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                 />
                               </svg></div
                           ></a>
-                          <div class="w-layout-grid doc_item_grid">
+                          <div
+                            x-bind="tableBodyGrid"
+                            class="w-layout-grid doc_item_grid"
+                          >
                             <div
                               id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0f82-6f14296d"
                               class="inside_left"
@@ -2022,16 +2090,25 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                 </div>
                               </div>
                             </div>
-                            <div class="type_tag">
+                            <div x-bind="rowType" class="type_tag">
                               <div x-bind="textType(d)">{{Note}}</div>
+                            </div>
+                            <div
+                                 x-bind="rowPrescriptionType"
+                              class="prescription_type_tag"
+                            >
+                              <div x-bind="textPrescriptionType(d)">
+                                {{Note}}
+                              </div>
                             </div>
                             <div class="div-block-415">
                               <div class="w-embed">
                                 <a
                                   native
+                                  title="d.pathologies[0].title"
                                   x-bind:class="d.pathologies.length &amp;&amp; &#x27;active&#x27;"
                                   x-on:click="pathologyRef(d)"
-                                  x-text="d.pathologies.length ? d.pathologies[0].title : &#x27;-&#x27;"
+                                  x-text="d.pathologies.length ? d.pathologies[0].title : '-'"
                                   x-bind:href="d.pathologies.length ? '/pathologies/' + d.pathologies[0].slug : null"
                                   class="pathologie_tag w-inline-block"
                                   ><div>{{Pathologie}}</div></a
@@ -2087,10 +2164,11 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                             </svg>
                                           </div>
                                           <div class="display-inlineflex">
-                                            Ordonnances
+                                            Modifier
                                           </div>
                                         </div></a
                                       ><a
+                                        x-show="false"
                                         href="#"
                                         class="sub_link borders w-inline-block"
                                         ><div class="w-layout-grid grid_gap_8">
@@ -2397,58 +2475,6 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                     </div>
                                     <div class="display-inlineflex">
                                       Fiche conseil
-                                    </div>
-                                  </div></a
-                                ><a
-                                  href="#"
-                                  class="sub_link borders w-inline-block"
-                                  ><div class="w-layout-grid grid_gap_8">
-                                    <div
-                                      class="tab_icon display-inlineflex w-embed"
-                                    >
-                                      <svg
-                                        width="1.25rem"
-                                        height="1.25rem"
-                                        viewBox="0 0 20 20"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                      >
-                                        <path
-                                          d="M13.3325 12.3333L9.99922 9.00001M9.99922 9.00001L6.66588 12.3333M9.99922 9.00001V16.5M16.9909 14.325C17.8037 13.8819 18.4458 13.1807 18.8158 12.3322C19.1858 11.4836 19.2627 10.536 19.0344 9.63891C18.8061 8.74179 18.2855 7.94626 17.5548 7.37787C16.8241 6.80948 15.925 6.50061 14.9992 6.5H13.9492C13.697 5.52436 13.2269 4.61861 12.5742 3.85082C11.9215 3.08304 11.1033 2.47321 10.181 2.06717C9.2587 1.66113 8.25636 1.46946 7.24933 1.50657C6.2423 1.54367 5.25679 1.80858 4.36688 2.28138C3.47697 2.75419 2.70583 3.42258 2.11142 4.23632C1.51701 5.05005 1.11481 5.98794 0.935051 6.97949C0.755293 7.97104 0.802655 8.99044 1.07358 9.96105C1.3445 10.9317 1.83194 11.8282 2.49923 12.5833"
-                                          stroke="currentColor"
-                                          stroke-width="2"
-                                          stroke-linecap="round"
-                                          stroke-linejoin="round"
-                                        />
-                                      </svg>
-                                    </div>
-                                    <div class="display-inlineflex">
-                                      Importer un fichier
-                                    </div>
-                                  </div></a
-                                ><a href="#" class="sub_link w-inline-block"
-                                  ><div class="w-layout-grid grid_gap_8">
-                                    <div
-                                      class="tab_icon display-inlineflex w-embed"
-                                    >
-                                      <svg
-                                        width="1.25rem"
-                                        height="1.25rem"
-                                        viewBox="0 0 20 20"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                      >
-                                        <path
-                                          d="M18.3327 14.8333C18.3327 15.2754 18.1571 15.6993 17.8445 16.0118C17.532 16.3244 17.108 16.5 16.666 16.5H3.33268C2.89065 16.5 2.46673 16.3244 2.15417 16.0118C1.84161 15.6993 1.66602 15.2754 1.66602 14.8333V3.16667C1.66602 2.72464 1.84161 2.30072 2.15417 1.98816C2.46673 1.67559 2.89065 1.5 3.33268 1.5H7.49935L9.16602 4H16.666C17.108 4 17.532 4.17559 17.8445 4.48816C18.1571 4.80072 18.3327 5.22464 18.3327 5.66667V14.8333Z"
-                                          stroke="currentColor"
-                                          stroke-width="2"
-                                          stroke-linecap="round"
-                                          stroke-linejoin="round"
-                                        />
-                                      </svg>
-                                    </div>
-                                    <div class="display-inlineflex">
-                                      Créer un dossier
                                     </div>
                                   </div></a
                                 >
@@ -3119,7 +3145,20 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                     x-bind="confirmCancel"
                     href="#"
                     class="button is-docs w-inline-block"
-                    ><div class="button_text">Confirmer</div></a
+                    ><div
+                      class="lottie-anim-buttom"
+                      data-w-id="eee68a04-aec4-e7cc-ef0a-2eb782c5932b"
+                      data-animation-type="lottie"
+                      data-src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/61f2cf4b2c288f34818ada35_52601-waiting.json"
+                      data-loop="1"
+                      data-direction="1"
+                      data-autoplay="1"
+                      data-is-ix2-target="0"
+                      data-renderer="svg"
+                      data-default-duration="3.0030028806881908"
+                      data-duration="0"
+                    ></div>
+                    <div class="button_text">Confirmer</div></a
                   >
                 </div>
               </div>
@@ -3289,7 +3328,20 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                     x-on:click="$store.modalStore.submitDelete($event)"
                     href="#"
                     class="button is-docs w-inline-block"
-                    ><div class="button_text">Confirmer</div></a
+                    ><div
+                      class="lottie-anim-buttom"
+                      data-w-id="92387768-5c73-43c8-b215-33f78aaa68e1"
+                      data-animation-type="lottie"
+                      data-src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/61f2cf4b2c288f34818ada35_52601-waiting.json"
+                      data-loop="1"
+                      data-direction="1"
+                      data-autoplay="1"
+                      data-is-ix2-target="0"
+                      data-renderer="svg"
+                      data-default-duration="3.0030028806881908"
+                      data-duration="0"
+                    ></div>
+                    <div class="button_text">Confirmer</div></a
                   >
                 </div>
               </div>
@@ -3311,7 +3363,10 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                 <div class="w-layout-grid footer3_top-wrapper">
                   <div class="footer3_left-wrapper">
                     <div class="margin-bottom-4 margin-small">
-                      <a href="/" class="footer3_logo-link w-nav-brand"
+                      <a
+                        href="/"
+                        native=""
+                        class="footer3_logo-link w-nav-brand"
                         ><div class="footer_logo w-embed">
                           <svg
                             width="135"
@@ -3435,36 +3490,44 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                     <div class="footer3_link-list">
                       <h6>Recherches fréquentes</h6>
                       <a
+                        native=""
                         href="https://www.ordotype.fr/tools/amt"
                         class="footer3_link"
                         >Fiche automesure (AMT)</a
                       ><a
+                        native=""
                         href="https://www.ordotype.fr/pathologies/hta"
                         class="footer3_link"
                         >Hypertension artérielle (HTA)</a
                       ><a
+                        native=""
                         href="https://www.ordotype.fr/pathologies/diabete-de-type-2"
                         class="footer3_link"
                         >Diabète de type 2 (DT2)</a
                       ><a
                         href="https://www.ordotype.fr/pathologies/varicelle"
+                        native=""
                         class="footer3_link"
                         >Varicelle</a
                       ><a
+                        native=""
                         href="https://www.ordotype.fr/pathologies"
                         class="footer3_link"
                         >Toutes les pathologies</a
                       ><a
+                        native=""
                         data-ms-content="!essai-expir"
                         href="/toutes-les-ordonnances"
                         class="footer3_link"
                         >Toutes les ordonnances</a
                       ><a
+                        native=""
                         data-ms-content="!essai-expir"
                         href="/toutes-les-conseils-patients"
                         class="footer3_link"
                         >Toutes les conseils patient</a
                       ><a
+                        native=""
                         href="https://www.ordotype.fr/specialites"
                         class="footer3_link"
                         >Toutes les spécialités</a
@@ -3472,18 +3535,25 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                     </div>
                     <div class="footer3_link-list">
                       <h6>Liens utiles</h6>
-                      <a href="/cgu-cgv" class="footer3_link">CGU / CGV</a
-                      ><a href="/privacy-policy-fr" class="footer3_link">RGPD</a
-                      ><a href="/equipe" class="footer3_link"
+                      <a href="/cgu-cgv" native="" class="footer3_link"
+                        >CGU / CGV</a
+                      ><a
+                        href="/privacy-policy-fr"
+                        native=""
+                        class="footer3_link"
+                        >RGPD</a
+                      ><a href="/equipe" native="" class="footer3_link"
                         >Qui sommes nous ?</a
                       ><a
                         href="https://www.iubenda.com/privacy-policy/38810067"
+                        native=""
                         class="footer3_link"
                         >Confidentialité</a
-                      ><a href="/faq" class="footer3_link">FAQ</a
-                      ><a href="/blog" class="footer3_link">Blog</a
+                      ><a href="/faq" native="" class="footer3_link">FAQ</a
+                      ><a href="/blog" native="" class="footer3_link">Blog</a
                       ><a
                         href="https://calendly.com/louis-malachane/ordotype"
+                        native=""
                         target="_blank"
                         class="footer3_link"
                         >Demander une démo</a
@@ -3504,7 +3574,7 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
       crossorigin="anonymous"
     ></script>
     <script
-      src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/js/webflow.b835f4557.js"
+      src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/js/webflow.32370fddb.js"
       type="text/javascript"
     ></script>
     <!-- Google Tag Manager (noscript) -->

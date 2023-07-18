@@ -11,6 +11,11 @@ globals.documentTypes = {
   prescriptions: "Ordonnances",
 };
 
+globals.prescriptionTypes = {
+  balance_sheet: "Bilan",
+  treatment: "Traitement",
+};
+
 globals.drawer = {
   handleDrawer,
 };

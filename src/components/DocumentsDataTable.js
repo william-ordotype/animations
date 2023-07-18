@@ -3,6 +3,12 @@ import Alpine from "alpinejs";
 function DataTableListItem() {
   return {
     // Binders
+    tableBodyGrid() {
+      return {
+        ["x-bind:class"]:
+          "!($store.documentsStore.getList.documentType === '' || $store.documentsStore.getList.documentType === 'prescriptions') && 'ordonan_item'",
+      };
+    },
     textTitle() {
       return {
         ["x-text"]: "d.title",
@@ -14,6 +20,25 @@ function DataTableListItem() {
     textType() {
       return {
         ["x-text"]: "window.globals.documentTypes[d.type]",
+        ["x-show"]: "$store.documentsStore.getList.documentType === ''",
+      };
+    },
+    textPrescriptionType() {
+      return {
+        ["x-text"]: "window.globals.prescriptionTypes[d.prescription_type]",
+      };
+    },
+    rowType() {
+      return {
+        ["x-show"]: "$store.documentsStore.getList.documentType === ''",
+      };
+    },
+    rowPrescriptionType() {
+      return {
+        ["x-show"]:
+          "$store.documentsStore.getList.documentType === 'prescriptions'",
+        ["x-bind:class"]:
+          "$store.documentsStore.getList.documentType === 'prescriptions' && 'display-inlineflex'",
       };
     },
     textDate() {
@@ -113,6 +138,25 @@ function DataTableHeader() {
     });
   }
   return {
+    headType() {
+      return {
+        ["x-show"]: "$store.documentsStore.getList.documentType === ''",
+      };
+    },
+    headPrescriptionType() {
+      return {
+        ["x-show"]:
+          "$store.documentsStore.getList.documentType === 'prescriptions'",
+        ["x-bind:class"]:
+          "$store.documentsStore.getList.documentType === 'prescriptions' && 'display-inlineflex'",
+      };
+    },
+    tableHeadGrid() {
+      return {
+        ["x-bind:class"]:
+          "($store.documentsStore.getList.documentType === '' || $store.documentsStore.getList.documentType === 'prescriptions') ? 'header_g' : 'header_ordo'",
+      };
+    },
     state: initialState,
     // Click handlers
 
