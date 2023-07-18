@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Last Published: Tue Jul 18 2023 03:06:54 GMT+0000 (Coordinated Universal Time) -->
+<!-- Last Published: Tue Jul 18 2023 20:22:16 GMT+0000 (Coordinated Universal Time) -->
 <html
   data-wf-domain="ordotype.webflow.io"
   data-wf-page="64a834ded7afdb556f14296d"
@@ -17,7 +17,7 @@
       name="google-site-verification"
     />
     <link
-      href="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.03e60432c.min.css"
+      href="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.cfe0634dc.min.css"
       rel="stylesheet"
       type="text/css"
     />
@@ -190,21 +190,22 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
     />
 
     <style type="text/css">
+      /* Skeleton Loader styles */
       .skeleton-loader {
         position: absolute;
         top: 0;
         bottom: 0;
         left: 0;
         right: 0;
-        border-radius: inherit; /* Inherit the border-radius of the parent element */
+        border-radius: inherit;
         background: linear-gradient(
           to right,
           #f6f7f8 25%,
           #e0e0e0 50%,
           #f6f7f8 75%
         );
-        background-size: 200% 100%; /* Increase the size of the background image */
-        z-index: 1; /* Make sure the skeleton loader is on top of the content */
+        background-size: 200% 100%;
+        z-index: 1;
         animation: skeleton 1s infinite linear;
       }
 
@@ -221,6 +222,7 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
         background-clip: padding-box;
       }
 
+      /* Form Styles */
       form#wf-form-mutateDocument {
         width: 100% !important;
       }
@@ -229,12 +231,9 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
         position: relative;
         display: inline-block;
       }
+
+      /* Button Styles */
       .reset-button {
-        /*
-              position: absolute;
-              top: 35%;
-              right: 10px;
-              transform: translateY(-50%); */
         border: none;
         background: none;
         font-size: 1.2rem;
@@ -248,10 +247,7 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
         cursor: pointer;
       }
 
-      [x-cloak] {
-        display: none;
-      }
-
+      /* View Styles */
       .drawer_view,
       .modal_view {
         position: fixed;
@@ -261,6 +257,7 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
         bottom: 0;
       }
 
+      /* iFrame Styles */
       .iframe-src {
         width: 0;
         height: 0;
@@ -268,9 +265,15 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
         opacity: 0;
       }
 
+      /* Autocomplete Styles */
       .autocomplete-active {
         background-color: rgb(240, 243, 255) !important;
         color: #ffffff;
+      }
+
+      /* Cloak attribute selector */
+      [x-cloak] {
+        display: none;
       }
     </style>
 
@@ -716,13 +719,11 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                 class="button is-secondary larger w-inline-block"
                 ><div class="button_text">Demander une démo</div></a
               ><a
-                href="/membership/login-ms"
-                id="connexion-nav-btn"
-                data-ms-content="!members"
                 native=""
-                class="button w-inline-block"
-                ><div class="button_circle-color"></div>
-                <div class="button_text">Connexion</div></a
+                data-ms-content="!members"
+                href="/membership/login-ms"
+                class="button is-gradient navbar w-inline-block"
+                ><div class="button_text">Connexion</div></a
               >
             </div>
           </nav>
@@ -1333,29 +1334,72 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                 />
                 <div class="espace_wrapper">
                   <div
+                    x-show="$store.documentsStore.rulesStatus.isLoading === true"
+                    x-data=""
+                    class="loading_container center"
+                  >
+                    <div class="hide">Loading</div>
+                    <div
+                      class="lottie-animation"
+                      data-w-id="5eb4bdc4-f4f7-1861-e38b-1a875ad2ec31"
+                      data-animation-type="lottie"
+                      data-src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/61f2cf4b2c288f34818ada35_52601-waiting.json"
+                      data-loop="1"
+                      data-direction="1"
+                      data-autoplay="1"
+                      data-is-ix2-target="0"
+                      data-renderer="svg"
+                      data-default-duration="3.0030028806881908"
+                      data-duration="0"
+                    ></div>
+                  </div>
+                  <div
+                    x-cloak=""
+                    x-show="$store.userStore.hasPaidSub &amp;&amp; !($store.documentsStore.getList.isLoading) &amp;&amp; !($store.documentsStore.getList.isEmpty) &amp;&amp; !($store.documentsStore.rulesStatus.isLoading)"
+                    x-data="DocumentsAvailableSpace"
                     class="espace_content text-size-tiny text-color-base-700"
                   >
                     <div class="text-weight-semibold">Espace disponible</div>
                     <div class="espace_bar_wrapper">
                       <div class="bar_base">
-                        <div class="go_bar"><div class="doc_bar"></div></div>
+                        <div x-bind="notesBar" class="doc_bar"></div>
+                        <div x-bind="filesBar" class="go_bar"></div>
                       </div>
                     </div>
                     <div class="flex_horizontal">
                       <div class="doc_bar_dot"></div>
                       <div class="text_wrapper">
-                        <div class="display-inlineflex">37</div>
+                        <div
+                          x-bind="consumedNotesNumber"
+                          class="display-inlineflex"
+                        >
+                          {{37}}
+                        </div>
                         <div class="display-inlineflex">
-                          documents créés sur 50
+                          documents créés sur
+                          <span x-bind="allowedNumberOfNotes" class="text-span"
+                            >{{50}}</span
+                          >
                         </div>
                       </div>
                     </div>
                     <div class="flex_horizontal">
                       <div class="go_bar_dot"></div>
                       <div class="text_wrapper">
-                        <div class="display-inlineflex">3.75</div>
+                        <div
+                          x-bind="consumedMegabytesNumber"
+                          class="display-inlineflex"
+                        >
+                          {{3.75}}
+                        </div>
                         <div class="display-inlineflex">
-                          Go utilisés sur 5 Go
+                          Mo utilisés sur<span
+                            x-bind="allowedMegabytes"
+                            class="text-span"
+                          >
+                            {{5}}</span
+                          >
+                          Mo
                         </div>
                       </div>
                     </div>
@@ -2047,7 +2091,7 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                               </svg></div
                           ></a>
                           <div
-                            x-bind="tableBodyGrid"
+                            x-bind:class="$store.documentsStore.getList.documentType !== &#x27;&#x27; &amp;&amp;  &#x27;ordonan_item&#x27;"
                             class="w-layout-grid doc_item_grid"
                           >
                             <div
@@ -2094,7 +2138,7 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                               <div x-bind="textType(d)">{{Note}}</div>
                             </div>
                             <div
-                                 x-bind="rowPrescriptionType"
+                              x-bind="rowPrescriptionType"
                               class="prescription_type_tag"
                             >
                               <div x-bind="textPrescriptionType(d)">
@@ -2285,22 +2329,28 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                             <nav class="sub_list_perpage w-dropdown-list">
                               <a
                                 href="#"
+                                x-on:click="changePerPage($event, $router, 100)"
+                                x-text="dropdownText(100)"
+                                class="w-dropdown-link"
+                                >{{Afficher 100 par page}}</a
+                              ><a
+                                href="#"
                                 x-on:click="changePerPage($event, $router, 50)"
                                 x-text="dropdownText(50)"
                                 class="w-dropdown-link"
                                 >{{Afficher 50 par page}}</a
                               ><a
                                 href="#"
-                                x-on:click="changePerPage($event, $router, 30)"
-                                x-text="dropdownText(30)"
+                                x-on:click="changePerPage($event, $router, 25)"
+                                x-text="dropdownText(25)"
                                 class="w-dropdown-link"
-                                >{{Afficher 30 par page}}</a
+                                >{{Afficher 25 par page}}</a
                               ><a
                                 href="#"
-                                x-on:click="changePerPage($event, $router, 5)"
-                                x-text="dropdownText(5)"
+                                x-on:click="changePerPage($event, $router, 10)"
+                                x-text="dropdownText(10)"
                                 class="w-dropdown-link"
-                                >{{Afficher 5 par page}}</a
+                                >{{Afficher 10 par page}}</a
                               >
                             </nav>
                           </div>
@@ -3590,8 +3640,8 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
     <!-- End Google Tag Manager (noscript) -->
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@bcc66ec097a3618008800a1753503ed5321005f7/ordotype-index-2023-05-16.js"></script>
-    <!--<script src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@d55336453f5aaa96045554154f0b2afead4a4cfe/ordotype-index-2023-05-30b.js"></script>-->
+    <!--<script src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@bcc66ec097a3618008800a1753503ed5321005f7/ordotype-index-2023-05-16.js"></script>-->
+    <script src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@fdc01445a56d6b2b82a0682d8ee1de47ad2281ac/ordotype-index-2023-05-16.js"></script>
 
     <script
       defer
@@ -3599,56 +3649,6 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
       integrity="sha256-DRnoUQAweVMsVPRMhfHC5zPqUP8s2fWUqD39yBsWg+M="
       crossorigin="anonymous"
     ></script>
-
-    <script defer>
-      (function () {
-        const doc = document;
-
-        function copyToClip(str) {
-          function listener(e) {
-            e.clipboardData.setData("text/html", str);
-            e.clipboardData.setData("text/plain", str);
-            e.preventDefault();
-          }
-          doc.addEventListener("copy", listener);
-          doc.execCommand("copy");
-          doc.removeEventListener("copy", listener);
-        }
-        doc.getElementById("button").addEventListener("click", (event) => {
-          $(".tr-wrap").remove();
-          // copyToClip(doc.getElementById('ordo-to-be-copied').innerHTML);
-          selectRichTextToClipboard("#ordo-to-be-copied");
-        });
-        // doc.getElementById("buttonreco").addEventListener('click', event => {
-        // $('.tr-wrap').remove();
-        // copyToClip(doc.getElementById('reco-to-be-copied').innerHTML);
-        // });
-        $("#ordo-to-be-copied .w-condition-invisible").remove();
-      })();
-
-      function selectRichTextToClipboard(node) {
-        node = document.querySelector(node);
-
-        if (document.body.createTextRange) {
-          const range = document.body.createTextRange();
-          range.moveToElementText(node);
-          range.select();
-          document.execCommand("copy");
-          document.selection.empty();
-        } else if (window.getSelection) {
-          // Not IE
-          const selection = window.getSelection();
-          const range = document.createRange();
-          range.selectNodeContents(node);
-          selection.removeAllRanges();
-          const text = selection.addRange(range);
-          document.execCommand("copy");
-          window.getSelection().removeAllRanges(); // Removes highlight in text
-        } else {
-          console.warn("Could not select text in node: Unsupported browser.");
-        }
-      }
-    </script>
 
     <!-- 💙 MEMBERSCRIPT #23 v0.1 💙 SKELETON SCREENS/CONTENT LOADERS -->
     <script>
@@ -3683,7 +3683,7 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
     </script>
 
     <!-- HTML Rich text reader -->
-    <script defer>
+    <script>
       Webflow.push(function () {
         $(".w-richtext p").html(function () {
           return $(this).html().indexOf("&lt;") == 0 &&
@@ -3694,7 +3694,7 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
       });
     </script>
 
-    <script defer>
+    <script>
       window.mainPlansIds = [
         "pln_essai-gratuit-5e4s0o0r",
         "pln_compte-praticien-offre-speciale-500-premiers--893z0o60",
@@ -3703,7 +3703,6 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
         "pln_interne-m-decine-g-n-rale-adh-rent--4a4t0o95",
         "pln_compte-ouvert-u94k0of5",
       ];
-
       window.dataLayer = window.dataLayer || [];
       $memberstackDom.getCurrentMember().then(({ data }) => {
         if (data) {
@@ -3712,23 +3711,19 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
             .split("/");
           const removeDD = date.shift();
           const newDate = date.join("/");
-
           const mainPlan =
             data.planConnections.filter((plan) => {
               return mainPlansIds.includes(plan.planId);
             }) || "Not on main list";
-
           const dataPlan = mainPlan.length > 0 && {
             member_plan_id: mainPlan[0].planId,
             member_plan_status: mainPlan[0].status,
             member_plan_type: mainPlan[0].type,
           };
-
           dataLayer.push({
             event: "userData",
             member_id: data.id,
             member_signup_date: newDate,
-            // checks user is signed up to one of the main plan ids
             ...dataPlan,
           });
         }

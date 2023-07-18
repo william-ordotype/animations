@@ -34,7 +34,6 @@ const myDocumentsStore = {
       };
     },
   },
-
   getList: {
     allChecked: false,
     isLoading: false,
@@ -58,7 +57,7 @@ const myDocumentsStore = {
       let documentsResults;
       this.documents = []; // Reset checkboxes
       try {
-        documentsResults = await this.getDocuments(props);
+        documentsResults = await this.request(props);
       } catch (err) {
         console.error("getList error --", err);
       }
@@ -78,8 +77,10 @@ const myDocumentsStore = {
       this.direction = documentsResults["direction"];
       this.documentType = this.documentType || "";
       this.isLoading = false;
+
+      await Alpine.store("documentsStore").rulesStatus.exec();
     },
-    async getDocuments({
+    async request({
       page = 1,
       limit = 10,
       sort = "created_on",
@@ -274,7 +275,50 @@ const myDocumentsStore = {
       return response.json();
     },
   },
+  rulesStatus: {
+    isLoading: true,
+    currentStatus: {
+      consumedNotesPercent: "",
+      consumedMegabytesPercent: "",
+      consumedNotesNumber: "",
+      consumedMegabytesNumber: "",
+      allowedNumberOfNotes: "",
+      allowedMegabyte: "",
+    },
+    async exec() {
+      try {
+        this.isLoading = true;
+        const response = await this.request();
 
+        const consumedNotesNumber =
+          response.allowedNumberOfNotes - response.numberOfRemainingNotes;
+        const consumedMegabytesNumber =
+          response.allowedMegabyte - response.numberOfMegabyteRemaining;
+
+        this.currentStatus.consumedNotesNumber = consumedNotesNumber;
+        this.currentStatus.consumedMegabytesNumber = consumedMegabytesNumber;
+        this.currentStatus.allowedNumberOfNotes = response.allowedNumberOfNotes;
+        this.currentStatus.allowedMegabyte = response.allowedMegabyte;
+
+        this.currentStatus.consumedNotesPercent =
+          (consumedNotesNumber / response.allowedNumberOfNotes) * 100;
+        this.currentStatus.consumedMegabytesPercent =
+          (consumedMegabytesNumber / response.allowedMegabyte) * 100;
+        this.isLoading = false;
+      } catch (err) {
+        console.error(err);
+      }
+    },
+    async request() {
+      const response = await fetch(`${API_URL}/notes/rules/status`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${memberToken}`,
+        },
+      });
+      return response.json();
+    },
+  },
   async init() {
     console.log("Alpine init store");
     Alpine.effect(() => {

@@ -1,3 +1,5 @@
+/* global $ */
+
 import PineconeRouter from "../../modules/pinecone-router-custom";
 import focus from "@alpinejs/focus";
 import alpineWebflow from "../../modules/alpine-webflow";
@@ -7,6 +9,12 @@ import "../../router/routes";
 import "../../router/pagination";
 import globals from "../../utils/globals";
 import "../../styles.scss";
+
+import myDocumentsStore from "../../store/myDocuments.store";
+import modalStore from "../../store/modal.store";
+import drawerStore from "../../store/drawer.store";
+import userStore from "../../store/user.store";
+import toasterStore from "../../store/toaster.store";
 
 import {
   DataTablePaginationMenu,
@@ -23,15 +31,12 @@ import {
   OpenModalByType,
   PathologiesAutocomplete,
 } from "../../components/DocumentsModal";
-import myDocumentsStore from "../../store/myDocuments.store";
-import modalStore from "../../store/modal.store";
-import drawerStore from "../../store/drawer.store";
-import userStore from "../../store/user.store";
-import toasterStore from "../../store/toaster.store";
+
 import {
   DocumentFileInput,
   DocumentFileListItem,
 } from "../../components/DocumentsFiles";
+import { DocumentAvailableSpaceGraphWidget } from "../../components/DocumentAvailableSpaceGraphWidget";
 
 window.Alpine = Alpine;
 
@@ -41,7 +46,6 @@ window.Alpine = Alpine;
  */
 async function init() {
   globals.run();
-  // await consultsMemberstackAuthentication();
 
   const getUser = await $memberstackDom.getCurrentMember();
   Alpine.store("userStore", userStore(getUser));
@@ -77,6 +81,9 @@ Alpine.data("PathologiesAutocomplete", PathologiesAutocomplete);
 // Documents Files located in drawer and modal
 Alpine.data("DocumentFileListItem", DocumentFileListItem);
 Alpine.data("DocumentFileInput", DocumentFileInput);
+
+// Documents Available Space Graph Widget
+Alpine.data("DocumentsAvailableSpace", DocumentAvailableSpaceGraphWidget);
 
 /**
  Runs program
