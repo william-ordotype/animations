@@ -107,6 +107,11 @@ function DataTableHeader() {
       isActive: false,
       direction: null,
     },
+    sortByPrescriptionType: {
+      propertyName: "prescription_type",
+      isActive: false,
+      direction: null,
+    },
   };
 
   function toggleDirection(direction) {

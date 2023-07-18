@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Last Published: Tue Jul 18 2023 20:22:16 GMT+0000 (Coordinated Universal Time) -->
+<!-- Last Published: Tue Jul 18 2023 20:32:04 GMT+0000 (Coordinated Universal Time) -->
 <html
   data-wf-domain="ordotype.webflow.io"
   data-wf-page="64a834ded7afdb556f14296d"
@@ -1929,7 +1929,9 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                             </div>
                           </div>
                           <div
+                            x-on:click="sortByClick(&#x27;sortByPrescriptionType&#x27;)"
                             x-bind="headPrescriptionType"
+                            x-bind:class="sortByHeadClass(&#x27;sortByPrescriptionType&#x27;)"
                             id="w-node-_2c9703a0-0ecd-95c4-ddaa-e2b8af7a4a60-6f14296d"
                             class="sort_cover prescription_type"
                           >
@@ -2091,7 +2093,7 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                               </svg></div
                           ></a>
                           <div
-                            x-bind:class="$store.documentsStore.getList.documentType !== &#x27;&#x27; &amp;&amp;  &#x27;ordonan_item&#x27;"
+                            x-bind="tableBodyGrid"
                             class="w-layout-grid doc_item_grid"
                           >
                             <div

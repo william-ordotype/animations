@@ -135,7 +135,7 @@
   background-color: #3454f6;
 }
 
-.ql-tooltip.ql-editing {
+.ql-tooltip {
   transform: translateX(-50%) !important;
   left: 50% !important;
 }
@@ -155,4 +155,8 @@
 
 .display-inlineflex {
   display: inline-flex !important;
+}
+
+.sort_cover.prescription_type {
+  display: inline-block;
 }
