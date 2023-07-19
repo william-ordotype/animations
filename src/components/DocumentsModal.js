@@ -8,6 +8,45 @@ function DocumentsModal() {
   return {
     modalStore: Alpine.store("modalStore"),
     init() {
+      // https://github.com/quilljs/quill/issues/262#issuecomment-948890432
+      const Link = Quill.import("formats/link");
+      // Override the existing property on the Quill global object and add custom protocols
+      Link.PROTOCOL_WHITELIST = [
+        "http",
+        "https",
+        "mailto",
+        "tel",
+        "radar",
+        "rdar",
+        "smb",
+        "sms",
+      ];
+
+      class CustomLinkSanitizer extends Link {
+        static sanitize(url) {
+          // Run default sanitize method from Quill
+          const sanitizedUrl = super.sanitize(url);
+
+          // Not whitelisted URL based on protocol so, let's return `blank`
+          if (!sanitizedUrl || sanitizedUrl === "about:blank")
+            return sanitizedUrl;
+
+          // Verify if the URL already have a whitelisted protocol
+          const hasWhitelistedProtocol = this.PROTOCOL_WHITELIST.some(function (
+            protocol
+          ) {
+            return sanitizedUrl.startsWith(protocol);
+          });
+
+          if (hasWhitelistedProtocol) return sanitizedUrl;
+
+          // if not, then append only 'http' to not to be a relative URL
+          return `https://${sanitizedUrl}`;
+        }
+      }
+
+      Quill.register(CustomLinkSanitizer, true);
+
       window.globals.createRTE = new Quill(".modal_text_editor_wrapper", {
         theme: "snow",
         modules: {
@@ -68,6 +107,7 @@ function DocumentsModal() {
     insertUrlSubmit() {
       const quill = globals.createRTE;
       const qrWrapper = document.createElement("div");
+
       const options = {
         text: this.url,
         title: this.urlTitle,

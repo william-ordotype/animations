@@ -124,7 +124,6 @@ function DataTableHeader() {
 
   function toggleActive(state, sortByN) {
     Array.from(Object.keys(state)).forEach((key) => {
-      debugger;
       if (key === sortByN) {
         state[key].isActive = true;
         state[key].direction = toggleDirection(state[key].direction);
