@@ -188,22 +188,29 @@ function DocumentsModal() {
 
 function PathologiesAutocomplete() {
   return {
-    pathologyInputValue: Alpine.store("modalStore").pathologyName,
+    // pathologyInputValue: Alpine.store("modalStore").pathologyName,
     showSearchResults() {
       return {
-        ["x-show"]: "$store.modalStore.form.pathology.length",
+        ["x-show"]: "$store.modalStore.form.pathology.length > 0",
         ["x-transition"]: "",
       };
     },
-    clearSearchResults() {
-      Alpine.store("modalStore").form.pathology = [];
-      Alpine.store("modalStore").pathologyName = "";
-      $("#aa-pathology-input").attr("disabled", false).val("");
-      $(
-        "#pathology-autocomplete .aa-InputWrapper, #pathology-autocomplete .aa-InputWrapperSuffix"
-      ).show();
-      $("#pathology-autocomplete .aa-Form").css("background", "#fff");
-      $("#pathology-autocomplete form")[0].reset();
+    clearSearchResults(obj) {
+      debugger;
+      // Delete obj from pathology array
+      const index = Alpine.store("modalStore").form.pathology.indexOf(obj);
+      if (index > -1) {
+        Alpine.store("modalStore").form.pathology.splice(index, 1);
+      }
+
+      // Alpine.store("modalStore").form.pathology = [];
+      // Alpine.store("modalStore").pathologyName = "";
+      // $("#aa-pathology-input").attr("disabled", false).val("");
+      // $(
+      //   "#pathology-autocomplete .aa-InputWrapper, #pathology-autocomplete .aa-InputWrapperSuffix"
+      // ).show();
+      // $("#pathology-autocomplete .aa-Form").css("background", "#fff");
+      // $("#pathology-autocomplete form")[0].reset();
     },
     init() {
       globals.autocomplete({
@@ -240,28 +247,36 @@ function PathologiesAutocomplete() {
                 },
               },
               onSelect(obj) {
-                Alpine.store("modalStore").form.pathology = [obj.item._id];
-                Alpine.store("modalStore").pathologyName = obj.itemInputValue;
-                $("#aa-pathology-input").attr("disabled", true);
-                $(
-                  "#pathology-autocomplete .aa-InputWrapper, #pathology-autocomplete .aa-InputWrapperSuffix"
-                ).hide();
-                $("#pathology-autocomplete .aa-Form").css("background", "#eee");
+                // Review if pathology id already exists in pathology store array
+                const pathologyExists = Alpine.store(
+                  "modalStore"
+                ).form.pathology.find((pathology) => {
+                  return pathology._id === obj.item._id;
+                });
+                if (pathologyExists) {
+                  return;
+                }
+
+                Alpine.store("modalStore").form.pathology.push({
+                  _id: obj.item._id,
+                  title: obj.itemInputValue,
+                });
+                // Reset autocomplete input
+                $("#aa-Autocomplete .aa-Input").val("");
+                $("#aa-pathology-input").val("");
               },
             },
           ];
         },
-        onReset(obj) {
-          Alpine.store("modalStore").form.pathology = [];
-          Alpine.store("modalStore").pathologyName = "";
-          $("#aa-pathology-input").attr("disabled", false).val("");
-          $(
-            "#pathology-autocomplete .aa-InputWrapper, #pathology-autocomplete .aa-InputWrapperSuffix"
-          ).show();
-          $("#pathology-autocomplete .aa-Form").css("background", "#fff");
-        },
-        renderNoResults({ state, render }, root) {
-          render(`No results for "${state.query}".`, root);
+        renderNoResults({ render, html, state }, root) {
+          render(
+            html`
+              <div class="aa-PanelLayout aa-Panel--scrollable">
+                Aucun résultat trouvé pour "${state.query}".
+              </div>
+            `,
+            root
+          );
         },
       });
     },

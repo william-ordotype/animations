@@ -16,7 +16,7 @@ const modalStore = {
     pathology: [],
     documents: [],
   },
-  pathologyName: "",
+  pathologiesArr: [],
   files: [],
   filesToDelete: [],
   content(container, elem) {
@@ -28,7 +28,8 @@ const modalStore = {
     return dt ? obj[mutation][dt][container][elem] : undefined;
   },
   openModal(note, config) {
-    // If modal is open from edit button
+    // If modal opens using the "edit" button
+    // fill the form store/form fields from note object from the getList chached response
     if (note) {
       this.form._id = note._id;
       this.form.title = note.title;
@@ -39,13 +40,21 @@ const modalStore = {
       this.form.documents = note.documents?.length > 0 ? note.documents : [];
       this.form.type = note.type;
       this.form.pathology =
-        note.pathologies?.length > 0 ? [note.pathologies[0]._id] : [];
+        note.pathologies?.length > 0
+          ? // Add only id and title to pathology array
+            note.pathologies.map((pathology) => {
+              return {
+                _id: pathology._id,
+                title: pathology.title,
+              };
+            })
+          : [];
       this.pathologyName =
         note.pathologies?.length > 0 ? note.pathologies[0].title : "";
       this.form.prescription_type = note.prescription_type;
       this.form.files = note.documents?.length > 0 ? note.documents : [];
     } else {
-      // If modal is open from create button
+      // If modal is open from create button initialized form fields to empty values
       this.form._id = "";
       this.form.title = "";
       this.form.rich_text_ordo = "";
@@ -137,9 +146,10 @@ const modalStore = {
   async submitForm(ev) {
     this.form.rich_text_ordo = window.globals.createRTE.root.innerHTML;
 
-    const form = this.form;
+    const form = { ...this.form };
     const files = this.files;
     const filesToDelete = this.filesToDelete;
+    form.pathology = this.form.pathology.map((path) => path._id);
 
     // Iterate through each property of the object
     Object.keys(form).forEach((key) => {
