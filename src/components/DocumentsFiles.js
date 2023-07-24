@@ -4,7 +4,6 @@ function DocumentFileInput() {
   return {
     filesAttached: Alpine.store("modalStore").files,
     async handleFileChange(ev) {
-      debugger;
       const filesAttached = Alpine.store("modalStore").files;
       const filesInputValue = Array.from(ev.target.files);
 
@@ -43,7 +42,7 @@ function DocumentFileListItem({
   };
   const getFileExt = () => {
     const ext = file_name.split(".");
-    return `.${ext[ext.length - 1]}`;
+    return `${ext[ext.length - 1]}`;
   };
   const getFileSrc = () => {
     return file_url;
@@ -59,7 +58,6 @@ function DocumentFileListItem({
     deleteServerFiles(ev, id) {
       Alpine.store("modalStore").filesToDelete.push(id);
 
-      debugger;
       $(ev.target).unbind("click").parents(".file_block").css("opacity", "0.5");
     },
   };

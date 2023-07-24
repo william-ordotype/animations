@@ -7,13 +7,16 @@ function DataTableListItem() {
       return {
         ["x-bind:class"]:
           "!($store.documentsStore.getList.documentType === '' || $store.documentsStore.getList.documentType === 'prescriptions') && 'ordonan_item'",
-        ["x-on:click"]: `$event.target === $event.currentTarget && $router.navigate('/view/' + d._id)`,
+      };
+    },
+    openDrawer() {
+      return {
+        ["x-on:click"]: `$router.navigate('/view/' + d._id)`,
       };
     },
     textTitle() {
       return {
         ["x-text"]: "d.title",
-        ["x-on:click"]: `$event.target === $event.currentTarget && $router.navigate('/view/' + d._id)`,
       };
     },
     textType() {

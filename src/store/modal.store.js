@@ -16,7 +16,6 @@ const modalStore = {
     pathology: [],
     documents: [],
   },
-  pathologiesArr: [],
   files: [],
   filesToDelete: [],
   content(container, elem) {
@@ -134,6 +133,7 @@ const modalStore = {
     this.form.pathology = [];
     this.form.documents = [];
     this.files = [];
+    this.form.files = [];
     this.prescription_type = "";
     this.pathologyName = "";
     this.filesToDelete = [];

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Last Published: Mon Jul 24 2023 21:18:44 GMT+0000 (Coordinated Universal Time) -->
+<!-- Last Published: Mon Jul 24 2023 22:56:46 GMT+0000 (Coordinated Universal Time) -->
 <html
   data-wf-domain="ordotype.webflow.io"
   data-wf-page="64a834ded7afdb556f14296d"
@@ -17,7 +17,7 @@
       name="google-site-verification"
     />
     <link
-      href="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.93cb4c9f2.min.css"
+      href="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.745a75de9.min.css"
       rel="stylesheet"
       type="text/css"
     />
@@ -2114,6 +2114,7 @@
                                     class="check_mark"
                                 /></a>
                                 <div
+                                  x-bind="openDrawer"
                                   data-title=""
                                   class="flex_horizontal width-100"
                                 >
@@ -2789,55 +2790,62 @@
               </div>
               <div x-data="" class="files_wrapper">
                 <div class="files_holder">
-                  <a
-                    x-on:click="$event.preventDefault()"
+                  <div
                     x-for="file in $store.documentsStore.getOne.document.note.documents"
-                    x-key="file._id"
-                    href="#"
-                    class="file_block w-inline-block"
-                    ><div
-                      x-data="DocumentFileListItem(file)"
-                      class="w-layout-grid file_grid"
-                    >
-                      <div
-                        x-if="isImg"
-                        id="w-node-f7619463-5fd8-f02d-64a4-0a18c56fb2d3-6f14296d"
-                        class="file_img_wrapper"
-                      >
-                        <div class="w-embed">
-                          <img
-                            src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/649a52cf2ee9756547f93e3a_SCR-20230626-tzag.png"
-                            loading="lazy"
-                            x-bind:src="isImg &amp;&amp; fileSrc"
-                            sizes="(max-width: 479px) 286px, (max-width: 767px) 60vw, (max-width: 991px) 28vw, (max-width: 1279px) 26vw, (max-width: 1439px) 24vw, 334px"
-                            alt=""
-                            class="file_img"
-                          />
-                        </div>
-                      </div>
-                      <div
-                        id="w-node-f7619463-5fd8-f02d-64a4-0a18c56fb2d5-6f14296d"
-                        class="file_description"
-                      >
-                        <div class="flex_horizontal">
-                          <div class="file_type_holder action">
-                            <div class="file_type_icon pdf"><div>pdf</div></div>
-                          </div>
-                          <div class="file_title">
-                            <div x-text="fileName" class="display-inlineflex">
-                              FileName
-                            </div>
-                            <div
-                              x-text="fileExt"
-                              class="display-inlineflex extention"
-                            >
-                              .ext
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div></a
+                    class="file_block_wrapper"
                   >
+                    <a
+                      x-bind:href="fileSrc"
+                      x-on:click="window.open(fileSrc, &#x27;_blank&#x27;)"
+                      x-data="DocumentFileListItem(file)"
+                      href="#"
+                      class="file_block w-inline-block"
+                      ><div class="w-layout-grid file_grid">
+                        <div
+                          x-if="isImg"
+                          id="w-node-f7619463-5fd8-f02d-64a4-0a18c56fb2d3-6f14296d"
+                          class="file_img_wrapper"
+                        >
+                          <div class="w-embed">
+                            <img
+                              src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/649a52cf2ee9756547f93e3a_SCR-20230626-tzag.png"
+                              loading="lazy"
+                              x-bind:src="isImg &amp;&amp; fileSrc"
+                              sizes="(max-width: 479px) 286px, (max-width: 767px) 60vw, (max-width: 991px) 28vw, (max-width: 1279px) 26vw, (max-width: 1439px) 24vw, 334px"
+                              alt=""
+                              class="file_img"
+                            />
+                          </div>
+                        </div>
+                        <figure
+                          id="w-node-f7619463-5fd8-f02d-64a4-0a18c56fb2d5-6f14296d"
+                          class="file_description"
+                        >
+                          <div class="flex_horizontal">
+                            <div class="file_type_holder action">
+                              <div
+                                x-bind:class="fileExt"
+                                class="file_type_icon pdf"
+                              >
+                                <div x-text="fileExt">pdf</div>
+                              </div>
+                            </div>
+                            <div class="file_title">
+                              <div x-text="fileName" class="display-inlineflex">
+                                FileName
+                              </div>
+                              <div
+                                x-text="&#x27;.&#x27;+fileExt"
+                                class="display-inlineflex extention"
+                              >
+                                .ext
+                              </div>
+                            </div>
+                          </div>
+                        </figure>
+                      </div></a
+                    >
+                  </div>
                 </div>
               </div>
             </div>
@@ -2950,7 +2958,7 @@
                                     {{FileName}}
                                   </div>
                                   <div
-                                    x-text="fileExt"
+                                    x-text="&#x27;.&#x27;+ fileExt"
                                     class="display-inlineflex extention"
                                   >
                                     .{{ext}}
@@ -3007,7 +3015,7 @@
                                     {{FileName}}
                                   </div>
                                   <div
-                                    x-text="getFileExtension(fileItem.name)"
+                                    x-text="&#x27;.&#x27; + getFileExtension(fileItem.name)"
                                     class="display-inlineflex extention"
                                   >
                                     .{{ext}}
