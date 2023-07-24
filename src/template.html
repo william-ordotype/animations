@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Last Published: Mon Jul 24 2023 00:23:39 GMT+0000 (Coordinated Universal Time) -->
+<!-- Last Published: Mon Jul 24 2023 21:18:44 GMT+0000 (Coordinated Universal Time) -->
 <html
   data-wf-domain="ordotype.webflow.io"
   data-wf-page="64a834ded7afdb556f14296d"
@@ -17,7 +17,7 @@
       name="google-site-verification"
     />
     <link
-      href="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.65380c939.min.css"
+      href="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.93cb4c9f2.min.css"
       rel="stylesheet"
       type="text/css"
     />
@@ -68,42 +68,43 @@
       href="https://www.ordotype.fr/mes-documents-sandbox"
       rel="canonical"
     />
-    <!-- Memberstack webflow package 
- <script defer>
-window.addEventListener("load", (event) => {  console.log("Onload fired");
-  setTimeout(function () {
-    // If a member exists, create a cookie
-    // Check if the user has the "_ms-mid" item in local storage
-    if (localStorage.getItem("_ms-mid")) {
-      if (localStorage.getItem("userExists")) {
-        // If the user has already logged in and their cookie is registered, do nothing
-        return;
-      }
-      console.log("Found '_ms-mid' item in local storage");
-      // Set a flag to indicate that the user exists
-      localStorage.setItem("userExists", true);
-    } else {
-      // If a member does not exist
-      // Check if there was a previously set cookie
-      if (localStorage.getItem("userExists")) {
-        // Remove the existing cookie
-        localStorage.removeItem("userExists");
+    <!-- Memberstack webflow package -->
+    <script defer>
+      window.addEventListener("load", (event) => {
+        console.log("Onload fired");
+        setTimeout(function () {
+          // If a member exists, create a cookie
+          // Check if the user has the "_ms-mid" item in local storage
+          if (localStorage.getItem("_ms-mid")) {
+            if (localStorage.getItem("userExists")) {
+              // If the user has already logged in and their cookie is registered, do nothing
+              return;
+            }
+            console.log("Found '_ms-mid' item in local storage");
+            // Set a flag to indicate that the user exists
+            localStorage.setItem("userExists", true);
+          } else {
+            // If a member does not exist
+            // Check if there was a previously set cookie
+            if (localStorage.getItem("userExists")) {
+              // Remove the existing cookie
+              localStorage.removeItem("userExists");
 
-        // Inserting redirecting logic
-        // Check if the user is not already on the /modale-deconnexion page
-        if (window.location.pathname !== '/modale-deconnexion') {
-          console.log('Not on /modale-deconnexion, redirecting...');
+              // Inserting redirecting logic
+              // Check if the user is not already on the /modale-deconnexion page
+              if (window.location.pathname !== "/modale-deconnexion") {
+                console.log("Not on /modale-deconnexion, redirecting...");
 
-          // Redirect the user to /modale-deconnexion
-          window.location.href = '/modale-deconnexion';
-        } else {
-          console.log('Already on /modale-deconnexion page');
-        }
-      }
-    }
-  }, 500);
-});
-</script> -->
+                // Redirect the user to /modale-deconnexion
+                window.location.href = "/modale-deconnexion";
+              } else {
+                console.log("Already on /modale-deconnexion page");
+              }
+            }
+          }
+        }, 500);
+      });
+    </script>
 
     <script
       data-memberstack-domain="https://memberstack-client.ordotype.fr"
@@ -2112,7 +2113,10 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                     alt=""
                                     class="check_mark"
                                 /></a>
-                                <div class="flex_horizontal width-100">
+                                <div
+                                  data-title=""
+                                  class="flex_horizontal width-100"
+                                >
                                   <div
                                     x-bind="textTitle(d)"
                                     class="text-weight-semibold"
@@ -2152,13 +2156,29 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                 <a
                                   native
                                   title="d.pathologies[0].title"
-                                  x-bind:class="d.pathologies.length &amp;&amp; &#x27;active&#x27;"
-                                  x-on:click="pathologyRef(d)"
-                                  x-text="d.pathologies.length ? d.pathologies[0].title : '-'"
-                                  x-bind:href="d.pathologies.length ? '/pathologies/' + d.pathologies[0].slug : null"
+                                  x-bind="pathologyRef"
                                   class="pathologie_tag w-inline-block"
-                                  ><div>{{Pathologie}}</div></a
                                 >
+                                  <div>{{Pathologie}}</div>
+                                </a>
+                                <div
+                                  x-show="d.pathologies.length > 1"
+                                  class="plus-pathologies"
+                                >
+                                  <span>+</span
+                                  ><span x-text="d.pathologies.length - 1"
+                                    >{{1}}</span
+                                  >
+                                </div>
+
+                                <style>
+                                  .plus-pathologies {
+                                    display: inline-block;
+                                    vertical-align: top;
+                                    padding: 2px;
+                                    color: #4d65ff;
+                                  }
+                                </style>
                               </div>
                             </div>
                             <div
@@ -2678,12 +2698,14 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                 {{Nom de la note}}
               </h2>
               <div
-                x-for="ptag in $store.documentsStore.getOne.document.pathologies"
                 id="w-node-_5e73bd5a-ce56-4459-5f7f-74573fcb3d83-6f14296d"
                 class="tags_wrapper"
               >
-                <div x-text="ptag.title" class="view_tag">
-                  <div>{{Pathologie associée}}</div>
+                <div
+                  x-for="ptag in $store.documentsStore.getOne.document.note.pathologies"
+                  class="view_tag"
+                >
+                  <div x-text="ptag.title">{{Pathologie associée}}</div>
                 </div>
               </div>
               <div
@@ -3111,7 +3133,7 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                 <div class="header_holder context_comment">
                   <div class="inner_header">
                     <div class="display-inlineflex text_space">
-                      Ajouter une URL
+                      Ajouter un QR code
                     </div>
                     <img
                       x-bind="showInsertUrlDialog(false)"
@@ -3128,7 +3150,7 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                     class="action_input_wrapper"
                   >
                     <label for="recommendation-url" class="action_field_label"
-                      >Nom de l&#x27;URL</label
+                      >URL du site</label
                     ><input
                       type="text"
                       class="action_text_field w-input"
@@ -3144,14 +3166,14 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                     <label
                       for="recommendation-url-qr"
                       class="action_field_label"
-                      >Caption</label
+                      >Titre</label
                     ><input
                       type="text"
                       class="action_text_field w-input"
                       maxlength="256"
                       name="recommendation-url-qr"
                       data-name="recommendation-url-qr"
-                      placeholder="Caption of the QR"
+                      placeholder="Titre du QR code"
                       x-model="urlTitle"
                       id="recommendation-url-qr"
                     />
@@ -3667,7 +3689,7 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
       crossorigin="anonymous"
     ></script>
     <script
-      src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/js/webflow.68dd0c752.js"
+      src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/js/webflow.f083897dc.js"
       type="text/javascript"
     ></script>
     <!-- Google Tag Manager (noscript) -->

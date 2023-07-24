@@ -148,7 +148,8 @@
   white-space: nowrap;
   @media screen and (max-width: 375px) {
     max-width: 300px;
-  }@media screen and (max-width: 320px) {
+  }
+  @media screen and (max-width: 320px) {
     max-width: 250px;
   }
 }
@@ -160,3 +161,4 @@
 .sort_cover.prescription_type {
   display: inline-block;
 }
+

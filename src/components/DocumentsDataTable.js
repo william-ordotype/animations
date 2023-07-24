@@ -45,10 +45,15 @@ function DataTableListItem() {
         ["x-text"]: "new Date(d.updated_on).toLocaleDateString('fr-FR')",
       };
     },
-    pathologyRef(d) {
-      d.pathologies.length > 0
-        ? (location.href = `/pathologies/${d.pathologies[0].slug}`)
-        : console.log("no pathology");
+    pathologyRef() {
+      return {
+        ["x-on:click"]:
+          "d.pathologies.length > 0 ? (location.href = `/pathologies/${d.pathologies[0].slug}`) : console.log('no pathology')",
+        ["x-bind:class"]: "d.pathologies.length && 'active'",
+        ["x-text"]: "d.pathologies.length ? d.pathologies[0].title : '-'",
+        ["x-bind:href"]:
+          "d.pathologies.length ? '/pathologies/' + d.pathologies[0].slug : null",
+      };
     },
 
     // file icons
