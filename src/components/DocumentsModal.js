@@ -225,9 +225,9 @@ function PathologiesAutocomplete() {
         detachedMediaQuery: "none",
         debug: false,
         async getSources({ query = "" }) {
-          const res = await Alpine.store("documentsStore").pathologies.getList(
-            query
-          );
+          const res = await Alpine.store(
+            "documentsStore"
+          ).pathologies.searchByTitleAndAlias(query);
           return [
             {
               sourceId: "pathologies",

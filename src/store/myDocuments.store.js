@@ -262,9 +262,9 @@ const myDocumentsStore = {
     },
   },
   pathologies: {
-    async getList(payload) {
+    async searchByTitleAndAlias(query) {
       const response = await fetch(
-        `${API_URL}/pathologies?page=1&limit=10&sort=title&direction=DESC&title=${payload}`,
+        `${API_URL}/pathologies?page=1&limit=50&sort=title&direction=DESC&title=${query}&alias=${query}`,
         {
           method: "GET",
           headers: {
