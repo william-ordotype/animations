@@ -154,7 +154,7 @@ const modalStore = {
   async submitForm(ev) {
     this.form.rich_text_ordo = window.globals.createRTE.root.innerHTML;
 
-    const form = { ...this.form };
+    const form = { ...this.form }; // Internal declaration. Because closeModal method resets form._id;
     const files = this.files;
     const filesToDelete = this.filesToDelete;
     form.pathology = this.form.pathology.map((path) => path._id);
@@ -174,22 +174,43 @@ const modalStore = {
     });
 
     try {
-      const isEdit = !!this.form._id; // Internal declaration. Because closeModal method resets form._id
+      const isEdit = !!form._id;
       this.loadSubmit = true;
-      const formResponse = await (
-        await Alpine.store("documentsStore").mutateOne.exec(
-          form,
-          files,
-          filesToDelete
-        )
-      ).json();
-
-      if (formResponse.error) {
-        this.loadSubmit = false;
-        console.error(...formResponse);
-        this.formError = true;
-        this.formErrorMessage = formResponse.error;
-        return;
+      let formResponse;
+      if (isEdit) {
+        debugger;
+        // Transform fetch race to array of json
+        const [formRes, fileRes, filesDeletedRes] = await Alpine.store(
+          "documentsStore"
+        ).mutateOne.exec(form, files, filesToDelete);
+        formResponse = await formRes.json();
+      } else {
+        formResponse = await (
+          await Alpine.store("documentsStore").mutateOne.exec(
+            form,
+            files,
+            filesToDelete
+          )
+        ).json();
+      }
+      if (isEdit) {
+        if (formResponse.error) {
+          this.loadSubmit = false;
+          console.error(...formResponse);
+          this.formError = true;
+          this.formErrorMessage = formResponse.error;
+          return;
+        }
+      } else {
+        formResponse.find((res) => {
+          if (res.error) {
+            this.loadSubmit = false;
+            console.error(...res);
+            this.formError = true;
+            this.formErrorMessage = res.error;
+            return;
+          }
+        });
       }
 
       this.formError = false;
@@ -199,8 +220,11 @@ const modalStore = {
 
       // If modal is open from edit button, refresh the getOne document
       // In order to update all the drawer fields
-      if (isEdit) {
-        await Alpine.store("documentsStore").getOne.getDocument(this.form._id);
+      debugger;
+      if (window.location.hash.includes("/view")) {
+        await Alpine.store("documentsStore").getOne.setDocument({
+          id: form._id,
+        });
       } else {
         // If modal is open from create button, refresh the getList documents
         // In order to update the table list
