@@ -45,7 +45,7 @@ function DataTableListItem() {
     },
     textDate() {
       return {
-        ["x-text"]: "new Date(d.updated_on).toLocaleDateString('fr-FR')",
+        ["x-text"]: "new Date(d.created_on).toLocaleDateString('fr-FR')",
       };
     },
     pathologyRef() {
