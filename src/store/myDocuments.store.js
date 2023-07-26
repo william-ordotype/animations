@@ -114,7 +114,7 @@ const myDocumentsStore = {
           ? await this.updateReq(payload, files, filesToDelete)
           : await this.createReq(payload, files);
       } catch (err) {
-        console.error(err);
+        throw new Error(err);
       }
     },
     _validatePayload(payload, isUpdate = false) {
@@ -145,7 +145,8 @@ const myDocumentsStore = {
         for (let i = 0; i < files.length; i++) {
           documentFormData.append("files", files[i]);
         }
-        const response = await fetch(`${API_URL}/notes`, {
+
+        return await fetch(`${API_URL}/notes`, {
           method: "POST",
           headers: {
             // "Content-Type": "multipart/form-data",
@@ -153,9 +154,8 @@ const myDocumentsStore = {
           },
           body: documentFormData,
         });
-        return handleRequestErrors(response);
       } catch (err) {
-        console.error(err);
+        throw new Error(err);
       }
     },
 
@@ -208,14 +208,12 @@ const myDocumentsStore = {
             body: JSON.stringify({ document_id: filesToDelete }),
           });
 
-        const response = await Promise.all([
+        // run all promises
+        return await Promise.all([
           sendDocumentsPromise(),
           files.length > 0 && sendFilesPromise(),
           filesToDelete.length > 0 && deleteFilesPromise(),
         ]);
-
-        // run handleRequestErrors in array promises
-        return response.map((res) => handleRequestErrors(res));
       } catch (err) {
         console.error(err);
       }
@@ -255,7 +253,7 @@ const myDocumentsStore = {
           body: JSON.stringify({ note_ids: [...ids] }),
         });
 
-        return await handleRequestErrors(response);
+        return await response;
       } catch (err) {
         throw new Error(err);
       }

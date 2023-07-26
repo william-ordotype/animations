@@ -7,6 +7,15 @@ import globals from "../utils/globals";
 function DocumentsModal() {
   return {
     modalStore: Alpine.store("modalStore"),
+    submitBtn() {
+      return {
+        ["x-bind:class"]: "$store.modalStore.loadSubmit === true && 'disabled'",
+        ["x-text"]:
+          "modalStore.loadSubmit === true ? $el.dataset.wait : 'Submit'",
+        ["x-bind:value"]:
+          "modalStore.loadSubmit === true ? $el.dataset.wait : 'Submit'",
+      };
+    },
     init() {
       // https://github.com/quilljs/quill/issues/262#issuecomment-948890432
       const Link = Quill.import("formats/link");
@@ -196,7 +205,6 @@ function PathologiesAutocomplete() {
       };
     },
     clearSearchResults(obj) {
-      debugger;
       // Delete obj from pathology array
       const index = Alpine.store("modalStore").form.pathology.indexOf(obj);
       if (index > -1) {
@@ -214,9 +222,14 @@ function PathologiesAutocomplete() {
     },
     init() {
       globals.autocomplete({
-        onStateChange({ state }) {
+        onStateChange({ state, ...rest }) {
           if (state.isOpen === false && state.status === "idle") {
             state.completion = "";
+          }
+          if (state.isOpen === true && state.status === "loading") {
+            Alpine.store("modalStore").loadSubmit = true;
+          } else if (state.isOpen === false) {
+            Alpine.store("modalStore").loadSubmit = false;
           }
         },
         container: "#pathology-autocomplete",
@@ -246,7 +259,7 @@ function PathologiesAutocomplete() {
                   return html`<div>${item.title}</div>`;
                 },
               },
-              onSelect(obj) {
+              onSelect(obj, rest) {
                 // Review if pathology id already exists in pathology store array
                 const pathologyExists = Alpine.store(
                   "modalStore"
@@ -262,8 +275,7 @@ function PathologiesAutocomplete() {
                   title: obj.itemInputValue,
                 });
                 // Reset autocomplete input
-                $("#aa-Autocomplete .aa-Input").val("");
-                $("#aa-pathology-input").val("");
+                $("#pathology-autocomplete form")[0].reset();
               },
             },
           ];

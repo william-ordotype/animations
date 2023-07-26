@@ -163,3 +163,9 @@
   display: inline-block;
 }
 
+.w-button.disabled {
+  cursor: auto;
+  background-color: #858c95;
+  background-image: none;
+  pointer-events: none;
+}

@@ -85,7 +85,6 @@ function DataTableListItemSubmenu() {
       await Alpine.store("modalStore").openModal(d, { type: d.type });
     },
     openDeleteDocument(ev, d) {
-      debugger;
       ev.preventDefault();
       Alpine.store("modalStore").openBeforeDelete(d);
     },
@@ -241,7 +240,6 @@ function DataTablePerPageDropdown() {
     showDropdownText: "Afficher 10 par page",
     changePerPage(ev, routerParams, number) {
       ev.preventDefault();
-      debugger;
       $(ev.target)
         .closest(".w-dropdown-list")
         .removeClass("w--open")

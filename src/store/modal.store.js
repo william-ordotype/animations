@@ -8,6 +8,9 @@ const modalStore = {
   showBeforeDelete: false,
   showInsertUrl: false,
   loadModal: true,
+  loadSubmit: false,
+  formError: false,
+  formErrorMessage: "",
   form: {
     _id: "",
     title: "",
@@ -142,6 +145,11 @@ const modalStore = {
 
     // clear autocomplete
     $("#pathology-autocomplete form")[0].reset();
+
+    // clear form status
+    this.formError = false;
+    this.formErrorMessage = "";
+    this.loadSubmit = false;
   },
   async submitForm(ev) {
     this.form.rich_text_ordo = window.globals.createRTE.root.innerHTML;
@@ -166,19 +174,42 @@ const modalStore = {
     });
 
     try {
-      await Alpine.store("documentsStore").mutateOne.exec(
-        form,
-        files,
-        filesToDelete
-      );
+      const isEdit = !!this.form._id; // Internal declaration. Because closeModal method resets form._id
+      this.loadSubmit = true;
+      const formResponse = await (
+        await Alpine.store("documentsStore").mutateOne.exec(
+          form,
+          files,
+          filesToDelete
+        )
+      ).json();
+
+      if (formResponse.error) {
+        this.loadSubmit = false;
+        console.error(...formResponse);
+        this.formError = true;
+        this.formErrorMessage = formResponse.error;
+        return;
+      }
+
+      this.formError = false;
+      this.formErrorMessage = "";
+      this.loadSubmit = false;
       this.closeModal();
 
-      Alpine.store("documentsStore").getList.isLoading = true;
-      await Alpine.store("documentsStore").getList.setDocuments({
-        type: Alpine.store("documentsStore").getList.documentType,
-      });
-
-      Alpine.store("documentsStore").getList.isLoading = false;
+      // If modal is open from edit button, refresh the getOne document
+      // In order to update all the drawer fields
+      if (isEdit) {
+        await Alpine.store("documentsStore").getOne.getDocument(this.form._id);
+      } else {
+        // If modal is open from create button, refresh the getList documents
+        // In order to update the table list
+        Alpine.store("documentsStore").getList.isLoading = true;
+        await Alpine.store("documentsStore").getList.setDocuments({
+          type: Alpine.store("documentsStore").getList.documentType,
+        });
+        Alpine.store("documentsStore").getList.isLoading = false;
+      }
 
       Alpine.store("toasterStore").toasterMsg(
         "Document créé avec succès",

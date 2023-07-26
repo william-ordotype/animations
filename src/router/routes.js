@@ -39,14 +39,14 @@ window.router = () => {
       }
     },
     notfound(context) {
-      debugger;
-      if (context.path.includes("list") || context.path.includes("view")) {
-        Alpine.store("toasterStore").toasterMsg("Not found", "error");
-        console.log(context);
-        console.log("Not found");
-      } else {
-        location.href = context.path;
-      }
+      console.log("Not found");
+      Alpine.store("toasterStore").toasterMsg("Not found", "error");
+      // if (context.path.includes("list") || context.path.includes("view")) {
+      //   console.log(context);
+      //   console.log("Not found");
+      // } else {
+      //   location.href = context.path;
+      // }
     },
   };
 };
