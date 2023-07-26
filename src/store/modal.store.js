@@ -22,7 +22,7 @@ const modalStore = {
   files: [],
   filesToDelete: [],
   content(container, elem) {
-    const dt = this.form.type;
+    const dt = this.form.type || "prescriptions";
     const id = this.form._id;
     const mutation = id ? "edit" : "create";
     const obj = { ...window.globals.modal.content };
@@ -40,7 +40,7 @@ const modalStore = {
           note.rich_text_ordo
         );
       this.form.documents = note.documents?.length > 0 ? note.documents : [];
-      this.form.type = note.type;
+      this.form.type = note.type || "prescriptions";
       this.form.pathology =
         note.pathologies?.length > 0
           ? // Add only id and title to pathology array
