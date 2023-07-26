@@ -272,6 +272,15 @@ const myDocumentsStore = {
       );
       return response.json();
     },
+    async searchIdBySlug(slug) {
+      const response = await fetch(`${API_URL}/pathologies?slug=${slug}`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${memberToken}`,
+        },
+      });
+      return response.json();
+    },
   },
   rulesStatus: {
     isLoading: true,

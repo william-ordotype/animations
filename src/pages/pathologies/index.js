@@ -16,6 +16,10 @@ import {
   OpenModalByType,
   PathologiesAutocomplete,
 } from "../../components/DocumentsModal";
+import {
+  DocumentFileInput,
+  DocumentFileListItem,
+} from "../../components/DocumentsFiles";
 
 console.log("pathologies");
 
@@ -52,6 +56,10 @@ DocumentsDrawer();
 Alpine.data("DocumentsModal", DocumentsModal);
 Alpine.data("OpenModalByType", OpenModalByType);
 Alpine.data("PathologiesAutocomplete", PathologiesAutocomplete);
+
+// Documents Files located in drawer and modal
+Alpine.data("DocumentFileListItem", DocumentFileListItem);
+Alpine.data("DocumentFileInput", DocumentFileInput);
 
 /**
  Runs program
