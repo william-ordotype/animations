@@ -1,8 +1,4 @@
 function PathologiesNoteList() {
-  const pathologySlug = window.location.pathname.split("/")[2];
-
-  // const pathologyId =
-  //   Alpine.store("documentsStore").pathologies.searchIdBySlug(pathologySlug);
   return {
     // Binders
     openModal() {
@@ -25,16 +21,28 @@ function PathologiesNoteList() {
     // Lifecycle hooks
     async init() {
       console.log("note list init");
-      await Alpine.store("documentsStore").getList.setDocuments({
-        limit: 10,
-        // pathology: pathologyId,
-      });
+      try {
+        const pathologySlug = window.location.pathname.split("/")[2] || "acne";
+        debugger;
+        const pathology = await Alpine.store(
+          "documentsStore"
+        ).pathologies.searchIdBySlug(pathologySlug);
 
-      this.allDocuments = [...Alpine.store("documentsStore").getList.documents];
-      this.notesDocuments = this.allDocuments.filter(
-        (doc) => doc.type === "notes"
-      );
-      console.log(this.notesDocuments);
+        await Alpine.store("documentsStore").getList.setDocuments({
+          limit: 50,
+          pathology: pathology.data[0]._id,
+        });
+
+        this.allDocuments = [
+          ...Alpine.store("documentsStore").getList.documents,
+        ];
+        this.notesDocuments = this.allDocuments.filter(
+          (doc) => doc.type === "notes"
+        );
+        console.log(this.notesDocuments);
+      } catch (err) {
+        console.error(err);
+      }
     },
   };
 }

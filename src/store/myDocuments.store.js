@@ -87,10 +87,11 @@ const myDocumentsStore = {
       sort = "created_on",
       direction = "DESC",
       type = this.documentType || "",
+      pathology = "",
     } = {}) {
       try {
         const response = await fetch(
-          `${API_URL}/notes?page=${page}&limit=${limit}&sort=${sort}&direction=${direction}&type=${type}`,
+          `${API_URL}/notes?page=${page}&limit=${limit}&sort=${sort}&direction=${direction}&type=${type}&pathology=${pathology}`,
           {
             method: "GET",
             headers: {
@@ -291,12 +292,15 @@ const myDocumentsStore = {
       return response.json();
     },
     async searchIdBySlug(slug) {
-      const response = await fetch(`${API_URL}/pathologies?slug=${slug}`, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${memberToken}`,
-        },
-      });
+      const response = await fetch(
+        `${API_URL}/pathologies?page=1&limit=2&sort=title&direction=ASC&slug=${slug}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${memberToken}`,
+          },
+        }
+      );
       return response.json();
     },
   },
