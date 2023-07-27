@@ -65,6 +65,7 @@ const myDocumentsStore = {
       if (documentsResults["data"].length === 0) {
         this.isEmpty = true;
         this.isLoading = false;
+        await Alpine.store("documentsStore").rulesStatus.exec();
         return;
       }
       this.isEmpty = false;
@@ -120,14 +121,31 @@ const myDocumentsStore = {
     _validatePayload(payload, isUpdate = false) {
       if (isUpdate) {
         if (!payload._id) {
-          throw new Error("Document id not found");
+          console.error("Document id not found");
+          throw "Id du document non trouvé";
         }
       }
       if (!payload.title) {
-        throw new Error("Title not found");
+        console.error("Title not found");
+        throw "Titre non trouvé";
       }
       if (!payload.type) {
-        throw new Error("Document type not found");
+        console.error("Document type not found");
+        throw "Type de document non trouvé";
+      }
+      if (payload.type === "prescriptions") {
+        if (
+          !(
+            payload.prescription_type === "balance_sheet" ||
+            payload.prescription_type === "treatment"
+          )
+        ) {
+          console.error("Prescription type must be balance_sheet or treatment");
+          throw "Type d'ordonnance doit être bilan ou treatment";
+        }
+      }
+      if (payload.type !== "prescriptions") {
+        delete payload.prescription_type;
       }
       return payload;
     },
@@ -155,7 +173,7 @@ const myDocumentsStore = {
           body: documentFormData,
         });
       } catch (err) {
-        throw new Error(err);
+        throw err;
       }
     },
 
@@ -215,7 +233,7 @@ const myDocumentsStore = {
           filesToDelete.length > 0 && deleteFilesPromise(),
         ]);
       } catch (err) {
-        console.error(err);
+        throw err;
       }
     },
   },

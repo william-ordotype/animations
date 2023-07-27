@@ -178,7 +178,6 @@ const modalStore = {
       this.loadSubmit = true;
       let formResponse;
       if (isEdit) {
-        debugger;
         // Transform fetch race to array of json
         const [formRes, fileRes, filesDeletedRes] = await Alpine.store(
           "documentsStore"
@@ -193,39 +192,29 @@ const modalStore = {
           )
         ).json();
       }
-      if (isEdit) {
-        if (formResponse.error) {
-          this.loadSubmit = false;
-          console.error(...formResponse);
-          this.formError = true;
-          this.formErrorMessage = formResponse.error;
-          return;
-        }
-      } else {
-        formResponse.find((res) => {
-          if (res.error) {
-            this.loadSubmit = false;
-            console.error(...res);
-            this.formError = true;
-            this.formErrorMessage = res.error;
-            return;
-          }
-        });
+      // Handle server errors from notes form submission
+      if (formResponse.error) {
+        console.error(formResponse);
+        this.formError = true;
+        this.formErrorMessage = window.globals.statusMessages.static.error;
+        this.loadSubmit = false;
+        return;
       }
 
-      this.formError = false;
-      this.formErrorMessage = "";
-      this.loadSubmit = false;
       this.closeModal();
 
       // If modal is open from edit button, refresh the getOne document
       // In order to update all the drawer fields
-      debugger;
       if (window.location.hash.includes("/view")) {
         await Alpine.store("documentsStore").getOne.setDocument({
           id: form._id,
         });
       } else {
+        Alpine.store("toasterStore").toasterMsg(
+          "Document créé avec succès",
+          "success",
+          2500
+        );
         // If modal is open from create button, refresh the getList documents
         // In order to update the table list
         Alpine.store("documentsStore").getList.isLoading = true;
@@ -234,19 +223,11 @@ const modalStore = {
         });
         Alpine.store("documentsStore").getList.isLoading = false;
       }
-
-      Alpine.store("toasterStore").toasterMsg(
-        "Document créé avec succès",
-        "success",
-        2000
-      );
     } catch (err) {
       console.error(err);
-      Alpine.store("toasterStore").toasterMsg(
-        "Une erreur est survenue",
-        "error",
-        2000
-      );
+      this.formError = true;
+      this.formErrorMessage = window.globals.statusMessages.static.error;
+      this.loadSubmit = false;
     }
   },
 };
