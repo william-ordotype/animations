@@ -169,7 +169,7 @@ globals.statusMessages = {
   static: {
     success: "Succès",
     error:
-      "Il y avait une erreur. Veuillez contacter l'administrateur du site.",
+      "Une erreur est survenue. Si le problème persiste, merci d'envoyer un mail à contact@ordotype.fr",
   },
 };
 

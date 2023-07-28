@@ -24,6 +24,21 @@ function PathologiesNoteList() {
         ["x-on:click.prevent"]: `await window.globals.drawer.handleDrawer({ id: doc._id })`,
       };
     },
+    openDrawerBilan() {
+      return {
+        ["x-on:click.prevent"]: `await window.globals.drawer.handleDrawer({ id: bilan._id })`,
+      };
+    },
+    openDrawerTreatment() {
+      return {
+        ["x-on:click.prevent"]: `await window.globals.drawer.handleDrawer({ id: treatment._id })`,
+      };
+    },
+    openDrawerConseil() {
+      return {
+        ["x-on:click.prevent"]: `await window.globals.drawer.handleDrawer({ id: conseil._id })`,
+      };
+    },
     fileIconType(mime_type) {
       const fileType = mime_type.split("/");
       return fileType[1];
