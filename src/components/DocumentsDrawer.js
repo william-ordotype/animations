@@ -1,4 +1,5 @@
 import Alpine from "alpinejs";
+import drawerStore from "../store/drawer.store";
 
 function DocumentsDrawer() {
   return Alpine.data("DocumentsDrawer", () => {
@@ -33,6 +34,10 @@ function DocumentsDrawer() {
         ev.preventDefault();
         if (ev.target !== ev.currentTarget) {
           return false;
+        }
+        if (window.location.pathname.includes("/pathologies")) {
+          Alpine.store("drawerStore").hideDrawer();
+          return;
         }
         // Reset drawer
         const pageNumber =

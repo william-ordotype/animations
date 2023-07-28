@@ -20,6 +20,7 @@ import {
   DocumentFileInput,
   DocumentFileListItem,
 } from "../../components/DocumentsFiles";
+import pathologiesStore from "../../store/pathologies.store";
 
 console.log("pathologies");
 
@@ -34,7 +35,7 @@ async function init() {
   // await consultsMemberstackAuthentication();
 
   const getUser = await $memberstackDom.getCurrentMember();
-  Alpine.store("userStore", userStore(getUser));
+  await Alpine.store("userStore", userStore(getUser));
 }
 
 /**
@@ -45,6 +46,7 @@ Alpine.store("documentsStore", myDocumentsStore);
 Alpine.store("modalStore", modalStore);
 Alpine.store("drawerStore", drawerStore);
 Alpine.store("toasterStore", toasterStore);
+Alpine.store("pathologiesStore", pathologiesStore);
 
 /**
  * Declaring local state for each component

@@ -203,6 +203,25 @@ const modalStore = {
 
       this.closeModal();
 
+      // If modal is open from pathologies page refresh the
+      // getList filtered by the pathology slug
+      if (window.location.pathname.includes("/pathologies")) {
+        if (Alpine.store("drawerStore").showDrawer === true) {
+          debugger;
+          await Alpine.store("documentsStore").getOne.setDocument({
+            id: form._id,
+          });
+        }
+
+        const pathologyId = window.pathologyId;
+        Alpine.store("documentsStore").getList.isLoading = true;
+        await Alpine.store("documentsStore").getList.setDocuments({
+          pathology: pathologyId,
+        });
+        Alpine.store("documentsStore").getList.isLoading = false;
+        return;
+      }
+
       // If modal is open from edit button, refresh the getOne document
       // In order to update all the drawer fields
       if (window.location.hash.includes("/view")) {
