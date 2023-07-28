@@ -32,7 +32,6 @@ window.Alpine = Alpine;
  */
 async function init() {
   globals.run();
-  // await consultsMemberstackAuthentication();
 
   const getUser = await $memberstackDom.getCurrentMember();
   await Alpine.store("userStore", userStore(getUser));

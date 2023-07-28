@@ -61,7 +61,16 @@ const modalStore = {
       this.form.title = "";
       this.form.rich_text_ordo = "";
       this.form.type = config.type;
-      this.form.pathology = [];
+      if (window.location.pathname.includes("pathologies")) {
+        this.form.pathology = [
+          {
+            _id: window.pathology._id,
+            title: window.pathology.title,
+          },
+        ];
+      } else {
+        this.form.pathology = [];
+      }
       this.form.prescription_type = "";
     }
     this.showModal = true;
@@ -206,19 +215,28 @@ const modalStore = {
       // If modal is open from pathologies page refresh the
       // getList filtered by the pathology slug
       if (window.location.pathname.includes("/pathologies")) {
+        const noteListComponents = document.querySelectorAll(
+          ".mes_notes_holder [x-text], .empty_state"
+        );
+        noteListComponents.forEach((component) => {
+          component.dispatchEvent(window.customEvents.loadingTrigger);
+        });
+
         if (Alpine.store("drawerStore").showDrawer === true) {
-          debugger;
           await Alpine.store("documentsStore").getOne.setDocument({
             id: form._id,
           });
         }
 
-        const pathologyId = window.pathologyId;
+        const pathologyId = window.pathology._id;
         Alpine.store("documentsStore").getList.isLoading = true;
         await Alpine.store("documentsStore").getList.setDocuments({
           pathology: pathologyId,
         });
         Alpine.store("documentsStore").getList.isLoading = false;
+        noteListComponents.forEach((component) => {
+          component.dispatchEvent(window.customEvents.loadingCancel);
+        });
         return;
       }
 
@@ -245,7 +263,8 @@ const modalStore = {
     } catch (err) {
       console.error(err);
       this.formError = true;
-      this.formErrorMessage = window.globals.statusMessages.static.error;
+      this.formErrorMessage =
+        err.message || window.globals.statusMessages.static.error;
       this.loadSubmit = false;
     }
   },
