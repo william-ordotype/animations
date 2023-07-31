@@ -243,9 +243,11 @@ const modalStore = {
       // If modal is open from edit button, refresh the getOne document
       // In order to update all the drawer fields
       if (window.location.hash.includes("/view")) {
+        Alpine.store("drawerStore").loadDrawer = true;
         await Alpine.store("documentsStore").getOne.setDocument({
           id: form._id,
         });
+        Alpine.store("drawerStore").loadDrawer = false;
       } else {
         Alpine.store("toasterStore").toasterMsg(
           "Document créé avec succès",
