@@ -1,5 +1,6 @@
 // noinspection SpellCheckingInspection
 import { autocomplete } from "@algolia/autocomplete-js";
+import "print-this";
 
 import { handleDrawer } from "../components/DocumentsDrawer";
 
@@ -14,6 +15,19 @@ globals.documentTypes = {
 globals.prescriptionTypes = {
   balance_sheet: "Bilan",
   treatment: "Traitement",
+};
+
+globals.printDiv = (divName) => {
+  $(divName).printThis({
+    importCSS: true,
+    importStyle: true,
+    beforePrint: function () {
+      $(divName).find(".w--open").hide();
+    },
+    afterPrint: function () {
+      $(divName).find(".w--open").show();
+    },
+  });
 };
 
 globals.drawer = {

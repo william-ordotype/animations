@@ -34,6 +34,7 @@
     "alpinejs": "^3.12.1",
     "dompurify": "^3.0.2",
     "easyqrcodejs": "^4.4.13",
-    "pinecone-router": "^3.1.1"
+    "pinecone-router": "^3.1.1",
+    "print-this": "^1.16.0"
   }
 }
