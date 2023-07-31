@@ -121,6 +121,10 @@
   background-color: #f2fdf5;
 }
 
+.tags_wrapper, .view_tag {
+  -webkit-print-color-adjust: exact;
+}
+
 .sort_cover.active {
   color: #0c0e16;
   background-color: rgba(12, 14, 22, 0.05);
