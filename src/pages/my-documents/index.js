@@ -1,6 +1,6 @@
 /* global $ */
 
-import PineconeRouter from "../../modules/pinecone-router-custom";
+import PineconeRouter from "pinecone-router";
 import focus from "@alpinejs/focus";
 import alpineWebflow from "../../modules/alpine-webflow";
 import Alpine from "alpinejs";
