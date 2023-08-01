@@ -48,7 +48,7 @@ const pathologiesStore = {
       noteListComponents.forEach((component) => {
         component.dispatchEvent(window.customEvents.loadingTrigger);
       });
-      const pathologySlug = window.location.pathname.split("/")[2] || "acne";
+      const pathologySlug = window.location.pathname.split("/")[2];
       const pathology = await Alpine.store(
         "documentsStore"
       ).pathologies.searchIdBySlug(pathologySlug);
@@ -57,7 +57,7 @@ const pathologiesStore = {
 
       await Alpine.store("documentsStore").getList.setDocuments({
         limit: 50,
-        pathology: pathology._id,
+        pathology: window.pathology._id,
       });
       noteListComponents.forEach((component) => {
         component.dispatchEvent(window.customEvents.loadingCancel);
