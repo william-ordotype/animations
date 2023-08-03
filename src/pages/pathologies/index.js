@@ -35,33 +35,32 @@ async function init() {
 
   const getUser = await $memberstackDom.getCurrentMember();
   await Alpine.store("userStore", userStore(getUser));
+
+  /**
+   * Declaring global state to be shared among components
+   */
+
+  Alpine.store("documentsStore", myDocumentsStore);
+  Alpine.store("modalStore", modalStore);
+  Alpine.store("drawerStore", drawerStore);
+  Alpine.store("toasterStore", toasterStore);
+  Alpine.store("pathologiesStore", pathologiesStore);
+
+  /**
+   * Declaring local state for each component
+   */
+
+  Alpine.data("PathologiesNoteList", PathologiesNoteList);
+  DocumentsDrawer();
+  // Documents Modal
+  Alpine.data("DocumentsModal", DocumentsModal);
+  Alpine.data("OpenModalByType", OpenModalByType);
+  Alpine.data("PathologiesAutocomplete", PathologiesAutocomplete);
+
+  // Documents Files located in drawer and modal
+  Alpine.data("DocumentFileListItem", DocumentFileListItem);
+  Alpine.data("DocumentFileInput", DocumentFileInput);
 }
-
-/**
- * Declaring global state to be shared among components
- */
-
-Alpine.store("documentsStore", myDocumentsStore);
-Alpine.store("modalStore", modalStore);
-Alpine.store("drawerStore", drawerStore);
-Alpine.store("toasterStore", toasterStore);
-Alpine.store("pathologiesStore", pathologiesStore);
-
-/**
- * Declaring local state for each component
- */
-
-Alpine.data("PathologiesNoteList", PathologiesNoteList);
-DocumentsDrawer();
-// Documents Modal
-Alpine.data("DocumentsModal", DocumentsModal);
-Alpine.data("OpenModalByType", OpenModalByType);
-Alpine.data("PathologiesAutocomplete", PathologiesAutocomplete);
-
-// Documents Files located in drawer and modal
-Alpine.data("DocumentFileListItem", DocumentFileListItem);
-Alpine.data("DocumentFileInput", DocumentFileInput);
-
 /**
  Runs program
  */
@@ -76,6 +75,7 @@ if (!window.Webflow) {
 }
 
 window.Quill = Quill;
+
 window.Webflow.push(() => {
   init().then(() => {
     alpineWebflow();
