@@ -173,3 +173,10 @@
   background-image: none;
   pointer-events: none;
 }
+
+.file_title [x-text="fileName"] {
+  overflow: hidden;
+  white-space: nowrap;
+  width: 200px;
+  text-overflow: ellipsis;
+}
