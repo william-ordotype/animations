@@ -5,7 +5,10 @@ import Alpine from "alpinejs";
 
 import globals from "../../utils/globals";
 import userStore from "../../store/user.store";
-import PathologiesNoteList from "../../components/PathologiesNoteList";
+import {
+  PathologiesNoteList,
+  PathologiesNoteItem,
+} from "../../components/PathologiesNoteList";
 import myDocumentsStore from "../../store/myDocuments.store";
 import modalStore from "../../store/modal.store";
 import drawerStore from "../../store/drawer.store";
@@ -50,9 +53,10 @@ async function init() {
    * Declaring local state for each component
    */
 
-  Alpine.data("PathologiesNoteList", PathologiesNoteList);
   DocumentsDrawer();
   // Documents Modal
+  Alpine.data("PathologiesNoteList", PathologiesNoteList);
+  Alpine.data("PathologiesNoteItem", PathologiesNoteItem);
   Alpine.data("DocumentsModal", DocumentsModal);
   Alpine.data("OpenModalByType", OpenModalByType);
   Alpine.data("PathologiesAutocomplete", PathologiesAutocomplete);

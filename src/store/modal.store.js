@@ -232,6 +232,7 @@ const modalStore = {
         Alpine.store("documentsStore").getList.isLoading = true;
         await Alpine.store("documentsStore").getList.setDocuments({
           pathology: pathologyId,
+          limit: 40,
         });
         Alpine.store("documentsStore").getList.isLoading = false;
         noteListComponents.forEach((component) => {

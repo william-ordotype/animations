@@ -39,12 +39,24 @@ function PathologiesNoteList() {
         ["x-on:click.prevent"]: `await window.globals.drawer.handleDrawer({ id: conseil._id })`,
       };
     },
+  };
+}
+
+function PathologiesNoteItem() {
+  return {
+    // file icons
+    fileIcons: [],
     fileIconType(mime_type) {
+      debugger;
       const fileType = mime_type.split("/");
       return fileType[1];
     },
     checkFileIcons(d) {
       const { documents } = d;
+      if (!documents) {
+        this.fileIcons = [];
+        return;
+      }
       const allDocTypes = documents.map((elem) => {
         return elem.mime_type;
       });
@@ -54,4 +66,4 @@ function PathologiesNoteList() {
   };
 }
 
-export default PathologiesNoteList;
+export { PathologiesNoteList, PathologiesNoteItem };
