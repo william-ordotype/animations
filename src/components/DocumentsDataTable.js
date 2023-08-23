@@ -1,4 +1,5 @@
 import Alpine from "alpinejs";
+import getFileExtByMimeType from "../assets/file_ext.js";
 
 function DataTableListItem() {
   return {
@@ -72,8 +73,7 @@ function DataTableListItem() {
     },
     // Returns fileType. Used in className and in icon text
     fileIconType(mime_type) {
-      const fileType = mime_type.split("/");
-      return fileType[1];
+      return getFileExtByMimeType[mime_type] || "file";
     },
   };
 }

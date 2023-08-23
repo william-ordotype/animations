@@ -1,3 +1,5 @@
+import getFileExtByMimeType from "../assets/file_ext";
+
 function PathologiesNoteList() {
   return {
     // Binders
@@ -47,9 +49,7 @@ function PathologiesNoteItem() {
     // file icons
     fileIcons: [],
     fileIconType(mime_type) {
-      debugger;
-      const fileType = mime_type.split("/");
-      return fileType[1];
+      return getFileExtByMimeType[mime_type] || "file";
     },
     checkFileIcons(d) {
       const { documents } = d;
