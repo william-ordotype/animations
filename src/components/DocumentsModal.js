@@ -11,9 +11,9 @@ function DocumentsModal() {
       return {
         ["x-bind:class"]: "$store.modalStore.loadSubmit === true && 'disabled'",
         ["x-text"]:
-          "modalStore.loadSubmit === true ? $el.dataset.wait : 'Submit'",
+          "modalStore.loadSubmit === true ? $el.dataset.wait : 'Sauvegarder'",
         ["x-bind:value"]:
-          "modalStore.loadSubmit === true ? $el.dataset.wait : 'Submit'",
+          "modalStore.loadSubmit === true ? $el.dataset.wait : 'Sauvegarder'",
       };
     },
     init() {
