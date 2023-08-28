@@ -201,8 +201,10 @@ const modalStore = {
           )
         ).json();
       }
+
+      debugger;
       // Handle server errors from notes form submission
-      if (formResponse.error) {
+      if (formResponse.error || formResponse.statusCode === 500) {
         console.error(formResponse);
         this.formError = true;
         this.formErrorMessage = window.globals.statusMessages.static.error;

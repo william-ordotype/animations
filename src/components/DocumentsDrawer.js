@@ -90,7 +90,8 @@ function DocumentsDrawer() {
       getAuthor() {
         return {
           ["x-text"]:
-            "($store.documentsStore.getOne.document.member.lastName === undefined ? '' : $store.documentsStore.getOne.document.member.lastName) + ' ' + ($store.documentsStore.getOne.document.member.name === 'undefined' ? $store.documentsStore.getOne.document.member.name : 'Non renseigné')",
+            // "($store.documentsStore.getOne.document.member.lastName === undefined ? '' : $store.documentsStore.getOne.document.member.lastName) + ' ' + ($store.documentsStore.getOne.document.member.name === 'undefined' ? $store.documentsStore.getOne.document.member.name : 'Non renseigné')",
+            "($store.documentsStore.getOne.document.member.lastName === undefined && $store.documentsStore.getOne.document.member.name === undefined) ? 'Non renseigné' : $store.documentsStore.getOne.document.member.lastName || '' + ' ' + $store.documentsStore.getOne.document.member.name || ''",
         };
       },
     };
