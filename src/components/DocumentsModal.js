@@ -129,25 +129,36 @@ function DocumentsModal() {
       };
 
       const qrCode = new QRCode(qrWrapper, options);
+      const linkedQR = `<a href="${
+        options.text
+      }"><img src=${qrCode._oDrawing._elCanvas.toDataURL()}  alt=""/> </a>`;
 
       var range = quill.getSelection(true);
       if (range) {
-        if (range.length == 0) {
+        if (range.length === 0) {
           // Inserts QR at cursor position
-          quill.insertEmbed(
-            range.index,
-            "image",
-            qrCode._oDrawing._elCanvas.toDataURL()
-          );
+
+          // quill.insertEmbed(
+          //   range.index,
+          //   "image",
+          //   qrCode._oDrawing._elCanvas.toDataURL()
+          // );
+
+          quill.clipboard.dangerouslyPasteHTML(range.index, linkedQR);
         }
+        debugger;
       } else {
         // Inserts QR at at end of document
         const length = quill.getLength();
-        quill.insertEmbed(
-          length,
-          "image",
-          qrCode._oDrawing._elCanvas.toDataURL()
-        );
+
+        // quill.insertEmbed(
+        //   length,
+        //   "image",
+        //   qrCode._oDrawing._elCanvas.toDataURL()
+        // );
+
+        quill.clipboard.dangerouslyPasteHTML(length, linkedQR);
+        debugger;
       }
 
       this.clearUrlSubmit();
