@@ -142,7 +142,7 @@ const myDocumentsStore = {
           )
         ) {
           console.error("Prescription type must be balance_sheet or treatment");
-          throw "Type d'ordonnance doit être bilan ou treatment";
+          throw "Type d'ordonnance doit être bilan ou traitement";
         }
       }
       if (payload.type !== "prescriptions") {
