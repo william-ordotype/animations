@@ -40,6 +40,15 @@ window.router = () => {
     },
     createPrescription(context) {
       Alpine.store("modalStore").openModal(null, { type: "prescriptions" });
+
+      // Inserts pasteOnEditor storage variable saved on ordonnances-types page into rich text editor
+      if (localStorage.pasteOnEditor) {
+        $(".ql-editor").html("<p></p>");
+        $(".ql-editor").append(localStorage.pasteOnEditor);
+        $(".ql-editor").find("p:empty").remove();
+
+        localStorage.removeItem("pasteOnEditor");
+      }
     },
     notfound(context) {
       console.log("Not found");
