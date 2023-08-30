@@ -21,7 +21,7 @@ globals.printDiv = (divName) => {
   $(divName).printThis({
     importCSS: true,
     importStyle: true,
-    debug: true,
+    debug: false,
     beforePrint: function () {
       $(divName).find(".w--open").hide();
     },
