@@ -39,7 +39,11 @@ window.router = () => {
       }
     },
     createPrescription(context) {
-      Alpine.store("modalStore").openModal(null, { type: "prescriptions" });
+      context.redirect("/");
+
+      Alpine.store("modalStore").openModal(null, {
+        type: "prescriptions",
+      });
 
       // Inserts pasteOnEditor storage variable saved on ordonnances-types page into rich text editor
       if (localStorage.pasteOnEditor) {
