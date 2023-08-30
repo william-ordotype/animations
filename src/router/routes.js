@@ -38,6 +38,9 @@ window.router = () => {
         console.log("drawer");
       }
     },
+    createPrescription(context) {
+      Alpine.store("modalStore").openModal(null, { type: "prescriptions" });
+    },
     notfound(context) {
       console.log("Not found");
       Alpine.store("toasterStore").toasterMsg("Not found", "error");
