@@ -37,6 +37,12 @@
 
 .input_container {
   position: relative;
+  input {
+    cursor: pointer;
+  }
+  .empty-cols {
+    cursor: pointer;
+  }
 }
 
 .file-upload__bg {
@@ -53,8 +59,6 @@
   border-color: #d1d5db;
   border-style: solid;
   appearance: none;
-
-  cursor: pointer;
 }
 
 .file-upload__input {

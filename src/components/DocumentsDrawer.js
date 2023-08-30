@@ -94,6 +94,18 @@ function DocumentsDrawer() {
             "($store.documentsStore.getOne.document.member.lastName === undefined && $store.documentsStore.getOne.document.member.name === undefined) ? 'Non renseigné' : ($store.documentsStore.getOne.document.member.name || 'Non renseigné') + ' ' + ($store.documentsStore.getOne.document.member.lastName || 'Non renseigné')",
         };
       },
+      copyBtn() {
+        return {
+          ["x-show"]:
+            "$store.documentsStore.getOne.document.note.type === 'prescriptions'",
+        };
+      },
+      printBtn() {
+        return {
+          ["x-show"]:
+            "$store.documentsStore.getOne.document.note.type === 'recommendations'",
+        };
+      },
     };
   });
 }
