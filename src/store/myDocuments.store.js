@@ -79,7 +79,9 @@ const myDocumentsStore = {
       this.documentType = this.documentType || "";
       this.isLoading = false;
 
-      await Alpine.store("documentsStore").rulesStatus.exec();
+      if (location.href.includes("mes-documents")) {
+        await Alpine.store("documentsStore").rulesStatus.exec();
+      }
     },
     async request({
       page = 1,
