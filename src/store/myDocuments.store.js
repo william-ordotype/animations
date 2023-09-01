@@ -65,7 +65,9 @@ const myDocumentsStore = {
       if (documentsResults["data"].length === 0) {
         this.isEmpty = true;
         this.isLoading = false;
-        await Alpine.store("documentsStore").rulesStatus.exec();
+        if (location.href.includes("mes-documents")) {
+          await Alpine.store("documentsStore").rulesStatus.exec();
+        }
         return;
       }
       this.isEmpty = false;
