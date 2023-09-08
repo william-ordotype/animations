@@ -19,7 +19,7 @@ const myDocumentsStore = {
         if (response.ok) {
           return await response.json();
         } else {
-          throw new Error(window.globals.statusMessages.static.error);
+          throw response.status;
         }
       } catch (err) {
         console.error(err);
@@ -28,10 +28,16 @@ const myDocumentsStore = {
     },
     async setDocument(props) {
       const { id } = props;
-      const res = await this.getDocument({ id });
-      this.document = {
-        ...res,
-      };
+      try {
+        const res = await this.getDocument({ id });
+        if (res) {
+          this.document = {
+            ...res,
+          };
+        }
+      } catch (err) {
+        throw err;
+      }
     },
   },
   getList: {

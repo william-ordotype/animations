@@ -146,7 +146,6 @@ function DocumentsModal() {
 
           quill.clipboard.dangerouslyPasteHTML(range.index, linkedQR);
         }
-        debugger;
       } else {
         // Inserts QR at at end of document
         const length = quill.getLength();
@@ -158,7 +157,6 @@ function DocumentsModal() {
         // );
 
         quill.clipboard.dangerouslyPasteHTML(length, linkedQR);
-        debugger;
       }
 
       this.clearUrlSubmit();

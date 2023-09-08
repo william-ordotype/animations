@@ -123,11 +123,15 @@ async function handleDrawer({ id }) {
 
   try {
     await Alpine.store("documentsStore").getOne.setDocument({ id });
-    if (Alpine.store("documentsStore").getOne.document.note._id) {
+    if (Alpine.store("documentsStore").getOne.document.note?._id) {
       Alpine.store("drawerStore").loadDrawer = false;
     } else {
       Alpine.store("drawerStore").hideDrawer();
-      Alpine.store("toasterStore").toasterMsg("Id not found", "error", 3500);
+      Alpine.store("toasterStore").toasterMsg(
+        "Document introuvable",
+        "error",
+        4500
+      );
     }
   } catch (err) {
     // TODO Show warning error notification

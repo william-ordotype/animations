@@ -1,3 +1,5 @@
+/* global $ */
+
 import "../../styles.scss";
 import focus from "@alpinejs/focus";
 import alpineWebflow from "../../modules/alpine-webflow";
@@ -87,7 +89,7 @@ window.Webflow.push(() => {
     Alpine.plugin(focus);
     Alpine.start();
 
-    $("#wf-form-mutateDocument").submit(async function (ev) {
+    $("#wf-form-mutateDocument").on("submit", async function (ev) {
       console.log("WF form submit");
       ev.preventDefault();
       await Alpine.store("modalStore").submitForm(ev);
