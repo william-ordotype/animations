@@ -1,4 +1,10 @@
+const dotenv = require("dotenv");
+dotenv.config({ path: ".env.dev" });
+const webpack = require("webpack");
 const { merge } = require("webpack-merge");
+
+const environmentVariables = ["ORDOTYPE_API"];
+
 const common = require("./webpack.common.js");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 module.exports = merge(common, {
@@ -7,6 +13,7 @@ module.exports = merge(common, {
     new MiniCssExtractPlugin({
       filename: "[name].css",
     }),
+    new webpack.EnvironmentPlugin(environmentVariables),
   ],
   module: {
     rules: [

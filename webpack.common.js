@@ -1,10 +1,5 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const dotenv = require("dotenv");
-const webpack = require("webpack");
-dotenv.config();
-
-const environmentVariables = ["TEST"];
 
 module.exports = {
   entry: {
@@ -50,6 +45,5 @@ module.exports = {
       chunks: ["pathologies"],
       filename: "pathologies.html",
     }),
-    new webpack.EnvironmentPlugin(environmentVariables),
   ],
 };

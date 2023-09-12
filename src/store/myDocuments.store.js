@@ -1,6 +1,6 @@
 import Alpine from "alpinejs";
 
-const API_URL = "https://api.ordotype.fr/v1.0.0";
+const API_URL = `${process.env.ORDOTYPE_API}/v1.0.0`;
 
 const myDocumentsStore = {
   getOne: {
@@ -19,6 +19,9 @@ const myDocumentsStore = {
         if (response.ok) {
           return await response.json();
         } else {
+          if (response.status === 404) {
+            throw "Document introuvable";
+          }
           throw response.status;
         }
       } catch (err) {
@@ -71,7 +74,12 @@ const myDocumentsStore = {
       if (documentsResults["data"].length === 0) {
         this.isEmpty = true;
         this.isLoading = false;
-        if (location.href.includes("mes-documents")) {
+
+        // Call status rule endpoint only in localhost or my document page
+        if (
+          location.href.includes("mes-documents") ||
+          location.href.includes("localhost")
+        ) {
           await Alpine.store("documentsStore").rulesStatus.exec();
         }
         return;
@@ -87,7 +95,11 @@ const myDocumentsStore = {
       this.documentType = this.documentType || "";
       this.isLoading = false;
 
-      if (location.href.includes("mes-documents")) {
+      // Call status rule endpoint only in localhost or my document page
+      if (
+        location.href.includes("mes-documents") ||
+        location.href.includes("localhost")
+      ) {
         await Alpine.store("documentsStore").rulesStatus.exec();
       }
     },
