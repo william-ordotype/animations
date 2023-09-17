@@ -37,19 +37,19 @@ function DocumentsDrawer() {
         }
         if (window.location.pathname.includes("/pathologies")) {
           Alpine.store("drawerStore").hideDrawer();
-          return;
+        } else {
+          // Reset drawer
+          const pageNumber =
+            Alpine.store("documentsStore").getList.pageNumber || "";
+          const documentType =
+            Alpine.store("documentsStore").getList.documentType;
+          // Redirect to list
+          PineconeRouter.currentContext.navigate(
+            `/list?type=${documentType ? documentType : "all"}${
+              pageNumber && "&page=" + pageNumber
+            }`
+          );
         }
-        // Reset drawer
-        const pageNumber =
-          Alpine.store("documentsStore").getList.pageNumber || "";
-        const documentType =
-          Alpine.store("documentsStore").getList.documentType;
-        // Redirect to list
-        PineconeRouter.currentContext.navigate(
-          `/list?type=${documentType ? documentType : "all"}${
-            pageNumber && "&page=" + pageNumber
-          }`
-        );
         // Reset document object in store
         Alpine.store("documentsStore").getOne.document = {
           note: {},
