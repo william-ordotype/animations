@@ -51,6 +51,7 @@ function DocumentsDrawer() {
           );
         }
         // Reset document object in store
+        console.log("close drawer");
         Alpine.store("documentsStore").getOne.document = {
           note: {},
           member: {},
