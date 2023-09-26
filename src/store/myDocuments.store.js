@@ -110,10 +110,11 @@ const myDocumentsStore = {
       direction = "DESC",
       type = this.documentType || "",
       pathology = "",
+      title = "",
     } = {}) {
       try {
         const response = await fetch(
-          `${API_URL}/notes?page=${page}&limit=${limit}&sort=${sort}&direction=${direction}&type=${type}&pathology=${pathology}`,
+          `${API_URL}/notes?page=${page}&limit=${limit}&sort=${sort}&direction=${direction}&type=${type}&pathology=${pathology}&title=${title}`,
           {
             method: "GET",
             headers: {
