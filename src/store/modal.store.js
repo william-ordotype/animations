@@ -206,7 +206,11 @@ const modalStore = {
       if (formResponse.error || formResponse.statusCode === 500) {
         console.error(formResponse);
         this.formError = true;
-        this.formErrorMessage = window.globals.statusMessages.static.error;
+        if (formResponse.statusCode === 401) {
+          this.formErrorMessage = `Vous &ecirc;tes &agrave; court de stockage, vous pouvez en acheter sur <a native href="/membership/stockage-supplementaire">cette page</a>`;
+        } else {
+          this.formErrorMessage = window.globals.statusMessages.static.error;
+        }
         this.loadSubmit = false;
         return;
       }
@@ -266,6 +270,7 @@ const modalStore = {
       }
     } catch (err) {
       console.error(err);
+      debugger;
       this.formError = true;
       this.formErrorMessage =
         err.message || window.globals.statusMessages.static.error;
