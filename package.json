@@ -29,11 +29,11 @@
     "webpack-merge": "^5.9.0"
   },
   "dependencies": {
-    "@algolia/autocomplete-js": "^1.11.0",
-    "@alpinejs/focus": "^3.13.0",
-    "alpinejs": "^3.13.0",
-    "dompurify": "^3.0.5",
-    "easyqrcodejs": "^4.4.13",
+    "@algolia/autocomplete-js": "^1.11.1",
+    "@alpinejs/focus": "^3.13.1",
+    "alpinejs": "^3.13.1",
+    "dompurify": "^3.0.6",
+    "easyqrcodejs": "^4.5.0",
     "pinecone-router": "^3.1.1",
     "print-this": "^2.0.0"
   }

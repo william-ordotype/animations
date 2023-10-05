@@ -53,6 +53,8 @@ const myDocumentsStore = {
     itemsTotal: null,
     documentType: null,
     documentTypeTitle: null,
+    isSearch: false,
+    searchValue: "",
     sort: "created_on",
     direction: "DESC",
 
