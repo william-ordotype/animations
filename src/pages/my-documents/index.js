@@ -37,6 +37,7 @@ import {
   DocumentFileListItem,
 } from "../../components/DocumentsFiles";
 import { DocumentAvailableSpaceGraphWidget } from "../../components/DocumentAvailableSpaceGraphWidget";
+import DocumentsSearch from "../../components/DocumentsSearch";
 
 window.Alpine = Alpine;
 
@@ -72,6 +73,7 @@ Alpine.data("DataTableListItem", DataTableListItem);
 Alpine.data("DataTableListItemSubmenu", DataTableListItemSubmenu);
 Alpine.data("DataTablePaginationMenu", DataTablePaginationMenu);
 Alpine.data("DataTablePerPageDropdown", DataTablePerPageDropdown);
+Alpine.data("DocumentsSearch", DocumentsSearch);
 
 // Documents Modal
 Alpine.data("DocumentsModal", DocumentsModal);
