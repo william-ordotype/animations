@@ -53,8 +53,6 @@ const myDocumentsStore = {
     itemsTotal: null,
     documentType: null,
     documentTypeTitle: null,
-    isSearch: false,
-    searchValue: "",
     sort: "created_on",
     direction: "DESC",
 
@@ -112,11 +110,10 @@ const myDocumentsStore = {
       direction = "DESC",
       type = this.documentType || "",
       pathology = "",
-      title = "",
     } = {}) {
       try {
         const response = await fetch(
-          `${API_URL}/notes?page=${page}&limit=${limit}&sort=${sort}&direction=${direction}&type=${type}&pathology=${pathology}&title=${title}`,
+          `${API_URL}/notes?page=${page}&limit=${limit}&sort=${sort}&direction=${direction}&type=${type}&pathology=${pathology}`,
           {
             method: "GET",
             headers: {
