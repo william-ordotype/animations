@@ -88,6 +88,9 @@ async function handleRouter(context, { type }) {
     !context.hash.split("/").includes("view") ||
     Alpine.store("documentsStore").getList.documents.length === 0
   ) {
+    Alpine.store("documentsStore").getList.isSearch = false;
+    Alpine.store("documentsStore").getList.searchValue = "";
+
     await Alpine.store("documentsStore").getList.setDocuments({
       type,
       page,
