@@ -7,7 +7,7 @@ function DocumentsSearch() {
         ["x-on:change"]: async (ev) => {
           Alpine.store("documentsStore").getList.isSearch = true;
           await Alpine.store("documentsStore").getList.setDocuments({
-            title: ev.target.value,
+            noteTitleAndPathologyTitle: ev.target.value,
           });
         },
         ["x-show"]: "true",
