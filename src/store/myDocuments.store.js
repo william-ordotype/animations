@@ -113,17 +113,35 @@ const myDocumentsStore = {
       type = this.documentType || "",
       pathology = "",
       title = "",
+      noteTitleAndPathologyTitle = "",
     } = {}) {
       try {
-        const response = await fetch(
-          `${API_URL}/notes?page=${page}&limit=${limit}&sort=${sort}&direction=${direction}&type=${type}&pathology=${pathology}&title=${title}`,
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${memberToken}`,
-            },
-          }
+        const queryParams = {
+          page,
+          limit,
+          sort,
+          direction,
+          type: type || this.documentType || "",
+          pathology,
+          title,
+          noteTitleAndPathologyTitle,
+        };
+
+        // Remove empty parameters
+        Object.keys(queryParams).forEach(
+          (key) =>
+            (queryParams[key] === "" || queryParams[key] === undefined) &&
+            delete queryParams[key]
         );
+
+        const queryString = new URLSearchParams(queryParams).toString();
+
+        const response = await fetch(`${API_URL}/notes?${queryString}`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${memberToken}`,
+          },
+        });
         if (response.ok) {
           return await response.json();
         } else {
