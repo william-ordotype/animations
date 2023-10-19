@@ -80,13 +80,35 @@ function DataTableListItem() {
 
 function DataTableListItemSubmenu() {
   return {
-    async showEditModal(ev, d) {
-      ev.preventDefault();
-      await Alpine.store("modalStore").openModal(d, { type: d.type });
+    // async showEditModal(ev, d) {
+    //   ev.preventDefault();
+    //   await Alpine.store("modalStore").openModal(d, { type: d.type });
+    // },
+    // openDeleteDocument(ev, d) {
+    //   ev.preventDefault();
+    //   Alpine.store("modalStore").openBeforeDelete(d);
+    // },
+    deleteNote(d) {
+      return {
+        ["x-show"]: "true",
+        ["@click.prevent"]: async (ev) => {
+          Alpine.store("modalStore").openBeforeDelete(d);
+        },
+      };
     },
-    openDeleteDocument(ev, d) {
-      ev.preventDefault();
-      Alpine.store("modalStore").openBeforeDelete(d);
+    editNote(d) {
+      return {
+        ["x-show"]: "true",
+        ["@click.prevent"]: async (ev) => {
+          await Alpine.store("modalStore").openModal(d, { type: d.type });
+        },
+      };
+    },
+    shareNote(d) {
+      return {
+        ["x-show"]: "true",
+        ["@click.prevent"]: async (ev) => {},
+      };
     },
   };
 }
