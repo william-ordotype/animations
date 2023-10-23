@@ -53,6 +53,8 @@ const myDocumentsStore = {
     itemsTotal: null,
     documentType: null,
     documentTypeTitle: null,
+    isSearch: false,
+    searchValue: "",
     sort: "created_on",
     direction: "DESC",
 
@@ -110,17 +112,36 @@ const myDocumentsStore = {
       direction = "DESC",
       type = this.documentType || "",
       pathology = "",
+      title = "",
+      noteTitleAndPathologyTitle = "",
     } = {}) {
       try {
-        const response = await fetch(
-          `${API_URL}/notes?page=${page}&limit=${limit}&sort=${sort}&direction=${direction}&type=${type}&pathology=${pathology}`,
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${memberToken}`,
-            },
-          }
+        const queryParams = {
+          page,
+          limit,
+          sort,
+          direction,
+          type: type || this.documentType || "",
+          pathology,
+          title,
+          noteTitleAndPathologyTitle,
+        };
+
+        // Remove empty parameters
+        Object.keys(queryParams).forEach(
+          (key) =>
+            (queryParams[key] === "" || queryParams[key] === undefined) &&
+            delete queryParams[key]
         );
+
+        const queryString = new URLSearchParams(queryParams).toString();
+
+        const response = await fetch(`${API_URL}/notes?${queryString}`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${memberToken}`,
+          },
+        });
         if (response.ok) {
           return await response.json();
         } else {
