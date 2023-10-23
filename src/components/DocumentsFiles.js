@@ -8,21 +8,6 @@ function DocumentFileInput() {
       const filesInputValue = Array.from(ev.target.files);
 
       filesInputValue.forEach((file) => {
-        const limitFileQty = 10;
-        const limitFileSize = 15728640; // 15MB
-
-        if (filesAttached.length >= limitFileQty) {
-          alert(
-            `Vous ne pouvez télécharger que jusqu'à ${limitFileQty} fichiers par document`
-          );
-          return;
-        }
-        if (file.size >= limitFileSize) {
-          alert(
-            `La taille du fichier nommé ${file.name} est trop grande. Veuillez le garder sous 15Mo par fichier`
-          );
-          return;
-        }
         filesAttached.push(file);
       });
       Alpine.store("modalStore").files = filesAttached;

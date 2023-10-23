@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Last Published: Wed Oct 04 2023 11:18:28 GMT+0000 (Coordinated Universal Time) -->
+<!-- Last Published: Wed Aug 30 2023 20:25:15 GMT+0000 (Coordinated Universal Time) -->
 <html
   data-wf-domain="www.ordotype.fr"
   data-wf-page="64a834ded7afdb556f14296d"
@@ -39,7 +39,7 @@
       name="google-site-verification"
     />
     <link
-      href="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.b5eab2d1e.min.css"
+      href="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.af1ebb10e.min.css"
       rel="stylesheet"
       type="text/css"
     />
@@ -57,8 +57,10 @@
       WebFont.load({
         google: {
           families: [
-            "Open Sans:300,300italic,400,400italic,600,600italic,700,700italic,800,800italic",
             "Lato:100,100italic,300,300italic,400,400italic,700,700italic,900,900italic",
+            "Open Sans:300,300italic,400,400italic,600,600italic,700,700italic,800,800italic",
+            "Varela:400",
+            "Varela Round:400",
             "DM Serif Display:regular",
             "Inter:300,regular,500,600",
           ],
@@ -84,6 +86,7 @@
       href="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/63e9f1ba593572dd6555b38a_logo_256_good-removebg-preview.png"
       rel="apple-touch-icon"
     />
+    <link href="https://www.ordotype.fr/mes-documents" rel="canonical" />
     <!-- Memberstack webflow package -->
     <script defer>
       window.addEventListener("load", (event) => {
@@ -195,6 +198,11 @@
     </script>
     <!-- End Google Tag Manager -->
 
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@algolia/autocomplete-theme-classic"
+    />
+
     <style type="text/css">
       /* Skeleton Loader styles */
       .skeleton-loader {
@@ -263,15 +271,15 @@
         bottom: 0;
       }
 
-      /* iFrame Styles 
-        .iframe-src {
-          width: 0;
-          height: 0;
-          overflow: hidden;
-          opacity: 0;
-        }
-        
-        /* Autocomplete Styles */
+      /* iFrame Styles */
+      .iframe-src {
+        width: 0;
+        height: 0;
+        overflow: hidden;
+        opacity: 0;
+      }
+
+      /* Autocomplete Styles */
       .autocomplete-active {
         background-color: rgb(240, 243, 255) !important;
         color: #ffffff;
@@ -300,7 +308,6 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/@algolia/autocomplete-theme-classic"
     />
-    <link href="https://static.ordotype.fr/my-documents.css" rel="stylesheet" />
 
     <style>
       .ql-container.ql-snow {
@@ -314,40 +321,6 @@
         .view_wrapper {
           width: 100% !important;
         }
-      }
-
-      .ql-code-block {
-        display: none !important;
-      }
-      /* Change label for Heading 1 */
-      .ql-snow .ql-picker.ql-header .ql-picker-item[data-value="1"]::before,
-      .ql-snow .ql-picker.ql-header .ql-picker-label[data-value="1"]::before {
-        content: "Titre 1";
-      }
-
-      .ql-snow .ql-picker.ql-header .ql-picker-item[data-value="2"]::before,
-      .ql-snow .ql-picker.ql-header .ql-picker-label[data-value="2"]::before {
-        content: "Titre 2";
-      }
-
-      .ql-snow .ql-picker.ql-header .ql-picker-item[data-value="3"]::before,
-      .ql-snow .ql-picker.ql-header .ql-picker-label[data-value="3"]::before {
-        content: "Titre 3";
-      }
-
-      .ql-snow .ql-picker.ql-header .ql-picker-item[data-value="4"]::before,
-      .ql-snow .ql-picker.ql-header .ql-picker-label[data-value="4"]::before {
-        content: "Titre 4";
-      }
-
-      .ql-snow .ql-picker.ql-header .ql-picker-item[data-value="5"]::before,
-      .ql-snow .ql-picker.ql-header .ql-picker-label[data-value="5"]::before {
-        content: "Titre 5";
-      }
-
-      .ql-snow .ql-picker.ql-header .ql-picker-item[data-value="6"]::before,
-      .ql-snow .ql-picker.ql-header .ql-picker-label[data-value="6"]::before {
-        content: "Titre 6";
       }
     </style>
   </head>
@@ -647,10 +620,6 @@
          .tab_link_card-2.w--current .check_black {
              border: 2px solid rgba(12,14,22,.9);
              background-color: rgba(12,14,22,.9);}
-
-         .tab_link_card.w--open .check_black {
-             border: 2px solid rgba(12,14,22,.9);
-             background-color: rgba(12,14,22,.9);}
       </style>
     </div>
     <div
@@ -724,18 +693,49 @@
             </div>
           </div>
           <nav role="navigation" class="navbar2_menu w-nav-menu">
-            <a href="/offres-v3" native="" class="navbar2_link w-nav-link"
-              >Nos offres</a
+            <a
+              href="/membership/pricing"
+              native=""
+              class="navbar2_link w-nav-link"
+              >Tarifs</a
             ><a href="/specialites" native="" class="navbar2_link w-nav-link"
               >Spécialités</a
-            ><a
-              href="/mes-documents"
-              native=""
-              data-ms-content="members"
-              aria-current="page"
-              class="navbar2_link w-nav-link w--current"
-              >Mes documents</a
-            ><a
+            >
+            <div
+              data-ms-content="premium-pages"
+              class="mes-documents-dropdown-wrapper"
+            >
+              <div
+                data-hover="false"
+                data-delay="0"
+                id="mes-documents"
+                data-ms-content="premium-pages"
+                class="mes-documents-dropdown w-dropdown"
+              >
+                <div native="" class="navbar2_link w-dropdown-toggle">
+                  <div>Mes documents</div>
+                </div>
+                <nav class="dropdown-list-10 w-dropdown-list">
+                  <a
+                    href="/tools/ordonnances-personnalisees"
+                    native=""
+                    class="w-dropdown-link"
+                    >Ordonnances personnalisées</a
+                  ><a
+                    href="/tools/ordonnances-favorites-v2"
+                    native=""
+                    class="w-dropdown-link"
+                    >Ordonnances favorites</a
+                  ><a
+                    href="/tools/conseils-patients-favoris-v2"
+                    native=""
+                    class="w-dropdown-link"
+                    >Fiches conseils favorites</a
+                  >
+                </nav>
+              </div>
+            </div>
+            <a
               href="/membership/profile"
               native=""
               data-ms-content="members"
@@ -1441,14 +1441,6 @@
                           </div>
                         </div>
                       </div>
-                      <div class="margin-top margin-small">
-                        <a
-                          native=""
-                          href="/membership/stockage-supplementaire"
-                          class="button is-gradient w-button"
-                          >Acheter plus d&#x27;espace</a
-                        >
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -1622,7 +1614,7 @@
                       <a
                         native=""
                         id="w-node-_89d354dc-effb-0a61-b581-76d756f4285b-6f14296d"
-                        href="#"
+                        href="/membership/login-ms"
                         class="button is-docs w-inline-block"
                         ><div class="button_text">Essayer gratuitement</div></a
                       >
@@ -1631,7 +1623,7 @@
                 </div>
                 <div class="tabs_panel">
                   <div
-                    x-show="$store.userStore.hasPaidSub &amp;&amp; !$store.documentsStore.getList.isLoading &amp;&amp; (!$store.documentsStore.getList.isEmpty || $store.documentsStore.getList.isSearch)"
+                    x-show="$store.userStore.hasPaidSub &amp;&amp; !($store.documentsStore.getList.isLoading) &amp;&amp; !($store.documentsStore.getList.isEmpty)"
                     x-cloak=""
                     x-data=""
                     class="content_main_wrapper"
@@ -1843,19 +1835,25 @@
                               class="img_full"
                             />
                           </div>
-                          <div class="w-embed" x-data="DocumentsSearch">
-                            <label>
-                              <input
-                                type="search"
-                                class="doc_search w-input"
-                                maxlength="256"
-                                name="query"
-                                placeholder="Rechercher"
-                                required=""
-                                x-bind="handleSearchInput"
-                              />
-                            </label>
-                          </div>
+                          <form
+                            action="/search"
+                            id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0f07-6f14296d"
+                            class="doc_search_wrapper w-form"
+                          >
+                            <input
+                              type="search"
+                              class="doc_search w-input"
+                              maxlength="256"
+                              name="query"
+                              x-show="false"
+                              placeholder="Rechercher"
+                              required=""
+                            /><input
+                              type="submit"
+                              value="Search"
+                              class="hide w-button"
+                            />
+                          </form>
                           <div class="divider"></div>
                         </div>
                       </div>
@@ -2427,7 +2425,7 @@
                   <div
                     x-data=""
                     x-cloak=""
-                    x-show="$store.userStore.hasPaidSub &amp;&amp; !$store.documentsStore.getList.isLoading &amp;&amp; $store.documentsStore.getList.isEmpty && !$store.documentsStore.getList.isSearch"
+                    x-show="$store.userStore.hasPaidSub &amp;&amp; !$store.documentsStore.getList.isLoading &amp;&amp; $store.documentsStore.getList.isEmpty"
                     class="content_main_wrapper"
                   >
                     <div class="padding-custom24">
@@ -2498,9 +2496,7 @@
                               data-delay="0"
                               class="submenu_new w-dropdown"
                             >
-                              <div
-                                class="button is-empty-state w-dropdown-toggle"
-                              >
+                              <div class="button is-plus w-dropdown-toggle">
                                 <div class="button_text hide-mobile-landscape">
                                   Créer un document
                                 </div>
@@ -2513,7 +2509,7 @@
                               </div>
                               <nav
                                 x-data="OpenModalByType"
-                                class="sub_list_new is-empty-state w-dropdown-list"
+                                class="sub_list_new w-dropdown-list"
                               >
                                 <a
                                   x-bind="prescriptionsNewType"
@@ -2801,7 +2797,43 @@
                 class="text_wrapper w-node-_5e73bd5a-ce56-4459-5f7f-74573fcb3d93-6f14296d"
               >
                 <p class="text-size-small">
-                  Text de la note personnalisée ici.<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />.
+                  {{Lorem ipsum dolor sit amet consectetur. Lacus viverra ac at
+                  convallis diam diam aliquet aliquam. Arcu enim mi enim elit et
+                  nisl mi ut. Purus sed volutpat cursus faucibus elementum odio.
+                  Purus elementum praesent fusce adipiscing odio. Tempor odio
+                  arcu commodo tempus elementum. Mi mauris proin diam auctor
+                  netus id ornare non. Pellentesque venenatis elementum donec
+                  morbi. Adipiscing cras lectus porttitor augue tellus
+                  viverra.<br /><br />Consectetur quisque auctor nisl quisque
+                  urna justo nunc consectetur. Cras amet sagittis vel vel.
+                  Laoreet faucibus ultrices id odio. Viverra sollicitudin sed
+                  bibendum rhoncus. Eleifend sagittis in vestibulum ullamcorper
+                  platea enim tortor in et. Eu sed pulvinar imperdiet tellus.
+                  Dignissim condimentum adipiscing enim faucibus. Viverra
+                  aliquet nunc duis convallis orci vel. Tristique non
+                  suspendisse nisl orci ullamcorper sodales.<br /><br />Viverra
+                  integer nullam dolor sed mauris fermentum vitae ultrices. Non
+                  tempus molestie volutpat sed vitae. Ut neque urna massa
+                  egestas cras interdum. Purus hendrerit leo amet enim
+                  scelerisque malesuada neque. Laoreet blandit erat amet ac vel
+                  volutpat montes sit consectetur. Vitae tellus integer et
+                  adipiscing eu neque accumsan commodo sagittis. Tristique nibh
+                  ullamcorper eleifend euismod nec in. Dolor nunc gravida
+                  pellentesque vivamus. Nisi vel vel lorem phasellus porttitor
+                  quis aenean tristique. Pharetra mollis laoreet odio nam aenean
+                  volutpat pretium eleifend pellentesque. Turpis amet eleifend
+                  eleifend lectus in diam sed. Sed aliquet netus lacus viverra.
+                  Massa semper nullam vivamus commodo mollis. Ultrices nam diam
+                  vel ultricies lectus viverra urna.<br /><br />Lectus convallis
+                  etiam turpis sit. Nec est vestibulum aliquam quam interdum
+                  sapien. Pulvinar arcu scelerisque egestas non eget ac magnis
+                  velit. Nec tincidunt cursus iaculis purus. Dignissim purus
+                  nisi facilisis sagittis velit. Urna eget ornare nunc proin.
+                  Consectetur rhoncus id scelerisque nunc ornare eget massa
+                  aliquam. Aliquam fusce aliquam habitasse condimentum. Nec in
+                  sed hac pharetra faucibus. Pretium tellus parturient tempus
+                  justo. Adipiscing tortor enim consectetur tortor at tortor
+                  dolor commodo.}}
                 </p>
               </div>
               <div
@@ -2897,7 +2929,7 @@
                 class="button is-print w-inline-block"
                 ><div class="button_text">Imprimer</div>
                 <img
-                  alt="print"
+                  alt=""
                   loading="lazy"
                   src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/6408f49de77edce1ba41ad1c_print.svg"
                   class="icon_copy"
@@ -3157,7 +3189,7 @@
                           <img
                             alt=""
                             src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/634971b94a6db345b0103192_upload-cloud.svg"
-                            class="upload-file-icon mobile-image"
+                            class="upload-file-icon"
                           />
                           <p class="text-gray-700">
                             Faites glisser vos fichiers ici ou cliquez dans
@@ -3185,25 +3217,6 @@
                       }
                       .input_container input {
                         cursor: hover;
-                      }
-                      /* This will hide the image for mobile devices */
-                      @media (max-width: 768px) {
-                        .mobile-image {
-                          display: none;
-                        }
-
-                        /* This will show a background image in the place of the original image */
-                        .empty-cols::before {
-                          content: "";
-                          display: block;
-                          width: 40px;
-                          height: 40px;
-                          background-image: url("https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/64fecc58880af21199b19460_camera%20(1).jpg");
-                          background-size: cover;
-                          background-repeat: no-repeat;
-                          margin: 0 auto; /* This centers the background image */
-                          opacity: 0.5;
-                        }
                       }
                     </style>
                   </div>
@@ -3317,7 +3330,7 @@
                     x-bind="showBeforeCancel(false)"
                     href="#"
                     class="button is-annuler w-inline-block"
-                    ><div class="button_text">Non</div></a
+                    ><div class="button_text">Annuler</div></a
                   ><a
                     x-bind="confirmCancel"
                     href="#"
@@ -3335,7 +3348,7 @@
                       data-default-duration="3.0030028806881908"
                       data-duration="0"
                     ></div>
-                    <div class="button_text">Oui</div></a
+                    <div class="button_text">Confirmer</div></a
                   >
                 </div>
               </div>
@@ -3445,23 +3458,19 @@
                     </div>
                   </div>
                   <div class="action_input_wrapper">
-                    <label class="w-checkbox checkbox-field-2"
+                    <label class="w-checkbox"
                       ><input
                         type="checkbox"
                         id="aknowledgePrivacy"
                         name="aknowledgePrivacy"
                         data-name="aknowledgePrivacy"
                         required=""
-                        class="w-checkbox-input checkbox padding-right--5rem"
-                      /><span
-                        class="text-size-small w-form-label"
-                        for="aknowledgePrivacy"
+                        class="w-checkbox-input"
+                      /><span class="w-form-label" for="aknowledgePrivacy"
                         >Je reconnais savoir qu&#x27;Ordotype n&#x27;est pas un
                         hébergeur de données de santé et je confirme que ce
                         document ne contient
-                        <strong class="text-size-small"
-                          >AUCUNE donnée personnelle</strong
-                        >.</span
+                        <strong>AUCUNE donnée personnelle</strong>.</span
                       ></label
                     >
                   </div>
@@ -3688,7 +3697,6 @@
                       Developed with 💙 by
                       <a
                         href="https://nicolatoledo.dev/"
-                        native=""
                         target="_blank"
                         class="text-link text-color-white"
                         >nicolatoledo.dev</a
@@ -3723,7 +3731,7 @@
                       ><a
                         native=""
                         data-ms-content="!essai-expir"
-                        href="/tous-les-conseils-patients"
+                        href="/toutes-les-conseils-patients"
                         class="footer3_link"
                         >Toutes les conseils patient</a
                       ><a native="" href="/specialites" class="footer3_link"
@@ -3741,13 +3749,17 @@
                         >RGPD</a
                       ><a href="/equipe" native="" class="footer3_link"
                         >Qui sommes nous ?</a
-                      ><a href="/confidentialite" native="" class="footer3_link"
+                      ><a
+                        href="https://www.iubenda.com/privacy-policy/38810067"
+                        native=""
+                        class="footer3_link"
                         >Confidentialité</a
                       ><a href="/faq" native="" class="footer3_link">FAQ</a
                       ><a href="/blog" native="" class="footer3_link">Blog</a
                       ><a
-                        href="/membership/demander-une-demo"
+                        href="https://calendly.com/louis-malachane/ordotype"
                         native=""
+                        target="_blank"
                         class="footer3_link"
                         >Demander une démo</a
                       >
@@ -3767,7 +3779,7 @@
       crossorigin="anonymous"
     ></script>
     <script
-      src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/js/webflow.84c05c100.js"
+      src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/js/webflow.1073e472b.js"
       type="text/javascript"
     ></script>
     <!-- Google Tag Manager (noscript) -->
@@ -3783,16 +3795,17 @@
     <!-- End Google Tag Manager (noscript) -->
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <!--<script src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@67360db4fac499a812e71339220834ccdb0ab3e7/ordotype-index-2023-09-08.js"></script>-->
-    <script src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@b4ffd3d368a38126c55838899c60ce8db3171c6d/ordotype-index-2023-09-28.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@392c87ec0219659580cd135b41cccf7b4ad20afd/ordotype-index-2023-08-25.js"></script>
+    <!--<script src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@fdc01445a56d6b2b82a0682d8ee1de47ad2281ac/ordotype-index-2023-05-16.js"></script>-->
 
-    <!--
-<script defer
-  src="https://cdn.jsdelivr.net/npm/algoliasearch@4.14.2/dist/algoliasearch.umd.js"
-  integrity="sha256-DRnoUQAweVMsVPRMhfHC5zPqUP8s2fWUqD39yBsWg+M="
-  crossorigin="anonymous"
-></script>-->
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/algoliasearch@4.14.2/dist/algoliasearch.umd.js"
+      integrity="sha256-DRnoUQAweVMsVPRMhfHC5zPqUP8s2fWUqD39yBsWg+M="
+      crossorigin="anonymous"
+    ></script>
 
+    <!-- 💙 MEMBERSCRIPT #23 v0.1 💙 SKELETON SCREENS/CONTENT LOADERS -->
     <script>
       window.addEventListener("DOMContentLoaded", (event) => {
         const skeletonElements =
@@ -3839,19 +3852,45 @@
         });
       });
     </script>
+
+    <script>
+      window.mainPlansIds = [
+        "pln_essai-gratuit-5e4s0o0r",
+        "pln_compte-praticien-offre-speciale-500-premiers--893z0o60",
+        "pln_essai-expir--vr4r0ouk",
+        "pln_compte-interne-sy4j0oft",
+        "pln_interne-m-decine-g-n-rale-adh-rent--4a4t0o95",
+        "pln_compte-ouvert-u94k0of5",
+      ];
+      window.dataLayer = window.dataLayer || [];
+      $memberstackDom.getCurrentMember().then(({ data }) => {
+        if (data) {
+          const date = new Date(data.createdAt)
+            .toLocaleDateString("fr-FR")
+            .split("/");
+          const removeDD = date.shift();
+          const newDate = date.join("/");
+          const mainPlan =
+            data.planConnections.filter((plan) => {
+              return mainPlansIds.includes(plan.planId);
+            }) || "Not on main list";
+          const dataPlan = mainPlan.length > 0 && {
+            member_plan_id: mainPlan[0].planId,
+            member_plan_status: mainPlan[0].status,
+            member_plan_type: mainPlan[0].type,
+          };
+          dataLayer.push({
+            event: "userData",
+            member_id: data.id,
+            member_signup_date: newDate,
+            ...dataPlan,
+          });
+        }
+      });
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script>
-
-    <script
-      src="https://cdn.jsdelivr.net/npm/algoliasearch@4.14.2/dist/algoliasearch.umd.js"
-      integrity="sha256-DRnoUQAweVMsVPRMhfHC5zPqUP8s2fWUqD39yBsWg+M="
-      crossorigin="anonymous"
-    ></script>
-
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@algolia/autocomplete-js"></script>
-    <!--- <script src="https://static.ordotype.fr/my-documents.js"></script> -->
-    <!--- <script src="https://seashell-app-etfao.ondigitalocean.app/my-documents.js"></script> --->
-
     <script>
       const clipboard = new ClipboardJS(".is-copy");
 
@@ -3906,18 +3945,6 @@
           )
           .addClass("open");
       }
-    </script>
-
-    <script type="text/javascript">
-      window.$crisp = [];
-      window.CRISP_WEBSITE_ID = "7fcb1bdb-58d0-49a9-a269-397bac574b0b";
-      (function () {
-        d = document;
-        s = d.createElement("script");
-        s.src = "https://client.crisp.chat/l.js";
-        s.async = 1;
-        d.getElementsByTagName("head")[0].appendChild(s);
-      })();
     </script>
   </body>
 </html>
