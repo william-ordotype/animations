@@ -9,6 +9,10 @@ module.exports = {
       __dirname,
       "src/pages/my-shared-documents/index.js"
     ),
+    "document-shared-invite": path.resolve(
+      __dirname,
+      "src/pages/document-shared-invite/index.js"
+    ),
   },
   output: {
     path: path.resolve(__dirname, "dist"),
@@ -55,6 +59,12 @@ module.exports = {
       template: "./src/pages/my-shared-documents/template.html",
       chunks: ["my-shared-documents"],
       filename: "my-shared-documents.html",
+    }),
+    new HtmlWebpackPlugin({
+      title: "Ordotype | Document Shared Invite",
+      template: "./src/pages/document-shared-invite/template.html",
+      chunks: ["document-shared-invite"],
+      filename: "document-shared-invite.html",
     }),
   ],
 };
