@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Last Published: Thu Oct 12 2023 05:00:21 GMT+0000 (Coordinated Universal Time) -->
+<!-- Last Published: Wed Oct 25 2023 01:59:13 GMT+0000 (Coordinated Universal Time) -->
 <html
   data-wf-domain="ordotype.webflow.io"
   data-wf-page="64a834ded7afdb556f14296d"
@@ -39,7 +39,7 @@
       name="google-site-verification"
     />
     <link
-      href="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.436a81052.min.css"
+      href="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.34fabcca9.min.css"
       rel="stylesheet"
       type="text/css"
     />
@@ -56,12 +56,7 @@
     <script type="text/javascript">
       WebFont.load({
         google: {
-          families: [
-            "Open Sans:300,300italic,400,400italic,600,600italic,700,700italic,800,800italic",
-            "Lato:100,100italic,300,300italic,400,400italic,700,700italic,900,900italic",
-            "DM Serif Display:regular",
-            "Inter:300,regular,500,600",
-          ],
+          families: ["DM Serif Display:regular", "Inter:300,regular,500,600"],
         },
       });
     </script>
@@ -301,7 +296,6 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/@algolia/autocomplete-theme-classic"
     />
-<!--    <link href="https://static.ordotype.fr/my-documents.css" rel="stylesheet" />-->
 
     <style>
       .ql-container.ql-snow {
@@ -1855,7 +1849,6 @@
                           <div x-data="DocumentsSearch" class="w-embed">
                             <label>
                               <input
-                                x-show="window.location.href.includes('webflow.io') ? true : false"
                                 type="search"
                                 class="doc_search w-input"
                                 maxlength="256"
@@ -2261,7 +2254,7 @@
                                       class="sub_list w-dropdown-list"
                                     >
                                       <a
-                                        x-bind="editNote(d)"
+                                        x-on:click="showEditModal($event, d)"
                                         href="#"
                                         class="sub_link w-inline-block"
                                         ><div class="w-layout-grid grid_gap_8">
@@ -2287,7 +2280,7 @@
                                           </div>
                                         </div></a
                                       ><a
-                                        x-bind="shareNote(d)"
+                                        x-show="false"
                                         href="#"
                                         class="sub_link borders w-inline-block"
                                         ><div class="w-layout-grid grid_gap_8">
@@ -3849,9 +3842,11 @@
       crossorigin="anonymous"
     ></script>
     <script
-      src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/js/webflow.2a8837903.js"
+      src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/js/webflow.97539d6e6.js"
       type="text/javascript"
     ></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <!-- Google Tag Manager (noscript) -->
     <noscript
       ><iframe
@@ -3865,8 +3860,10 @@
     <!-- End Google Tag Manager (noscript) -->
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <!--<script src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@67360db4fac499a812e71339220834ccdb0ab3e7/ordotype-index-2023-09-08.js"></script>-->
-    <script src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@b4ffd3d368a38126c55838899c60ce8db3171c6d/ordotype-index-2023-09-28.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@a60450308412697672c5b94b4ce3ce97937c2dd9/ordotype-index-2023-10-23.js"></script>
+
+    <!--
+<script src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@863d5ee519b2922917f613f85f50c698381d5c33/ordotype-index-2023-10-19.js"></script>-->
 
     <!--
 <script defer
@@ -3910,11 +3907,15 @@
       });
     </script>
 
-    <!-- HTML Rich text reader -->
+    <!-- HTML Rich text reader 
+<script>
+Webflow.push(function(){$('.w-richtext p').html(function(){return $(this).html().indexOf('&lt;')==0&&$(this).html().indexOf('&gt;')>3?$(this).text():$(this).html()})})
+</script>
+-->
     <script>
-      Webflow.push(function () {
+      $(document).ready(function () {
         $(".w-richtext p").html(function () {
-          return $(this).html().indexOf("&lt;") == 0 &&
+          return $(this).html().indexOf("&lt;") === 0 &&
             $(this).html().indexOf("&gt;") > 3
             ? $(this).text()
             : $(this).html();
@@ -3933,25 +3934,6 @@
     <script src="https://cdn.jsdelivr.net/npm/@algolia/autocomplete-js"></script>
     <!--- <script src="https://static.ordotype.fr/my-documents.js"></script> -->
     <!--- <script src="https://seashell-app-etfao.ondigitalocean.app/my-documents.js"></script> --->
-
-    <script>
-      // Get the current domain
-      var currentDomain = window.location.hostname;
-
-      // Check if the domain matches a particular condition
-      if (currentDomain !== "www.ordotype.fr") {
-        // Load the dev script
-        // var scriptElement = document.createElement("script");
-        // scriptElement.src =
-        //   "https://seashell-app-etfao.ondigitalocean.app/my-documents.js";
-        // document.head.appendChild(scriptElement);
-      } else {
-        // Load prod script
-        var scriptElement = document.createElement("script");
-        scriptElement.src = "https://static.ordotype.fr/my-documents.js";
-        document.head.appendChild(scriptElement);
-      }
-    </script>
 
     <script>
       const clipboard = new ClipboardJS(".is-copy");

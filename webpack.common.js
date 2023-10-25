@@ -42,11 +42,11 @@ module.exports = {
       title: "Ordotype | My Documents",
       filename: "index.html",
       chunks: ["my-documents"],
-      template: "src/template.html",
+      template: "./src/pages/my-documents/template.html",
     }),
     new HtmlWebpackPlugin({
       title: "Ordotype | Pathologies",
-      template: "./src/pathologies.html",
+      template: "./src/pages/pathologies/template.html",
       chunks: ["pathologies"],
       filename: "pathologies.html",
     }),

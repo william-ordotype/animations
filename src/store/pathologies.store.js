@@ -3,6 +3,11 @@ const pathologiesStore = {
   async init() {
     window.memberToken = $memberstackDom.getMemberCookie();
     console.log("note list init");
+    if (!window.memberToken) {
+      // User is not logged in
+      // Remove unnecessary requests
+      return;
+    }
     try {
       //Custom Event Declaration
       window.customEvents = {};
@@ -48,11 +53,13 @@ const pathologiesStore = {
       noteListComponents.forEach((component) => {
         component.dispatchEvent(window.customEvents.loadingTrigger);
       });
-      const pathologySlug = window.location.pathname.split("/")[2];
+      const pathologySlug = window.location.href.includes("localhost")
+        ? "acne"
+        : window.location.pathname.split("/")[2];
+      debugger;
       const pathology = await Alpine.store(
         "documentsStore"
       ).pathologies.searchIdBySlug(pathologySlug);
-
       window.pathology = pathology.data[0];
 
       await Alpine.store("documentsStore").getList.setDocuments({
