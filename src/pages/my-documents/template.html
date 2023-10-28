@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Last Published: Wed Oct 25 2023 01:59:13 GMT+0000 (Coordinated Universal Time) -->
+<!-- Last Published: Wed Oct 25 2023 23:12:01 GMT+0000 (Coordinated Universal Time) -->
 <html
   data-wf-domain="ordotype.webflow.io"
   data-wf-page="64a834ded7afdb556f14296d"
@@ -39,7 +39,7 @@
       name="google-site-verification"
     />
     <link
-      href="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.34fabcca9.min.css"
+      href="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.10290a8f9.min.css"
       rel="stylesheet"
       type="text/css"
     />
@@ -259,7 +259,7 @@
         bottom: 0;
       }
 
-      /* iFrame Styles 
+      /* iFrame Styles
         .iframe-src {
           width: 0;
           height: 0;
@@ -3534,7 +3534,7 @@
                   >
                 </div>
               </div>
-              <div x-show="false" class="view_wrapper sauvegarder-ordonnance">
+              <div x-data="DocumentsShareModal" x-transition x-bind="shareModal" class="view_wrapper sauvegarder-ordonnance">
                 <div class="header_holder context_comment">
                   <div class="inner_header">
                     <div class="display-inlineflex text_space">Partager</div>
@@ -3547,7 +3547,14 @@
                     />
                   </div>
                 </div>
-                <div class="activer_par_wrapper">
+                <figure
+                  style="border-color: rgba(0, 0, 0, 0)"
+                  class="activer_par_wrapper"
+                >
+                    <label class="slideon slideon-lg slideon-p2">
+                        <input type="checkbox" x-bind="switchButton">
+                        <span class="slideon-slider"></span>
+                    </label>
                   <div>
                     <div class="text-size-regular text-weight-semibold">
                       Activer le partage de ce document
@@ -3557,34 +3564,41 @@
                       d’Ordotype
                     </div>
                   </div>
-                </div>
-                <div class="inputs_wrapper partage_inputs">
-                  <div class="search_result_wrapper partage">
-                    <div class="search_result_holder partage_holder">
-                      <div class="inner_header">
-                        <div class="display-inlineflex">name@mail.com</div>
-                        <img
-                          src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/6409a60abee24b0929f62f72_cross.svg"
-                          loading="lazy"
-                          alt="exit croix"
-                          class="close_icon is_search"
-                        />
-                      </div>
+                </figure>
+                <div x-bind="sharingOptionsWrapper" x-transition class="inputs_wrapper partage_inputs">
+                  <div class="action_input_wrapper">
+                    <label
+                      for="Partager-par-email-2"
+                      class="action_field_label"
+                      >Partager par email</label
+                    >
+                    <div class="flex_horizontal">
+                      <input
+                        type="email"
+                        class="action_text_field margin_r_24 w-input"
+                        maxlength="256"
+                        name="Partager-par-email-2"
+                        data-name="Partager Par Email 2"
+                        placeholder="nom.prénom@mail.com"
+                        id="Partager-par-email-2"
+                        x-bind="sharedEmailInput"
+                      /><input
+                        type="button"
+                        value="Ajouter"
+                        data-wait="Please wait..."
+                        class="button is-annuler w-button"
+                        x-bind="addEmailtoListBtn"
+                      />
                     </div>
-                    <div class="search_result_holder partage_holder">
+                  </div>
+                  <div
+                    class="search_result_wrapper partage"
+                    
+                  >
+                    <div   x-template="true"
+                           x-bind="sharedEmailsList" class="search_result_holder partage_holder">
                       <div class="inner_header">
-                        <div class="display-inlineflex">name@mail.com</div>
-                        <img
-                          src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/6409a60abee24b0929f62f72_cross.svg"
-                          loading="lazy"
-                          alt="exit croix"
-                          class="close_icon is_search"
-                        />
-                      </div>
-                    </div>
-                    <div class="search_result_holder partage_holder">
-                      <div class="inner_header">
-                        <div class="display-inlineflex">name@mail.com</div>
+                        <div x-bind="name" class="display-inlineflex">name@mail.com</div>
                         <img
                           src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/6409a60abee24b0929f62f72_cross.svg"
                           loading="lazy"
@@ -3597,6 +3611,7 @@
                   <div class="w-layout-grid action_btns_form partage-btns">
                     <div
                       id="w-node-f12b1e6a-ec38-cb59-f4a5-ed2a6c579e43-6f14296d"
+                      style="display: none"
                       class="copy_link_wrapper"
                     >
                       <a href="#" class="button is-copy part w-inline-block"
@@ -3842,7 +3857,7 @@
       crossorigin="anonymous"
     ></script>
     <script
-      src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/js/webflow.97539d6e6.js"
+      src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/js/webflow.62027e6ed.js"
       type="text/javascript"
     ></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -3934,6 +3949,7 @@ Webflow.push(function(){$('.w-richtext p').html(function(){return $(this).html()
     <script src="https://cdn.jsdelivr.net/npm/@algolia/autocomplete-js"></script>
     <!--- <script src="https://static.ordotype.fr/my-documents.js"></script> -->
     <!--- <script src="https://seashell-app-etfao.ondigitalocean.app/my-documents.js"></script> --->
+    
 
     <script>
       const clipboard = new ClipboardJS(".is-copy");
