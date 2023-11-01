@@ -74,7 +74,8 @@ function DocumentsModal() {
     },
     modalBackdrop() {
       return {
-        ["x-show"]: "modalStore.showModal || modalStore.showBeforeDelete ",
+        ["x-show"]:
+          "modalStore.showModal || modalStore.showBeforeDelete || modalStore.showSharingOptions",
         ["x-trap.noscroll"]: "modalStore.showModal",
         ["x-transition"]: "",
       };
@@ -93,9 +94,9 @@ function DocumentsModal() {
     modalDialogBackdrop() {
       return {
         ["x-show"]:
-          "modalStore.showBeforeSave || modalStore.showBeforeCancel || modalStore.showBeforeDelete || modalStore.showInsertUrl",
+          "modalStore.showBeforeSave || modalStore.showBeforeCancel || modalStore.showBeforeDelete || modalStore.showInsertUrl || modalStore.showSharingOptions ",
         ["x-bind:class"]:
-          "(modalStore.showBeforeSave || modalStore.showBeforeCancel || modalStore.showBeforeDelete || modalStore.showInsertUrl) && 'active'",
+          "(modalStore.showBeforeSave || modalStore.showBeforeCancel || modalStore.showBeforeDelete || modalStore.showInsertUrl || modalStore.showSharingOptions) && 'active'",
       };
     },
     beforeSaveDialog(isShow) {
@@ -219,15 +220,6 @@ function PathologiesAutocomplete() {
       if (index > -1) {
         Alpine.store("modalStore").form.pathology.splice(index, 1);
       }
-
-      // Alpine.store("modalStore").form.pathology = [];
-      // Alpine.store("modalStore").pathologyName = "";
-      // $("#aa-pathology-input").attr("disabled", false).val("");
-      // $(
-      //   "#pathology-autocomplete .aa-InputWrapper, #pathology-autocomplete .aa-InputWrapperSuffix"
-      // ).show();
-      // $("#pathology-autocomplete .aa-Form").css("background", "#fff");
-      // $("#pathology-autocomplete form")[0].reset();
     },
     init() {
       globals.autocomplete({

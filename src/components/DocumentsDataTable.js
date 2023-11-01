@@ -107,7 +107,9 @@ function DataTableListItemSubmenu() {
     shareNote(d) {
       return {
         ["x-show"]: "true",
-        ["@click.prevent"]: async (ev) => {},
+        ["@click.prevent"]: async (ev) => {
+          Alpine.store("modalStore").showSharingOptions = true;
+        },
       };
     },
   };

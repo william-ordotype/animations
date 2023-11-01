@@ -6,6 +6,7 @@ const modalStore = {
   showBeforeSave: false,
   showBeforeCancel: false,
   showBeforeDelete: false,
+  showSharingOptions: false,
   showInsertUrl: false,
   loadModal: true,
   loadSubmit: false,

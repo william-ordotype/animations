@@ -8,7 +8,7 @@ function DocumentsShareModal() {
     // components
     shareModal() {
       return {
-        ["x-show"]: "true",
+        ["x-show"]: "$store.modalStore.showSharingOptions",
       };
     },
     switchButton() {
