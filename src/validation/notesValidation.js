@@ -1,14 +1,14 @@
-const deleteManyNotesValidation = (payload) => {
-  if (!Array.isArray(payload)) {
-    throw new Error("Payload is not an array");
-  } else if (payload.length === 0) {
-    throw new Error("Payload array is empty");
-  } else if (!payload.every((item) => item._id && item._id.trim() !== "")) {
-    throw new Error(
-      "Payload array contains items without a valid _id property"
-    );
-  }
-  return payload;
+import { string, array, object } from "yup";
+
+const deleteManyNotesValidation = async (payload) => {
+  const deleteNotesSchema = object({
+    note_ids: array().of(string()).required(),
+  })
+    .shape({
+      note_ids: array(),
+    })
+    .noUnknown();
+  return await deleteNotesSchema.validate(payload);
 };
 
 export { deleteManyNotesValidation };

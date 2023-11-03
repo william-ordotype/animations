@@ -1,6 +1,9 @@
 import Alpine from "alpinejs";
+import { deleteManyNotesValidation } from "../validation/notesValidation";
+import NotesService from "../services/notesService";
 
 const API_URL = `${process.env.ORDOTYPE_API}/v1.0.0`;
+const NoteService = new NotesService(API_URL, window.memberToken);
 
 const myDocumentsStore = {
   getOne: {
@@ -283,42 +286,7 @@ const myDocumentsStore = {
   },
   deleteMany: {
     async exec(documentList) {
-      try {
-        await this.request(documentList);
-      } catch (err) {
-        console.error("deleteMany - err", err);
-      }
-    },
-    _validatePayload(payload) {
-      if (!Array.isArray(payload)) {
-        throw new Error("Payload is not an array");
-      } else if (payload.length === 0) {
-        throw new Error("Payload array is empty");
-      } else if (!payload.every((item) => item._id && item._id.trim() !== "")) {
-        throw new Error(
-          "Payload array contains items without a valid _id property"
-        );
-      }
-      return payload;
-    },
-    async request(payload) {
-      try {
-        const validatedPayload = this._validatePayload(payload);
-        // Transform payload to array of ids
-        const ids = validatedPayload.map((item) => item._id);
-        const response = await fetch(`${API_URL}/notes`, {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${window.memberToken}`,
-          },
-          body: JSON.stringify({ note_ids: [...ids] }),
-        });
-
-        return await response;
-      } catch (err) {
-        throw new Error(err);
-      }
+      await NoteService.deleteMany(documentList);
     },
   },
   pathologies: {
@@ -405,20 +373,6 @@ const myDocumentsStore = {
     });
   },
 };
-
-/**
- * Handle request errors
- * @param response
- * @returns {Object | Error}
- */
-function handleRequestErrors(response) {
-  if (response === false) return;
-
-  if (!response.ok) {
-    throw Error(response.statusText);
-  }
-  return response.json();
-}
 
 /**
  * Convert form fields to FormData

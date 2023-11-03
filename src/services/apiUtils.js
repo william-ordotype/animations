@@ -1,6 +1,6 @@
 /**
  * Returns queryParams String from an object
- * @param obj
+ * @param {Object} obj
  * @returns {string}
  */
 function objectToQueryParams(obj) {

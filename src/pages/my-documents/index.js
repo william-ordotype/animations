@@ -123,6 +123,19 @@ window.Webflow.push(() => {
       await Alpine.store("modalStore").submitForm(ev);
       return false;
     });
+
+    const sharedLinkClipboard = new ClipboardJS("#copy-shared-link", {
+      container: document.querySelector(".sauvegarder-ordonnance"),
+      text: function (trigger) {
+        debugger;
+        return Alpine.store("modalStore").formErrorMessage;
+      },
+    });
+
+    sharedLinkClipboard.on("success", function (e) {
+      setTimeout(() => {}, 4000);
+      e.clearSelection();
+    });
   });
 });
 

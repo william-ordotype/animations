@@ -1,11 +1,14 @@
-import { ORDOTYPE_API } from "./apiConfig";
 import ApiService from "./apiService";
 
 class ShareNotesService extends ApiService {
-  constructor(API_URL, memberToken) {
-    super(API_URL, memberToken, "share-notes");
+  constructor(API_URL) {
+    super(API_URL, "note-shares");
   }
 
+  /**
+   * @param {string} noteId
+   * @returns {Promise<Object>}
+   */
   async activateNote(noteId) {
     return await this.request({ routeParams: `activate/${noteId}` });
   }
@@ -35,11 +38,14 @@ class ShareNotesService extends ApiService {
     });
   }
 
-  async getSharedInfoFromNote({ noteId, email }) {
+  /**
+   * @param {string} noteId
+   * @returns {Promise<Object>}
+   */
+  async getSharedInfoFromNote({ noteId }) {
     return await this.request({
-      routeParams: "email",
+      routeParams: `invitees/${noteId}`,
       method: "GET",
-      data: { noteId, email },
     });
   }
 

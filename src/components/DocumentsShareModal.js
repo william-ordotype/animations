@@ -39,7 +39,7 @@ function DocumentsShareModal() {
     addEmailtoListBtn() {
       return {
         ["x-on:click.prevent"]: () => {
-          return this.colors.push(this.sharedEmailValue);
+          this.colors.push(this.sharedEmailValue);
         },
       };
     },
@@ -48,10 +48,31 @@ function DocumentsShareModal() {
         ["x-for"]: "color in colors",
       };
     },
-    name: {
+    sharedEmailName: {
       ["x-text"]: "color",
+    },
+    deleteSharedEmail() {
+      return {
+        ["x-on:click.prevent"]: () => {
+          const email = this.color;
+          const index = this.colors.indexOf(email);
+          this.colors.splice(index, 1);
+        },
+      };
+    },
+    closeSharingModal: {
+      ["x-on:click.prevent"]: "$store.modalStore.showSharingOptions = false",
+    },
+    copySharedLinkBtn: {
+      ["x-on:click.prevent"]: () => {
+        // sharedModalLink.destroy();
+      },
     },
   };
 }
+
+const closeModalFn = () => {
+  Alpine.store("modalStore").showSharingOptions = false;
+};
 
 export default DocumentsShareModal;

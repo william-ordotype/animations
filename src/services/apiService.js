@@ -1,6 +1,10 @@
 import { objectToQueryParams } from "./apiUtils";
 
 class ApiService {
+  /**
+   * @param {string} API_URL
+   * @param {string} endpoint
+   */
   constructor(API_URL, endpoint) {
     this.API_URL = API_URL;
     this.endpoint = endpoint;
