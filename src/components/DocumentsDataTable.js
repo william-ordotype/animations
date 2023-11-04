@@ -109,6 +109,12 @@ function DataTableListItemSubmenu() {
         ["x-show"]: "true",
         ["@click.prevent"]: async (ev) => {
           Alpine.store("modalStore").showSharingOptions = true;
+          debugger;
+          Alpine.store("shareStore").shareSwitch = !!d["can_share"];
+          Alpine.store("shareStore").shareOptionsEnabled = !!d["can_share"];
+          Alpine.store("shareStore").showSharingOptions = !!d["can_share"];
+          console.log({ ...d });
+          Alpine.store("shareStore").activeNote = d;
         },
       };
     },

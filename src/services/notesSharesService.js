@@ -14,7 +14,13 @@ class ShareNotesService extends ApiService {
   }
 
   async deactivateNote(noteId) {
-    return await this.request({ routeParams: `inactive/${noteId}` });
+    const resCallBack = (response) => {
+      return response;
+    };
+    return await this.request({
+      routeParams: `inactive/${noteId}`,
+      resCallBack,
+    });
   }
 
   async addEmailsToNote({ noteId, email }) {

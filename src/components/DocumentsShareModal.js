@@ -1,3 +1,8 @@
+import ShareNotesService from "../services/notesSharesService";
+
+const API_URL = `${process.env.ORDOTYPE_API}/v1.0.0`;
+const ShareNoteService = new ShareNotesService(API_URL, window.memberToken);
+
 function DocumentsShareModal() {
   return {
     // local state
@@ -13,19 +18,29 @@ function DocumentsShareModal() {
     },
     switchButton() {
       return {
-        ["x-on:change"]: (ev) => {
-          // Using jquery to handle sliding transition
-          $(".partage_inputs").slideToggle();
-          // this.showSharingOptions = !this.showSharingOptions;
-          console.log(this.sharedEmailValue);
+        ["x-model"]: "$store.shareStore.shareSwitch",
+        ["x-on:change"]: async (ev) => {
+          const activeNote = Alpine.store("shareStore").activeNote;
+
+          try {
+            if (!activeNote["can_share"]) {
+              $(".partage_inputs").slideDown();
+              await ShareNoteService.activateNote(activeNote._id);
+              activeNote["can_share"] = true;
+            } else {
+              $(".partage_inputs").slideUp();
+              await ShareNoteService.deactivateNote(activeNote._id);
+              activeNote["can_share"] = false;
+            }
+          } catch (err) {
+            console.error(err);
+          }
         },
       };
     },
     sharingOptionsWrapper() {
       return {
-        ["x-show"]: () => {
-          return this.showSharingOptions;
-        },
+        ["x-show"]: "$store.shareStore.shareOptionsEnabled",
       };
     },
     sharedEmailInput() {
@@ -61,18 +76,18 @@ function DocumentsShareModal() {
       };
     },
     closeSharingModal: {
-      ["x-on:click.prevent"]: "$store.modalStore.showSharingOptions = false",
+      ["x-on:click.prevent"]: closeModalFn,
     },
     copySharedLinkBtn: {
-      ["x-on:click.prevent"]: () => {
-        // sharedModalLink.destroy();
-      },
+      ["x-on:click.prevent"]: () => {},
     },
   };
 }
 
 const closeModalFn = () => {
   Alpine.store("modalStore").showSharingOptions = false;
+  Alpine.store("shareStore").shareOptionsEnabled = false;
+  Alpine.store("shareStore").activeNote = {};
 };
 
 export default DocumentsShareModal;

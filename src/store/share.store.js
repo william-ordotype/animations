@@ -1,8 +1,9 @@
-const API_URL = `${process.env.ORDOTYPE_API}/v1.0.0`;
-
 const shareStore = {
-  getList: {},
-  getListByType: {},
+  shareOptionsEnabled: false,
+  shareSwitch: false,
+  activeNote: {},
+  activeNoteEmailList: {},
+  activeNotePublicLink: {},
 };
 
 export default shareStore;
