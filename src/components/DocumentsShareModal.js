@@ -1,8 +1,11 @@
 import ShareNotesService from "../services/notesSharesService";
 import { validateEmail } from "../validation/noteSharesValidation";
+import { ORDOTYPE_API } from "../services/apiConfig";
 
-const API_URL = `${process.env.ORDOTYPE_API}/v1.0.0`;
-const ShareNoteService = new ShareNotesService(API_URL, window.memberToken);
+const ShareNoteService = new ShareNotesService(
+  ORDOTYPE_API,
+  window.memberToken
+);
 
 function DocumentsShareModal() {
   return {
@@ -16,6 +19,7 @@ function DocumentsShareModal() {
     shareModal() {
       return {
         ["x-show"]: "$store.modalStore.showSharingOptions",
+        ["x-transition"]: "",
       };
     },
     noteTitle() {
@@ -96,6 +100,11 @@ function DocumentsShareModal() {
     },
     copySharedLinkBtn: {
       ["x-on:click.prevent"]: () => {},
+    },
+    copySharedLinkSuccessMsg: {
+      ["x-show"]: "$store.shareStore.showCopySuccessMsg",
+      ["x-transition:enter.duration.500ms"]: "",
+      ["x-transition:leave.duration.0ms"]: "",
     },
   };
 }

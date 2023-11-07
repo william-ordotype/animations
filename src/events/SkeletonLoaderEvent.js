@@ -22,7 +22,7 @@ class SkeletonLoaderEvent extends CustomEventManager {
 
   /**
    * Triggers event in indicated element
-   * @param {HTMLElement} targetElements
+   * @param {NodeList} targetElements
    * @param {Boolean} isLoading
    */
 
@@ -38,7 +38,6 @@ class SkeletonLoaderEvent extends CustomEventManager {
   addSkeletonToElement(target) {
     // run through all targeted elements and make them relative
     $(target).each((i, elem) => {
-      debugger;
       const children = $(elem);
       children.css("position", "relative");
       // append absolute skeleton div to each

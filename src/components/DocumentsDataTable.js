@@ -114,7 +114,6 @@ function DataTableListItemSubmenu() {
         ["x-show"]: "true",
         ["@click.prevent"]: async (ev) => {
           const isShareActive = !!d["can_share"];
-          debugger;
           SkeletonLoaderEvent.dispatchCustomEvent(
             document.querySelector(".search_result_wrapper.partage"),
             true

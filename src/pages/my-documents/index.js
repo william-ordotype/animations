@@ -129,13 +129,13 @@ window.Webflow.push(() => {
     const sharedLinkClipboard = new ClipboardJS("#copy-shared-link", {
       container: document.querySelector(".sauvegarder-ordonnance"),
       text: function () {
-        return Alpine.store("modalStore").formErrorMessage;
+        return Alpine.store("shareStore").activeNotePublicLink;
       },
     });
 
     sharedLinkClipboard.on("success", function (e) {
-      setTimeout(() => {}, 4000);
       e.clearSelection();
+      Alpine.store("shareStore").showCopySuccessMsg = true;
     });
 
     SkeletonLoaderEvent.init();

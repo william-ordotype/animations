@@ -43,7 +43,6 @@ class ApiService {
       parsedRouteParams || ""
     }${parsedQueryParams || ""}`;
 
-    debugger;
     const response = await fetch(fetchURL, {
       method: method,
       headers: {

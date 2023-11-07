@@ -271,7 +271,6 @@ const modalStore = {
       }
     } catch (err) {
       console.error(err);
-      debugger;
       this.formError = true;
       this.formErrorMessage =
         err.message || window.globals.statusMessages.static.error;

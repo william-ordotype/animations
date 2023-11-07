@@ -56,7 +56,6 @@ const pathologiesStore = {
       const pathologySlug = window.location.href.includes("localhost")
         ? "acne"
         : window.location.pathname.split("/")[2];
-      debugger;
       const pathology = await Alpine.store(
         "documentsStore"
       ).pathologies.searchIdBySlug(pathologySlug);
