@@ -1,4 +1,5 @@
 import ShareNotesService from "../services/notesSharesService";
+import { validateEmail } from "../validation/noteSharesValidation";
 
 const API_URL = `${process.env.ORDOTYPE_API}/v1.0.0`;
 const ShareNoteService = new ShareNotesService(API_URL, window.memberToken);
@@ -8,12 +9,18 @@ function DocumentsShareModal() {
     // local state
     showSharingOptions: false,
     sharedEmailValue: "",
-    colors: ["Red", "Orange", "Yellow", "Yellow"],
+    sharedEmailList: Alpine.store("shareStore").activeNoteEmailList,
+    sharedLinkId: Alpine.store("shareStore").activeNotePublicLink,
 
     // components
     shareModal() {
       return {
         ["x-show"]: "$store.modalStore.showSharingOptions",
+      };
+    },
+    noteTitle() {
+      return {
+        ["x-text"]: "$store.shareStore.activeNote.title",
       };
     },
     switchButton() {
@@ -47,31 +54,40 @@ function DocumentsShareModal() {
       return {
         ["x-model"]: "sharedEmailValue",
         ["x-on:keyup.enter"]: () => {
-          return this.colors.push(this.sharedEmailValue);
+          return this.sharedEmailList.push(this.sharedEmailValue);
         },
       };
     },
     addEmailtoListBtn() {
       return {
-        ["x-on:click.prevent"]: () => {
-          this.colors.push(this.sharedEmailValue);
+        ["x-on:click.prevent"]: async () => {
+          try {
+            const email = await validateEmail(this.sharedEmailValue);
+            await ShareNoteService.addEmailsToNote({
+              email: email,
+              noteId: Alpine.store("shareStore").activeNote._id,
+            });
+            this.sharedEmailList.push(this.sharedEmailValue);
+          } catch (err) {
+            console.error(err);
+          }
         },
       };
     },
     sharedEmailsList() {
       return {
-        ["x-for"]: "color in colors",
+        ["x-for"]: "eMail in $store.shareStore.activeNoteEmailList",
       };
     },
     sharedEmailName: {
-      ["x-text"]: "color",
+      ["x-text"]: "eMail",
     },
     deleteSharedEmail() {
       return {
         ["x-on:click.prevent"]: () => {
-          const email = this.color;
-          const index = this.colors.indexOf(email);
-          this.colors.splice(index, 1);
+          const email = this.eMail;
+          const index = this.sharedEmailList.indexOf(email);
+          this.sharedEmailList.splice(index, 1);
         },
       };
     },
@@ -86,8 +102,7 @@ function DocumentsShareModal() {
 
 const closeModalFn = () => {
   Alpine.store("modalStore").showSharingOptions = false;
-  Alpine.store("shareStore").shareOptionsEnabled = false;
-  Alpine.store("shareStore").activeNote = {};
+  Alpine.store("shareStore").clearShareModalOptions();
 };
 
 export default DocumentsShareModal;

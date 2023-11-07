@@ -5,6 +5,8 @@ import focus from "@alpinejs/focus";
 import alpineWebflow from "../../modules/alpine-webflow";
 import Alpine from "alpinejs";
 
+import SkeletonLoaderEvent from "../../events/SkeletonLoaderEvent";
+
 import "../../modules/slideon/slideon";
 import "../../modules/slideon/style.scss";
 import "../../router/routes";
@@ -126,8 +128,7 @@ window.Webflow.push(() => {
 
     const sharedLinkClipboard = new ClipboardJS("#copy-shared-link", {
       container: document.querySelector(".sauvegarder-ordonnance"),
-      text: function (trigger) {
-        debugger;
+      text: function () {
         return Alpine.store("modalStore").formErrorMessage;
       },
     });
@@ -136,6 +137,8 @@ window.Webflow.push(() => {
       setTimeout(() => {}, 4000);
       e.clearSelection();
     });
+
+    SkeletonLoaderEvent.init();
   });
 });
 

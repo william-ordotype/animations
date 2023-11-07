@@ -1,5 +1,10 @@
 import Alpine from "alpinejs";
 import getFileExtByMimeType from "../assets/file_ext.js";
+import ShareNotesService from "../services/notesSharesService";
+import SkeletonLoaderEvent from "../events/SkeletonLoaderEvent";
+
+const API_URL = `${process.env.ORDOTYPE_API}/v1.0.0`;
+const ShareNotes = new ShareNotesService(API_URL, window.memberToken);
 
 function DataTableListItem() {
   return {
@@ -108,13 +113,41 @@ function DataTableListItemSubmenu() {
       return {
         ["x-show"]: "true",
         ["@click.prevent"]: async (ev) => {
-          Alpine.store("modalStore").showSharingOptions = true;
+          const isShareActive = !!d["can_share"];
           debugger;
-          Alpine.store("shareStore").shareSwitch = !!d["can_share"];
-          Alpine.store("shareStore").shareOptionsEnabled = !!d["can_share"];
-          Alpine.store("shareStore").showSharingOptions = !!d["can_share"];
-          console.log({ ...d });
+          SkeletonLoaderEvent.dispatchCustomEvent(
+            document.querySelector(".search_result_wrapper.partage"),
+            true
+          );
+          SkeletonLoaderEvent.dispatchCustomEvent(
+            document.querySelectorAll(
+              ".activer_par_wrapper .text-size-regular, .activer_par_wrapper .text-size-small"
+            ),
+            true
+          );
+          Alpine.store("modalStore").showSharingOptions = true;
+          Alpine.store("shareStore").shareSwitch = isShareActive;
+          Alpine.store("shareStore").shareOptionsEnabled = isShareActive;
+          Alpine.store("shareStore").showSharingOptions = isShareActive;
           Alpine.store("shareStore").activeNote = d;
+
+          if (isShareActive) {
+            const { emails, linkId } = await ShareNotes.getSharedInfoFromNote({
+              noteId: d._id,
+            });
+            Alpine.store("shareStore").activeNoteEmailList = emails;
+            Alpine.store("shareStore").activeNotePublicLink = linkId;
+          }
+          SkeletonLoaderEvent.dispatchCustomEvent(
+            document.querySelector(".search_result_wrapper.partage"),
+            false
+          );
+          SkeletonLoaderEvent.dispatchCustomEvent(
+            document.querySelectorAll(
+              ".activer_par_wrapper .text-size-regular, .activer_par_wrapper .text-size-small"
+            ),
+            false
+          );
         },
       };
     },
