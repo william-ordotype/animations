@@ -1,4 +1,4 @@
-import { string, array, object } from "yup";
+import { string, array, object, number } from "yup";
 
 const deleteManyNotesValidation = async (payload) => {
   const deleteNotesSchema = object({
@@ -11,4 +11,43 @@ const deleteManyNotesValidation = async (payload) => {
   return await deleteNotesSchema.validate(payload);
 };
 
-export { deleteManyNotesValidation };
+const getOneValidation = async (payload) => {
+  const getOneSchema = string().required();
+  return await getOneSchema.validate(payload);
+};
+
+const getListValidation = async (payload) => {
+  const sortByValues = [
+    "collection_id",
+    "created_on",
+    "form_id",
+    "item_id",
+    "member_id",
+    "object_id",
+    "pathology",
+    "rich_text_ordo",
+    "slug",
+    "title",
+    "updated_on",
+    "wf_item_id",
+    "published_on",
+    "is_deleted",
+  ];
+  const getListSchema = object({
+    page: number().required().positive().integer(),
+    limit: number().required().positive().integer(),
+    sort: string().oneOf(sortByValues).required(),
+    direction: string().oneOf(["DESC", "ASC"]).required(),
+    type: string()
+      .oneOf(["notes", "prescriptions", "recommendations", ""])
+      .optional(),
+    prescription_type: string()
+      .oneOf(["balance_sheet", "treatment", ""])
+      .optional(),
+    pathology: array().of(string()).optional(),
+  });
+
+  return await getListSchema.validate(payload);
+};
+
+export { deleteManyNotesValidation, getOneValidation, getListValidation };

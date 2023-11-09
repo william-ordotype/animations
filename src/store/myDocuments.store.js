@@ -11,39 +11,9 @@ const myDocumentsStore = {
       note: {},
       member: {},
     },
-    async getDocument({ id } = {}) {
-      try {
-        const response = await fetch(`${API_URL}/notes/${id}`, {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${window.memberToken}`,
-          },
-        });
-        if (response.ok) {
-          return await response.json();
-        } else {
-          if (response.status === 404) {
-            throw "Document introuvable";
-          }
-          throw response.status;
-        }
-      } catch (err) {
-        console.error(err);
-        Alpine.store("toasterStore").toasterMsg(err, "error");
-      }
-    },
     async setDocument(props) {
       const { id } = props;
-      try {
-        const res = await this.getDocument({ id });
-        if (res) {
-          this.document = {
-            ...res,
-          };
-        }
-      } catch (err) {
-        throw err;
-      }
+      await NoteService.getOne(id);
     },
   },
   getList: {
@@ -71,9 +41,10 @@ const myDocumentsStore = {
       let documentsResults;
       this.documents = []; // Reset checkboxes
       try {
-        documentsResults = await this.request(props);
+        documentsResults = await NoteService.getList(props);
       } catch (err) {
         console.error("getList error --", err);
+        return;
       }
       // Checks if empty
       if (documentsResults["data"].length === 0) {
@@ -106,52 +77,6 @@ const myDocumentsStore = {
         location.href.includes("localhost")
       ) {
         await Alpine.store("documentsStore").rulesStatus.exec();
-      }
-    },
-    async request({
-      page = 1,
-      limit = 10,
-      sort = "created_on",
-      direction = "DESC",
-      type = this.documentType || "",
-      pathology = "",
-      title = "",
-      noteTitleAndPathologyTitle = "",
-    } = {}) {
-      try {
-        const queryParams = {
-          page,
-          limit,
-          sort,
-          direction,
-          type: type || this.documentType || "",
-          pathology,
-          title,
-          noteTitleAndPathologyTitle,
-        };
-
-        // Remove empty parameters
-        Object.keys(queryParams).forEach(
-          (key) =>
-            (queryParams[key] === "" || queryParams[key] === undefined) &&
-            delete queryParams[key]
-        );
-
-        const queryString = new URLSearchParams(queryParams).toString();
-
-        const response = await fetch(`${API_URL}/notes?${queryString}`, {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${memberToken}`,
-          },
-        });
-        if (response.ok) {
-          return await response.json();
-        } else {
-          throw new Error("document - getList - fetch failed.");
-        }
-      } catch (err) {
-        console.error(err);
       }
     },
   },

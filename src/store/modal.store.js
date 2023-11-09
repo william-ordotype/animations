@@ -1,5 +1,9 @@
 import * as DOMPurify from "dompurify";
 import Alpine from "alpinejs";
+import NotesService from "../services/notesService";
+
+const API_URL = `${process.env.ORDOTYPE_API}/v1.0.0`;
+const NoteService = new NotesService(API_URL, window.memberToken);
 
 const modalStore = {
   showModal: false,
@@ -105,7 +109,7 @@ const modalStore = {
     ev.preventDefault();
     this.closeBeforeDelete();
     try {
-      await Alpine.store("documentsStore").deleteMany.exec(this.deleteList);
+      await NoteService.deleteMany(this.deleteList);
       if (Alpine.store("drawerStore").showDrawer === true) {
         Alpine.store("drawerStore").hideDrawer();
         const pageNumber =
