@@ -3544,8 +3544,9 @@
                 <div class="header_holder context_comment">
                   <div class="inner_header">
                     <div class="display-inlineflex text_space">Partager</div>
-                    <div class="display-inlineflex">{{“Nom du document”}}</div>
+                    <div x-bind="noteTitle" class="display-inlineflex">{{“Nom du document”}}</div>
                     <img
+                      x-bind="closeSharingModal"
                       loading="lazy"
                       src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/6409a60abee24b0929f62f72_cross.svg"
                       alt="exit croix"
@@ -3591,6 +3592,8 @@
                         placeholder="nom.prénom@mail.com"
                         id="doc-email-invitee"
                         x-bind="sharedEmailInput"
+                        autocomplete="off"
+                        aria-autocomplete="none"
                       /><a
                         x-bind="addEmailtoListBtn"
                         href="#"
@@ -3599,11 +3602,22 @@
                       >
                     </div>
                   </div>
-                  <div class="search_result_wrapper partage">
-                    <div class="search_result_holder partage_holder">
+                  <div class="search_result_wrapper partage" data-skeleton>
+                    <div
+                      x-template="true"
+                      
+                      x-bind="sharedEmailsList"
+                      class="search_result_holder partage_holder"
+                    >
                       <div class="inner_header">
-                        <div class="display-inlineflex">name@mail.com</div>
+                        <div
+                          x-bind="sharedEmailName"
+                          class="display-inlineflex"
+                        >
+                          name@mail.com
+                        </div>
                         <img
+                          x-bind="deleteSharedEmail"
                           loading="lazy"
                           src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/6409a60abee24b0929f62f72_cross.svg"
                           alt="exit croix"
@@ -3617,7 +3631,7 @@
                       id="w-node-f12b1e6a-ec38-cb59-f4a5-ed2a6c579e43-cd94b8ba"
                       class="copy_link_wrapper"
                     >
-                      <a href="#" class="button is-copy part w-inline-block"
+                      <a id="copy-shared-link" href="#" x-bind="copySharedLinkBtn" class="button is-copy part w-inline-block"
                         ><div class="button_text">Copier le lien</div>
                         <img
                           loading="lazy"
@@ -3625,7 +3639,7 @@
                           alt=""
                           class="icon_copy rt"
                       /></a>
-                      <div class="copy_message">
+                      <div class="copy_message" x-bind="copySharedLinkSuccessMsg">
                         <img
                           loading="lazy"
                           src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/640e151c4b3f3456e32acd02_check-circle.svg"
@@ -3638,6 +3652,7 @@
                       </div>
                     </div>
                     <a
+                         x-bind="validateButton"
                       id="w-node-f12b1e6a-ec38-cb59-f4a5-ed2a6c579e4c-cd94b8ba"
                       href="#"
                       class="button is-docs w-inline-block"
@@ -3954,23 +3969,23 @@ Webflow.push(function(){$('.w-richtext p').html(function(){return $(this).html()
     <!--- <script src="https://seashell-app-etfao.ondigitalocean.app/my-documents.js"></script> --->
 
     <script>
-      const clipboard = new ClipboardJS(".is-copy");
-
-      clipboard.on("success", function (e) {
-        console.info("Action:", e.action);
-        console.info("Text:", e.text);
-        console.info("Trigger:", e.trigger);
-
-        Alpine.store("toasterStore").toasterMsg("Ordonnance copiée", "success");
-
-        e.clearSelection();
-      });
-
-      clipboard.on("error", function (e) {
-        console.error("Action:", e.action);
-        console.error("Trigger:", e.trigger);
-        Alpine.store("toasterStore").toasterMsg("Ordonnance copiée", "success");
-      });
+      // const clipboard = new ClipboardJS(".is-copy");
+      //
+      // clipboard.on("success", function (e) {
+      //   console.info("Action:", e.action);
+      //   console.info("Text:", e.text);
+      //   console.info("Trigger:", e.trigger);
+      //
+      //   Alpine.store("toasterStore").toasterMsg("Ordonnance copiée", "success");
+      //
+      //   e.clearSelection();
+      // });
+      //
+      // clipboard.on("error", function (e) {
+      //   console.error("Action:", e.action);
+      //   console.error("Trigger:", e.trigger);
+      //   Alpine.store("toasterStore").toasterMsg("Ordonnance copiée", "success");
+      // });
 
       localStorage.setItem("locat", location.href);
 

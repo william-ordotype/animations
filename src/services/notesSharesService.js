@@ -1,4 +1,5 @@
 import ApiService from "./apiService";
+import { updateEmailsToNoteValidation } from "../validation/noteSharesValidation";
 
 class ShareNotesService extends ApiService {
   constructor(API_URL) {
@@ -14,28 +15,36 @@ class ShareNotesService extends ApiService {
   }
 
   async deactivateNote(noteId) {
-    const resCallBack = (response) => {
-      return response;
-    };
     return await this.request({
       routeParams: `inactive/${noteId}`,
-      resCallBack,
+      resCallBack: (res) => res,
     });
   }
 
-  async addEmailsToNote({ noteId, email }) {
-    return await this.request({
-      routeParams: "email",
-      data: { noteId, email },
-    });
-  }
+  /**
+   * Adds and removes email invitations from note
+   * @param {string} noteId
+   * @param {array} emailsToRemove
+   * @param {array} emailsToAdd
+   * @returns {Promise<Object>}
+   */
+  async updateEmailsToNote({ noteId, emailsToRemove, emailsToAdd }) {
+    try {
+      const validatePayload = await updateEmailsToNoteValidation({
+        noteId,
+        emailsToRemove,
+        emailsToAdd,
+      });
 
-  async removeEmailsFromNote({ noteId, email }) {
-    return await this.request({
-      routeParams: "email",
-      method: "DELETE",
-      data: { noteId, email },
-    });
+      return await this.request({
+        routeParams: "emails",
+        data: validatePayload,
+        method: "PATCH",
+        resCallBack: (res) => res,
+      });
+    } catch (err) {
+      throw err;
+    }
   }
 
   async cloneSharedNote(noteId, cloneSharedFiles = true) {
@@ -55,12 +64,21 @@ class ShareNotesService extends ApiService {
     });
   }
 
-  async getList() {
+  async getNotesInvites() {
     return await this.request({ routeParams: "list" });
   }
 
-  async getListByType(type) {
-    return await this.request({ routeParams: `list/${type}` });
+  /**
+   *
+   * @param {string} type
+   * @param {string} id
+   * @returns {Promise<Object>}
+   */
+  async getNoteInviteByType(type, id) {
+    return await this.request({
+      routeParams: `me/${type}/${id}`,
+      method: "GET",
+    });
   }
 }
 

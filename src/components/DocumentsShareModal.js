@@ -1,5 +1,4 @@
 import ShareNotesService from "../services/notesSharesService";
-import { validateEmail } from "../validation/noteSharesValidation";
 import { ORDOTYPE_API } from "../services/apiConfig";
 
 const ShareNoteService = new ShareNotesService(
@@ -13,6 +12,8 @@ function DocumentsShareModal() {
     showSharingOptions: false,
     sharedEmailValue: "",
     sharedEmailList: Alpine.store("shareStore").activeNoteEmailList,
+    emailsToAdd: [],
+    emailsToDelete: [],
     sharedLinkId: Alpine.store("shareStore").activeNotePublicLink,
 
     // components
@@ -66,12 +67,12 @@ function DocumentsShareModal() {
       return {
         ["x-on:click.prevent"]: async () => {
           try {
-            const email = await validateEmail(this.sharedEmailValue);
-            await ShareNoteService.addEmailsToNote({
-              email: email,
-              noteId: Alpine.store("shareStore").activeNote._id,
-            });
-            this.sharedEmailList.push(this.sharedEmailValue);
+            Alpine.store("shareStore").activeNoteEmailList.push(
+              this.sharedEmailValue
+            );
+            this.emailsToAdd.push(this.sharedEmailValue);
+            console.log(this.emailsToAdd);
+            this.sharedEmailValue = "";
           } catch (err) {
             console.error(err);
           }
@@ -92,11 +93,33 @@ function DocumentsShareModal() {
           const email = this.eMail;
           const index = this.sharedEmailList.indexOf(email);
           this.sharedEmailList.splice(index, 1);
+          this.emailsToDelete.push(email);
+        },
+      };
+    },
+    validateButton() {
+      return {
+        ["x-on:click.prevent"]: async () => {
+          try {
+            const payload = {
+              emailsToAdd: this.emailsToAdd,
+              emailsToRemove: this.emailsToDelete,
+              noteId: Alpine.store("shareStore").activeNote._id,
+            };
+            await ShareNoteService.updateEmailsToNote(payload);
+            Alpine.store("toasterStore").toasterMsg("Success", "success");
+          } catch (err) {
+            console.error(err);
+            Alpine.store("toasterStore").toasterMsg("Erreur", "error");
+          }
         },
       };
     },
     closeSharingModal: {
-      ["x-on:click.prevent"]: closeModalFn,
+      ["x-on:click.prevent"]: () => {
+        this.sharedEmailValue = "";
+        closeModalFn();
+      },
     },
     copySharedLinkBtn: {
       ["x-on:click.prevent"]: () => {},

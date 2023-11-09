@@ -11,7 +11,6 @@ const shareStore = {
     this.activeNoteEmailList = [];
     this.activeNotePublicLink = "";
     this.showCopySuccessMsg = false;
-    debugger;
   },
 };
 
