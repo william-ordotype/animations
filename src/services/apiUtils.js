@@ -19,4 +19,11 @@ function objectToQueryParams(obj) {
   return queryParams.toString();
 }
 
-export { objectToQueryParams };
+function parseFormData(formFieldValues) {
+  return Object.keys(formFieldValues).reduce((formData, key) => {
+    formData.append(key, formFieldValues[key]);
+    return formData;
+  }, new FormData());
+}
+
+export { objectToQueryParams, parseFormData };

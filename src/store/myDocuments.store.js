@@ -81,131 +81,13 @@ const myDocumentsStore = {
     },
   },
   mutateOne: {
-    async exec(payload, files = [], filesToDelete = []) {
+    async exec(payload, filesToAdd = [], filesToDelete = []) {
       try {
         return payload._id
-          ? await this.updateReq(payload, files, filesToDelete)
-          : await this.createReq(payload, files);
+          ? await NoteService.updateOne(payload, filesToAdd, filesToDelete)
+          : await NoteService.createOne(payload, filesToAdd);
       } catch (err) {
         throw new Error(err);
-      }
-    },
-    _validatePayload(payload, isUpdate = false) {
-      if (isUpdate) {
-        if (!payload._id) {
-          console.error("Document id not found");
-          throw "Id du document non trouvé";
-        }
-      }
-      if (!payload.title) {
-        console.error("Title not found");
-        throw "Titre non trouvé";
-      }
-      if (!payload.type) {
-        console.error("Document type not found");
-        throw "Type de document non trouvé";
-      }
-      if (payload.type === "prescriptions") {
-        if (
-          !(
-            payload.prescription_type === "balance_sheet" ||
-            payload.prescription_type === "treatment"
-          )
-        ) {
-          console.error("Prescription type must be balance_sheet or treatment");
-          throw "Type d'ordonnance doit être bilan ou traitement";
-        }
-      }
-      if (payload.type !== "prescriptions") {
-        delete payload.prescription_type;
-      }
-      return payload;
-    },
-    /**
-     * Create request
-     * @param {Object} formFields
-     * @param {Array} files
-     * @returns {Promise}
-     */
-    async createReq(formFields, files) {
-      try {
-        const validatedPayload = this._validatePayload(formFields);
-        const documentFormData = parseFormData(validatedPayload);
-        // Add files to formData
-        for (let i = 0; i < files.length; i++) {
-          documentFormData.append("files", files[i]);
-        }
-
-        return await fetch(`${API_URL}/notes`, {
-          method: "POST",
-          headers: {
-            // "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${window.memberToken}`,
-          },
-          body: documentFormData,
-        });
-      } catch (err) {
-        throw err;
-      }
-    },
-
-    /**
-     * Update request
-     * @param {Object} formFields
-     * @param {Array} files
-     * @param {Array} filesToDelete
-     * @returns {Promise<*>}
-     */
-    async updateReq(formFields, files, filesToDelete) {
-      try {
-        const validatedPayload = this._validatePayload(formFields, true);
-        // remove files and documents from formFields
-        delete validatedPayload.files;
-        delete validatedPayload.documents;
-
-        // Convert files proxy array to normal array
-        const filesArr = Array.from(files);
-        // Prepare files formData
-        const filesFormData = new FormData();
-        for (let i = 0; i < filesArr.length; i++) {
-          filesFormData.append("files", filesArr[i]);
-        }
-        filesFormData.append("noteId", formFields._id.toString());
-        const sendDocumentsPromise = async () =>
-          await fetch(`${API_URL}/notes/${formFields._id}`, {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${window.memberToken}`,
-            },
-            body: JSON.stringify(validatedPayload),
-          });
-        const sendFilesPromise = async () =>
-          await fetch(`${API_URL}/documents`, {
-            method: "POST",
-            headers: {
-              Authorization: `Bearer ${window.memberToken}`,
-            },
-            body: filesFormData,
-          });
-        const deleteFilesPromise = async () =>
-          await fetch(`${API_URL}/documents`, {
-            method: "DELETE",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${window.memberToken}`,
-            },
-            body: JSON.stringify({ document_id: filesToDelete }),
-          });
-
-        // run all promises
-        return await Promise.all([
-          sendDocumentsPromise(),
-          files.length > 0 && sendFilesPromise(),
-          filesToDelete.length > 0 && deleteFilesPromise(),
-        ]);
-      } catch (err) {
-        throw err;
       }
     },
   },

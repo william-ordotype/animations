@@ -1,4 +1,4 @@
-import { string, array, object, number } from "yup";
+import { string, array, object, number, mixed } from "yup";
 
 const deleteManyNotesValidation = async (payload) => {
   const deleteNotesSchema = object({
@@ -50,4 +50,45 @@ const getListValidation = async (payload) => {
   return await getListSchema.validate(payload);
 };
 
-export { deleteManyNotesValidation, getOneValidation, getListValidation };
+const createOneValidation = async (payload) => {
+  const createOneSchema = object({
+    title: string().required().max(200),
+    type: string()
+      .required()
+      .oneOf(["notes", "prescriptions", "recommendations"]),
+    prescription_type: string().when("type", {
+      is: "prescriptions",
+      then: (schema) => schema.oneOf(["balance_sheet", "treatment"]),
+    }),
+    pathology: array().of(string()).optional(),
+    rich_text_ordo: string(),
+  });
+
+  return createOneSchema.validate(payload);
+};
+
+const updateOneValidation = async (payload) => {
+  const updateOneSchema = object({
+    _id: string().required(),
+    title: string().required().max(200),
+    type: string()
+      .required()
+      .oneOf(["notes", "prescriptions", "recommendations"]),
+    prescription_type: string().when("type", {
+      is: "prescriptions",
+      then: (schema) => schema.oneOf(["balance_sheet", "treatment"]),
+    }),
+    pathology: array().of(string()).optional(),
+    rich_text_ordo: string(),
+  });
+
+  return updateOneSchema.validate(payload);
+};
+
+export {
+  deleteManyNotesValidation,
+  getOneValidation,
+  getListValidation,
+  createOneValidation,
+  updateOneValidation,
+};

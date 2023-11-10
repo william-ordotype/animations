@@ -29,6 +29,7 @@ class ApiService {
     data,
     resCallBack,
     contentType = "application/json",
+    noContentType = false,
   }) {
     let parsedQueryParams;
     let parsedRouteParams;
@@ -47,9 +48,9 @@ class ApiService {
       method: method,
       headers: {
         Authorization: `Bearer ${window.memberToken}`,
-        "Content-Type": contentType,
+        ...(noContentType ? {} : { "Content-Type": contentType }),
       },
-      body: data ? JSON.stringify(data) : undefined,
+      body: data ? (noContentType ? data : JSON.stringify(data)) : undefined,
     });
 
     if (resCallBack) {
