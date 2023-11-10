@@ -181,16 +181,4 @@ const myDocumentsStore = {
   },
 };
 
-/**
- * Convert form fields to FormData
- * @param formFieldValues
- * @returns {FormData}
- */
-function parseFormData(formFieldValues) {
-  return Object.keys(formFieldValues).reduce((formData, key) => {
-    formData.append(key, formFieldValues[key]);
-    return formData;
-  }, new FormData());
-}
-
 export default myDocumentsStore;
