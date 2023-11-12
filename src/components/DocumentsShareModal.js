@@ -1,10 +1,8 @@
+import Alpine from "alpinejs";
 import ShareNotesService from "../services/notesSharesService";
-import { ORDOTYPE_API } from "../services/apiConfig";
+import { StateStore } from "../utils/enums";
 
-const ShareNoteService = new ShareNotesService(
-  ORDOTYPE_API,
-  window.memberToken
-);
+const ShareNoteService = new ShareNotesService();
 
 function DocumentsShareModal() {
   return {
@@ -45,6 +43,10 @@ function DocumentsShareModal() {
               activeNote["can_share"] = false;
             }
           } catch (err) {
+            Alpine.store(StateStore.TOASTER).toasterMsg(
+              "Il y avait une erreur",
+              "error"
+            );
             console.error(err);
           }
         },
@@ -67,11 +69,10 @@ function DocumentsShareModal() {
       return {
         ["x-on:click.prevent"]: async () => {
           try {
-            Alpine.store("shareStore").activeNoteEmailList.push(
-              this.sharedEmailValue
-            );
+            Alpine.store("shareStore").activeNoteEmailList.push({
+              email: this.sharedEmailValue,
+            });
             this.emailsToAdd.push(this.sharedEmailValue);
-            console.log(this.emailsToAdd);
             this.sharedEmailValue = "";
           } catch (err) {
             console.error(err);
@@ -85,15 +86,18 @@ function DocumentsShareModal() {
       };
     },
     sharedEmailName: {
-      ["x-text"]: "eMail",
+      ["x-text"]: "eMail.email",
     },
     deleteSharedEmail() {
       return {
         ["x-on:click.prevent"]: () => {
-          const email = this.eMail;
-          const index = this.sharedEmailList.indexOf(email);
-          this.sharedEmailList.splice(index, 1);
-          this.emailsToDelete.push(email);
+          const currentEmail = this.eMail;
+          const modalEmailList = Alpine.store(
+            StateStore.SHARE
+          ).activeNoteEmailList;
+          const index = modalEmailList.indexOf(currentEmail);
+          modalEmailList.splice(index, 1);
+          this.emailsToDelete.push(currentEmail.email);
         },
       };
     },
@@ -107,10 +111,16 @@ function DocumentsShareModal() {
               noteId: Alpine.store("shareStore").activeNote._id,
             };
             await ShareNoteService.updateEmailsToNote(payload);
-            Alpine.store("toasterStore").toasterMsg("Success", "success");
+            Alpine.store("toasterStore").toasterMsg(
+              "Enregistré avec succès",
+              "success"
+            );
           } catch (err) {
             console.error(err);
-            Alpine.store("toasterStore").toasterMsg("Erreur", "error");
+            Alpine.store("toasterStore").toasterMsg(
+              "Il y avait une erreur",
+              "error"
+            );
           }
         },
       };
