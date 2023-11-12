@@ -1,12 +1,12 @@
 import { objectToQueryParams } from "./apiUtils";
+import { ORDOTYPE_API } from "./apiConfig";
 
 class ApiService {
   /**
-   * @param {string} API_URL
    * @param {string} endpoint
    */
-  constructor(API_URL, endpoint) {
-    this.API_URL = API_URL;
+  constructor(endpoint) {
+    this.API_URL = ORDOTYPE_API;
     this.endpoint = endpoint;
   }
 

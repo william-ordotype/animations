@@ -2,8 +2,8 @@ import ApiService from "./apiService";
 import { updateEmailsToNoteValidation } from "../validation/noteSharesValidation";
 
 class ShareNotesService extends ApiService {
-  constructor(API_URL) {
-    super(API_URL, "note-shares");
+  constructor() {
+    super("note-shares");
   }
 
   /**

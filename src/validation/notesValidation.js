@@ -1,5 +1,22 @@
 import { string, array, object, number, mixed } from "yup";
 
+const sortByValues = [
+  "collection_id",
+  "created_on",
+  "form_id",
+  "item_id",
+  "member_id",
+  "object_id",
+  "pathology",
+  "rich_text_ordo",
+  "slug",
+  "title",
+  "updated_on",
+  "wf_item_id",
+  "published_on",
+  "is_deleted",
+];
+
 const deleteManyNotesValidation = async (payload) => {
   const deleteNotesSchema = object({
     note_ids: array().of(string()).required(),
@@ -17,22 +34,6 @@ const getOneValidation = async (payload) => {
 };
 
 const getListValidation = async (payload) => {
-  const sortByValues = [
-    "collection_id",
-    "created_on",
-    "form_id",
-    "item_id",
-    "member_id",
-    "object_id",
-    "pathology",
-    "rich_text_ordo",
-    "slug",
-    "title",
-    "updated_on",
-    "wf_item_id",
-    "published_on",
-    "is_deleted",
-  ];
   const getListSchema = object({
     page: number().required().positive().integer(),
     limit: number().required().positive().integer(),
@@ -85,10 +86,23 @@ const updateOneValidation = async (payload) => {
   return updateOneSchema.validate(payload);
 };
 
+const searchByNoteTitleAndPathologyTitleValidation = async (payload) => {
+  const searchByNoteTitleAndPathologyTitleSchema = object({
+    page: number().required().positive().integer(),
+    limit: number().required().positive().integer(),
+    sort: string().oneOf(sortByValues).required(),
+    direction: string().oneOf(["DESC", "ASC"]).required(),
+    noteTitleAndPathologyTitle: string(),
+  });
+
+  return await searchByNoteTitleAndPathologyTitleSchema.validate(payload);
+};
+
 export {
   deleteManyNotesValidation,
   getOneValidation,
   getListValidation,
   createOneValidation,
   updateOneValidation,
+  searchByNoteTitleAndPathologyTitleValidation,
 };

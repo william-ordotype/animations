@@ -2,8 +2,8 @@ import apiService from "./apiService";
 import { removeFilesFromNoteValidation } from "../validation/fileNoteValidation";
 
 class FileNoteService extends apiService {
-  constructor(API_URL) {
-    super(API_URL, "documents");
+  constructor() {
+    super("documents");
   }
 
   async addFilesToNote(payload) {

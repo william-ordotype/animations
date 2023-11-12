@@ -6,15 +6,16 @@ import {
   getListValidation,
   createOneValidation,
   updateOneValidation,
+  searchByNoteTitleAndPathologyTitleValidation,
 } from "../validation/notesValidation";
 import { StateStore } from "../utils/enums";
 import { parseFormData } from "./apiUtils";
 import FileNoteService from "./fileNoteService";
 
 class NotesService extends ApiService {
-  constructor(API_URL) {
-    super(API_URL, "notes");
-    this.fileNoteService = new FileNoteService(API_URL);
+  constructor() {
+    super("notes");
+    this.fileNoteService = new FileNoteService();
   }
 
   async deleteMany(payload) {
@@ -55,7 +56,6 @@ class NotesService extends ApiService {
     type = "",
     pathology = [],
     title = "",
-    noteTitleAndPathologyTitle = "",
   }) {
     try {
       const validatedPayload = await getListValidation({
@@ -66,7 +66,6 @@ class NotesService extends ApiService {
         type,
         pathology,
         title,
-        noteTitleAndPathologyTitle,
       });
 
       // Remove empty parameters
@@ -136,6 +135,26 @@ class NotesService extends ApiService {
       filesToAdd.length > 0 && addFilesToNoteReq(),
       filesToDelete.length > 0 && removeFilesFromNoteReq(),
     ]);
+  }
+
+  async searchNotesByTitleAndPathologyTitle({
+    page = 1,
+    limit = 10,
+    sort = "created_on",
+    direction = "DESC",
+    noteTitleAndPathologyTitle,
+  }) {
+    const validatePayload = await searchByNoteTitleAndPathologyTitleValidation({
+      page,
+      limit,
+      sort,
+      direction,
+      noteTitleAndPathologyTitle,
+    });
+    return await this.request({
+      method: "GET",
+      queryParams: validatePayload,
+    });
   }
 }
 

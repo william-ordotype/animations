@@ -138,24 +138,11 @@ function DocumentsModal() {
       if (range) {
         if (range.length === 0) {
           // Inserts QR at cursor position
-
-          // quill.insertEmbed(
-          //   range.index,
-          //   "image",
-          //   qrCode._oDrawing._elCanvas.toDataURL()
-          // );
-
           quill.clipboard.dangerouslyPasteHTML(range.index, linkedQR);
         }
       } else {
         // Inserts QR at at end of document
         const length = quill.getLength();
-
-        // quill.insertEmbed(
-        //   length,
-        //   "image",
-        //   qrCode._oDrawing._elCanvas.toDataURL()
-        // );
 
         quill.clipboard.dangerouslyPasteHTML(length, linkedQR);
       }

@@ -1,9 +1,8 @@
 import Alpine from "alpinejs";
-import { deleteManyNotesValidation } from "../validation/notesValidation";
 import NotesService from "../services/notesService";
 
 const API_URL = `${process.env.ORDOTYPE_API}/v1.0.0`;
-const NoteService = new NotesService(API_URL, window.memberToken);
+const NoteService = new NotesService(API_URL);
 
 const myDocumentsStore = {
   getOne: {

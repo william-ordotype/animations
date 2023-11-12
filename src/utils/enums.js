@@ -5,4 +5,11 @@ const StateStore = {
   SHARE: "shareStore",
 };
 
-export { StateStore };
+const ShareStates = {
+  INVITATION_SENT: "invitation_sent",
+  REVOKED: "revoked",
+  EXPIRED: "expired",
+  AVAILABLE: "available",
+};
+
+export { StateStore, ShareStates };
