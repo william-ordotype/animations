@@ -2358,7 +2358,7 @@
                             x-for="n in $store.documentsStore.getList.pageTotal"
                             class="page_numbers"
                           >
-                            <div x-bind="pageNumber" class="page_number">
+                            <div x-bind="pageNumber(n)" class="page_number">
                               <div>{{1}}</div>
                             </div>
                           </div>

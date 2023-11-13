@@ -9,8 +9,7 @@ import SkeletonLoaderEvent from "../../events/SkeletonLoaderEvent";
 
 import "../../modules/slideon/slideon";
 import "../../modules/slideon/style.scss";
-import "../../router/routes";
-import "../../router/pagination";
+import "./navigation/routes";
 import globals from "../../utils/globals";
 import "../../styles.scss";
 

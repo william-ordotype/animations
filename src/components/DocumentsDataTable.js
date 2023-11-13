@@ -2,6 +2,12 @@ import Alpine from "alpinejs";
 import getFileExtByMimeType from "../assets/file_ext.js";
 import ShareNotesService from "../services/notesSharesService";
 import SkeletonLoaderEvent from "../events/SkeletonLoaderEvent";
+import {
+  handleItemsPerPage,
+  handlePagination,
+  handleSorting,
+} from "../pages/my-documents/navigation/pagination";
+import { StateStore } from "../utils/enums";
 
 const API_URL = `${process.env.ORDOTYPE_API}/v1.0.0`;
 const ShareNotes = new ShareNotesService(API_URL, window.memberToken);
@@ -198,7 +204,7 @@ function DataTableHeader() {
         state[key].isActive = true;
         state[key].direction = toggleDirection(state[key].direction);
 
-        window.handleSorting(
+        handleSorting(
           window.PineconeRouter.currentContext,
           state[key].propertyName,
           state[key].direction
@@ -277,18 +283,30 @@ function DataTableHeader() {
 
 function DataTablePaginationMenu() {
   return {
-    pageNumber() {
+    pageNumber(n) {
       return {
         ["x-text"]: "n",
-        ["x-on:click"]: "handlePagination($router, n)",
-        [":class"]:
-          "+$store.documentsStore.getList.pageNumber === +n && 'active'",
+        ["x-on:click"]: () => {
+          handlePagination(window.PineconeRouter.currentContext, n);
+        },
+        [":class"]: () => {
+          return (
+            +Alpine.store(StateStore.NOTES).getList.pageNumber === +n &&
+            "active"
+          );
+        },
       };
     },
     pageNext() {
       return {
-        ["x-on:click"]:
-          "+$store.documentsStore.getList.pageNumber < +$store.documentsStore.getList.pageTotal && handlePagination($router, +$store.documentsStore.getList.pageNumber+1 )",
+        ["x-on:click"]: () => {
+          const notesStore = Alpine.store(StateStore.NOTES);
+          const $router = window.PineconeRouter.currentContext;
+          return (
+            +notesStore.getList.pageNumber < +notesStore.getList.pageTotal &&
+            handlePagination($router, +notesStore.getList.pageNumber + 1)
+          );
+        },
       };
     },
   };
