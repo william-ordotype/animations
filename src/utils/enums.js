@@ -12,4 +12,9 @@ const ShareStates = {
   AVAILABLE: "available",
 };
 
-export { StateStore, ShareStates };
+const ToasterMsgTypes = {
+  ERROR: "error",
+  SUCCESS: "success",
+};
+
+export { StateStore, ShareStates, ToasterMsgTypes };

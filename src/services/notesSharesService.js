@@ -1,5 +1,8 @@
 import ApiService from "./apiService";
-import { updateEmailsToNoteValidation } from "../validation/noteSharesValidation";
+import {
+  getNoteByTypeValidation,
+  updateEmailsToNoteValidation,
+} from "../validation/noteSharesValidation";
 
 class ShareNotesService extends ApiService {
   constructor() {
@@ -64,8 +67,8 @@ class ShareNotesService extends ApiService {
     });
   }
 
-  async getNotesInvites() {
-    return await this.request({ routeParams: "list" });
+  async getNotes() {
+    return await this.request({ routeParams: "me" });
   }
 
   /**
@@ -74,10 +77,22 @@ class ShareNotesService extends ApiService {
    * @param {string} id
    * @returns {Promise<Object>}
    */
-  async getNoteInviteByType(type, id) {
+  async getNoteByType({ type, id }) {
+    try {
+      const validatePayload = await getNoteByTypeValidation({ type, id });
+      return await this.request({
+        routeParams: `me/${validatePayload.type}/${validatePayload.id}`,
+        method: "GET",
+      });
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  async acceptNoteInvitation({ noteId }) {
     return await this.request({
-      routeParams: `me/${type}/${id}`,
-      method: "GET",
+      routeParams: `accept/${noteId}`,
+      method: "PUT",
     });
   }
 }

@@ -15,4 +15,17 @@ const updateEmailsToNoteValidation = async (payload) => {
   return updateEmailsToNoteSchema.validate(payload);
 };
 
-export { activateSharedNoteValidation, updateEmailsToNoteValidation };
+const getNoteByTypeValidation = async (payload) => {
+  const getNoteByTypeSchema = object({
+    type: string().oneOf(["email", "link"]),
+    id: string(),
+  });
+
+  return getNoteByTypeSchema.validate(payload);
+};
+
+export {
+  activateSharedNoteValidation,
+  updateEmailsToNoteValidation,
+  getNoteByTypeValidation,
+};
