@@ -14,7 +14,6 @@ function router() {
       const inviteId = obj["id"];
       const inviteType = obj["type"];
       const acceptId = obj["acceptId"];
-      NProgress.start();
       debugger;
       try {
         if (acceptId) {
@@ -33,18 +32,10 @@ function router() {
           NProgress.done();
         }
       } catch (err) {
-        Alpine.store(StateStore.TOASTER).toasterMsg(
-          err.message,
-          ToasterMsgTypes.ERROR
-        );
-        console.error(err);
-        notfound(context);
+        Alpine.store(StateStore.SHARE).isInvitedAllowed = false;
+        Alpine.store(StateStore.SHARE).isInvitationLoading = false;
         NProgress.done();
       }
-      //
-      // if (path.contains(".html")) {
-      //   console.log("localserver");
-      // }
     },
     notfound(context) {
       Alpine.store(StateStore.TOASTER).toasterMsg(
@@ -84,4 +75,9 @@ async function showSharedNote({ inviteType, noteId }) {
     type: inviteType,
     id: noteId,
   });
+  Alpine.store(StateStore.SHARE).isInvitedAllowed = true;
+  Alpine.store(StateStore.SHARE).isInvitationLoading = false;
+  Alpine.store(StateStore.SHARE).invitationNote = {
+    ...res,
+  };
 }

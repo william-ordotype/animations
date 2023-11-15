@@ -60,13 +60,7 @@ class ApiService {
     if (response.ok) {
       return await response.json();
     } else {
-      if (response.status === 401) {
-        throw "Unauthorized";
-      }
-      if (response.status === 404) {
-        throw "Not found";
-      }
-      throw response.status;
+      throw response;
     }
   }
 }

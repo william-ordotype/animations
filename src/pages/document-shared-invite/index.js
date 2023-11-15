@@ -8,6 +8,9 @@ import userStore from "../../store/user.store";
 import { StateStore } from "../../utils/enums";
 import toasterStore from "../../store/toaster.store";
 import "nprogress/nprogress.css";
+import NProgress from "nprogress";
+import SharingInvitation from "../../components/SharingInvitation";
+import shareStore from "../../store/share.store";
 
 window.Alpine = Alpine;
 
@@ -18,12 +21,19 @@ window.Alpine = Alpine;
 async function init() {
   globals.run();
 
+  NProgress.start();
+  Alpine.store(StateStore.SHARE).isInvitedAllowed = false;
+  Alpine.store(StateStore.SHARE).isInvitationLoading = true;
+
   const getUser = await $memberstackDom.getCurrentMember();
   Alpine.store("userStore", userStore(getUser));
-  Alpine.store(StateStore.TOASTER, toasterStore);
 }
 
+Alpine.store(StateStore.TOASTER, toasterStore);
+Alpine.store(StateStore.SHARE, shareStore);
+
 Alpine.data("SharingNavigation", router);
+Alpine.data("SharingInvitation", SharingInvitation);
 
 /**
  Runs program

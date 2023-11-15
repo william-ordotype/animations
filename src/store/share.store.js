@@ -1,4 +1,5 @@
 const shareStore = {
+  // My documents page
   shareOptionsEnabled: false,
   shareSwitch: false,
   activeNote: {},
@@ -12,6 +13,11 @@ const shareStore = {
     this.activeNotePublicLink = "";
     this.showCopySuccessMsg = false;
   },
+
+  // Invitation page
+  isInvitationLoading: true,
+  isInvitedAllowed: true,
+  invitationNote: {},
 };
 
 export default shareStore;
