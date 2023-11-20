@@ -43,7 +43,6 @@ import { DocumentAvailableSpaceGraphWidget } from "../../components/DocumentAvai
 import DocumentsSearch from "../../components/DocumentsSearch";
 import shareStore from "../../store/share.store";
 import DocumentsShareModal from "../../components/DocumentsShareModal";
-import NotesStore from "../../store/myNotes.store";
 
 window.Alpine = Alpine;
 
@@ -63,7 +62,7 @@ async function init() {
  */
 
 Alpine.store("documentsStore", myDocumentsStore);
-Alpine.store("documentssStore", NotesStore);
+// Alpine.store("myNotesStore", myNotesStore);
 Alpine.store("modalStore", modalStore);
 Alpine.store("drawerStore", drawerStore);
 Alpine.store("toasterStore", toasterStore);

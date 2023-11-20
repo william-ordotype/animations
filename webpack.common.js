@@ -13,6 +13,7 @@ module.exports = {
       __dirname,
       "src/pages/document-shared-invite/index.js"
     ),
+    "my-notes": path.resolve(__dirname, "src/pages/my-notes/index.js"),
   },
   output: {
     path: path.resolve(__dirname, "dist"),
@@ -69,6 +70,12 @@ module.exports = {
       template: "./src/pages/document-shared-invite/template.html",
       chunks: ["document-shared-invite"],
       filename: "document-shared-invite.html",
+    }),
+    new HtmlWebpackPlugin({
+      title: "Ordotype | My notes",
+      template: "./src/pages/my-notes/template.html",
+      chunks: ["my-notes"],
+      filename: "my-notes.html",
     }),
   ],
 };

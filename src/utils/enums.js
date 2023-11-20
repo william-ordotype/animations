@@ -17,9 +17,15 @@ const ToasterMsgTypes = {
   SUCCESS: "success",
 };
 
+const NoteTypes = {
+  NOTES: "notes", // Notes
+  RECOMMENDATIONS: "recommendations", // Conseils Patient
+  PRESCRIPTIONS: "prescriptions", // Ordonnances
+};
+
 const NotesUrls = {
   MY_NOTES: "/mes-documents#/list",
   NOTES_SHARED_WITH_ME: "/partages-avec-moi",
 };
 
-export { StateStore, ShareStates, ToasterMsgTypes, NotesUrls };
+export { StateStore, ShareStates, ToasterMsgTypes, NotesUrls, NoteTypes };
