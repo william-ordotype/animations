@@ -17,4 +17,9 @@ const ToasterMsgTypes = {
   SUCCESS: "success",
 };
 
-export { StateStore, ShareStates, ToasterMsgTypes };
+const NotesUrls = {
+  MY_NOTES: "/mes-documents#/list",
+  NOTES_SHARED_WITH_ME: "/partages-avec-moi",
+};
+
+export { StateStore, ShareStates, ToasterMsgTypes, NotesUrls };

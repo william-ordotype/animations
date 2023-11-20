@@ -326,7 +326,7 @@
         </div>
         <div class="padding-left padding-small">
           <p
-            x-text="$store.toasterStore.message"
+            x-html="$store.toasterStore.message"
             class="text-weight-semibold no-margin"
           >
             {{toaster text}}
@@ -433,12 +433,12 @@
       <div x-cloak x-bind="sharedAccess" class="view_wrapper document-partag---membre">
         <div class="action_navigation">
           <div class="action_header">
-            <h2 class="view_heading">Nom de l’ordonnance</h2>
+            <h2 x-bind="noteTitle" class="view_heading">Nom de l’ordonnance</h2>
           </div>
           <div class="w-layout-grid action_btns partage">
             <a href="#" class="button is-annuler w-inline-block"
               ><div class="button_text">Mes documents</div></a
-            ><a href="#" class="button is-docs w-inline-block"
+            ><a x-bind="cloneNote" href="#" class="button is-docs w-inline-block"
               ><div class="button_text">Enregistrer une copie</div></a
             >
           </div>
@@ -456,7 +456,7 @@
             alt=""
             class="delete-when-script"
           />
-          <div id="editor-container" class="editor-container">
+          <div x-bind="noteRichText" id="editor-container" class="editor-container">
             <p>
               Lorem ipsum dolor sit amet consectetur. Placerat augue magna
               libero odio diam. Lectus orci elit vitae vitae at ipsum eu
