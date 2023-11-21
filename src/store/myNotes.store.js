@@ -29,7 +29,6 @@ const NotesStore = {
   async init() {
     console.log("Alpine init store");
     Alpine.effect(() => {
-      debugger;
       // Solves Bug: Re attach Webflow dropdown events to newly rendered items
       if (this.noteList) {
         setTimeout(() => {

@@ -4,9 +4,11 @@ import PineconeRouter from "pinecone-router";
 import focus from "@alpinejs/focus";
 import alpineWebflow from "../../modules/alpine-webflow";
 import Alpine from "alpinejs";
+import NProgress from "nprogress";
 
 import SkeletonLoaderEvent from "../../events/SkeletonLoaderEvent";
 
+import "nprogress/nprogress.css";
 import "../../modules/slideon/slideon";
 import "../../modules/slideon/style.scss";
 import "./navigation/routes";
@@ -44,6 +46,7 @@ import DocumentsSearch from "../../components/DocumentsSearch";
 import shareStore from "../../store/share.store";
 import DocumentsShareModal from "../../components/DocumentsShareModal";
 import NotesStore from "../../store/myNotes.store";
+import { StateStore } from "../../utils/enums";
 
 window.Alpine = Alpine;
 
@@ -53,9 +56,9 @@ window.Alpine = Alpine;
  */
 async function init() {
   globals.run();
-
+  NProgress.start();
   const getUser = await $memberstackDom.getCurrentMember();
-  Alpine.store("userStore", userStore(getUser));
+  Alpine.store(StateStore.USER, userStore(getUser));
 }
 
 /**

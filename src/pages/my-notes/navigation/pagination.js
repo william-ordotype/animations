@@ -1,10 +1,11 @@
 import { hashToObject, objectToHash } from "../../../router/pagination";
+import { StateStore } from "../../../utils/enums";
 
 const handlePagination = (routerParams, pageNumber) => {
   const page = pageNumber || routerParams.page;
   let newQuery;
 
-  if (pageNumber > Alpine.store("documentsStore").getList.pageTotal) {
+  if (pageNumber > Alpine.store(StateStore.MY_NOTES).noteListMeta.pageTotal) {
     console.log("No more pages");
     return;
   }

@@ -18,6 +18,11 @@ class NotesService extends ApiService {
     this.fileNoteService = new FileNoteService();
   }
 
+  /**
+   *
+   * @param {array<string>}payload
+   * @returns {Promise<Object>}
+   */
   async deleteMany(payload) {
     const ids = payload.map((item) => item._id);
     const body = { note_ids: ids };
@@ -32,6 +37,11 @@ class NotesService extends ApiService {
     }
   }
 
+  /**
+   *
+   * @param {string} id
+   * @returns {Promise<void>}
+   */
   async getOne(id) {
     try {
       const payload = await getOneValidation(id);
@@ -48,6 +58,17 @@ class NotesService extends ApiService {
     }
   }
 
+  /**
+   *
+   * @param {number} page
+   * @param {number} limit
+   * @param {string} sort
+   * @param {string} direction
+   * @param {string} type
+   * @param {array<string>} pathology
+   * @param {string} title
+   * @returns {Promise<Object>}
+   */
   async getList({
     page = 1,
     limit = 10,
@@ -86,6 +107,13 @@ class NotesService extends ApiService {
       throw err;
     }
   }
+
+  /**
+   *
+   * @param {object} payload
+   * @param {FileList} files
+   * @returns {Promise<Object>}
+   */
   async createOne(payload, files) {
     const validatePayload = await createOneValidation(payload);
     const notesFormData = parseFormData(validatePayload);
@@ -101,6 +129,13 @@ class NotesService extends ApiService {
     });
   }
 
+  /**
+   *
+   * @param {object} payload
+   * @param {FileList} filesToAdd
+   * @param {FileList} filesToDelete
+   * @returns {Promise<Array>}
+   */
   async updateOne(payload, filesToAdd, filesToDelete) {
     const validatePayload = await updateOneValidation(payload);
     debugger;

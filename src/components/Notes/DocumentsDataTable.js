@@ -6,7 +6,7 @@ import {
   handleItemsPerPage,
   handlePagination,
   handleSorting,
-} from "../../pages/my-documents/navigation/pagination";
+} from "../../pages/my-notes/navigation/pagination";
 import { StateStore } from "../../utils/enums";
 
 const API_URL = `${process.env.ORDOTYPE_API}/v1.0.0`;
@@ -37,12 +37,12 @@ function DataTableListItem() {
         ["x-init"]: "$store.notesStore.noteList[index].checked = false",
       };
     },
-    openDrawer() {
+    viewNote() {
       return {
         ["x-on:click"]: `$router.navigate('/view/' + note._id)`,
       };
     },
-    textTitle() {
+    noteTitle() {
       return {
         ["x-text"]: "note.title",
       };
@@ -298,16 +298,21 @@ function DataTableHeader() {
 
 function DataTablePaginationMenu() {
   return {
-    pageNumber(n) {
+    paginationList() {
       return {
-        ["x-text"]: "n",
+        ["x-for"]: "pNumber in $store.notesStore.noteListMeta.pageTotal",
+      };
+    },
+    pageNumber() {
+      return {
+        ["x-text"]: "pNumber",
         ["x-on:click"]: () => {
-          handlePagination(window.PineconeRouter.currentContext, n);
+          handlePagination(window.PineconeRouter.currentContext, this.pNumber);
         },
         [":class"]: () => {
           return (
-            +Alpine.store(StateStore.NOTES).getList.pageNumber === +n &&
-            "active"
+            +Alpine.store(StateStore.MY_NOTES).noteListMeta.pageNumber ===
+              +this.pNumber && "active"
           );
         },
       };
@@ -315,11 +320,12 @@ function DataTablePaginationMenu() {
     pageNext() {
       return {
         ["x-on:click"]: () => {
-          const notesStore = Alpine.store(StateStore.NOTES);
+          const notesStore = Alpine.store(StateStore.MY_NOTES);
           const $router = window.PineconeRouter.currentContext;
           return (
-            +notesStore.getList.pageNumber < +notesStore.getList.pageTotal &&
-            handlePagination($router, +notesStore.getList.pageNumber + 1)
+            +notesStore.noteListMeta.pageNumber <
+              +notesStore.noteListMeta.pageTotal &&
+            handlePagination($router, +notesStore.noteListMeta.pageNumber + 1)
           );
         },
       };

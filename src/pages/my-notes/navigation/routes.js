@@ -1,8 +1,8 @@
 import Alpine from "alpinejs";
 import NotesService from "../../../services/notesService";
 import { StateStore, ToasterMsgTypes } from "../../../utils/enums";
-
-const noteService = new NotesService();
+import NProgress from "nprogress";
+import { setNoteList } from "../../../actions/notesActions";
 
 window.router = () => {
   return {
@@ -69,6 +69,8 @@ window.router = () => {
 };
 
 async function handleRouter(context, { type }) {
+  NProgress.start();
+
   const { page, perPage, sort, direction } = context.params;
   if (
     !Alpine.store("userStore").isAuth ||
@@ -91,15 +93,14 @@ async function handleRouter(context, { type }) {
   ) {
     Alpine.store(StateStore.MY_NOTES).isSearch = false;
     Alpine.store(StateStore.MY_NOTES).searchValue = "";
-
-    const notesRes = await noteService.getList({});
-    const { items_per_page, items_total, page_number, page_total } = notesRes;
-    Alpine.store(StateStore.MY_NOTES).noteList = notesRes.data;
-    Alpine.store(StateStore.MY_NOTES).noteListMeta = {
-      pageNumber: page_number,
-      pageTotal: page_total,
-      itemsTotal: items_total,
-      itemsPerPage: items_per_page,
+    const payload = {
+      page,
+      limit: perPage,
+      sort,
+      direction,
+      type,
     };
+    await setNoteList(payload);
+    NProgress.done();
   }
 }
