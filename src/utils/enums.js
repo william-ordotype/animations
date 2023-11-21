@@ -4,6 +4,7 @@ const StateStore = {
   TOASTER: "toasterStore",
   SHARE: "shareStore",
   MY_NOTES: "notesStore",
+  USER: "userStore",
 };
 
 const ShareStates = {

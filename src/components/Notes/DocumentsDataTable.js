@@ -34,6 +34,7 @@ function DataTableListItem() {
           Alpine.store(StateStore.MY_NOTES).noteList[this.index].checked =
             !Alpine.store(StateStore.MY_NOTES).noteList[this.index].checked;
         },
+        ["x-model"]: () => this.note.checked,
         ["x-init"]: "$store.notesStore.noteList[index].checked = false",
       };
     },
@@ -259,27 +260,17 @@ function DataTableHeader() {
     sortByClick(sortBy) {
       toggleActive(this.state, sortBy);
     },
-    // -- Select all checkbox
-    selectAllClick: () => {
+    selectAll: false,
+    selectAllCheckbox() {
       return {
-        ["x-on:click"]: (ev) => {
-          ev.preventDefault();
-          ev.stopImmediatePropagation();
-
-          // TODO remove this?
-          Alpine.store("documentsStore").getList.allChecked =
-            !Alpine.store("documentsStore").getList.allChecked;
-
-          const allChecked =
-            Alpine.store("documentsStore").getList.allChecked || false;
-          Alpine.store("documentsStore").getList.documents.forEach((doc) => {
-            doc.completed = allChecked;
+        ["x-on:click.stop"]: () => {
+          this.selectAll = !this.selectAll;
+          Alpine.store(StateStore.MY_NOTES).noteList.forEach((noteItem) => {
+            noteItem.checked = this.selectAll;
           });
         },
+        ["x-model"]: this.selectAll,
       };
-    },
-    selectAllClass() {
-      return Alpine.store("documentsStore").getList.allChecked && "active";
     },
     // Class bindings
     // -- Header
