@@ -30,8 +30,8 @@
   },
   "dependencies": {
     "@algolia/autocomplete-js": "^1.12.1",
-    "@alpinejs/focus": "^3.13.1",
-    "alpinejs": "^3.13.1",
+    "@alpinejs/focus": "^3.13.3",
+    "alpinejs": "^3.13.3",
     "dompurify": "^3.0.6",
     "easyqrcodejs": "^4.6.0",
     "nprogress": "^0.2.0",

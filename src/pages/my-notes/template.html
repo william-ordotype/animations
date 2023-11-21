@@ -2125,11 +2125,11 @@
                           </div>
                         </div>
                       </div>
-                      <div
-                        x-for="(d, index) in $store.documentsStore.getList.documents"
-                        class="list_items"
+                      <template
+                        x-data="DataTableListItem"
+                        x-bind="listItems"
                       >
-                        <div x-data="DataTableListItem" class="list_item">
+                        <div class="list_item">
                           <a href="#" class="type_tag_icon w-inline-block"
                             ><div class="type_icon w-embed">
                               <svg
@@ -2157,33 +2157,22 @@
                               class="inside_left"
                             >
                               <div class="flex_horizontal">
-                                <a
-                                  x-effect="checked = $store.documentsStore.getList.documents.length ? $store.documentsStore.getList.documents[index]?.completed : false"
-                                  x-data="{checked: $store.documentsStore.getList.documents[index].completed || false}"
-                                  x-on:click="$event.preventDefault(); $store.documentsStore.getList.documents[index].completed = !checked"
-                                  x-bind:class="checked &amp;&amp; &#x27;active&#x27;"
-                                  href="#"
-                                  class="check_box-copy w-inline-block"
-                                  ><img
-                                    alt="check"
-                                    loading="lazy"
-                                    src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/6408f49c84b6bf6fb46c68cf_check-mark.svg"
-                                    class="check_mark"
-                                /></a>
-                                <div
+                                  <label>
+                                      <input type="checkbox" x-bind="noteCheckBox" />
+                                  </label>
+                                  <div
                                   x-bind="openDrawer"
                                   data-title=""
                                   class="flex_horizontal width-100"
                                 >
                                   <div
-                                    x-bind="textTitle(d)"
+                                    x-bind="textTitle()"
                                     class="text-weight-semibold"
                                   >
                                     {{Nom du document}}
                                   </div>
-                                  <div
-                                    x-for="icon in fileIcons"
-                                    x-init="checkFileIcons(d)"
+                                  <template
+                                    x-bind="noteFileIconsList(note)"
                                     class="file_type_holder"
                                   >
                                     <div
@@ -2194,18 +2183,18 @@
                                         {{pdf}}
                                       </div>
                                     </div>
-                                  </div>
+                                  </template>
                                 </div>
                               </div>
                             </div>
                             <div x-bind="rowType" class="type_tag">
-                              <div x-bind="textType(d)">{{Note}}</div>
+                              <div x-bind="textType()">{{Note}}</div>
                             </div>
                             <div
                               x-bind="rowPrescriptionType"
                               class="prescription_type_tag"
                             >
-                              <div x-bind="textPrescriptionType(d)">
+                              <div x-bind="textPrescriptionType()">
                                 {{Note}}
                               </div>
                             </div>
@@ -2355,7 +2344,7 @@
                             </div>
                           </div>
                         </div>
-                      </div>
+                      </template>
                     </div>
                     <div class="padding-custom24">
                       <div class="w-layout-grid pagination_grid">

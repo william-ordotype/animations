@@ -1,9 +1,4 @@
-import {
-  setIsNoteLoading,
-  setIsNotesLoading,
-  setNoteList,
-} from "../actions/myDocuments.actions";
-import StoreCreator from "./StoreCreator";
+import Alpine from "alpinejs";
 
 const NotesStore = {
   isNotesLoading: false,
@@ -14,11 +9,13 @@ const NotesStore = {
     pageNumber: null,
     pageTotal: null,
     itemsTotal: null,
-    documentType: null,
-    isSearch: false,
     sort: "created_on",
     direction: "DESC",
   },
+  isSearch: false,
+  searchValue: "",
+  noteListType: "",
+
   isRuleStatusLoading: false,
   currentRuleStatus: {
     consumedNotesPercent: "",
@@ -27,6 +24,21 @@ const NotesStore = {
     consumedMegabytesNumber: "",
     allowedNumberOfNotes: "",
     allowedMegabyte: "",
+  },
+
+  async init() {
+    console.log("Alpine init store");
+    Alpine.effect(() => {
+      debugger;
+      // Solves Bug: Re attach Webflow dropdown events to newly rendered items
+      if (this.noteList) {
+        setTimeout(() => {
+          window.Webflow.require("dropdown").ready();
+          window.Webflow.require("ix2").init();
+        }, 1000);
+      }
+      console.log("painted");
+    });
   },
 };
 

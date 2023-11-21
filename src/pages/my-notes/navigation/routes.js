@@ -1,4 +1,8 @@
 import Alpine from "alpinejs";
+import NotesService from "../../../services/notesService";
+import { StateStore, ToasterMsgTypes } from "../../../utils/enums";
+
+const noteService = new NotesService();
 
 window.router = () => {
   return {
@@ -27,7 +31,7 @@ window.router = () => {
           type = "";
           listTitle = "Tous mes documents";
       }
-      Alpine.store("documentsStore").getList.documentTypeTitle = listTitle;
+      Alpine.store(StateStore.MY_NOTES).noteListType = listTitle;
       await handleRouter(context, { type });
     },
     async viewDocuments(context) {
@@ -56,13 +60,10 @@ window.router = () => {
     },
     notfound(context) {
       console.log("Not found");
-      Alpine.store("toasterStore").toasterMsg("Not found", "error");
-      // if (context.path.includes("list") || context.path.includes("view")) {
-      //   console.log(context);
-      //   console.log("Not found");
-      // } else {
-      //   location.href = context.path;
-      // }
+      Alpine.store(StateStore.TOASTER).toasterMsg(
+        "Not found",
+        ToasterMsgTypes.ERROR
+      );
     },
   };
 };
@@ -76,7 +77,7 @@ async function handleRouter(context, { type }) {
     console.log("Not authorized to navigate");
     return;
   }
-  Alpine.store("documentsStore").getList.documentType = type;
+  Alpine.store(StateStore.MY_NOTES).noteListType = type;
 
   // Shows getList items
   Alpine.store("modalStore").showModal = false;
@@ -86,17 +87,19 @@ async function handleRouter(context, { type }) {
   // AKA if when closing the drawer there are not documents loaded
   if (
     !context.hash.split("/").includes("view") ||
-    Alpine.store("documentsStore").getList.documents.length === 0
+    Alpine.store(StateStore.MY_NOTES).noteList.length === 0
   ) {
-    Alpine.store("documentsStore").getList.isSearch = false;
-    Alpine.store("documentsStore").getList.searchValue = "";
+    Alpine.store(StateStore.MY_NOTES).isSearch = false;
+    Alpine.store(StateStore.MY_NOTES).searchValue = "";
 
-    await Alpine.store("documentsStore").getList.setDocuments({
-      type,
-      page,
-      limit: perPage,
-      sort,
-      direction,
-    });
+    const notesRes = await noteService.getList({});
+    const { items_per_page, items_total, page_number, page_total } = notesRes;
+    Alpine.store(StateStore.MY_NOTES).noteList = notesRes.data;
+    Alpine.store(StateStore.MY_NOTES).noteListMeta = {
+      pageNumber: page_number,
+      pageTotal: page_total,
+      itemsTotal: items_total,
+      itemsPerPage: items_per_page,
+    };
   }
 }

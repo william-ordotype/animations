@@ -3,6 +3,7 @@ const StateStore = {
   MODAL: "modalStore",
   TOASTER: "toasterStore",
   SHARE: "shareStore",
+  MY_NOTES: "notesStore",
 };
 
 const ShareStates = {
