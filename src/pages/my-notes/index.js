@@ -27,6 +27,7 @@ import {
   DataTableListItemSubmenu,
   DataTableHeader,
   DataTablePerPageDropdown,
+  LayoutContainer,
 } from "../../components/notes/DocumentsDataTable";
 
 import DocumentsTypeNavigation from "../../components/DocumentsTypeNavigation";
@@ -47,6 +48,8 @@ import shareStore from "../../store/share.store";
 import DocumentsShareModal from "../../components/DocumentsShareModal";
 import NotesStore from "../../store/myNotes.store";
 import { StateStore } from "../../utils/enums";
+import { setLocale } from "yup";
+import { errorMessageFr } from "../../validation/errorMessages";
 
 window.Alpine = Alpine;
 
@@ -59,6 +62,7 @@ async function init() {
   NProgress.start();
   const getUser = await $memberstackDom.getCurrentMember();
   Alpine.store(StateStore.USER, userStore(getUser));
+  setLocale(errorMessageFr);
 }
 
 /**
@@ -77,7 +81,7 @@ Alpine.store("shareStore", shareStore);
  */
 DocumentsTypeNavigation();
 DocumentsDrawer();
-
+Alpine.data("LayoutContainer", LayoutContainer);
 // Documents Datatable
 Alpine.data("DataTableHeader", DataTableHeader);
 Alpine.data("DataTableListItem", DataTableListItem);

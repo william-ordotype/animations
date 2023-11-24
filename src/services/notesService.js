@@ -8,9 +8,10 @@ import {
   updateOneValidation,
   searchByNoteTitleAndPathologyTitleValidation,
 } from "../validation/notesValidation";
-import { StateStore } from "../utils/enums";
+import { StateStore, ToasterMsgTypes } from "../utils/enums";
 import { parseFormData } from "./apiUtils";
 import FileNoteService from "./fileNoteService";
+import NProgress from "nprogress";
 
 class NotesService extends ApiService {
   constructor() {
@@ -104,6 +105,11 @@ class NotesService extends ApiService {
         queryParams: validatedPayload,
       });
     } catch (err) {
+      Alpine.store(StateStore.TOASTER).toasterMsg(
+        "Il y a eu une erreur lors du traitement de votre demande",
+        ToasterMsgTypes.ERROR
+      );
+      NProgress.done();
       throw err;
     }
   }

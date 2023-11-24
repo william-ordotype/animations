@@ -1,6 +1,7 @@
 import ApiService from "./apiService";
 import {
   getNoteByTypeValidation,
+  getNotesValidation,
   updateEmailsToNoteValidation,
 } from "../validation/noteSharesValidation";
 
@@ -67,8 +68,23 @@ class ShareNotesService extends ApiService {
     });
   }
 
-  async getNotes() {
-    return await this.request({ routeParams: "me" });
+  async getNotes(payload) {
+    const validatePayload = getNotesValidation(payload);
+
+    Object.keys(validatePayload).forEach(
+      (key) =>
+        (validatePayload[key] === "" ||
+          validatePayload[key] === undefined ||
+          (Array.isArray(validatePayload[key]) &&
+            validatePayload[key].length === 0)) &&
+        delete validatePayload[key]
+    );
+
+    return await this.request({
+      routeParams: "me",
+      method: "GET",
+      queryParams: validatePayload,
+    });
   }
 
   /**

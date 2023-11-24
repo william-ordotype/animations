@@ -1,4 +1,4 @@
-import { string, array, object } from "yup";
+import { string, array, object, number } from "yup";
 const activateSharedNoteValidation = async (payload) => {
   const activateSharedNoteSchema = object();
 
@@ -12,7 +12,7 @@ const updateEmailsToNoteValidation = async (payload) => {
     noteId: string().required(),
   });
 
-  return updateEmailsToNoteSchema.validate(payload);
+  return await updateEmailsToNoteSchema.validate(payload);
 };
 
 const getNoteByTypeValidation = async (payload) => {
@@ -21,11 +21,30 @@ const getNoteByTypeValidation = async (payload) => {
     id: string(),
   });
 
-  return getNoteByTypeSchema.validate(payload);
+  return await getNoteByTypeSchema.validate(payload);
+};
+
+const getNotesValidation = async (payload) => {
+  const getNotesSchema = object({
+    page: number().required().positive().integer(),
+    limit: number().required().positive().integer(),
+    sort: string().oneOf(sortByValues).required(),
+    direction: string().oneOf(["DESC", "ASC"]).required(),
+    type: string()
+      .oneOf(["notes", "prescriptions", "recommendations", ""])
+      .optional(),
+    prescription_type: string()
+      .oneOf(["balance_sheet", "treatment", ""])
+      .optional(),
+    pathology: array().of(string()).optional(),
+  });
+
+  return await getNotesSchema.validate(payload);
 };
 
 export {
   activateSharedNoteValidation,
   updateEmailsToNoteValidation,
   getNoteByTypeValidation,
+  getNotesValidation,
 };

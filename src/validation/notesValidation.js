@@ -1,20 +1,11 @@
 import { string, array, object, number, mixed } from "yup";
 
 const sortByValues = [
-  "collection_id",
   "created_on",
-  "form_id",
-  "item_id",
-  "member_id",
-  "object_id",
   "pathology",
-  "rich_text_ordo",
-  "slug",
   "title",
-  "updated_on",
-  "wf_item_id",
-  "published_on",
-  "is_deleted",
+  "type",
+  "prescription_type",
 ];
 
 const deleteManyNotesValidation = async (payload) => {

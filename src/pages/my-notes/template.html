@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Last Published: Tue Nov 21 2023 01:51:26 GMT+0000 (Coordinated Universal Time) -->
+<!-- Last Published: Tue Nov 21 2023 23:49:36 GMT+0000 (Coordinated Universal Time) -->
 <html
   data-wf-domain="ordotype.webflow.io"
   data-wf-page="655bd64b4beebf9dc750ace3"
@@ -39,7 +39,7 @@
       name="google-site-verification"
     />
     <link
-      href="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.653570487.min.css"
+      href="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.5fbc21d8f.min.css"
       rel="stylesheet"
       type="text/css"
     />
@@ -1117,7 +1117,7 @@
                 </div>
               </div>
             </div>
-            <div class="documents_tabs">
+            <div x-data="LayoutContainer" class="documents_tabs">
               <div x-data="DocumentsNavigation()" class="tabs_menu">
                 <a
                   native=""
@@ -1527,11 +1527,7 @@
                     </div>
                   </div>
                 </div>
-                <div
-                  x-show="$store.documentsStore.getList.isLoading"
-                  x-data=""
-                  class="loading_container center"
-                >
+                <div x-bind="dataTableLoading" class="loading_container center">
                   <div class="hide">Loading</div>
                   <div
                     class="lottie-animation"
@@ -1547,12 +1543,7 @@
                     data-duration="0"
                   ></div>
                 </div>
-                <div
-                  x-show="!$store.userStore.isAuth || !$store.userStore.hasPaidSub"
-                  x-cloak=""
-                  x-data=""
-                  class="paywall_wrapper"
-                >
+                <div x-bind="notMemberView" x-cloak="" class="paywall_wrapper">
                   <div class="contenu-premium">
                     <div class="w-layout-grid cont_grid">
                       <img
@@ -1646,19 +1637,18 @@
                 </div>
                 <div class="tabs_panel">
                   <div
-                    x-show="$store.userStore.hasPaidSub &amp;&amp; !$store.documentsStore.getList.isLoading &amp;&amp; (!$store.documentsStore.getList.isEmpty || $store.documentsStore.getList.isSearch)"
+                    x-bind="isMemberView"
                     x-cloak=""
-                    x-data=""
                     class="content_main_wrapper"
                   >
                     <div class="padding-custom24">
                       <div class="w-layout-grid header_wrapper">
                         <h2
-                          x-text="$store.documentsStore.getList.documentTypeTitle"
+                          x-bind="mainHeading"
                           id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0ed9-c750ace3"
                           class="heading-h2-docs"
                         >
-                          {{Tous mes documents debug}}
+                          {{Tous mes documents}}
                         </h2>
                         <div
                           x-data=""
@@ -1666,11 +1656,7 @@
                           class="documents_count text-size-small text-weight-light"
                         >
                           <div class="doc_number">
-                            <div
-                              x-text="$store.documentsStore.getList.itemsTotal"
-                            >
-                              {{128}}
-                            </div>
+                            <div x-bind="noteTotal">{{128}}</div>
                           </div>
                           <div>documents</div>
                         </div>
@@ -1881,13 +1867,16 @@
                           class="w-layout-grid doc_item_grid header_g"
                         >
                           <div
-                            x-bind:class="sortByHeadClass(&#x27;sortByTitle&#x27;)"
-                            x-on:click="sortByClick(&#x27;sortByTitle&#x27;)"
+                            x-bind="sortByTitle"
                             id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0f0e-c750ace3"
                             class="sort_cover first"
                           >
                             <div class="flex_horizontal">
-                                <input type="checkbox" class="check_box" x-bind="selectAllCheckbox">
+                              <input
+                                type="checkbox"
+                                class="check_box"
+                                x-bind="selectAllCheckbox"
+                              />
                               <div>Nom</div>
                               <div class="sort_wrapper">
                                 <div
@@ -2191,7 +2180,7 @@
                               </div>
                             </div>
                             <div class="div-block-415">
-                              <div class="w-embed">
+                              <div native="" class="pathologie_tag w-embed">
                                 <a
                                   native
                                   title="note.pathologies[0].title"
@@ -2247,7 +2236,7 @@
                                       class="sub_list w-dropdown-list"
                                     >
                                       <a
-                                        x-bind="editNote(d)"
+                                        x-bind="editNote(note)"
                                         href="#"
                                         class="sub_link w-inline-block"
                                         ><div class="w-layout-grid grid_gap_8">
@@ -2273,7 +2262,7 @@
                                           </div>
                                         </div></a
                                       ><a
-                                        x-bind="shareNote(d)"
+                                        x-bind="shareNote(note)"
                                         href="#"
                                         class="sub_link borders w-inline-block"
                                         ><div class="w-layout-grid grid_gap_8">
@@ -2301,7 +2290,7 @@
                                           </div>
                                         </div></a
                                       ><a
-                                        x-bind="deleteNote(d)"
+                                        x-bind="deleteNote(note)"
                                         href="#"
                                         class="sub_link color_red w-inline-block"
                                         ><div class="w-layout-grid grid_gap_8">
@@ -2341,19 +2330,17 @@
                     <div class="padding-custom24">
                       <div class="w-layout-grid pagination_grid">
                         <div
-                             x-data="DataTablePaginationMenu"
+                          x-data="DataTablePaginationMenu"
                           id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf10d0-c750ace3"
                           class="pagination_left"
                         >
-                            <template x-bind="paginationList">
-                          <div
-                            class="page_numbers"
+                          <template class="template" x-bind="paginationList"
+                            ><div class="page_numbers">
+                              <div x-bind="pageNumber" class="page_number">
+                                <div>{{1}}</div>
+                              </div>
+                            </div></template
                           >
-                            <div x-bind="pageNumber" class="page_number">
-                              <div>{{1}}</div>
-                            </div>
-                          </div>
-                            </template>
                           <div
                             id="page_next"
                             x-bind="pageNext"
@@ -2421,15 +2408,14 @@
                     </div>
                   </div>
                   <div
-                    x-data=""
+                    x-bind="isEmptyView"
                     x-cloak=""
-                    x-show="$store.userStore.hasPaidSub &amp;&amp; !($store.documentsStore.getList.isLoading) &amp;&amp; $store.documentsStore.getList.isEmpty &amp;&amp; !($store.documentsStore.getList.isSearch)"
                     class="content_main_wrapper"
                   >
                     <div class="padding-custom24">
                       <div class="w-layout-grid header_wrapper em">
                         <h2
-                          x-text="$store.documentsStore.getList.documentTypeTitle"
+                          x-bind="mainHeading"
                           id="w-node-_1264d39d-4dca-f98d-77d8-4153c34852cd-c750ace3"
                           class="heading-h2-docs"
                         >
@@ -3869,7 +3855,7 @@
       crossorigin="anonymous"
     ></script>
     <script
-      src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/js/webflow.621c45d53.js"
+      src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/js/webflow.ecb6ae7f1.js"
       type="text/javascript"
     ></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -3961,6 +3947,7 @@ Webflow.push(function(){$('.w-richtext p').html(function(){return $(this).html()
     <script src="https://cdn.jsdelivr.net/npm/@algolia/autocomplete-js"></script>
     <!--- <script src="https://static.ordotype.fr/my-documents.js"></script> -->
     <!--- <script src="https://seashell-app-etfao.ondigitalocean.app/my-documents.js"></script> --->
+
 
     <script>
       const clipboard = new ClipboardJS(".is-copy");

@@ -263,7 +263,7 @@ function DataTableHeader() {
     selectAll: false,
     selectAllCheckbox() {
       return {
-        ["x-on:click.stop"]: () => {
+        ["x-on:click"]: (ev) => {
           this.selectAll = !this.selectAll;
           Alpine.store(StateStore.MY_NOTES).noteList.forEach((noteItem) => {
             noteItem.checked = this.selectAll;
@@ -283,6 +283,13 @@ function DataTableHeader() {
       if (this.state[sortBy].direction === direction) {
         return "active";
       }
+    },
+    // Had to create this one individually to fix selectAll conflict bubbling event
+    sortByTitle() {
+      return {
+        ["x-on:click.self"]: "sortByClick('sortByTitle')",
+        ["x-bind:class"]: "sortByHeadClass('sortByTitle')",
+      };
     },
   };
 }
@@ -345,10 +352,47 @@ function DataTablePerPageDropdown() {
   };
 }
 
+function LayoutContainer() {
+  return {
+    isMemberView() {
+      return {
+        ["x-show"]:
+          "$store.userStore.hasPaidSub && !$store.notesStore.isNotesLoading && (!$store.notesStore.isEmpty || $store.notesStore.isSearch)",
+      };
+    },
+    notMemberView() {
+      return {
+        ["x-show"]: "!$store.userStore.isAuth || !$store.userStore.hasPaidSub",
+      };
+    },
+    isEmptyView() {
+      return {
+        ["x-show"]:
+          "$store.userStore.hasPaidSub && !($store.notesStore.isNotesLoading) && $store.notesStore.isEmpty && !($store.notesStore.isSearch)",
+      };
+    },
+    mainHeading() {
+      return {
+        ["x-text"]:
+          "$store.notesStore.noteListType === '' ? 'Tous mes documents' : globals.documentTypes[$store.notesStore.noteListType]",
+      };
+    },
+    noteTotal() {
+      return {
+        ["x-text"]: "$store.notesStore.noteListMeta.itemsTotal",
+      };
+    },
+    dataTableLoading: {
+      ["x-show"]: "$store.notesStore.isNotesLoading",
+    },
+  };
+}
+
 export {
   DataTableHeader,
   DataTableListItem,
   DataTableListItemSubmenu,
   DataTablePaginationMenu,
   DataTablePerPageDropdown,
+  LayoutContainer,
 };

@@ -34,3 +34,5 @@ const errorMessageFr = {
     max: "Ne doit pas avoir plus de ${max} éléments", // Cannot have more than ${max} items
   },
 };
+
+export { errorMessageFr };

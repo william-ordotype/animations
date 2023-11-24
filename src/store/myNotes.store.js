@@ -3,6 +3,7 @@ import Alpine from "alpinejs";
 const NotesStore = {
   isNotesLoading: false,
   isNoteLoading: false,
+  isEmpty: false,
   noteList: [],
   noteOpened: {},
   noteListMeta: {
