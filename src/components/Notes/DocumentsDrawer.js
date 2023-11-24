@@ -60,13 +60,13 @@ function DocumentsDrawer() {
     async drawerDeleteOne(ev) {
       ev.preventDefault();
       await Alpine.store("modalStore").openBeforeDelete(
-        Alpine.store("documentsStore").getOne.document
+        Alpine.store(StateStore.MY_NOTES).noteOpened.note
       );
     },
     drawerEdit(ev) {
       ev.preventDefault();
       Alpine.store("modalStore").openModal(
-        Alpine.store("documentsStore").getOne.document.note
+        Alpine.store(StateStore.MY_NOTES).noteOpened.note
       );
     },
 

@@ -126,7 +126,7 @@ function DataTableListItemSubmenu() {
       return {
         ["x-show"]: "true",
         ["@click.prevent"]: async (ev) => {
-          await Alpine.store("modalStore").openModal(d, { type: note.type });
+          await Alpine.store("modalStore").openModal(note, { type: note.type });
         },
       };
     },

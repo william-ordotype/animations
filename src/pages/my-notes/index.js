@@ -36,7 +36,7 @@ import {
   DocumentsModal,
   OpenModalByType,
   PathologiesAutocomplete,
-} from "../../components/DocumentsModal";
+} from "../../components/Notes/DocumentsModal";
 
 import {
   DocumentFileInput,
