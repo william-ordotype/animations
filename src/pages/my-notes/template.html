@@ -2713,7 +2713,7 @@
                   src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/6409a60abee24b0929f62f72_cross.svg"
                   loading="lazy"
                   id="w-node-_5e73bd5a-ce56-4459-5f7f-74573fcb3d7f-c750ace3"
-                  x-on:click="drawerClose($event)"
+                  x-bind="drawerClose()"
                   alt="exit croix"
                   class="close_icon"
                 />
@@ -2749,12 +2749,13 @@
                 id="w-node-_5e73bd5a-ce56-4459-5f7f-74573fcb3d83-c750ace3"
                 class="tags_wrapper"
               >
+                  <template x-bind="listPathologies">
                 <div
-                  x-for="ptag in $store.documentsStore.getOne.document.note.pathologies"
                   class="view_tag"
                 >
                   <div x-text="ptag.title">{{Pathologie associée}}</div>
                 </div>
+                  </template>
               </div>
               <div
                 id="w-node-_5e73bd5a-ce56-4459-5f7f-74573fcb3d87-c750ace3"
@@ -2799,12 +2800,9 @@
                     class="icon_copy"
                 /></a>
               </div>
-              <div x-data="" class="files_wrapper">
+              <div class="files_wrapper">
                 <div class="files_holder">
-                  <div
-                    x-for="file in $store.documentsStore.getOne.document.note.documents"
-                    class="file_block_wrapper"
-                  >
+                  <template x-bind="getFiles" >
                     <a
                       x-bind:href="fileSrc"
                       x-on:click="window.open(fileSrc, &#x27;_blank&#x27;)"
@@ -2812,22 +2810,23 @@
                       href="#"
                       class="file_block w-inline-block"
                       ><div class="w-layout-grid file_grid">
-                        <div
-                          x-if="isImg"
-                          id="w-node-f7619463-5fd8-f02d-64a4-0a18c56fb2d3-c750ace3"
-                          class="file_img_wrapper"
-                        >
-                          <div class="w-embed">
-                            <img
-                              src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/649a52cf2ee9756547f93e3a_SCR-20230626-tzag.png"
-                              loading="lazy"
-                              x-bind:src="isImg &amp;&amp; fileSrc"
-                              sizes="(max-width: 479px) 286px, (max-width: 767px) 60vw, (max-width: 991px) 28vw, (max-width: 1279px) 26vw, (max-width: 1439px) 24vw, 334px"
-                              alt=""
-                              class="file_img"
-                            />
+                        <template x-if="isImg">
+                          <div
+                            id="w-node-f7619463-5fd8-f02d-64a4-0a18c56fb2d3-c750ace3"
+                            class="file_img_wrapper"
+                          >
+                            <div class="w-embed">
+                              <img
+                                src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/649a52cf2ee9756547f93e3a_SCR-20230626-tzag.png"
+                                loading="lazy"
+                                x-bind:src="isImg &amp;&amp; fileSrc"
+                                sizes="(max-width: 479px) 286px, (max-width: 767px) 60vw, (max-width: 991px) 28vw, (max-width: 1279px) 26vw, (max-width: 1439px) 24vw, 334px"
+                                alt=""
+                                class="file_img"
+                              />
+                            </div>
                           </div>
-                        </div>
+                        </template>
                         <figure
                           id="w-node-f7619463-5fd8-f02d-64a4-0a18c56fb2d5-c750ace3"
                           class="file_description"
@@ -2856,7 +2855,7 @@
                         </figure>
                       </div></a
                     >
-                  </div>
+                  </template>
                 </div>
               </div>
             </div>
@@ -3947,7 +3946,6 @@ Webflow.push(function(){$('.w-richtext p').html(function(){return $(this).html()
     <script src="https://cdn.jsdelivr.net/npm/@algolia/autocomplete-js"></script>
     <!--- <script src="https://static.ordotype.fr/my-documents.js"></script> -->
     <!--- <script src="https://seashell-app-etfao.ondigitalocean.app/my-documents.js"></script> --->
-
 
     <script>
       const clipboard = new ClipboardJS(".is-copy");

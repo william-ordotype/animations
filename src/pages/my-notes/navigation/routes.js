@@ -1,5 +1,4 @@
 import Alpine from "alpinejs";
-import NotesService from "../../../services/notesService";
 import { StateStore, ToasterMsgTypes } from "../../../utils/enums";
 import NProgress from "nprogress";
 import { setNoteList } from "../../../actions/notesActions";
@@ -93,14 +92,20 @@ async function handleRouter(context, { type }) {
   ) {
     Alpine.store(StateStore.MY_NOTES).isSearch = false;
     Alpine.store(StateStore.MY_NOTES).searchValue = "";
-    const payload = {
-      page,
-      limit: perPage,
-      sort,
-      direction,
-      type,
-    };
-    await setNoteList(payload);
+    try {
+      const payload = {
+        page,
+        limit: perPage,
+        sort,
+        direction,
+        type,
+      };
+      await setNoteList(payload);
+      NProgress.done();
+    } catch (err) {
+      NProgress.done();
+    }
+  } else {
     NProgress.done();
   }
 }

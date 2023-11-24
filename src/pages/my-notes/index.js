@@ -31,7 +31,7 @@ import {
 } from "../../components/notes/DocumentsDataTable";
 
 import DocumentsTypeNavigation from "../../components/Notes/DocumentsTypeNavigation";
-import DocumentsDrawer from "../../components/DocumentsDrawer";
+import DocumentsDrawer from "../../components/Notes/DocumentsDrawer";
 import {
   DocumentsModal,
   OpenModalByType,
@@ -80,8 +80,8 @@ Alpine.store("shareStore", shareStore);
  * Declaring local state for each component
  */
 DocumentsTypeNavigation();
-DocumentsDrawer();
 Alpine.data("LayoutContainer", LayoutContainer);
+Alpine.data("DocumentsDrawer", DocumentsDrawer);
 // Documents Datatable
 Alpine.data("DataTableHeader", DataTableHeader);
 Alpine.data("DataTableListItem", DataTableListItem);

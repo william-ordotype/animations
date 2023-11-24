@@ -1,17 +1,16 @@
 import Alpine from "alpinejs";
 import ApiService from "./apiService";
 import {
-  deleteManyNotesValidation,
-  getOneValidation,
-  getListValidation,
   createOneValidation,
-  updateOneValidation,
+  deleteManyNotesValidation,
+  getListValidation,
+  getOneValidation,
   searchByNoteTitleAndPathologyTitleValidation,
+  updateOneValidation,
 } from "../validation/notesValidation";
 import { StateStore, ToasterMsgTypes } from "../utils/enums";
 import { parseFormData } from "./apiUtils";
 import FileNoteService from "./fileNoteService";
-import NProgress from "nprogress";
 
 class NotesService extends ApiService {
   constructor() {
@@ -41,19 +40,15 @@ class NotesService extends ApiService {
   /**
    *
    * @param {string} id
-   * @returns {Promise<void>}
+   * @returns {Promise<Object>}
    */
   async getOne(id) {
     try {
       const payload = await getOneValidation(id);
-      const response = await this.request({
+      return await this.request({
         method: "GET",
         routeParams: payload,
       });
-
-      Alpine.store(StateStore.NOTES).getOne.document = {
-        ...response,
-      };
     } catch (err) {
       throw err;
     }
@@ -109,7 +104,6 @@ class NotesService extends ApiService {
         "Il y a eu une erreur lors du traitement de votre demande",
         ToasterMsgTypes.ERROR
       );
-      NProgress.done();
       throw err;
     }
   }
