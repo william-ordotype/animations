@@ -30,7 +30,7 @@ import {
   LayoutContainer,
 } from "../../components/notes/DocumentsDataTable";
 
-import DocumentsTypeNavigation from "../../components/DocumentsTypeNavigation";
+import DocumentsTypeNavigation from "../../components/Notes/DocumentsTypeNavigation";
 import DocumentsDrawer from "../../components/DocumentsDrawer";
 import {
   DocumentsModal,
