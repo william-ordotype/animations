@@ -3,6 +3,7 @@ import QRCode from "easyqrcodejs";
 
 import globals from "../../utils/globals";
 import PathologiesService from "../../services/pathologiesService";
+import { StateStore } from "../../utils/enums";
 
 const pathologiesService = new PathologiesService();
 function DocumentsModal() {
@@ -200,6 +201,12 @@ function PathologiesAutocomplete() {
       return {
         ["x-show"]: "$store.modalStore.form.pathology.length > 0",
         ["x-transition"]: "",
+        ["x-for"]: "(pathology, pindex) in $store.modalStore.form.pathology",
+      };
+    },
+    searchTitle() {
+      return {
+        ["x-text"]: "pathology.title",
       };
     },
     clearSearchResults(obj) {
@@ -308,4 +315,25 @@ function OpenModalByType() {
   };
 }
 
-export { DocumentsModal, OpenModalByType, PathologiesAutocomplete };
+function DeleteSelectedNotes() {
+  return {
+    deleteManyButton() {
+      return {
+        ["x-show"]: "$store.notesStore.areNotesSelected",
+        ["x-on:click.prevent"]: (ev) => {
+          const selectedNotes = Alpine.store(
+            StateStore.MY_NOTES
+          ).noteList.filter((note) => note.checked);
+          Alpine.store("modalStore").openBeforeDelete(selectedNotes);
+        },
+      };
+    },
+  };
+}
+
+export {
+  DocumentsModal,
+  OpenModalByType,
+  PathologiesAutocomplete,
+  DeleteSelectedNotes,
+};

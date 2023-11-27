@@ -100,6 +100,7 @@ class NotesService extends ApiService {
         queryParams: validatedPayload,
       });
     } catch (err) {
+      console.error(err);
       Alpine.store(StateStore.TOASTER).toasterMsg(
         "Il y a eu une erreur lors du traitement de votre demande",
         ToasterMsgTypes.ERROR
@@ -189,6 +190,13 @@ class NotesService extends ApiService {
     return await this.request({
       method: "GET",
       queryParams: validatePayload,
+    });
+  }
+
+  async getRulesStatus() {
+    return this.request({
+      method: "GET",
+      routeParams: "rules/status",
     });
   }
 }

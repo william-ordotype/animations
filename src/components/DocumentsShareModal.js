@@ -48,6 +48,7 @@ function DocumentsShareModal() {
               "error"
             );
             console.error(err);
+            ev.preventDefault();
           }
         },
       };

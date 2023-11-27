@@ -33,9 +33,13 @@ function DataTableListItem() {
         ["x-on:change"]: () => {
           Alpine.store(StateStore.MY_NOTES).noteList[this.index].checked =
             !Alpine.store(StateStore.MY_NOTES).noteList[this.index].checked;
+          // $store.documentsStore.getList.documents.some(e =&gt; e.completed)
+          Alpine.store(StateStore.MY_NOTES).areNotesSelected = Alpine.store(
+            StateStore.MY_NOTES
+          ).noteList.some((note) => note.checked);
         },
         ["x-model"]: () => this.note.checked,
-        ["x-init"]: "$store.notesStore.noteList[index].checked = false",
+        ["x-init"]: "$store.notesStore.noteList[index].checked = false;",
       };
     },
     viewNote() {
@@ -149,8 +153,7 @@ function DataTableListItemSubmenu() {
           Alpine.store("shareStore").shareSwitch = isShareActive;
           Alpine.store("shareStore").shareOptionsEnabled = isShareActive;
           Alpine.store("shareStore").showSharingOptions = isShareActive;
-          Alpine.store("shareStore").activeNote = d;
-
+          Alpine.store("shareStore").activeNote = note;
           if (isShareActive) {
             const { emails, linkId } = await ShareNotes.getSharedInfoFromNote({
               noteId: note._id,
@@ -268,6 +271,7 @@ function DataTableHeader() {
           Alpine.store(StateStore.MY_NOTES).noteList.forEach((noteItem) => {
             noteItem.checked = this.selectAll;
           });
+          Alpine.store(StateStore.MY_NOTES).areNotesSelected = this.selectAll;
         },
         ["x-model"]: this.selectAll,
       };

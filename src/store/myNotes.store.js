@@ -1,8 +1,8 @@
 import Alpine from "alpinejs";
 
 const NotesStore = {
-  isNotesLoading: false,
-  isNoteLoading: false,
+  isNotesLoading: true,
+  isNoteLoading: true,
   isEmpty: false,
   noteList: [],
   noteOpened: {},
@@ -16,8 +16,9 @@ const NotesStore = {
   isSearch: false,
   searchValue: "",
   noteListType: "",
+  areNotesSelected: false,
 
-  isRuleStatusLoading: false,
+  isRuleStatusLoading: true,
   currentRuleStatus: {
     consumedNotesPercent: "",
     consumedMegabytesPercent: "",

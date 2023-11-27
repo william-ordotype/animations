@@ -15,7 +15,6 @@ import "./navigation/routes";
 import globals from "../../utils/globals";
 import "../../styles.scss";
 
-import myDocumentsStore from "../../store/myDocuments.store";
 import modalStore from "../../store/modal.store";
 import drawerStore from "../../store/drawer.store";
 import userStore from "../../store/user.store";
@@ -28,11 +27,12 @@ import {
   DataTableHeader,
   DataTablePerPageDropdown,
   LayoutContainer,
-} from "../../components/notes/DocumentsDataTable";
+} from "../../components/Notes/DocumentsDataTable";
 
 import DocumentsTypeNavigation from "../../components/Notes/DocumentsTypeNavigation";
 import DocumentsDrawer from "../../components/Notes/DocumentsDrawer";
 import {
+  DeleteSelectedNotes,
   DocumentsModal,
   OpenModalByType,
   PathologiesAutocomplete,
@@ -49,6 +49,7 @@ import NotesStore from "../../store/myNotes.store";
 import { StateStore } from "../../utils/enums";
 import { setLocale } from "yup";
 import { errorMessageFr } from "../../validation/errorMessages";
+import { DocumentAvailableSpaceGraphWidget } from "../../components/Notes/DocumentAvailableSpaceGraphWidget";
 
 window.Alpine = Alpine;
 
@@ -68,7 +69,6 @@ async function init() {
  * Declaring global state to be shared among components
  */
 
-Alpine.store("documentsStore", myDocumentsStore);
 Alpine.store("notesStore", NotesStore);
 Alpine.store("modalStore", modalStore);
 Alpine.store("drawerStore", drawerStore);
@@ -93,13 +93,17 @@ Alpine.data("DocumentsSearch", DocumentsSearch);
 Alpine.data("DocumentsModal", DocumentsModal);
 Alpine.data("OpenModalByType", OpenModalByType);
 Alpine.data("PathologiesAutocomplete", PathologiesAutocomplete);
+Alpine.data("DeleteSelectedNotes", DeleteSelectedNotes);
 
 // Documents Files located in drawer and modal
 Alpine.data("DocumentFileListItem", DocumentFileListItem);
 Alpine.data("DocumentFileInput", DocumentFileInput);
 
 // Documents Available Space Graph Widget
-Alpine.data("DocumentsAvailableSpace", DocumentAvailableSpaceGraphWidget);
+Alpine.data(
+  "DocumentAvailableSpaceGraphWidget",
+  DocumentAvailableSpaceGraphWidget
+);
 
 // Sharing
 Alpine.data("DocumentsShareModal", DocumentsShareModal);

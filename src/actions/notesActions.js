@@ -44,8 +44,10 @@ async function editNote(payload) {
 async function setNotesRuleStatus() {
   try {
     Alpine.store(StateStore.MY_NOTES).isRuleStatusLoading = true;
-    const response = await noteService.getRuleStatus();
-    debugger;
+    if (!Alpine.store(StateStore.USER).isAuth) {
+      return;
+    }
+    const response = await noteService.getRulesStatus();
 
     const consumedNotesNumber =
       response.allowedNumberOfNotes - response.numberOfRemainingNotes;

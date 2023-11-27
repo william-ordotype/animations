@@ -44,23 +44,28 @@ class ApiService {
       parsedRouteParams || ""
     }${parsedQueryParams || ""}`;
 
-    const response = await fetch(fetchURL, {
-      method: method,
-      headers: {
-        Authorization: `Bearer ${window.memberToken}`,
-        ...(noContentType ? {} : { "Content-Type": contentType }),
-      },
-      body: data ? (noContentType ? data : JSON.stringify(data)) : undefined,
-    });
+    try {
+      const response = await fetch(fetchURL, {
+        method: method,
+        headers: {
+          Authorization: `Bearer ${window.memberToken}`,
+          ...(noContentType ? {} : { "Content-Type": contentType }),
+        },
+        body: data ? (noContentType ? data : JSON.stringify(data)) : undefined,
+      });
 
-    if (resCallBack) {
-      return resCallBack(response);
-    }
+      if (resCallBack) {
+        return resCallBack(response);
+      }
 
-    if (response.ok) {
-      return await response.json();
-    } else {
-      throw response;
+      if (response.ok) {
+        return await response.json();
+      } else {
+        throw response;
+      }
+    } catch (err) {
+      console.error(err);
+      throw err;
     }
   }
 }
