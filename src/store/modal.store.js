@@ -84,7 +84,6 @@ const modalStore = {
   // Delete Path
   deleteList: [],
   openBeforeDelete(docsToDelete) {
-    debugger;
     // Convert docsToDelete to array if it's not already
     if (!Array.isArray(docsToDelete)) {
       if (docsToDelete.note) {
@@ -118,7 +117,6 @@ const modalStore = {
         const pageNumber =
           Alpine.store(StateStore.MY_NOTES).noteListMeta?.pageNumber || 1;
         const documentType = Alpine.store(StateStore.MY_NOTES).noteListType;
-        debugger;
         // Redirect to list
         PineconeRouter.currentContext.redirect(
           `/list?type=${documentType ? documentType : "all"}${

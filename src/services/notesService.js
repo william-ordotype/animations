@@ -139,7 +139,6 @@ class NotesService extends ApiService {
    */
   async updateOne(payload, filesToAdd, filesToDelete) {
     const validatePayload = await updateOneValidation(payload);
-    debugger;
     // remove files and documents from formFields
     delete validatePayload.files;
     delete validatePayload.documents;
