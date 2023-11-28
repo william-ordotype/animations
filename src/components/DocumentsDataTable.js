@@ -1,5 +1,16 @@
 import Alpine from "alpinejs";
 import getFileExtByMimeType from "../assets/file_ext.js";
+import ShareNotesService from "../services/notesSharesService";
+import SkeletonLoaderEvent from "../events/SkeletonLoaderEvent";
+import {
+  handleItemsPerPage,
+  handlePagination,
+  handleSorting,
+} from "../pages/my-documents/navigation/pagination";
+import { StateStore } from "../utils/enums";
+
+const API_URL = `${process.env.ORDOTYPE_API}/v1.0.0`;
+const ShareNotes = new ShareNotesService(API_URL, window.memberToken);
 
 function DataTableListItem() {
   return {
@@ -88,6 +99,63 @@ function DataTableListItemSubmenu() {
       ev.preventDefault();
       Alpine.store("modalStore").openBeforeDelete(d);
     },
+    deleteNote(d) {
+      return {
+        ["x-show"]: "true",
+        ["@click.prevent"]: async (ev) => {
+          Alpine.store("modalStore").openBeforeDelete(d);
+        },
+      };
+    },
+    editNote(d) {
+      return {
+        ["x-show"]: "true",
+        ["@click.prevent"]: async (ev) => {
+          await Alpine.store("modalStore").openModal(d, { type: d.type });
+        },
+      };
+    },
+    shareNote(d) {
+      return {
+        ["x-show"]: "true",
+        ["@click.prevent"]: async (ev) => {
+          const isShareActive = !!d["can_share"];
+          SkeletonLoaderEvent.dispatchCustomEvent(
+            document.querySelector(".search_result_wrapper.partage"),
+            true
+          );
+          SkeletonLoaderEvent.dispatchCustomEvent(
+            document.querySelectorAll(
+              ".activer_par_wrapper .text-size-regular, .activer_par_wrapper .text-size-small"
+            ),
+            true
+          );
+          Alpine.store("modalStore").showSharingOptions = true;
+          Alpine.store("shareStore").shareSwitch = isShareActive;
+          Alpine.store("shareStore").shareOptionsEnabled = isShareActive;
+          Alpine.store("shareStore").showSharingOptions = isShareActive;
+          Alpine.store("shareStore").activeNote = d;
+
+          if (isShareActive) {
+            const { emails, linkId } = await ShareNotes.getSharedInfoFromNote({
+              noteId: d._id,
+            });
+            Alpine.store("shareStore").activeNoteEmailList = emails;
+            Alpine.store("shareStore").activeNotePublicLink = linkId;
+          }
+          SkeletonLoaderEvent.dispatchCustomEvent(
+            document.querySelector(".search_result_wrapper.partage"),
+            false
+          );
+          SkeletonLoaderEvent.dispatchCustomEvent(
+            document.querySelectorAll(
+              ".activer_par_wrapper .text-size-regular, .activer_par_wrapper .text-size-small"
+            ),
+            false
+          );
+        },
+      };
+    },
   };
 }
 
@@ -136,7 +204,7 @@ function DataTableHeader() {
         state[key].isActive = true;
         state[key].direction = toggleDirection(state[key].direction);
 
-        window.handleSorting(
+        handleSorting(
           window.PineconeRouter.currentContext,
           state[key].propertyName,
           state[key].direction
@@ -215,18 +283,30 @@ function DataTableHeader() {
 
 function DataTablePaginationMenu() {
   return {
-    pageNumber() {
+    pageNumber(n) {
       return {
         ["x-text"]: "n",
-        ["x-on:click"]: "handlePagination($router, n)",
-        [":class"]:
-          "+$store.documentsStore.getList.pageNumber === +n && 'active'",
+        ["x-on:click"]: () => {
+          handlePagination(window.PineconeRouter.currentContext, n);
+        },
+        [":class"]: () => {
+          return (
+            +Alpine.store(StateStore.NOTES).getList.pageNumber === +n &&
+            "active"
+          );
+        },
       };
     },
     pageNext() {
       return {
-        ["x-on:click"]:
-          "+$store.documentsStore.getList.pageNumber < +$store.documentsStore.getList.pageTotal && handlePagination($router, +$store.documentsStore.getList.pageNumber+1 )",
+        ["x-on:click"]: () => {
+          const notesStore = Alpine.store(StateStore.NOTES);
+          const $router = window.PineconeRouter.currentContext;
+          return (
+            +notesStore.getList.pageNumber < +notesStore.getList.pageTotal &&
+            handlePagination($router, +notesStore.getList.pageNumber + 1)
+          );
+        },
       };
     },
   };

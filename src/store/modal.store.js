@@ -1,11 +1,17 @@
 import * as DOMPurify from "dompurify";
 import Alpine from "alpinejs";
+import NotesService from "../services/notesService";
+import { StateStore, ToasterMsgTypes } from "../utils/enums";
+import { setNoteList, setNoteOpened } from "../actions/notesActions";
+
+const notesService = new NotesService();
 
 const modalStore = {
   showModal: false,
   showBeforeSave: false,
   showBeforeCancel: false,
   showBeforeDelete: false,
+  showSharingOptions: false,
   showInsertUrl: false,
   loadModal: true,
   loadSubmit: false,
@@ -104,30 +110,40 @@ const modalStore = {
     ev.preventDefault();
     this.closeBeforeDelete();
     try {
-      await Alpine.store("documentsStore").deleteMany.exec(this.deleteList);
+      const noteIds = this.deleteList;
+      const res = await notesService.deleteMany([...noteIds]);
       if (Alpine.store("drawerStore").showDrawer === true) {
         Alpine.store("drawerStore").hideDrawer();
         const pageNumber =
-          Alpine.store("documentsStore").getList.pageNumber || "";
-        const documentType =
-          Alpine.store("documentsStore").getList.documentType;
+          Alpine.store(StateStore.MY_NOTES).noteListMeta?.pageNumber || 1;
+        const documentType = Alpine.store(StateStore.MY_NOTES).noteListType;
         // Redirect to list
         PineconeRouter.currentContext.redirect(
           `/list?type=${documentType ? documentType : "all"}${
             pageNumber && "&page=" + pageNumber
           }`
         );
-        Alpine.store("documentsStore").getOne.document = {
+        Alpine.store(StateStore.MY_NOTES).noteOpened = {
           note: {},
           member: {},
         };
       }
-      await Alpine.store("documentsStore").getList.setDocuments();
-      Alpine.store("toasterStore").toasterMsg(
-        "Documents supprimés avec succès",
-        "success",
-        2000
-      );
+      if (res.deletedCount.length > 0) {
+        Alpine.store("toasterStore").toasterMsg(
+          "Documents supprimés avec succès",
+          ToasterMsgTypes.SUCCESS,
+          3000
+        );
+      } else {
+        Alpine.store("toasterStore").toasterMsg(
+          "Erreur",
+          ToasterMsgTypes.ERROR,
+          2000
+        );
+      }
+      await setNoteList({
+        page: 1,
+      });
     } catch (err) {
       console.error(err);
       Alpine.store("toasterStore").toasterMsg("Erreur", "error", 2000);
@@ -188,18 +204,14 @@ const modalStore = {
       let formResponse;
       if (isEdit) {
         // Transform fetch race to array of json
-        const [formRes, fileRes, filesDeletedRes] = await Alpine.store(
-          "documentsStore"
-        ).mutateOne.exec(form, files, filesToDelete);
+        const [formRes, fileRes, filesDeletedRes] = notesService.updateOne(
+          form,
+          files,
+          filesToDelete
+        );
         formResponse = await formRes.json();
       } else {
-        formResponse = await (
-          await Alpine.store("documentsStore").mutateOne.exec(
-            form,
-            files,
-            filesToDelete
-          )
-        ).json();
+        formResponse = await notesService.createOne(form, files);
       }
 
       // Handle server errors from notes form submission
@@ -228,18 +240,15 @@ const modalStore = {
         });
 
         if (Alpine.store("drawerStore").showDrawer === true) {
-          await Alpine.store("documentsStore").getOne.setDocument({
-            id: form._id,
-          });
+          await setNoteOpened(form._id);
         }
 
         const pathologyId = window.pathology._id;
-        Alpine.store("documentsStore").getList.isLoading = true;
-        await Alpine.store("documentsStore").getList.setDocuments({
+        await setNoteList({
           pathology: pathologyId,
           limit: 40,
         });
-        Alpine.store("documentsStore").getList.isLoading = false;
+
         noteListComponents.forEach((component) => {
           component.dispatchEvent(window.customEvents.loadingCancel);
         });
@@ -250,9 +259,7 @@ const modalStore = {
       // In order to update all the drawer fields
       if (window.location.hash.includes("/view")) {
         Alpine.store("drawerStore").loadDrawer = true;
-        await Alpine.store("documentsStore").getOne.setDocument({
-          id: form._id,
-        });
+        await setNoteOpened(form._id);
         Alpine.store("drawerStore").loadDrawer = false;
       } else {
         Alpine.store("toasterStore").toasterMsg(
@@ -262,15 +269,13 @@ const modalStore = {
         );
         // If modal is open from create button, refresh the getList documents
         // In order to update the table list
-        Alpine.store("documentsStore").getList.isLoading = true;
-        await Alpine.store("documentsStore").getList.setDocuments({
-          type: Alpine.store("documentsStore").getList.documentType,
+
+        await setNoteList({
+          type: Alpine.store(StateStore.MY_NOTES).noteListType,
         });
-        Alpine.store("documentsStore").getList.isLoading = false;
       }
     } catch (err) {
       console.error(err);
-      debugger;
       this.formError = true;
       this.formErrorMessage =
         err.message || window.globals.statusMessages.static.error;

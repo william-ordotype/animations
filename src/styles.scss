@@ -125,7 +125,8 @@
   background-color: #f2fdf5;
 }
 
-.tags_wrapper, .view_tag {
+.tags_wrapper,
+.view_tag {
   -webkit-print-color-adjust: exact;
 }
 
@@ -178,9 +179,16 @@
   pointer-events: none;
 }
 
-.file_title [x-text="fileName"] {
-  overflow: hidden;
-  white-space: nowrap;
-  width: 200px;
-  text-overflow: ellipsis;
+.file_title  {
+  .file-label, .ext-label {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+    max-width: 150px;
+  }
+}
+
+.slideon input:checked ~ .slideon-slider {
+  background-color: rgb(52, 84, 246);
 }

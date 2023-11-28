@@ -42,6 +42,12 @@ function DocumentFileInput() {
     removeFileExtension(filename) {
       return filename.split(".").slice(0, -1).join(".");
     },
+    listFilesFromInput: {
+      ["x-for"]: "(fileItem, index) in $store.modalStore.files",
+    },
+    listFilesFromServer: {
+      ["x-for"]: "file in $store.modalStore.form.files",
+    },
   };
 }
 
