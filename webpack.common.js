@@ -14,6 +14,7 @@ module.exports = {
       "src/pages/document-shared-invite/index.js"
     ),
     "my-notes": path.resolve(__dirname, "src/pages/my-notes/index.js"),
+    store: path.resolve(__dirname, "src/pages/store/index.js"),
   },
   output: {
     path: path.resolve(__dirname, "dist"),
