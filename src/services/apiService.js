@@ -61,7 +61,7 @@ class ApiService {
       if (response.ok) {
         return await response.json();
       } else {
-        throw response;
+        return response;
       }
     } catch (err) {
       console.error(err);

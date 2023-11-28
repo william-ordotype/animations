@@ -1,7 +1,7 @@
 import * as DOMPurify from "dompurify";
 import Alpine from "alpinejs";
 import NotesService from "../services/notesService";
-import { StateStore } from "../utils/enums";
+import { StateStore, ToasterMsgTypes } from "../utils/enums";
 import { setNoteList, setNoteOpened } from "../actions/notesActions";
 
 const notesService = new NotesService();
@@ -84,6 +84,7 @@ const modalStore = {
   // Delete Path
   deleteList: [],
   openBeforeDelete(docsToDelete) {
+    debugger;
     // Convert docsToDelete to array if it's not already
     if (!Array.isArray(docsToDelete)) {
       if (docsToDelete.note) {
@@ -110,12 +111,14 @@ const modalStore = {
     ev.preventDefault();
     this.closeBeforeDelete();
     try {
-      await notesService.deleteMany(this.deleteList);
+      const noteIds = this.deleteList;
+      const res = await notesService.deleteMany([...noteIds]);
       if (Alpine.store("drawerStore").showDrawer === true) {
         Alpine.store("drawerStore").hideDrawer();
         const pageNumber =
-          Alpine.store(StateStore.MY_NOTES).noteListMeta.pageNumber || "";
+          Alpine.store(StateStore.MY_NOTES).noteListMeta?.pageNumber || 1;
         const documentType = Alpine.store(StateStore.MY_NOTES).noteListType;
+        debugger;
         // Redirect to list
         PineconeRouter.currentContext.redirect(
           `/list?type=${documentType ? documentType : "all"}${
@@ -127,12 +130,22 @@ const modalStore = {
           member: {},
         };
       }
-      await setNoteList();
-      Alpine.store("toasterStore").toasterMsg(
-        "Documents supprimés avec succès",
-        "success",
-        2000
-      );
+      if (res.deletedCount.length > 0) {
+        Alpine.store("toasterStore").toasterMsg(
+          "Documents supprimés avec succès",
+          ToasterMsgTypes.SUCCESS,
+          3000
+        );
+      } else {
+        Alpine.store("toasterStore").toasterMsg(
+          "Erreur",
+          ToasterMsgTypes.ERROR,
+          2000
+        );
+      }
+      await setNoteList({
+        page: 1,
+      });
     } catch (err) {
       console.error(err);
       Alpine.store("toasterStore").toasterMsg("Erreur", "error", 2000);

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Last Published: Mon Nov 27 2023 20:47:44 GMT+0000 (Coordinated Universal Time) -->
+<!-- Last Published: Mon Nov 27 2023 22:07:24 GMT+0000 (Coordinated Universal Time) -->
 <html
   data-wf-domain="ordotype.webflow.io"
   data-wf-page="655bd64b4beebf9dc750ace3"
@@ -39,7 +39,7 @@
       name="google-site-verification"
     />
     <link
-      href="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.0d7a00781.min.css"
+      href="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.8946b4d0e.min.css"
       rel="stylesheet"
       type="text/css"
     />
@@ -1470,10 +1470,9 @@
               </div>
               <div class="tabs_documents">
                 <div
-                  x-transition="fade"
+                  x-cloak=""
                   x-data=""
                   x-show="$store.toasterStore.showToaster"
-                  x-cloak=""
                   class="toast_container"
                 >
                   <div class="toast-element">
@@ -2943,120 +2942,115 @@
                       class="files_wrapper_modal"
                     >
                       <div class="files_holder">
-                        <div
-                          x-key="file_.id"
-                          x-for="file in $store.modalStore.form.files"
-                          class="file_block"
-                        >
-                          <div
-                            x-data="DocumentFileListItem(file)"
-                            class="w-layout-grid file_grid"
-                          >
+                        <template class="template" x-bind="listFilesFromServer"
+                          ><div class="file_block">
                             <div
-                              x-if="isImg"
-                              id="w-node-_5047aa32-b096-f60a-acfe-c7971ac334c1-c750ace3"
-                              class="file_img_wrapper"
+                              x-data="DocumentFileListItem(file)"
+                              class="w-layout-grid file_grid"
                             >
-                              <div class="w-embed">
-                                <img
-                                  src=""
-                                  x-bind:src="fileSrc"
-                                  class="file_img"
-                                />
-                              </div>
-                            </div>
-                            <div
-                              id="w-node-_5047aa32-b096-f60a-acfe-c7971ac334c3-c750ace3"
-                              class="file_description"
-                            >
-                              <div class="flex_horizontal">
-                                <div class="file_type_holder action">
-                                  <div
-                                    x-bind:class="fileExt"
-                                    class="file_type_icon pdf"
-                                  >
-                                    <div x-text="fileExt">pdf</div>
+                              <template
+                                id="w-node-_6d68707a-1618-b35b-1985-519c8b14d3b9-c750ace3"
+                                class="template"
+                                x-if="isImg"
+                                ><div
+                                  id="w-node-_6d68707a-1618-b35b-1985-519c8b14d3ba-c750ace3"
+                                  class="file_img_wrapper"
+                                >
+                                  <img
+                                    class="file_img"
+                                    x-bind:src="isImg &amp;&amp; fileSrc"
+                                    src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/649a52cf2ee9756547f93e3a_SCR-20230626-tzag.png"
+                                  /></div
+                              ></template>
+                              <div
+                                id="w-node-_5047aa32-b096-f60a-acfe-c7971ac334c3-c750ace3"
+                                class="file_description"
+                              >
+                                <div class="flex_horizontal">
+                                  <div class="file_type_holder action">
+                                    <div
+                                      x-bind:class="fileExt"
+                                      class="file_type_icon pdf"
+                                    >
+                                      <div x-text="fileExt">pdf</div>
+                                    </div>
+                                  </div>
+                                  <div class="file_title">
+                                    <div x-text="fileName" class="file-label">
+                                      {{FileName}}
+                                    </div>
+                                    <div
+                                      x-text="&#x27;.&#x27;+ fileExt"
+                                      class="ext-label"
+                                    >
+                                      .{{ext}}
+                                    </div>
                                   </div>
                                 </div>
-                                <div class="file_title">
-                                  <div x-text="fileName" class="file-label">
-                                    {{FileName}}
-                                  </div>
-                                  <div
-                                    x-text="&#x27;.&#x27;+ fileExt"
-                                    class="ext-label"
-                                  >
-                                    .{{ext}}
-                                  </div>
+                                <div class="w-embed">
+                                  <img
+                                    src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/640b498538ea4d0ffac77e07_Butt-cross.svg"
+                                    loading="lazy"
+                                    alt=""
+                                    class="close_file"
+                                    x-on:click.once="deleteServerFiles($event, fileId)"
+                                  />
                                 </div>
                               </div>
-                              <div class="w-embed">
-                                <img
-                                  src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/640b498538ea4d0ffac77e07_Butt-cross.svg"
-                                  loading="lazy"
-                                  alt=""
-                                  class="close_file"
-                                  x-on:click.once="deleteServerFiles($event, fileId)"
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+                            </div></div
+                        ></template>
                       </div>
                     </div>
                     <div
                       id="files-local"
-                      x-if="filesAttached !== null"
                       class="files_wrapper_modal"
                     >
                       <div class="files_holder">
-                        <div
-                          x-for="(fileItem, index) in $store.modalStore.files"
-                          class="file_block"
-                        >
-                          <div class="w-layout-grid file_grid">
-                            <div
-                              id="w-node-_166d42f0-63e1-c5fc-3c52-b37d7bb076b0-c750ace3"
-                              class="file_description"
-                            >
-                              <div class="flex_horizontal">
-                                <div class="file_type_holder action">
-                                  <div
-                                    x-bind:class="getFileExtension(fileItem.name)"
-                                    class="file_type_icon pdf"
-                                  >
+                        <template class="template" x-bind="listFilesFromInput"
+                          ><div class="file_block">
+                            <div class="w-layout-grid file_grid">
+                              <div
+                                id="w-node-_166d42f0-63e1-c5fc-3c52-b37d7bb076b0-c750ace3"
+                                class="file_description"
+                              >
+                                <div class="flex_horizontal">
+                                  <div class="file_type_holder action">
                                     <div
-                                      x-text="getFileExtension(fileItem.name)"
+                                      x-bind:class="getFileExtension(fileItem.name)"
+                                      class="file_type_icon pdf"
                                     >
-                                      pdf
+                                      <div
+                                        x-text="getFileExtension(fileItem.name)"
+                                      >
+                                        pdf
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="file_title">
+                                    <div
+                                      x-text="removeFileExtension(fileItem.name)"
+                                      class="file-label"
+                                    >
+                                      {{FileName}}
+                                    </div>
+                                    <div
+                                      x-text="&#x27;.&#x27; + getFileExtension(fileItem.name)"
+                                      class="ext-label"
+                                    >
+                                      .{{ext}}
                                     </div>
                                   </div>
                                 </div>
-                                <div class="file_title">
-                                  <div
-                                    x-text="removeFileExtension(fileItem.name)"
-                                    class="file-label"
-                                  >
-                                    {{FileName}}
-                                  </div>
-                                  <div
-                                    x-text="&#x27;.&#x27; + getFileExtension(fileItem.name)"
-                                    class="ext-label"
-                                  >
-                                    .{{ext}}
-                                  </div>
-                                </div>
+                                <img
+                                  x-on:click="handleDeleteFile(fileItem, index)"
+                                  loading="lazy"
+                                  alt="croix"
+                                  src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/640b498538ea4d0ffac77e07_Butt-cross.svg"
+                                  class="close_file"
+                                />
                               </div>
-                              <img
-                                x-on:click="handleDeleteFile(fileItem, index)"
-                                loading="lazy"
-                                alt="croix"
-                                src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/640b498538ea4d0ffac77e07_Butt-cross.svg"
-                                class="close_file"
-                              />
-                            </div>
-                          </div>
-                        </div>
+                            </div></div
+                        ></template>
                       </div>
                     </div>
                   </div>
@@ -3346,9 +3340,9 @@
                         <div id="pathology-autocomplete"></div>
                       </div>
                     </div>
-                        <div class="search_result_wrapper context_comment">
-                    <template class="template" x-bind="showSearchResults">
-                        <div class="search_result_holder primary100">
+                    <div class="search_result_wrapper context_comment">
+                      <template class="template" x-bind="showSearchResults"
+                        ><div class="search_result_holder primary100">
                           <div class="inner_header">
                             <div x-bind="searchTitle">{{Pathologie}}</div>
                             <img
@@ -3358,11 +3352,9 @@
                               src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/6409a60abee24b0929f62f72_cross.svg"
                               class="close_icon is_search"
                             />
-                          </div>
-                        </div>
-                      </template>
-                        </div
-                    >
+                          </div></div
+                      ></template>
+                    </div>
                   </div>
                   <div class="action_input_wrapper">
                     <label class="w-checkbox checkbox-field-2"
@@ -3940,7 +3932,7 @@ Webflow.push(function(){$('.w-richtext p').html(function(){return $(this).html()
     <!--- <script src="https://static.ordotype.fr/my-documents.js"></script> -->
     <!--- <script src="https://seashell-app-etfao.ondigitalocean.app/my-documents.js"></script> --->
 
-    
+
 
     <script>
       const clipboard = new ClipboardJS(".is-copy");

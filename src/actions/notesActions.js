@@ -26,11 +26,15 @@ async function setNoteList(payload) {
 
 async function setNoteOpened(payload) {
   Alpine.store(StateStore.MY_NOTES).isNoteLoading = true;
-
-  const getNoteRes = await noteService.getOne(payload);
-  const { member, note } = getNoteRes;
-  Alpine.store(StateStore.MY_NOTES).noteOpened = { note, member };
-  Alpine.store(StateStore.MY_NOTES).isNoteLoading = false;
+  try {
+    const getNoteRes = await noteService.getOne(payload);
+    const { member, note } = getNoteRes;
+    Alpine.store(StateStore.MY_NOTES).noteOpened = { note, member };
+    Alpine.store(StateStore.MY_NOTES).isNoteLoading = false;
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
 }
 
 async function createNote(payload) {

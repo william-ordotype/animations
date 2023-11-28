@@ -7,9 +7,9 @@ const NotesStore = {
   noteList: [],
   noteOpened: {},
   noteListMeta: {
-    pageNumber: null,
-    pageTotal: null,
-    itemsTotal: null,
+    pageNumber: 1,
+    pageTotal: 10,
+    itemsTotal: 10,
     sort: "created_on",
     direction: "DESC",
   },

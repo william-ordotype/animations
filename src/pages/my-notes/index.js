@@ -2,9 +2,10 @@
 
 import PineconeRouter from "pinecone-router";
 import focus from "@alpinejs/focus";
-import alpineWebflow from "../../modules/alpine-webflow";
+// import alpineWebflow from "../../modules/alpine-webflow";
 import Alpine from "alpinejs";
 import NProgress from "nprogress";
+import { setLocale } from "yup";
 
 import SkeletonLoaderEvent from "../../events/SkeletonLoaderEvent";
 
@@ -19,6 +20,8 @@ import modalStore from "../../store/modal.store";
 import drawerStore from "../../store/drawer.store";
 import userStore from "../../store/user.store";
 import toasterStore from "../../store/toaster.store";
+import shareStore from "../../store/share.store";
+import notesStore from "../../store/myNotes.store";
 
 import {
   DataTablePaginationMenu,
@@ -28,7 +31,6 @@ import {
   DataTablePerPageDropdown,
   LayoutContainer,
 } from "../../components/Notes/DocumentsDataTable";
-
 import DocumentsTypeNavigation from "../../components/Notes/DocumentsTypeNavigation";
 import DocumentsDrawer from "../../components/Notes/DocumentsDrawer";
 import {
@@ -37,19 +39,16 @@ import {
   OpenModalByType,
   PathologiesAutocomplete,
 } from "../../components/Notes/DocumentsModal";
-
 import {
   DocumentFileInput,
   DocumentFileListItem,
 } from "../../components/DocumentsFiles";
 import DocumentsSearch from "../../components/Notes/DocumentsSearch";
-import shareStore from "../../store/share.store";
 import DocumentsShareModal from "../../components/DocumentsShareModal";
-import NotesStore from "../../store/myNotes.store";
-import { StateStore } from "../../utils/enums";
-import { setLocale } from "yup";
-import { errorMessageFr } from "../../validation/errorMessages";
 import { DocumentAvailableSpaceGraphWidget } from "../../components/Notes/DocumentAvailableSpaceGraphWidget";
+
+import { StateStore } from "../../utils/enums";
+import { errorMessageFr } from "../../validation/errorMessages";
 
 window.Alpine = Alpine;
 
@@ -69,7 +68,7 @@ async function init() {
  * Declaring global state to be shared among components
  */
 
-Alpine.store("notesStore", NotesStore);
+Alpine.store("notesStore", notesStore);
 Alpine.store("modalStore", modalStore);
 Alpine.store("drawerStore", drawerStore);
 Alpine.store("toasterStore", toasterStore);
@@ -124,7 +123,7 @@ if (!window.Webflow) {
 window.Quill = Quill;
 window.Webflow.push(() => {
   init().then(() => {
-    alpineWebflow();
+    // alpineWebflow();
 
     Alpine.plugin(focus);
     Alpine.plugin(PineconeRouter);
