@@ -1,4 +1,12 @@
 import Alpine from "alpinejs";
+import { StateStore, ToasterMsgTypes } from "../../../utils/enums";
+import NProgress from "nprogress";
+import {
+  setSharedNoteList,
+  setSharedNoteOpened,
+} from "../../../actions/sharedNotesActions";
+import { handleDrawer } from "../../../components/Notes/DocumentsDrawer";
+import { setNoteOpened } from "../../../actions/notesActions";
 
 window.router = () => {
   return {
@@ -8,34 +16,32 @@ window.router = () => {
       }
     },
     async listDocuments(context) {
-      let type;
-      let listTitle;
-      switch (context.params.type) {
-        case "notes":
-          type = context.params.type;
-          listTitle = globals.documentTypes["notes"];
-          break;
-        case "recommendations":
-          type = context.params.type;
-          listTitle = globals.documentTypes["recommendations"];
-          break;
-        case "prescriptions":
-          type = context.params.type;
-          listTitle = globals.documentTypes["prescriptions"];
-          break;
-        default:
-          type = "";
-          listTitle = "Tous mes documents";
-      }
-      Alpine.store("documentsStore").getList.documentTypeTitle = listTitle;
-      await handleRouter(context, { type });
+      Alpine.store(StateStore.MY_NOTES).noteListType = "shared";
+      await handleRouter(context);
     },
     async viewDocuments(context) {
       const id = context.params.id;
       if (id) {
         // Shows getOne drawer
-        await window.globals.drawer.handleDrawer({ id });
-        console.log("drawer");
+        Alpine.store("drawerStore").loadDrawer = true;
+        Alpine.store("drawerStore").showDrawer = true;
+        Alpine.store("modalStore").showModal = false;
+
+        try {
+          await setSharedNoteOpened({ noteId: id });
+          if (Alpine.store(StateStore.MY_NOTES).noteOpened.note?._id) {
+            Alpine.store("drawerStore").loadDrawer = false;
+          } else {
+            Alpine.store("drawerStore").hideDrawer();
+            Alpine.store("toasterStore").toasterMsg(
+              "Document introuvable",
+              "error",
+              4500
+            );
+          }
+        } catch (err) {
+          // TODO Show warning error notification
+        }
       }
     },
     createPrescription(context) {
@@ -56,18 +62,17 @@ window.router = () => {
     },
     notfound(context) {
       console.log("Not found");
-      Alpine.store("toasterStore").toasterMsg("Not found", "error");
-      // if (context.path.includes("list") || context.path.includes("view")) {
-      //   console.log(context);
-      //   console.log("Not found");
-      // } else {
-      //   location.href = context.path;
-      // }
+      Alpine.store(StateStore.TOASTER).toasterMsg(
+        "Not found",
+        ToasterMsgTypes.ERROR
+      );
     },
   };
 };
 
-async function handleRouter(context, { type }) {
+async function handleRouter(context) {
+  NProgress.start();
+
   const { page, perPage, sort, direction } = context.params;
   if (
     !Alpine.store("userStore").isAuth ||
@@ -76,7 +81,6 @@ async function handleRouter(context, { type }) {
     console.log("Not authorized to navigate");
     return;
   }
-  Alpine.store("documentsStore").getList.documentType = type;
 
   // Shows getList items
   Alpine.store("modalStore").showModal = false;
@@ -86,17 +90,25 @@ async function handleRouter(context, { type }) {
   // AKA if when closing the drawer there are not documents loaded
   if (
     !context.hash.split("/").includes("view") ||
-    Alpine.store("documentsStore").getList.documents.length === 0
+    Alpine.store(StateStore.MY_NOTES).noteList.length === 0
   ) {
-    Alpine.store("documentsStore").getList.isSearch = false;
-    Alpine.store("documentsStore").getList.searchValue = "";
+    Alpine.store(StateStore.MY_NOTES).isSearch = false;
+    Alpine.store(StateStore.MY_NOTES).searchValue = "";
+    try {
+      const payload = {
+        page,
+        limit: perPage,
+        sort,
+        direction,
+      };
 
-    await Alpine.store("documentsStore").getList.setDocuments({
-      type,
-      page,
-      limit: perPage,
-      sort,
-      direction,
-    });
+      await setSharedNoteList(payload);
+      NProgress.done();
+    } catch (err) {
+      console.error(err);
+      NProgress.done();
+    }
+  } else {
+    NProgress.done();
   }
 }

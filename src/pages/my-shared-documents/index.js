@@ -2,22 +2,26 @@
 
 import PineconeRouter from "pinecone-router";
 import focus from "@alpinejs/focus";
-import alpineWebflow from "../../modules/alpine-webflow";
+// import alpineWebflow from "../../modules/alpine-webflow";
 import Alpine from "alpinejs";
+import NProgress from "nprogress";
+import { setLocale } from "yup";
 
 import SkeletonLoaderEvent from "../../events/SkeletonLoaderEvent";
 
+import "nprogress/nprogress.css";
 import "../../modules/slideon/slideon";
 import "../../modules/slideon/style.scss";
 import "./navigation/routes";
 import globals from "../../utils/globals";
 import "../../styles.scss";
 
-import myDocumentsStore from "../../store/myDocuments.store";
 import modalStore from "../../store/modal.store";
 import drawerStore from "../../store/drawer.store";
 import userStore from "../../store/user.store";
 import toasterStore from "../../store/toaster.store";
+import shareStore from "../../store/share.store";
+import notesStore from "../../store/myNotes.store";
 
 import {
   DataTablePaginationMenu,
@@ -25,25 +29,26 @@ import {
   DataTableListItemSubmenu,
   DataTableHeader,
   DataTablePerPageDropdown,
-} from "../../components/DocumentsDataTable";
-
-import DocumentsTypeNavigation from "../../components/DocumentsTypeNavigation";
-import DocumentsDrawer from "../../components/DocumentsDrawer";
+  LayoutContainer,
+} from "../../components/Notes/DocumentsDataTable";
+import DocumentsTypeNavigation from "../../components/Notes/DocumentsTypeNavigation";
+import DocumentsDrawer from "../../components/Notes/DocumentsDrawer";
 import {
+  DeleteSelectedNotes,
   DocumentsModal,
   OpenModalByType,
   PathologiesAutocomplete,
-} from "../../components/DocumentsModal";
-
+} from "../../components/Notes/DocumentsModal";
 import {
   DocumentFileInput,
   DocumentFileListItem,
 } from "../../components/DocumentsFiles";
-import { DocumentAvailableSpaceGraphWidget } from "../../components/DocumentAvailableSpaceGraphWidget";
-import DocumentsSearch from "../../components/DocumentsSearch";
-import shareStore from "../../store/share.store";
+import DocumentsSearch from "../../components/Notes/DocumentsSearch";
 import DocumentsShareModal from "../../components/DocumentsShareModal";
-import NotesStore from "../../store/myNotes.store";
+import { DocumentAvailableSpaceGraphWidget } from "../../components/Notes/DocumentAvailableSpaceGraphWidget";
+
+import { StateStore } from "../../utils/enums";
+import { errorMessageFr } from "../../validation/errorMessages";
 
 window.Alpine = Alpine;
 
@@ -53,17 +58,17 @@ window.Alpine = Alpine;
  */
 async function init() {
   globals.run();
-
+  NProgress.start();
   const getUser = await $memberstackDom.getCurrentMember();
-  Alpine.store("userStore", userStore(getUser));
+  Alpine.store(StateStore.USER, userStore(getUser));
+  setLocale(errorMessageFr);
 }
 
 /**
  * Declaring global state to be shared among components
  */
 
-Alpine.store("documentsStore", myDocumentsStore);
-Alpine.store("documentssStore", NotesStore);
+Alpine.store("notesStore", notesStore);
 Alpine.store("modalStore", modalStore);
 Alpine.store("drawerStore", drawerStore);
 Alpine.store("toasterStore", toasterStore);
@@ -73,8 +78,8 @@ Alpine.store("shareStore", shareStore);
  * Declaring local state for each component
  */
 DocumentsTypeNavigation();
-DocumentsDrawer();
-
+Alpine.data("LayoutContainer", LayoutContainer);
+Alpine.data("DocumentsDrawer", DocumentsDrawer);
 // Documents Datatable
 Alpine.data("DataTableHeader", DataTableHeader);
 Alpine.data("DataTableListItem", DataTableListItem);
@@ -87,13 +92,17 @@ Alpine.data("DocumentsSearch", DocumentsSearch);
 Alpine.data("DocumentsModal", DocumentsModal);
 Alpine.data("OpenModalByType", OpenModalByType);
 Alpine.data("PathologiesAutocomplete", PathologiesAutocomplete);
+Alpine.data("DeleteSelectedNotes", DeleteSelectedNotes);
 
 // Documents Files located in drawer and modal
 Alpine.data("DocumentFileListItem", DocumentFileListItem);
 Alpine.data("DocumentFileInput", DocumentFileInput);
 
 // Documents Available Space Graph Widget
-Alpine.data("DocumentsAvailableSpace", DocumentAvailableSpaceGraphWidget);
+Alpine.data(
+  "DocumentAvailableSpaceGraphWidget",
+  DocumentAvailableSpaceGraphWidget
+);
 
 // Sharing
 Alpine.data("DocumentsShareModal", DocumentsShareModal);
@@ -114,7 +123,7 @@ if (!window.Webflow) {
 window.Quill = Quill;
 window.Webflow.push(() => {
   init().then(() => {
-    alpineWebflow();
+    // alpineWebflow();
 
     Alpine.plugin(focus);
     Alpine.plugin(PineconeRouter);

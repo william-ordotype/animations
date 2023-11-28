@@ -1,4 +1,13 @@
 import { string, array, object, number } from "yup";
+import { ShareStates } from "../utils/enums";
+
+const sortByValues = [
+  "created_on",
+  "pathology",
+  "title",
+  "type",
+  "prescription_type",
+];
 const activateSharedNoteValidation = async (payload) => {
   const activateSharedNoteSchema = object();
 
@@ -37,6 +46,7 @@ const getNotesValidation = async (payload) => {
       .oneOf(["balance_sheet", "treatment", ""])
       .optional(),
     pathology: array().of(string()).optional(),
+    state: string().oneOf([ShareStates.AVAILABLE, ShareStates.INVITATION_SENT]),
   });
 
   return await getNotesSchema.validate(payload);

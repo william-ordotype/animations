@@ -26,7 +26,7 @@ async function init() {
   Alpine.store(StateStore.SHARE).isInvitationLoading = true;
 
   const getUser = await $memberstackDom.getCurrentMember();
-  Alpine.store("userStore", userStore(getUser));
+  Alpine.store(StateStore.USER, userStore(getUser));
 }
 
 Alpine.store(StateStore.TOASTER, toasterStore);

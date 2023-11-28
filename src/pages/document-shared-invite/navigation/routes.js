@@ -3,6 +3,7 @@ import { hashToObject } from "../../../router/pagination";
 import ShareNotesService from "../../../services/notesSharesService";
 import { StateStore, ToasterMsgTypes } from "../../../utils/enums";
 import NProgress from "nprogress";
+import { setShowSharedNote } from "../../../actions/sharedNotesActions";
 
 const shareNoteService = new ShareNotesService();
 
@@ -14,12 +15,11 @@ function router() {
       const inviteId = obj["id"];
       const inviteType = obj["type"];
       const acceptId = obj["acceptId"];
-
       try {
         if (acceptId) {
           await acceptInvitation(acceptId);
-        } else if (inviteType && inviteId) {
-          await showSharedNote({ inviteType, noteId: inviteId });
+        } else if (inviteType && inviteId !== "undefined") {
+          await setShowSharedNote({ inviteType, noteId: inviteId });
         } else {
           Alpine.store(StateStore.TOASTER).toasterMsg(
             "URL invalide",
@@ -64,17 +64,4 @@ async function acceptInvitation(acceptId) {
     inviteType: "email",
     noteId,
   });
-}
-
-async function showSharedNote({ inviteType, noteId }) {
-  // ordotype.fr/my-documents-invitation?type=email&id=12345
-  const res = await shareNoteService.getNoteByType({
-    type: inviteType,
-    id: noteId,
-  });
-  Alpine.store(StateStore.SHARE).isInvitedAllowed = true;
-  Alpine.store(StateStore.SHARE).isInvitationLoading = false;
-  Alpine.store(StateStore.SHARE).invitationNote = {
-    ...res,
-  };
 }

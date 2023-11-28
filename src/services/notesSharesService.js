@@ -4,6 +4,7 @@ import {
   getNotesValidation,
   updateEmailsToNoteValidation,
 } from "../validation/noteSharesValidation";
+import { ShareStates } from "../utils/enums";
 
 class ShareNotesService extends ApiService {
   constructor() {
@@ -68,8 +69,26 @@ class ShareNotesService extends ApiService {
     });
   }
 
-  async getNotes(payload) {
-    const validatePayload = getNotesValidation(payload);
+  async getNotes({
+    page = 1,
+    limit = 10,
+    sort = "created_on",
+    direction = "DESC",
+    type = "",
+    pathology = [],
+    title = "",
+    state = ShareStates.AVAILABLE,
+  }) {
+    const validatePayload = await getNotesValidation({
+      page,
+      limit,
+      sort,
+      direction,
+      type,
+      pathology,
+      title,
+      state,
+    });
 
     Object.keys(validatePayload).forEach(
       (key) =>
@@ -79,7 +98,6 @@ class ShareNotesService extends ApiService {
             validatePayload[key].length === 0)) &&
         delete validatePayload[key]
     );
-
     return await this.request({
       routeParams: "me",
       method: "GET",

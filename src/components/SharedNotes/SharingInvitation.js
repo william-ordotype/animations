@@ -52,7 +52,6 @@ function SharingInvitation() {
     cloneNote() {
       return {
         ["@click.prevent"]: async (ev) => {
-          debugger;
           ev.preventDefault();
           NProgress.start();
           const noteObj = Alpine.store(StateStore.SHARE).invitationNote.note;
