@@ -1,11 +1,12 @@
 import Alpine from "alpinejs";
 
-import { StateStore, ToasterMsgTypes } from "../utils/enums";
+import { NotesUrls, StateStore, ToasterMsgTypes } from "../utils/enums";
 import ShareNotesService from "../services/notesSharesService";
 import { setNotesRuleStatus } from "./notesActions";
 
 const sharedNotesService = new ShareNotesService();
 
+// Invitee: My shared documents
 async function setSharedNoteList(payload) {
   Alpine.store(StateStore.MY_NOTES).isNotesLoading = true;
 
@@ -88,9 +89,60 @@ async function setSharedNotesSearched(payload) {
   }
 }
 
+/**
+ *
+ * @param {Array<string>} payload.noteIds
+ * @return {Promise<void>}
+ */
+async function setRemoveSharedInvitations(payload) {
+  const { noteIds } = payload;
+
+  const res = await sharedNotesService.removeNoteInvitations({ noteIds });
+
+  if (res.deletedCount > 0) {
+    Alpine.store(StateStore.TOASTER).toasterMsg(
+      "Document supprimé",
+      ToasterMsgTypes.SUCCESS
+    );
+  } else {
+    Alpine.store(StateStore.TOASTER).toasterMsg(
+      "Erreur lors de la suppression du document",
+      ToasterMsgTypes.ERROR
+    );
+  }
+}
+
+async function setCloneNote(payload) {
+  const { noteId } = payload;
+  try {
+    await sharedNotesService.cloneSharedNote(noteId, true);
+
+    // Gives the user the option to redirect to my documents page to see the new created document
+    // Cloning options usually is inside a sharing page
+    Alpine.store(StateStore.TOASTER).toasterMsg(
+      `Copie de le document enregistrée. <a id="redirectNote" target="_self" href="${NotesUrls.MY_NOTES}">Redirect to my documents</a>`,
+      ToasterMsgTypes.ERROR,
+      4500
+    );
+    $("#redirectNote").on("click", () => {
+      window.PineconeRouter.currentContext.redirect(NotesUrls.MY_NOTES);
+      return true;
+    });
+  } catch (err) {
+    console.log(err);
+    debugger;
+    Alpine.store(StateStore.TOASTER).toasterMsg(
+      "Erreur de clonage du document",
+      ToasterMsgTypes.ERROR
+    );
+  }
+}
+
 export {
   setSharedNoteList,
   setSharedNoteOpened,
   setShowSharedNote,
   setSharedNotesSearched,
+  setRemoveSharedInvitations,
+  setCloneNote,
 };

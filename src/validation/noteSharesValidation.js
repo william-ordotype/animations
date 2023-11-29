@@ -65,10 +65,22 @@ const searchSharedNotesByTitleAndPathology = async (payload) => {
   return await searchSharedNotesByTitleAndPathologySchema.validate(payload);
 };
 
+const removeNoteInvitationsValidation = async (payload) => {
+  const removeNoteInvitationsSchema = object({
+    noteIds: array().of(string()).required(),
+  })
+    .shape({
+      noteIds: array(),
+    })
+    .noUnknown();
+  return await removeNoteInvitationsSchema.validate(payload);
+};
+
 export {
   activateSharedNoteValidation,
   updateEmailsToNoteValidation,
   getNoteByTypeValidation,
   getNotesValidation,
   searchSharedNotesByTitleAndPathology,
+  removeNoteInvitationsValidation,
 };

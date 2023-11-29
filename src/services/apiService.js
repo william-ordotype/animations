@@ -61,11 +61,22 @@ class ApiService {
       if (response.ok) {
         return await response.json();
       } else {
-        return response;
+        const error = new Error(`Request error. Status: ${response.status}`);
+        error.name = "RequestError";
+        error.response = response;
+        throw error;
       }
     } catch (err) {
+      const errObj = {
+        ...err,
+      };
+      // Logs error trace from service request
       console.error(err);
-      throw err;
+      if (err.response) {
+        // Optionally handle the response payload from the server on error
+        errObj.response = await err.response.json();
+      }
+      throw errObj;
     }
   }
 }

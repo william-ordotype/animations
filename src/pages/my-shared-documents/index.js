@@ -26,11 +26,11 @@ import notesStore from "../../store/myNotes.store";
 import {
   DataTablePaginationMenu,
   DataTableListItem,
-  DataTableListItemSubmenu,
   DataTableHeader,
   DataTablePerPageDropdown,
   LayoutContainer,
 } from "../../components/Notes/DocumentsDataTable";
+import { DataTableListItemSubmenu } from "../../components/SharedNotes/DocumentsDataTable";
 import DocumentsTypeNavigation from "../../components/Notes/DocumentsTypeNavigation";
 import DocumentsDrawer from "../../components/Notes/DocumentsDrawer";
 import {
