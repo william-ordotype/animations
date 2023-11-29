@@ -2,6 +2,7 @@ import ApiService from "./apiService";
 import {
   getNoteByTypeValidation,
   getNotesValidation,
+  searchSharedNotesByTitleAndPathology,
   updateEmailsToNoteValidation,
 } from "../validation/noteSharesValidation";
 import { ShareStates } from "../utils/enums";
@@ -98,6 +99,30 @@ class ShareNotesService extends ApiService {
             validatePayload[key].length === 0)) &&
         delete validatePayload[key]
     );
+    return await this.request({
+      routeParams: "me",
+      method: "GET",
+      queryParams: validatePayload,
+    });
+  }
+
+  async searchSharedNotesByTitleAndPathology({
+    page = 1,
+    limit = 10,
+    sort = "created_on",
+    direction = "DESC",
+    noteTitleAndPathologyTitle,
+    state = ShareStates.AVAILABLE,
+  }) {
+    const validatePayload = await searchSharedNotesByTitleAndPathology({
+      page,
+      limit,
+      sort,
+      direction,
+      noteTitleAndPathologyTitle,
+      state,
+    });
+
     return await this.request({
       routeParams: "me",
       method: "GET",

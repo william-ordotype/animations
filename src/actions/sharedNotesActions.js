@@ -1,6 +1,6 @@
 import Alpine from "alpinejs";
 
-import { StateStore } from "../utils/enums";
+import { StateStore, ToasterMsgTypes } from "../utils/enums";
 import ShareNotesService from "../services/notesSharesService";
 import { setNotesRuleStatus } from "./notesActions";
 
@@ -62,4 +62,35 @@ async function setShowSharedNote({ inviteType, noteId }) {
   };
 }
 
-export { setSharedNoteList, setSharedNoteOpened, setShowSharedNote };
+async function setSharedNotesSearched(payload) {
+  Alpine.store(StateStore.MY_NOTES).isSearch = true;
+
+  try {
+    const searchedNotesRes =
+      await sharedNotesService.searchSharedNotesByTitleAndPathology({
+        noteTitleAndPathologyTitle: payload,
+      });
+    const { items_per_page, items_total, page_number, page_total } =
+      searchedNotesRes;
+    Alpine.store(StateStore.MY_NOTES).noteList = searchedNotesRes.data;
+    Alpine.store(StateStore.MY_NOTES).noteListMeta = {
+      pageNumber: page_number,
+      pageTotal: page_total,
+      itemsTotal: items_total,
+      itemsPerPage: items_per_page,
+    };
+  } catch (err) {
+    Alpine.store(StateStore.TOASTER).toasterMsg(
+      "Search error",
+      ToasterMsgTypes.ERROR
+    );
+    console.error(err);
+  }
+}
+
+export {
+  setSharedNoteList,
+  setSharedNoteOpened,
+  setShowSharedNote,
+  setSharedNotesSearched,
+};

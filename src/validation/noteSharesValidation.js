@@ -52,9 +52,23 @@ const getNotesValidation = async (payload) => {
   return await getNotesSchema.validate(payload);
 };
 
+const searchSharedNotesByTitleAndPathology = async (payload) => {
+  const searchSharedNotesByTitleAndPathologySchema = object({
+    page: number().required().positive().integer(),
+    limit: number().required().positive().integer(),
+    sort: string().oneOf(sortByValues).required(),
+    direction: string().oneOf(["DESC", "ASC"]).required(),
+    noteTitleAndPathologyTitle: string(),
+    state: string().oneOf([ShareStates.AVAILABLE, ShareStates.INVITATION_SENT]),
+  });
+
+  return await searchSharedNotesByTitleAndPathologySchema.validate(payload);
+};
+
 export {
   activateSharedNoteValidation,
   updateEmailsToNoteValidation,
   getNoteByTypeValidation,
   getNotesValidation,
+  searchSharedNotesByTitleAndPathology,
 };

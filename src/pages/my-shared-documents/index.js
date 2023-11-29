@@ -43,7 +43,7 @@ import {
   DocumentFileInput,
   DocumentFileListItem,
 } from "../../components/DocumentsFiles";
-import DocumentsSearch from "../../components/Notes/DocumentsSearch";
+import DocumentsSearch from "../../components/SharedNotes/DocumentsSearch";
 import DocumentsShareModal from "../../components/DocumentsShareModal";
 import { DocumentAvailableSpaceGraphWidget } from "../../components/Notes/DocumentAvailableSpaceGraphWidget";
 
