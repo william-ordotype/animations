@@ -130,7 +130,6 @@ async function setCloneNote(payload) {
     });
   } catch (err) {
     console.log(err);
-    debugger;
     Alpine.store(StateStore.TOASTER).toasterMsg(
       "Erreur de clonage du document",
       ToasterMsgTypes.ERROR

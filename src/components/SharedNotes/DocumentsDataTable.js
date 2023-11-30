@@ -18,7 +18,6 @@ function DataTableListItemSubmenu() {
       return {
         ["x-show"]: "true",
         ["@click.prevent"]: async (ev) => {
-          debugger;
           const noteId = note._id;
           await setCloneNote({ noteId });
         },
