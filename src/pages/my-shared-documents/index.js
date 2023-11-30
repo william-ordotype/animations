@@ -44,7 +44,7 @@ import {
   DocumentFileListItem,
 } from "../../components/DocumentsFiles";
 import DocumentsSearch from "../../components/SharedNotes/DocumentsSearch";
-import DocumentsShareModal from "../../components/DocumentsShareModal";
+import DocumentsShareModal from "../../components/Notes/DocumentsShareModal";
 import { DocumentAvailableSpaceGraphWidget } from "../../components/Notes/DocumentAvailableSpaceGraphWidget";
 
 import { StateStore } from "../../utils/enums";

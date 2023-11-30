@@ -42,7 +42,7 @@ import {
 import { DocumentAvailableSpaceGraphWidget } from "../../components/DocumentAvailableSpaceGraphWidget";
 import DocumentsSearch from "../../components/DocumentsSearch";
 import shareStore from "../../store/share.store";
-import DocumentsShareModal from "../../components/DocumentsShareModal";
+import DocumentsShareModal from "../../components/Notes/DocumentsShareModal";
 
 window.Alpine = Alpine;
 

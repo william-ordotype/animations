@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   entry: {
-    "my-documents": path.resolve(__dirname, "src/pages/my-documents/index.js"),
+    // "my-documents": path.resolve(__dirname, "src/pages/my-documents/index.js"),
     pathologies: path.resolve(__dirname, "src/pages/pathologies/index.js"),
     "my-shared-documents": path.resolve(
       __dirname,
@@ -48,12 +48,12 @@ module.exports = {
     ],
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      title: "Ordotype | My Documents",
-      filename: "index.html",
-      chunks: ["my-documents"],
-      template: "./src/pages/my-documents/template.html",
-    }),
+    // new HtmlWebpackPlugin({
+    //   title: "Ordotype | My Documents",
+    //   filename: "index.html",
+    //   chunks: ["my-documents"],
+    //   template: "./src/pages/my-documents/template.html",
+    // }),
     new HtmlWebpackPlugin({
       title: "Ordotype | Pathologies",
       template: "./src/pages/pathologies/template.html",

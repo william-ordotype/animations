@@ -1,6 +1,6 @@
 import Alpine from "alpinejs";
-import ShareNotesService from "../services/notesSharesService";
-import { StateStore } from "../utils/enums";
+import ShareNotesService from "../../services/notesSharesService";
+import { StateStore } from "../../utils/enums";
 
 const ShareNoteService = new ShareNotesService();
 
