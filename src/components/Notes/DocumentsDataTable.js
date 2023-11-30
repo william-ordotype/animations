@@ -55,9 +55,17 @@ function DataTableListItem() {
     noteFileIconsList(note) {
       return {
         ["x-init"]: () => {
-          Alpine.store(StateStore.MY_NOTES).noteList[this.index].fileIcons = [
-            ...this.checkFileIcons(note),
-          ];
+          Alpine.effect(() => {
+            // Fix fileIcons not showing on pagination
+            if (Alpine.store(StateStore.MY_NOTES).noteList) {
+              const notesStore = Alpine.store(StateStore.MY_NOTES);
+              const noteAtIndex = notesStore.noteList[this.index];
+
+              if (noteAtIndex) {
+                noteAtIndex.fileIcons = [...this.checkFileIcons(note)];
+              }
+            }
+          });
         },
         ["x-for"]: "icon in note.fileIcons",
       };
