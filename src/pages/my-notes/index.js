@@ -24,10 +24,10 @@ import shareStore from "../../store/share.store";
 import notesStore from "../../store/myNotes.store";
 
 import {
-  DataTablePaginationMenu,
+  DataTableHeader,
   DataTableListItem,
   DataTableListItemSubmenu,
-  DataTableHeader,
+  DataTablePaginationMenu,
   DataTablePerPageDropdown,
   LayoutContainer,
 } from "../../components/Notes/DocumentsDataTable";
@@ -139,7 +139,8 @@ window.Webflow.push(() => {
     const sharedLinkClipboard = new ClipboardJS("#copy-shared-link", {
       container: document.querySelector(".sauvegarder-ordonnance"),
       text: function () {
-        return Alpine.store("shareStore").activeNotePublicLink;
+        const publicLinkId = Alpine.store("shareStore").activeNotePublicLink;
+        return `https://ordotype.webflow.io/document-shared-invite?type=link&id=${publicLinkId}`;
       },
     });
 

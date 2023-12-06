@@ -128,7 +128,7 @@ const modalStore = {
           member: {},
         };
       }
-      if (res.deletedCount.length > 0) {
+      if (res.deletedCount > 0) {
         Alpine.store("toasterStore").toasterMsg(
           "Documents supprimés avec succès",
           ToasterMsgTypes.SUCCESS,
