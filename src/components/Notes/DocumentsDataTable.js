@@ -52,7 +52,7 @@ function DataTableListItem() {
         ["x-text"]: "note.title",
       };
     },
-    noteFileIconsList(note) {
+    noteFileIconsList() {
       return {
         ["x-init"]: () => {
           Alpine.effect(() => {
@@ -62,7 +62,7 @@ function DataTableListItem() {
               const noteAtIndex = notesStore.noteList[this.index];
 
               if (noteAtIndex) {
-                noteAtIndex.fileIcons = [...this.checkFileIcons(note)];
+                noteAtIndex.fileIcons = [...this.checkFileIcons(this.note)];
               }
             }
           });
@@ -109,7 +109,7 @@ function DataTableListItem() {
       };
     },
     // Sets file icon variables on load
-    checkFileIcons(note) {
+    checkFileIcons() {
       const { documents } = this.note;
       const allDocTypes = documents.map((elem) => {
         return elem.mime_type;
@@ -121,32 +121,39 @@ function DataTableListItem() {
     fileIconType(mime_type) {
       return getFileExtByMimeType[mime_type] || "file";
     },
+    authorColumn: {
+      ["x-text"]: "note.updated_by.fullName || note.updated_by.full_name",
+    },
   };
 }
 
 function DataTableListItemSubmenu() {
   return {
-    deleteNote(note) {
+    deleteNote() {
       return {
         ["x-show"]: "true",
         ["@click.prevent"]: async (ev) => {
-          Alpine.store("modalStore").openBeforeDelete(note);
+          Alpine.store("modalStore").openBeforeDelete(this.note);
         },
       };
     },
-    editNote(note) {
+    editNote() {
       return {
         ["x-show"]: "true",
         ["@click.prevent"]: async (ev) => {
-          await Alpine.store("modalStore").openModal(note, { type: note.type });
+          await Alpine.store("modalStore").openModal(this.note, {
+            type: this.note.type,
+          });
         },
       };
     },
-    shareNote(note) {
+    shareNote() {
       return {
         ["x-show"]: "true",
         ["@click.prevent"]: async (ev) => {
+          const note = this.note;
           const isShareActive = !!note["can_share"];
+
           SkeletonLoaderEvent.dispatchCustomEvent(
             document.querySelector(".search_result_wrapper.partage"),
             true
@@ -209,6 +216,11 @@ function DataTableHeader() {
     },
     sortByPrescriptionType: {
       propertyName: "prescription_type",
+      isActive: false,
+      direction: null,
+    },
+    sortByAuthor: {
+      propertyName: "updated_by.full_name",
       isActive: false,
       direction: null,
     },
@@ -386,7 +398,7 @@ function LayoutContainer() {
     mainHeading() {
       return {
         ["x-text"]:
-          "$store.notesStore.noteListType === '' ? 'Tous mes documents' : globals.documentTypes[$store.notesStore.noteListType]",
+          "$store.notesStore.noteListType == false ? 'Tous mes documents' : globals.documentTypes[$store.notesStore.noteListType]",
       };
     },
     noteTotal() {

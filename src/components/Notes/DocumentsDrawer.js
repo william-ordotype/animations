@@ -1,6 +1,6 @@
 import Alpine from "alpinejs";
 import { StateStore } from "../../utils/enums";
-import { setNoteOpened } from "../../actions/notesActions";
+import { setNoteOpened, setNotesRuleStatus } from "../../actions/notesActions";
 
 function DocumentsDrawer() {
   return {
@@ -32,7 +32,7 @@ function DocumentsDrawer() {
     },
     drawerClose() {
       return {
-        ["x-on:click.prevent.self"]: () => {
+        ["x-on:click.prevent.self"]: async () => {
           if (window.location.pathname.includes("/pathologies")) {
             Alpine.store("drawerStore").hideDrawer();
           } else {
@@ -50,6 +50,7 @@ function DocumentsDrawer() {
           }
           // Reset document object in store
           console.log("close drawer");
+          await setNotesRuleStatus();
           Alpine.store(StateStore.MY_NOTES).noteOpened = {
             note: {},
             member: {},
