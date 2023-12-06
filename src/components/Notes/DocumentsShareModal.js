@@ -1,6 +1,7 @@
 import Alpine from "alpinejs";
-import ShareNotesService from "../services/notesSharesService";
-import { StateStore } from "../utils/enums";
+import ShareNotesService from "../../services/notesSharesService";
+import { StateStore } from "../../utils/enums";
+import NProgress from "nprogress";
 
 const ShareNoteService = new ShareNotesService();
 
@@ -30,18 +31,28 @@ function DocumentsShareModal() {
       return {
         ["x-model"]: "$store.shareStore.shareSwitch",
         ["x-on:change"]: async (ev) => {
+          NProgress.start();
           const activeNote = Alpine.store("shareStore").activeNote;
-
           try {
             if (!activeNote["can_share"]) {
+              const res = await ShareNoteService.activateNote(activeNote._id);
               $(".partage_inputs").slideDown();
-              await ShareNoteService.activateNote(activeNote._id);
+              Alpine.store(StateStore.SHARE).activeNotePublicLink = res.linkId;
+              Alpine.store(StateStore.MY_NOTES).noteList.find(
+                (note) => note._id
+              )["can_share"] = true;
               activeNote["can_share"] = true;
             } else {
               $(".partage_inputs").slideUp();
-              await ShareNoteService.deactivateNote(activeNote._id);
+              const res = await ShareNoteService.deactivateNote(activeNote._id);
+              Alpine.store(StateStore.SHARE).activeNotePublicLink = "";
+              Alpine.store(StateStore.MY_NOTES).noteList.find(
+                (note) => note._id
+              )["can_share"] = false;
+
               activeNote["can_share"] = false;
             }
+            NProgress.done();
           } catch (err) {
             Alpine.store(StateStore.TOASTER).toasterMsg(
               "Il y avait une erreur",

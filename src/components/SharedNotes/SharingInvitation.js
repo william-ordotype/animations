@@ -1,6 +1,7 @@
-import { NotesUrls, StateStore, ToasterMsgTypes } from "../utils/enums";
-import ShareNotesService from "../services/notesSharesService";
+import { NotesUrls, StateStore, ToasterMsgTypes } from "../../utils/enums";
+import ShareNotesService from "../../services/notesSharesService";
 import NProgress from "nprogress";
+import { setCloneNote } from "../../actions/sharedNotesActions";
 
 const shareNotesService = new ShareNotesService();
 
@@ -47,25 +48,21 @@ function SharingInvitation() {
         ["x-html"]: "$store.shareStore.invitationNote?.note?.rich_text_ordo",
       };
     },
+    getFiles() {
+      return {
+        ["x-for"]: "file in $store.shareStore.invitationNote?.note?.documents",
+      };
+    },
 
     // Note modal actions
     cloneNote() {
       return {
         ["@click.prevent"]: async (ev) => {
-          ev.preventDefault();
           NProgress.start();
-          const noteObj = Alpine.store(StateStore.SHARE).invitationNote.note;
           try {
-            await shareNotesService.cloneSharedNote(noteObj._id, true);
-            Alpine.store(StateStore.TOASTER).toasterMsg(
-              `Copie de le document enregistrée. <a id="redirectNote" target="_self" href="${NotesUrls.MY_NOTES}">Redirect to my documents</a>`,
-              ToasterMsgTypes.ERROR,
-              4500
-            );
-            $("#redirectNote").on("click", () => {
-              window.PineconeRouter.currentContext.redirect(NotesUrls.MY_NOTES);
-              return true;
-            });
+            const noteId = Alpine.store(StateStore.SHARE).invitationNote.note
+              ?._id;
+            await setCloneNote({ noteId });
           } catch (err) {
             Alpine.store(StateStore.TOASTER).toasterMsg(
               "Error",

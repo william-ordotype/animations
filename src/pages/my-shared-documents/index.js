@@ -26,11 +26,11 @@ import notesStore from "../../store/myNotes.store";
 import {
   DataTablePaginationMenu,
   DataTableListItem,
-  DataTableListItemSubmenu,
   DataTableHeader,
   DataTablePerPageDropdown,
   LayoutContainer,
 } from "../../components/Notes/DocumentsDataTable";
+import { DataTableListItemSubmenu } from "../../components/SharedNotes/DocumentsDataTable";
 import DocumentsTypeNavigation from "../../components/Notes/DocumentsTypeNavigation";
 import DocumentsDrawer from "../../components/Notes/DocumentsDrawer";
 import {
@@ -43,8 +43,8 @@ import {
   DocumentFileInput,
   DocumentFileListItem,
 } from "../../components/DocumentsFiles";
-import DocumentsSearch from "../../components/Notes/DocumentsSearch";
-import DocumentsShareModal from "../../components/DocumentsShareModal";
+import DocumentsSearch from "../../components/SharedNotes/DocumentsSearch";
+import DocumentsShareModal from "../../components/Notes/DocumentsShareModal";
 import { DocumentAvailableSpaceGraphWidget } from "../../components/Notes/DocumentAvailableSpaceGraphWidget";
 
 import { StateStore } from "../../utils/enums";

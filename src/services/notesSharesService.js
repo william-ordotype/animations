@@ -2,6 +2,8 @@ import ApiService from "./apiService";
 import {
   getNoteByTypeValidation,
   getNotesValidation,
+  removeNoteInvitationsValidation,
+  searchSharedNotesByTitleAndPathology,
   updateEmailsToNoteValidation,
 } from "../validation/noteSharesValidation";
 import { ShareStates } from "../utils/enums";
@@ -105,6 +107,30 @@ class ShareNotesService extends ApiService {
     });
   }
 
+  async searchSharedNotesByTitleAndPathology({
+    page = 1,
+    limit = 10,
+    sort = "created_on",
+    direction = "DESC",
+    noteTitleAndPathologyTitle,
+    state = ShareStates.AVAILABLE,
+  }) {
+    const validatePayload = await searchSharedNotesByTitleAndPathology({
+      page,
+      limit,
+      sort,
+      direction,
+      noteTitleAndPathologyTitle,
+      state,
+    });
+
+    return await this.request({
+      routeParams: "me",
+      method: "GET",
+      queryParams: validatePayload,
+    });
+  }
+
   /**
    *
    * @param {string} type
@@ -128,6 +154,27 @@ class ShareNotesService extends ApiService {
       routeParams: `accept/${noteId}`,
       method: "PUT",
     });
+  }
+
+  /**
+   *
+   * @param {Array<string>} noteIds
+   * @return {Promise<void>}
+   */
+  async removeNoteInvitations({ noteIds }) {
+    const payload = { noteIds: [...noteIds] };
+
+    try {
+      const validatePayload = await removeNoteInvitationsValidation(payload);
+      return this.request({
+        method: "DELETE",
+        routeParams: "invitations",
+        data: validatePayload,
+      });
+    } catch (err) {
+      console.log(err);
+      throw err;
+    }
   }
 }
 

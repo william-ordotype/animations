@@ -69,6 +69,7 @@ window.router = () => {
 
 async function handleRouter(context, { type }) {
   NProgress.start();
+  Alpine.store(StateStore.MY_NOTES).isRuleStatusLoading = true;
 
   const { page, perPage, sort, direction } = context.params;
   if (

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Last Published: Tue Nov 28 2023 02:34:15 GMT+0000 (Coordinated Universal Time) -->
+<!-- Last Published: Tue Dec 05 2023 14:22:54 GMT+0000 (Coordinated Universal Time) -->
 <html
   data-wf-domain="ordotype.webflow.io"
   data-wf-page="65654ef7d750204ffa31e4df"
@@ -39,7 +39,7 @@
       name="google-site-verification"
     />
     <link
-      href="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.91b813ef0.min.css"
+      href="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.c243045ba.min.css"
       rel="stylesheet"
       type="text/css"
     />
@@ -663,6 +663,40 @@
          .tab_link_card.w--open .check_black {
              border: 2px solid rgba(12,14,22,.9);
              background-color: rgba(12,14,22,.9);}
+
+
+         .module-card-wrapper.w--open .module_card_offre{
+             border: 2px solid rgba(12,14,22,0.9);}
+
+         .module-card-wrapper.w--open {
+             border: 0px solid rgba(12,14,22,0.9);}
+
+         .module-card-wrapper.w--open .check_black {
+             border: 2px solid rgba(12,14,22,.9);
+             background-color: rgba(12,14,22,.9);}
+
+
+         .button.is-gradient {
+             position: relative;
+             background-image: radial-gradient(circle at 0 0,#7cd0ff,#3454f6 60%);
+             z-index: 1;
+         }
+
+         .button.is-gradient::before {
+             position: absolute;
+             content: "";
+             top: 0;
+             right: 0;
+             bottom: 0;
+             left: 0;
+             background-image: radial-gradient(circle at 0 0,#3454f6, #7cd0ff 60%);
+             z-index: -1;
+             transition: opacity 0.3s ease-in-out;
+             opacity: 0;
+         }
+         .button.is-gradient:hover::before {
+             opacity: 1;
+         }
       </style>
     </div>
     <div
@@ -1047,6 +1081,7 @@
                   x-cloak=""
                   x-data="DocumentAvailableSpaceGraphWidget"
                   x-show="$store.userStore.isAuth"
+                  class="espace_wrapper"
                 >
                   <div
                     x-bind="showRulesLoading"
@@ -1055,7 +1090,7 @@
                     <div class="hide">Loading</div>
                     <div
                       class="lottie-animation"
-                      data-w-id="a1c20225-5961-c712-8c08-ae9ec371bb0f"
+                      data-w-id="7b860905-761b-68b0-361a-c4e9dd9e6647"
                       data-animation-type="lottie"
                       data-src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/61f2cf4b2c288f34818ada35_52601-waiting.json"
                       data-loop="1"
@@ -1118,6 +1153,14 @@
                         </div>
                       </div>
                     </div>
+                    <div class="margin-top margin-small">
+                      <a
+                        native=""
+                        href="/membership/stockage-supplementaire"
+                        class="button is-gradient w-button"
+                        >Acheter plus d&#x27;espace</a
+                      >
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1127,7 +1170,7 @@
                 <a
                   native=""
                   x-bind="allType"
-                  href="#/list?type=all"
+                  href="/mes-documents#/list?type=all"
                   class="tab_link w-inline-block"
                   ><div class="w-layout-grid grid_gap_8">
                     <div class="tab_icon w-embed">
@@ -1175,7 +1218,7 @@
                 ><a
                   native=""
                   x-bind="prescriptionsType"
-                  href="#/list?type=prescriptions"
+                  href="/mes-documents#/list?type=prescriptions"
                   class="tab_link w-inline-block"
                   ><div class="w-layout-grid grid_gap_8">
                     <div class="tab_icon w-embed">
@@ -1216,7 +1259,7 @@
                 ><a
                   native=""
                   x-bind="notesType"
-                  href="#/list?type=notes"
+                  href="/mes-documents#/list?type=notes"
                   class="tab_link w-inline-block"
                   ><div class="w-layout-grid grid_gap_8">
                     <div class="tab_icon w-embed">
@@ -1257,7 +1300,7 @@
                 ><a
                   native=""
                   x-bind="recommendationsType"
-                  href="#/list?type=recommendations"
+                  href="/mes-documents#/list?type=recommendations"
                   class="tab_link w-inline-block"
                   ><div class="w-layout-grid grid_gap_8">
                     <div class="tab_icon w-embed">
@@ -1385,88 +1428,89 @@
                   rel="prefetch"
                   href="/notes-documents/mes-documents-partages"
                 />
-                <div class="espace_wrapper">
-                  <div x-data="DocumentAvailableSpaceGraphWidget" x-cloak="">
+                <div
+                  x-cloak=""
+                  x-data="DocumentAvailableSpaceGraphWidget"
+                  x-show="$store.userStore.isAuth"
+                  class="espace_wrapper"
+                >
+                  <div
+                    x-bind="showRulesLoading"
+                    class="loading_container center"
+                  >
+                    <div class="hide">Loading</div>
                     <div
-                      x-bind="showRulesLoading"
-                      class="loading_container center"
-                    >
-                      <div class="hide">Loading</div>
-                      <div
-                        class="lottie-animation"
-                        data-w-id="5eb4bdc4-f4f7-1861-e38b-1a875ad2ec31"
-                        data-animation-type="lottie"
-                        data-src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/61f2cf4b2c288f34818ada35_52601-waiting.json"
-                        data-loop="1"
-                        data-direction="1"
-                        data-autoplay="1"
-                        data-is-ix2-target="0"
-                        data-renderer="svg"
-                        data-default-duration="3.0030028806881908"
-                        data-duration="0"
-                      ></div>
+                      class="lottie-animation"
+                      data-w-id="0d095569-8f05-fa03-4b01-7a45c038227f"
+                      data-animation-type="lottie"
+                      data-src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/61f2cf4b2c288f34818ada35_52601-waiting.json"
+                      data-loop="1"
+                      data-direction="1"
+                      data-autoplay="1"
+                      data-is-ix2-target="0"
+                      data-renderer="svg"
+                      data-default-duration="3.0030028806881908"
+                      data-duration="0"
+                    ></div>
+                  </div>
+                  <div
+                    x-bind="showRulesWidget"
+                    x-cloak=""
+                    class="espace_content text-size-tiny text-color-base-700"
+                  >
+                    <div class="text-weight-semibold">Espace disponible</div>
+                    <div class="espace_bar_wrapper">
+                      <div class="bar_base">
+                        <div x-bind="notesBar" class="doc_bar"></div>
+                      </div>
+                      <div class="bar_base">
+                        <div x-bind="filesBar" class="go_bar"></div>
+                      </div>
                     </div>
-                    <div
-                      x-bind="showRulesWidget"
-                      x-cloak=""
-                      class="espace_content text-size-tiny text-color-base-700"
-                    >
-                      <div class="text-weight-semibold">Espace disponible</div>
-                      <div class="espace_bar_wrapper">
-                        <div class="bar_base">
-                          <div x-bind="notesBar" class="doc_bar"></div>
-                        </div>
-                        <div class="bar_base">
-                          <div x-bind="filesBar" class="go_bar"></div>
-                        </div>
-                      </div>
-                      <div class="flex_horizontal">
-                        <div class="doc_bar_dot"></div>
-                        <div class="text_wrapper">
-                          <div
-                            x-bind="consumedNotesNumber"
-                            class="display-inlineflex"
-                          >
-                            {{37}}
-                          </div>
-                          <div class="display-inlineflex">
-                            documents créés sur
-                            <span
-                              x-bind="allowedNumberOfNotes"
-                              class="text-span"
-                              >{{50}}</span
-                            >
-                          </div>
-                        </div>
-                      </div>
-                      <div class="flex_horizontal">
-                        <div class="go_bar_dot"></div>
-                        <div class="text_wrapper">
-                          <div
-                            x-bind="consumedMegabytesNumber"
-                            class="display-inlineflex"
-                          >
-                            {{3.75}}
-                          </div>
-                          <div class="display-inlineflex">
-                            Mo utilisés sur<span
-                              x-bind="allowedMegabytes"
-                              class="text-span"
-                            >
-                              {{5}}</span
-                            >
-                            Mo
-                          </div>
-                        </div>
-                      </div>
-                      <div class="margin-top margin-small">
-                        <a
-                          native=""
-                          href="/membership/stockage-supplementaire"
-                          class="button is-gradient w-button"
-                          >Acheter plus d&#x27;espace</a
+                    <div class="flex_horizontal">
+                      <div class="doc_bar_dot"></div>
+                      <div class="text_wrapper">
+                        <div
+                          x-bind="consumedNotesNumber"
+                          class="display-inlineflex"
                         >
+                          {{37}}
+                        </div>
+                        <div class="display-inlineflex">
+                          documents créés sur
+                          <span x-bind="allowedNumberOfNotes" class="text-span"
+                            >{{50}}</span
+                          >
+                        </div>
                       </div>
+                    </div>
+                    <div class="flex_horizontal">
+                      <div class="go_bar_dot"></div>
+                      <div class="text_wrapper">
+                        <div
+                          x-bind="consumedMegabytesNumber"
+                          class="display-inlineflex"
+                        >
+                          {{3.75}}
+                        </div>
+                        <div class="display-inlineflex">
+                          Mo utilisés sur<span
+                            x-bind="allowedMegabytes"
+                            class="text-span"
+                          >
+                            {{5}}</span
+                          >
+                          Mo
+                        </div>
+                      </div>
+                    </div>
+                    <div class="margin-top margin-small">
+                      <a
+                        native=""
+                        href="/membership/stockage-supplementaire"
+                        class="button is-gradient w-button"
+                        >Acheter plus d&#x27;espace</a
+                      >
                     </div>
                   </div>
                 </div>
@@ -1861,10 +1905,7 @@
                     </div>
                     <div class="docs_list_wrapper">
                       <div x-data="DataTableHeader" class="list_header">
-                        <div
-                          x-bind="tableHeadGrid"
-                          class="w-layout-grid doc_item_grid header_g"
-                        >
+                        <div class="w-layout-grid doc_item_grid header_g">
                           <div
                             x-bind="sortByTitle"
                             id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0f0e-fa31e4df"
@@ -1916,14 +1957,14 @@
                             </div>
                           </div>
                           <div
-                            x-bind="headType"
-                            x-on:click="sortByClick(&#x27;sortByType&#x27;)"
-                            x-bind:class="sortByHeadClass(&#x27;sortByType&#x27;)"
-                            id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0f17-fa31e4df"
-                            class="sort_cover document_type"
+                            x-on:click="sortByClick(&#x27;sortByPrescriptionType&#x27;)"
+                            x-bind="headPrescriptionType"
+                            x-bind:class="sortByHeadClass(&#x27;sortByPrescriptionType&#x27;)"
+                            id="w-node-_2c9703a0-0ecd-95c4-ddaa-e2b8af7a4a60-fa31e4df"
+                            class="sort_cover prescription_type"
                           >
                             <div class="flex_horizontal">
-                              <div>Type</div>
+                              <div>Ordonnance Type</div>
                               <div class="sort_wrapper">
                                 <div
                                   x-bind:class="sortByArrowClass(&#x27;sortByType&#x27;, &#x27;ASC&#x27;)"
@@ -1963,17 +2004,16 @@
                             </div>
                           </div>
                           <div
-                            x-on:click="sortByClick(&#x27;sortByPrescriptionType&#x27;)"
-                            x-bind="headPrescriptionType"
-                            x-bind:class="sortByHeadClass(&#x27;sortByPrescriptionType&#x27;)"
-                            id="w-node-_2c9703a0-0ecd-95c4-ddaa-e2b8af7a4a60-fa31e4df"
-                            class="sort_cover prescription_type"
+                            x-bind:class="sortByHeadClass(&#x27;sortByDate&#x27;)"
+                            x-on:click="sortByClick(&#x27;sortByDate&#x27;)"
+                            id="w-node-_2a02c6e4-ca4c-ef52-78b5-7de813312282-fa31e4df"
+                            class="sort_cover"
                           >
                             <div class="flex_horizontal">
-                              <div>Ordonnance Type</div>
+                              <div>Author</div>
                               <div class="sort_wrapper">
                                 <div
-                                  x-bind:class="sortByArrowClass(&#x27;sortByType&#x27;, &#x27;ASC&#x27;)"
+                                  x-bind:class="sortByArrowClass(&#x27;sortByDate&#x27;, &#x27;ASC&#x27;)"
                                   class="sort_arrow w-embed"
                                 >
                                   <svg
@@ -1990,7 +2030,7 @@
                                   </svg>
                                 </div>
                                 <div
-                                  x-bind:class="sortByArrowClass(&#x27;sortByType&#x27;, &#x27;DESC&#x27;)"
+                                  x-bind:class="sortByArrowClass(&#x27;sortByDate&#x27;, &#x27;DESC&#x27;)"
                                   class="sort_arrow w-embed"
                                 >
                                   <svg
@@ -2126,10 +2166,7 @@
                                 />
                               </svg></div
                           ></a>
-                          <div
-                            x-bind="tableBodyGrid"
-                            class="w-layout-grid doc_item_grid"
-                          >
+                          <div class="w-layout-grid doc_item_grid">
                             <div
                               id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0f82-fa31e4df"
                               class="inside_left"
@@ -2167,9 +2204,6 @@
                                 </div>
                               </div>
                             </div>
-                            <div x-bind="rowType" class="type_tag">
-                              <div x-bind="textType(d)">{{Note}}</div>
-                            </div>
                             <div
                               x-bind="rowPrescriptionType"
                               class="prescription_type_tag"
@@ -2177,6 +2211,9 @@
                               <div x-bind="textPrescriptionType(d)">
                                 {{Note}}
                               </div>
+                            </div>
+                            <div class="div-block-415">
+                              <div x-bind="authorColumn">{{Alina Abreu}}</div>
                             </div>
                             <div class="div-block-415">
                               <div native="" class="pathologie_tag w-embed">
@@ -2235,7 +2272,7 @@
                                       class="sub_list w-dropdown-list"
                                     >
                                       <a
-                                        x-bind="editNote(note)"
+                                        x-bind="cloneSharedNote(note)"
                                         href="#"
                                         class="sub_link w-inline-block"
                                         ><div class="w-layout-grid grid_gap_8">
@@ -2243,25 +2280,33 @@
                                             <svg
                                               width="1.25rem"
                                               height="1.25rem"
-                                              viewBox="0 0 20 20"
-                                              fill="none"
                                               xmlns="http://www.w3.org/2000/svg"
+                                              viewBox="0 0 24 24"
+                                              fill="none"
+                                              stroke="currentColor"
+                                              stroke-width="2"
+                                              stroke-linecap="round"
+                                              stroke-linejoin="round"
+                                              class="feather feather-copy"
                                             >
+                                              <rect
+                                                x="9"
+                                                y="9"
+                                                width="13"
+                                                height="13"
+                                                rx="2"
+                                                ry="2"
+                                              ></rect>
                                               <path
-                                                d="M9.16602 3.33333H3.33268C2.89065 3.33333 2.46673 3.50893 2.15417 3.82149C1.84161 4.13405 1.66602 4.55797 1.66602 5V16.6667C1.66602 17.1087 1.84161 17.5326 2.15417 17.8452C2.46673 18.1577 2.89065 18.3333 3.33268 18.3333H14.9993C15.4414 18.3333 15.8653 18.1577 16.1779 17.8452C16.4904 17.5326 16.666 17.1087 16.666 16.6667V10.8333M15.416 2.08332C15.7475 1.7518 16.1972 1.56555 16.666 1.56555C17.1349 1.56555 17.5845 1.7518 17.916 2.08332C18.2475 2.41484 18.4338 2.86448 18.4338 3.33332C18.4338 3.80216 18.2475 4.2518 17.916 4.58332L9.99935 12.5L6.66602 13.3333L7.49935 9.99999L15.416 2.08332Z"
-                                                stroke="currentColor"
-                                                stroke-width="2"
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                              />
+                                                d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                                              ></path>
                                             </svg>
                                           </div>
                                           <div class="display-inlineflex">
-                                            Modifier
-                                          </div>
-                                        </div></a
+                                            Cloner dans mes documents<br />
+                                          </div></div></a
                                       ><a
-                                        x-bind="deleteNote(note)"
+                                        x-bind="removeSharedNote(note)"
                                         href="#"
                                         class="sub_link color_red w-inline-block"
                                         ><div class="w-layout-grid grid_gap_8">
@@ -2436,13 +2481,13 @@
                         />
                         <div class="max-width-full text-color-base-800">
                           <h2 class="heading-h2-docs">
-                            Vous n’avez pas encore de documents
+                            Vous n&#x27;avez accepté aucune invitation de
+                            partage de documents
                           </h2>
                           <div class="padding-top padding-xsmall">
                             <div class="text-color-base-800">
-                              Ordotype vous permet de créer et stocker vos
-                              notes, ordonnances et fiches conseils
-                              personnalisées en quelques clics.
+                              Vous verrez la liste des documents partagés avec
+                              vous ici
                             </div>
                           </div>
                           <div class="padding-top padding-xmedium">
@@ -2592,20 +2637,31 @@
                             <svg
                               width="1.25rem"
                               height="1.25rem"
-                              viewBox="0 0 20 20"
-                              fill="none"
                               xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              class="feather feather-copy"
                             >
+                              <rect
+                                x="9"
+                                y="9"
+                                width="13"
+                                height="13"
+                                rx="2"
+                                ry="2"
+                              ></rect>
                               <path
-                                d="M9.16602 3.33333H3.33268C2.89065 3.33333 2.46673 3.50893 2.15417 3.82149C1.84161 4.13405 1.66602 4.55797 1.66602 5V16.6667C1.66602 17.1087 1.84161 17.5326 2.15417 17.8452C2.46673 18.1577 2.89065 18.3333 3.33268 18.3333H14.9993C15.4414 18.3333 15.8653 18.1577 16.1779 17.8452C16.4904 17.5326 16.666 17.1087 16.666 16.6667V10.8333M15.416 2.08332C15.7475 1.7518 16.1972 1.56555 16.666 1.56555C17.1349 1.56555 17.5845 1.7518 17.916 2.08332C18.2475 2.41484 18.4338 2.86448 18.4338 3.33332C18.4338 3.80216 18.2475 4.2518 17.916 4.58332L9.99935 12.5L6.66602 13.3333L7.49935 9.99999L15.416 2.08332Z"
-                                stroke="currentColor"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                              />
+                                d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                              ></path>
                             </svg>
                           </div>
-                          <div class="display-inlineflex">Modifier</div>
+                          <div class="display-inlineflex">
+                            Cloner dans mes documents
+                          </div>
                         </div></a
                       ><a
                         x-on:click="globals.printDiv(&#x27;#drawer_rich_text_wrapper&#x27;)"
@@ -2614,8 +2670,8 @@
                         ><div class="w-layout-grid grid_gap_8">
                           <div class="tab_icon w-embed">
                             <svg
-                              width="16"
-                              height="16"
+                              width="1.25rem"
+                              height="1.25rem"
                               viewBox="0 0 16 16"
                               fill="none"
                               xmlns="http://www.w3.org/2000/svg"
@@ -2623,7 +2679,7 @@
                               <path
                                 d="M3.99992 5.99998V1.33331H11.9999V5.99998M3.99992 12H2.66659C2.31296 12 1.97382 11.8595 1.72378 11.6095C1.47373 11.3594 1.33325 11.0203 1.33325 10.6666V7.33331C1.33325 6.97969 1.47373 6.64055 1.72378 6.3905C1.97382 6.14046 2.31296 5.99998 2.66659 5.99998H13.3333C13.6869 5.99998 14.026 6.14046 14.2761 6.3905C14.5261 6.64055 14.6666 6.97969 14.6666 7.33331V10.6666C14.6666 11.0203 14.5261 11.3594 14.2761 11.6095C14.026 11.8595 13.6869 12 13.3333 12H11.9999M3.99992 9.33331H11.9999V14.6666H3.99992V9.33331Z"
                                 stroke="currentColor"
-                                stroke-width="1.5"
+                                stroke-width="1.2"
                                 stroke-linecap="round"
                                 stroke-linejoin="round"
                               />
@@ -2674,7 +2730,9 @@
                               />
                             </svg>
                           </div>
-                          <div class="display-inlineflex">Supprimer</div>
+                          <div class="display-inlineflex">
+                            Révoquer l&#x27;accès partagé
+                          </div>
                         </div></a
                       >
                     </nav>
@@ -2910,11 +2968,7 @@
                 >
                 <div x-data="DocumentFileInput" class="files_container">
                   <div class="files_modal_columns">
-                    <div
-                      id="files-server"
-                      x-data=""
-                      class="files_wrapper_modal"
-                    >
+                    <div id="files-server" class="files_wrapper_modal">
                       <div class="files_holder">
                         <template class="template" x-bind="listFilesFromServer"
                           ><div class="file_block">
@@ -2975,63 +3029,56 @@
                         ></template>
                       </div>
                     </div>
-                    <template
-                         x-if="filesAttached !== null"
-                    
-                    >
-                    <div
-                         id="files-local"
-                         class="files_wrapper_modal"
-                    >
-                      <div class="files_holder">
-                        <template class="template" x-bind="listFilesFromInput"
-                          ><div class="file_block">
-                            <div class="w-layout-grid file_grid">
-                              <div
-                                id="w-node-_166d42f0-63e1-c5fc-3c52-b37d7bb076b0-fa31e4df"
-                                class="file_description"
-                              >
-                                <div class="flex_horizontal">
-                                  <div class="file_type_holder action">
-                                    <div
-                                      x-bind:class="getFileExtension(fileItem.name)"
-                                      class="file_type_icon pdf"
-                                    >
+                    <template x-if="filesAttached !== null"
+                      ><div id="files-local" class="files_wrapper_modal">
+                        <div class="files_holder">
+                          <template class="template" x-bind="listFilesFromInput"
+                            ><div class="file_block">
+                              <div class="w-layout-grid file_grid">
+                                <div
+                                  id="w-node-_166d42f0-63e1-c5fc-3c52-b37d7bb076b0-fa31e4df"
+                                  class="file_description"
+                                >
+                                  <div class="flex_horizontal">
+                                    <div class="file_type_holder action">
                                       <div
-                                        x-text="getFileExtension(fileItem.name)"
+                                        x-bind:class="getFileExtension(fileItem.name)"
+                                        class="file_type_icon pdf"
                                       >
-                                        pdf
+                                        <div
+                                          x-text="getFileExtension(fileItem.name)"
+                                        >
+                                          pdf
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="file_title">
+                                      <div
+                                        x-text="removeFileExtension(fileItem.name)"
+                                        class="file-label"
+                                      >
+                                        {{FileName}}
+                                      </div>
+                                      <div
+                                        x-text="&#x27;.&#x27; + getFileExtension(fileItem.name)"
+                                        class="ext-label"
+                                      >
+                                        .{{ext}}
                                       </div>
                                     </div>
                                   </div>
-                                  <div class="file_title">
-                                    <div
-                                      x-text="removeFileExtension(fileItem.name)"
-                                      class="file-label"
-                                    >
-                                      {{FileName}}
-                                    </div>
-                                    <div
-                                      x-text="&#x27;.&#x27; + getFileExtension(fileItem.name)"
-                                      class="ext-label"
-                                    >
-                                      .{{ext}}
-                                    </div>
-                                  </div>
+                                  <img
+                                    x-on:click="handleDeleteFile(fileItem, index)"
+                                    loading="lazy"
+                                    alt="croix"
+                                    src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/640b498538ea4d0ffac77e07_Butt-cross.svg"
+                                    class="close_file"
+                                  />
                                 </div>
-                                <img
-                                  x-on:click="handleDeleteFile(fileItem, index)"
-                                  loading="lazy"
-                                  alt="croix"
-                                  src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/640b498538ea4d0ffac77e07_Butt-cross.svg"
-                                  class="close_file"
-                                />
-                              </div>
-                            </div></div
-                        ></template>
-                      </div>
-                        </div>
-                    </template>
+                              </div></div
+                          ></template>
+                        </div></div
+                    ></template>
                   </div>
                   <div class="w-embed">
                     <div id="FileUpload" class="file-upload__bg">
@@ -3528,7 +3575,7 @@
                             src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/62a8a85946267b2f7c2fd0f3_no-money.png"
                             loading="lazy"
                             id="w-node-_4b086624-82b9-59b6-0a84-10e719809c78-19809c67"
-                            sizes="(max-width: 479px) 7vw, (max-width: 767px) 4vw, (max-width: 1279px) 2vw, 1vw"
+                            sizes="(max-width: 479px) 100vw, (max-width: 767px) 4vw, (max-width: 1279px) 2vw, 1vw"
                             alt="indépendant de l&#x27;industrie"
                             srcset="
                               https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/62a8a85946267b2f7c2fd0f3_no-money-p-500.png 500w,
@@ -3546,16 +3593,6 @@
                       <div class="footer3_credit-text">
                         © Copyright 2023 Ordotype
                       </div>
-                    </div>
-                    <div class="footer3_credit-text">
-                      Developed with 💙 by
-                      <a
-                        href="https://nicolatoledo.dev/"
-                        native=""
-                        target="_blank"
-                        class="text-link text-color-white"
-                        >nicolatoledo.dev</a
-                      >
                     </div>
                   </div>
                   <div class="w-layout-grid footer3_menu-wrapper">
@@ -3588,7 +3625,7 @@
                         data-ms-content="!essai-expir"
                         href="/tous-les-conseils-patients"
                         class="footer3_link"
-                        >Toutes les conseils patient</a
+                        >Toutes les conseils patients</a
                       ><a native="" href="/specialites" class="footer3_link"
                         >Toutes les spécialités</a
                       >
@@ -3630,7 +3667,7 @@
       crossorigin="anonymous"
     ></script>
     <script
-      src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/js/webflow.074a500b7.js"
+      src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/js/webflow.380f91550.js"
       type="text/javascript"
     ></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -3723,8 +3760,28 @@ Webflow.push(function(){$('.w-richtext p').html(function(){return $(this).html()
     <!--- <script src="https://static.ordotype.fr/my-documents.js"></script> -->
     <!--- <script src="https://seashell-app-etfao.ondigitalocean.app/my-documents.js"></script> --->
 
+    <!--- 
+<script>
+    // Get the current domain
+    var currentDomain = window.location.hostname;
+
+    // Check if the domain matches a particular condition
+    if (currentDomain !== 'www.ordotype.fr') {
+        // Load the dev script
+        var scriptElement = document.createElement('script');
+        scriptElement.src = 'https://seashell-app-etfao.ondigitalocean.app/my-documents.js';
+        document.head.appendChild(scriptElement);
+    } else {
+     // Load prod script
+        var scriptElement = document.createElement('script');
+        scriptElement.src = 'https://static.ordotype.fr/my-documents.js';
+        document.head.appendChild(scriptElement);
+    }
+</script>
+ --->
+
     <script>
-      const clipboard = new ClipboardJS(".is-copy");
+      const clipboard = new ClipboardJS("#copy-drawer");
 
       clipboard.on("success", function (e) {
         console.info("Action:", e.action);

@@ -17,8 +17,10 @@ function router() {
       const acceptId = obj["acceptId"];
       try {
         if (acceptId) {
+          // ordotype.fr/my-documents-invitation?acceptId=12345
           await acceptInvitation(acceptId);
         } else if (inviteType && inviteId !== "undefined") {
+          // ordotype.fr/my-documents-invitation?id=12345&type=email
           await setShowSharedNote({ inviteType, noteId: inviteId });
         } else {
           Alpine.store(StateStore.TOASTER).toasterMsg(
@@ -50,7 +52,7 @@ function notfound(context) {
     "Not found",
     ToasterMsgTypes.ERROR
   );
-  console.log("not foundd");
+  console.log("not found");
 }
 
 async function acceptInvitation(acceptId) {
@@ -58,10 +60,12 @@ async function acceptInvitation(acceptId) {
   const res = await shareNoteService.acceptNoteInvitation({ noteId: acceptId });
   NProgress.set(0.5);
 
-  const { noteId } = res;
+  const { noteId, alreadyAccepted } = res;
+  if (!alreadyAccepted) {
+    Alpine.store(StateStore.TOASTER).toasterMsg(
+      "Note ajoutée à la page des documents partagés avec moi",
+      ToasterMsgTypes.SUCCESS
+    );
+  }
   location.href = `?id=${noteId}&type=email`;
-  await showSharedNote({
-    inviteType: "email",
-    noteId,
-  });
 }

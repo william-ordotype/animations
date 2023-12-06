@@ -9,8 +9,10 @@ import { StateStore } from "../../utils/enums";
 import toasterStore from "../../store/toaster.store";
 import "nprogress/nprogress.css";
 import NProgress from "nprogress";
-import SharingInvitation from "../../components/SharingInvitation";
+import SharingInvitation from "../../components/SharedNotes/SharingInvitation";
 import shareStore from "../../store/share.store";
+import { DocumentFileListItem } from "../../components/DocumentsFiles";
+import "../../styles.scss";
 
 window.Alpine = Alpine;
 
@@ -34,6 +36,7 @@ Alpine.store(StateStore.SHARE, shareStore);
 
 Alpine.data("SharingNavigation", router);
 Alpine.data("SharingInvitation", SharingInvitation);
+Alpine.data("DocumentFileListItem", DocumentFileListItem);
 
 /**
  Runs program

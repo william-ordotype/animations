@@ -4,6 +4,10 @@
   --aa-base-unit: 12 !important;
 }
 
+#nprogress .bar {
+  z-index: 999999;
+}
+
 .aa-PanelLayout {
   z-index: 99999;
   background: #fff;

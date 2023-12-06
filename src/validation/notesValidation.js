@@ -1,4 +1,5 @@
 import { string, array, object, number, mixed } from "yup";
+import { NoteTypes } from "../utils/enums";
 
 const sortByValues = [
   "created_on",
@@ -47,7 +48,11 @@ const createOneValidation = async (payload) => {
     title: string().required().max(200),
     type: string()
       .required()
-      .oneOf(["notes", "prescriptions", "recommendations"]),
+      .oneOf([
+        NoteTypes.NOTES,
+        NoteTypes.PRESCRIPTIONS,
+        NoteTypes.RECOMMENDATIONS,
+      ]),
     prescription_type: string().when("type", {
       is: "prescriptions",
       then: (schema) => schema.oneOf(["balance_sheet", "treatment"]),
