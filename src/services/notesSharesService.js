@@ -162,7 +162,6 @@ class ShareNotesService extends ApiService {
    * @return {Promise<void>}
    */
   async removeNoteInvitations({ noteIds }) {
-    debugger;
     const payload = { noteIds: [...noteIds] };
 
     try {

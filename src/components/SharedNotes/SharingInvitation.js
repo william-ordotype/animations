@@ -48,6 +48,11 @@ function SharingInvitation() {
         ["x-html"]: "$store.shareStore.invitationNote?.note?.rich_text_ordo",
       };
     },
+    getFiles() {
+      return {
+        ["x-for"]: "file in $store.shareStore.invitationNote?.note?.documents",
+      };
+    },
 
     // Note modal actions
     cloneNote() {

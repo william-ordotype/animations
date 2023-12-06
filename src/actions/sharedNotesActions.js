@@ -58,9 +58,15 @@ async function setShowSharedNote({ inviteType, noteId }) {
   }
 
   Alpine.store(StateStore.SHARE).isInvitedAllowed = true;
-  Alpine.store(StateStore.SHARE).invitationNote = {
-    ...res,
-  };
+  if (res.note) {
+    Alpine.store(StateStore.SHARE).invitationNote = {
+      ...res,
+    };
+  } else {
+    Alpine.store(StateStore.SHARE).invitationNote = {
+      note: { ...res },
+    };
+  }
 }
 
 async function setSharedNotesSearched(payload) {
@@ -121,7 +127,7 @@ async function setCloneNote(payload) {
     // Cloning options usually is inside a sharing page
     Alpine.store(StateStore.TOASTER).toasterMsg(
       `Copie de le document enregistrée. <a id="redirectNote" target="_self" href="${NotesUrls.MY_NOTES}">Redirect to my documents</a>`,
-      ToasterMsgTypes.ERROR,
+      ToasterMsgTypes.SUCCESS,
       4500
     );
     $("#redirectNote").on("click", () => {
