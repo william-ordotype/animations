@@ -2005,7 +2005,7 @@
                           </div>
                           <div
                             x-bind:class="sortByHeadClass(&#x27;sortByDate&#x27;)"
-                            x-on:click="sortByClick(&#x27;sortByDate&#x27;)"
+                            x-on:click="sortByClick(&#x27;sortByAuthor&#x27;)"
                             id="w-node-_2a02c6e4-ca4c-ef52-78b5-7de813312282-fa31e4df"
                             class="sort_cover"
                           >
@@ -2629,7 +2629,7 @@
                     </div>
                     <nav class="sub_list_action w-dropdown-list">
                       <a
-                        x-on:click="drawerEdit($event)"
+                        x-bind="drawerClone"
                         href="#"
                         class="sub_link w-inline-block"
                         ><div class="w-layout-grid grid_gap_8">
@@ -2709,7 +2709,7 @@
                           <div class="display-inlineflex">Partager</div>
                         </div></a
                       ><a
-                        x-on:click="drawerDeleteOne($event)"
+                        x-bind="drawerRemoveAccess"
                         href="#"
                         class="sub_link color_red w-inline-block"
                         ><div class="w-layout-grid grid_gap_8">
