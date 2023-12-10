@@ -156,11 +156,13 @@ function DocumentsShareModal() {
         },
       };
     },
-    closeSharingModal: {
-      ["x-on:click.prevent"]: () => {
-        this.sharedEmailValue = "";
-        closeModalFn();
-      },
+    closeSharingModal() {
+      return {
+        ["x-on:click.prevent"]: () => {
+          this.sharedEmailValue = "";
+          closeModalFn();
+        },
+      };
     },
     copySharedLinkBtn: {
       ["x-on:click.prevent"]: () => {},
