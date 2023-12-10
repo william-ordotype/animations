@@ -7,6 +7,7 @@ const sortByValues = [
   "title",
   "type",
   "prescription_type",
+  "updated_by.full_name",
 ];
 
 const deleteManyNotesValidation = async (payload) => {

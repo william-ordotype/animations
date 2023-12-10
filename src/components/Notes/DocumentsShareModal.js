@@ -1,7 +1,9 @@
 import Alpine from "alpinejs";
 import ShareNotesService from "../../services/notesSharesService";
-import { StateStore } from "../../utils/enums";
+import { StateStore, ToasterMsgTypes } from "../../utils/enums";
 import NProgress from "nprogress";
+import { string } from "yup";
+import ToasterStore from "../../store/toaster.store";
 
 const ShareNoteService = new ShareNotesService();
 
@@ -81,12 +83,22 @@ function DocumentsShareModal() {
       return {
         ["x-on:click.prevent"]: async () => {
           try {
+            const validateSharedEmailValueSchema = string().email();
+            const email = validateSharedEmailValueSchema.validateSync(
+              this.sharedEmailValue
+            );
             Alpine.store("shareStore").activeNoteEmailList.push({
-              email: this.sharedEmailValue,
+              email,
             });
             this.emailsToAdd.push(this.sharedEmailValue);
             this.sharedEmailValue = "";
           } catch (err) {
+            if (err.name === "ValidationError") {
+              Alpine.store(StateStore.TOASTER).toasterMsg(
+                err.errors,
+                ToasterMsgTypes.ERROR
+              );
+            }
             console.error(err);
           }
         },
@@ -117,6 +129,13 @@ function DocumentsShareModal() {
       return {
         ["x-on:click.prevent"]: async () => {
           try {
+            if (this.sharedEmailValue !== "") {
+              Alpine.store(StateStore.TOASTER).toasterMsg(
+                "Assurez-vous d'avoir ajouté tous les e-mails de l'entrée avant de soumettre",
+                ToasterMsgTypes.ERROR
+              );
+              return;
+            }
             const payload = {
               emailsToAdd: this.emailsToAdd,
               emailsToRemove: this.emailsToDelete,

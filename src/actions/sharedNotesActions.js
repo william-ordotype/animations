@@ -116,6 +116,7 @@ async function setRemoveSharedInvitations(payload) {
       ToasterMsgTypes.ERROR
     );
   }
+  return res;
 }
 
 async function setCloneNote(payload) {
