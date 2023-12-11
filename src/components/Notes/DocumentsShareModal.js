@@ -3,7 +3,6 @@ import ShareNotesService from "../../services/notesSharesService";
 import { StateStore, ToasterMsgTypes } from "../../utils/enums";
 import NProgress from "nprogress";
 import { string } from "yup";
-import ToasterStore from "../../store/toaster.store";
 
 const ShareNoteService = new ShareNotesService();
 
@@ -82,22 +81,39 @@ function DocumentsShareModal() {
     addEmailtoListBtn() {
       return {
         ["x-on:click.prevent"]: async () => {
+          const userStore = Alpine.store(StateStore.USER);
+          const toastStore = Alpine.store(StateStore.TOASTER);
+          const shareStore = Alpine.store(StateStore.SHARE);
+
           try {
             const validateSharedEmailValueSchema = string().email();
             const email = validateSharedEmailValueSchema.validateSync(
               this.sharedEmailValue
             );
-            Alpine.store("shareStore").activeNoteEmailList.push({
+            // Avoids sharing document to same owner user
+            if (email === userStore.user.auth.email) {
+              toastStore.toasterMsg(
+                "Vous ne pouvez pas partager un document avec vous-même!",
+                ToasterMsgTypes.ERROR
+              );
+              return;
+            }
+            // Checks if email already exists in shared list to avoid duplication
+            if (shareStore.activeNoteEmailList.some((e) => e.email === email)) {
+              toastStore.toasterMsg(
+                "L'e-mail existe déjà dans la liste partagée",
+                ToasterMsgTypes.ERROR
+              );
+              return;
+            }
+            shareStore.activeNoteEmailList.push({
               email,
             });
             this.emailsToAdd.push(this.sharedEmailValue);
             this.sharedEmailValue = "";
           } catch (err) {
             if (err.name === "ValidationError") {
-              Alpine.store(StateStore.TOASTER).toasterMsg(
-                err.errors,
-                ToasterMsgTypes.ERROR
-              );
+              toastStore.toasterMsg(err.errors, ToasterMsgTypes.ERROR);
             }
             console.error(err);
           }
