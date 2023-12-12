@@ -2,6 +2,7 @@ const shareStore = {
   // My documents page
   shareOptionsEnabled: false,
   shareSwitch: false,
+  isShareSwitchLoading: false,
   activeNote: {},
   activeNoteEmailList: [],
   activeNotePublicLink: "",
