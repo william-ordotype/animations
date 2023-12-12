@@ -196,9 +196,20 @@
 .slideon input:checked ~ .slideon-slider {
   background-color: rgb(52, 84, 246);
 }
-
-.emailText {
-  max-width: 90%;
-  text-overflow: ellipsis;
-  overflow: hidden;
+.search_result_holder {
+  .inner_header {
+    width: 100%;
+  }
+  .emailText {
+    max-width: 90%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    text-wrap: nowrap;
+  }
 }
+a#submit-share-btn[disabled] {
+  background: #6c757d;
+  cursor: auto;
+  pointer-events: none;
+}
+

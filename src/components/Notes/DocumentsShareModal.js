@@ -11,10 +11,10 @@ function DocumentsShareModal() {
     // local state
     showSharingOptions: false,
     sharedEmailValue: "",
-    sharedEmailList: Alpine.store("shareStore").activeNoteEmailList,
+    sharedEmailList: Alpine.store(StateStore.SHARE).activeNoteEmailList,
     emailsToAdd: [],
     emailsToDelete: [],
-    sharedLinkId: Alpine.store("shareStore").activeNotePublicLink,
+    sharedLinkId: Alpine.store(StateStore.SHARE).activeNotePublicLink,
 
     // components
     shareModal() {
@@ -30,34 +30,40 @@ function DocumentsShareModal() {
     },
     switchButton() {
       return {
+        ["x-bind:disabled"]: () => {
+          return Alpine.store(StateStore.SHARE).isShareSwitchLoading;
+        },
         ["x-model"]: "$store.shareStore.shareSwitch",
         ["x-on:change"]: async (ev) => {
           NProgress.start();
-          const activeNote = Alpine.store("shareStore").activeNote;
+          const shareStore = Alpine.store(StateStore.SHARE);
+          const notesStore = Alpine.store(StateStore.MY_NOTES);
+          const toastStore = Alpine.store(StateStore.TOASTER);
+          const activeNote = shareStore.activeNote;
+
+          shareStore.isShareSwitchLoading = true;
           try {
             if (!activeNote["can_share"]) {
               const res = await ShareNoteService.activateNote(activeNote._id);
               $(".partage_inputs").slideDown();
-              Alpine.store(StateStore.SHARE).activeNotePublicLink = res.linkId;
-              Alpine.store(StateStore.MY_NOTES).noteList.find(
-                (note) => note._id
-              )["can_share"] = true;
+              shareStore.activeNotePublicLink = res.linkId;
+              notesStore.noteList.find((note) => note._id)["can_share"] = true;
+
               activeNote["can_share"] = true;
             } else {
               $(".partage_inputs").slideUp();
-              const res = await ShareNoteService.deactivateNote(activeNote._id);
-              Alpine.store(StateStore.SHARE).activeNotePublicLink = "";
-              Alpine.store(StateStore.MY_NOTES).noteList.find(
-                (note) => note._id
-              )["can_share"] = false;
+              await ShareNoteService.deactivateNote(activeNote._id);
+              shareStore.activeNotePublicLink = "";
+              notesStore.noteList.find((note) => note._id)["can_share"] = false;
 
               activeNote["can_share"] = false;
             }
             NProgress.done();
+            shareStore.isShareSwitchLoading = false;
           } catch (err) {
-            Alpine.store(StateStore.TOASTER).toasterMsg(
-              "Il y avait une erreur",
-              "error"
+            toastStore.toasterMsg(
+              "Une erreur s'est produite lors de la tentative de partage de votre document",
+              ToasterMsgTypes.ERROR
             );
             console.error(err);
             ev.preventDefault();
@@ -86,7 +92,7 @@ function DocumentsShareModal() {
           const shareStore = Alpine.store(StateStore.SHARE);
 
           try {
-            const validateSharedEmailValueSchema = string().email();
+            const validateSharedEmailValueSchema = string().email().required();
             const email = validateSharedEmailValueSchema.validateSync(
               this.sharedEmailValue
             );
@@ -143,6 +149,11 @@ function DocumentsShareModal() {
     },
     validateButton() {
       return {
+        ["x-bind:disabled"]: () => {
+          return (
+            this.emailsToDelete.length === 0 && this.emailsToAdd.length === 0
+          );
+        },
         ["x-on:click.prevent"]: async () => {
           try {
             if (this.sharedEmailValue !== "") {
