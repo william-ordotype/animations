@@ -79,8 +79,43 @@ function DocumentsShareModal() {
     sharedEmailInput() {
       return {
         ["x-model"]: "sharedEmailValue",
-        ["x-on:keyup.enter"]: () => {
-          return this.sharedEmailList.push(this.sharedEmailValue);
+        ["x-on:keyup.enter"]: async () => {
+          const userStore = Alpine.store(StateStore.USER);
+          const toastStore = Alpine.store(StateStore.TOASTER);
+          const shareStore = Alpine.store(StateStore.SHARE);
+
+          try {
+            const validateSharedEmailValueSchema = string().email().required();
+            const email = validateSharedEmailValueSchema.validateSync(
+              this.sharedEmailValue
+            );
+            // Avoids sharing document to same owner user
+            if (email === userStore.user.auth.email) {
+              toastStore.toasterMsg(
+                "Vous ne pouvez pas partager un document avec vous-même!",
+                ToasterMsgTypes.ERROR
+              );
+              return;
+            }
+            // Checks if email already exists in shared list to avoid duplication
+            if (shareStore.activeNoteEmailList.some((e) => e.email === email)) {
+              toastStore.toasterMsg(
+                "L'e-mail existe déjà dans la liste partagée",
+                ToasterMsgTypes.ERROR
+              );
+              return;
+            }
+            shareStore.activeNoteEmailList.push({
+              email,
+            });
+            this.emailsToAdd.push(this.sharedEmailValue);
+            this.sharedEmailValue = "";
+          } catch (err) {
+            if (err.name === "ValidationError") {
+              toastStore.toasterMsg(err.errors, ToasterMsgTypes.ERROR);
+            }
+            console.error(err);
+          }
         },
       };
     },
