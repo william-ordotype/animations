@@ -51,7 +51,7 @@ function DocumentsModal() {
 
           if (hasWhitelistedProtocol) return sanitizedUrl;
 
-          // if not, then append only 'http' to not to be a relative URL
+          // if not, then append only 'http' to not be a relative URL
           return `https://${sanitizedUrl}`;
         }
       }
@@ -86,6 +86,15 @@ function DocumentsModal() {
       return {
         ["x-show"]: "modalStore.showModal",
         ["x-transition"]: "",
+        ["x-on:click.outside"]: (ev) => {
+          const modalStore = Alpine.store(StateStore.MODAL);
+          if (
+            !$(ev.target).parents(".modal_dialog_backdrop").length > 0 &&
+            ev.target !== document.querySelector(".modal_dialog_backdrop")
+          ) {
+            modalStore.showBeforeCancel = true;
+          }
+        },
       };
     },
     createOneRichText() {
@@ -95,13 +104,22 @@ function DocumentsModal() {
     },
     modalDialogBackdrop() {
       return {
+        ["x-on:click.self"]: (ev) => {
+          const modalStore = Alpine.store(StateStore.MODAL);
+          if (ev.currentTarget === ev.target) {
+            modalStore.showBeforeSave = false;
+            modalStore.showBeforeCancel = false;
+            modalStore.showBeforeDelete = false;
+            modalStore.showSharingOptions = false;
+          }
+        },
         ["x-show"]:
           "modalStore.showBeforeSave || modalStore.showBeforeCancel || modalStore.showBeforeDelete || modalStore.showInsertUrl || modalStore.showSharingOptions ",
         ["x-bind:class"]:
           "(modalStore.showBeforeSave || modalStore.showBeforeCancel || modalStore.showBeforeDelete || modalStore.showInsertUrl || modalStore.showSharingOptions) && 'active'",
       };
     },
-    beforeSaveDialog(isShow) {
+    beforeSaveDialog() {
       return {
         ["x-show"]: "modalStore.showBeforeSave",
       };
@@ -143,7 +161,7 @@ function DocumentsModal() {
           quill.clipboard.dangerouslyPasteHTML(range.index, linkedQR);
         }
       } else {
-        // Inserts QR at at end of document
+        // Inserts QR at end of document
         const length = quill.getLength();
 
         quill.clipboard.dangerouslyPasteHTML(length, linkedQR);
@@ -153,7 +171,8 @@ function DocumentsModal() {
       this.modalStore.showInsertUrl = false;
     },
     clearUrlSubmit() {
-      (this.url = ""), (this.urlTitle = "");
+      this.url = "";
+      this.urlTitle = "";
     },
     insertUrlDialog() {
       return {
@@ -218,7 +237,7 @@ function PathologiesAutocomplete() {
     },
     init() {
       globals.autocomplete({
-        onStateChange({ state, ...rest }) {
+        onStateChange({ state }) {
           if (state.isOpen === false && state.status === "idle") {
             state.completion = "";
           }
@@ -253,7 +272,7 @@ function PathologiesAutocomplete() {
                   return html`<div>${item.title}</div>`;
                 },
               },
-              onSelect(obj, rest) {
+              onSelect(obj) {
                 // Review if pathology id already exists in pathology store array
                 const pathologyExists = Alpine.store(
                   "modalStore"
