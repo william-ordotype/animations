@@ -197,7 +197,7 @@ function DocumentsShareModal() {
     copySharedLinkSuccessMsg: {
       ["x-show"]: "$store.shareStore.showCopySuccessMsg",
       ["x-transition:enter.duration.500ms"]: "",
-      ["x-transition:leave.duration.0ms"]: "",
+      ["x-transition:leave.duration.200ms"]: "",
     },
   };
 }
