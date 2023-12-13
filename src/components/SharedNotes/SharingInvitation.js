@@ -63,6 +63,11 @@ function SharingInvitation() {
             const noteId = Alpine.store(StateStore.SHARE).invitationNote.note
               ?._id;
             await setCloneNote({ noteId });
+            setTimeout(() => {
+              window.PineconeRouter.currentContext.redirect(
+                `${NotesUrls.MY_NOTES}`
+              );
+            }, 2500);
           } catch (err) {
             Alpine.store(StateStore.TOASTER).toasterMsg(
               "Error",
