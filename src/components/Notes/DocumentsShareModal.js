@@ -173,6 +173,8 @@ function DocumentsShareModal() {
               "Enregistré avec succès",
               "success"
             );
+            this.emailsToAdd = [];
+            this.emailsToDelete = [];
           } catch (err) {
             console.error(err);
             Alpine.store("toasterStore").toasterMsg(
@@ -187,6 +189,8 @@ function DocumentsShareModal() {
       return {
         ["x-on:click.prevent"]: () => {
           this.sharedEmailValue = "";
+          this.emailsToAdd = [];
+          this.emailsToDelete = [];
           closeModalFn();
         },
       };
