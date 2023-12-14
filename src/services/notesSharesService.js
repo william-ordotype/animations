@@ -80,7 +80,7 @@ class ShareNotesService extends ApiService {
     pathology = [],
     title = "",
     state = ShareStates.AVAILABLE,
-  }) {
+  } = {}) {
     const validatePayload = await getNotesValidation({
       page,
       limit,

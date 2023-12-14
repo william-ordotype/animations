@@ -110,6 +110,7 @@ async function setRemoveSharedInvitations(payload) {
       "Document supprimé",
       ToasterMsgTypes.SUCCESS
     );
+    await setSharedNoteList();
   } else {
     Alpine.store(StateStore.TOASTER).toasterMsg(
       "Erreur lors de la suppression du document",

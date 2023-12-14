@@ -12,6 +12,8 @@ const modalStore = {
   showBeforeCancel: false,
   showBeforeDelete: false,
   showSharingOptions: false,
+  showBeforeRemoveSharedInvitation: false,
+  showBeforeCloneNote: false,
   showInsertUrl: false,
   loadModal: true,
   loadSubmit: false,
@@ -149,12 +151,17 @@ const modalStore = {
       Alpine.store("toasterStore").toasterMsg("Erreur", "error", 2000);
     }
   },
+  // Shared notes modal
+  removeShareNoteList: [],
+
   // Create/Edit Path
   closeModal() {
     // clear dynamic fields
     this.showModal = false;
     this.showBeforeSave = false;
     this.showBeforeCancel = false;
+    this.showBeforeRemoveSharedInvitation = false;
+    this.showBeforeCloneNote = false;
     this.form._id = null;
     this.form.title = "";
     this.form.rich_text_ordo = "";

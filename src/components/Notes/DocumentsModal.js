@@ -77,7 +77,7 @@ function DocumentsModal() {
     modalBackdrop() {
       return {
         ["x-show"]:
-          "modalStore.showModal || modalStore.showBeforeDelete || modalStore.showSharingOptions",
+          "modalStore.showModal || modalStore.showBeforeDelete || modalStore.showSharingOptions || modalStore.showBeforeRemoveSharedInvitation || modalStore.showBeforeCloneNote",
         ["x-trap.noscroll"]: "modalStore.showModal",
         ["x-transition"]: "",
       };
@@ -114,9 +114,9 @@ function DocumentsModal() {
           }
         },
         ["x-show"]:
-          "modalStore.showBeforeSave || modalStore.showBeforeCancel || modalStore.showBeforeDelete || modalStore.showInsertUrl || modalStore.showSharingOptions ",
+          "modalStore.showBeforeSave || modalStore.showBeforeCancel || modalStore.showBeforeDelete || modalStore.showInsertUrl || modalStore.showSharingOptions || modalStore.showBeforeRemoveSharedInvitation || modalStore.showBeforeCloneNote",
         ["x-bind:class"]:
-          "(modalStore.showBeforeSave || modalStore.showBeforeCancel || modalStore.showBeforeDelete || modalStore.showInsertUrl || modalStore.showSharingOptions) && 'active'",
+          "(modalStore.showBeforeSave || modalStore.showBeforeCancel || modalStore.showBeforeDelete || modalStore.showInsertUrl || modalStore.showSharingOptions || modalStore.showBeforeRemoveSharedInvitation || modalStore.showBeforeCloneNote) && 'active'",
       };
     },
     beforeSaveDialog() {
@@ -336,14 +336,20 @@ function OpenModalByType() {
 
 function DeleteSelectedNotes() {
   return {
-    deleteManyButton() {
+    deleteManyButton: function () {
       return {
         ["x-show"]: "$store.notesStore.areNotesSelected",
         ["x-on:click.prevent"]: (ev) => {
-          const selectedNotes = Alpine.store(
-            StateStore.MY_NOTES
-          ).noteList.filter((note) => note.checked);
-          Alpine.store("modalStore").openBeforeDelete(selectedNotes);
+          const modalStore = Alpine.store("modalStore");
+          const selectedNotes = Alpine.store(StateStore.MY_NOTES).noteList.map(
+            (note) => {
+              if (note.checked) {
+                return note._id;
+              }
+            }
+          );
+          modalStore.removeShareNoteList = selectedNotes;
+          modalStore.showBeforeRemoveSharedInvitation = true;
         },
       };
     },
