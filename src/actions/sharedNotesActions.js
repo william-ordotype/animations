@@ -132,6 +132,9 @@ async function setCloneNote(payload) {
       ToasterMsgTypes.SUCCESS,
       4500
     );
+    setTimeout(() => {
+      location.href = "/debug/mes-documents#/list";
+    }, 1500);
   } catch (err) {
     console.error(err);
     Alpine.store(StateStore.TOASTER).toasterMsg(
