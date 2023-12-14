@@ -10,7 +10,7 @@ function SharingInvitation() {
     layoutContainer() {
       return {
         ["x-bind:style"]:
-          "$store.shareStore.isInvitedAllowed && { flexDirection: 'row', alignItems: 'stretch' }",
+          "$store.shareStore.isInvitedAllowed && { flexDirection: 'row', alignItems: 'center' }",
       };
     },
 
