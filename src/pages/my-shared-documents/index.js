@@ -49,6 +49,7 @@ import { DocumentAvailableSpaceGraphWidget } from "../../components/Notes/Docume
 
 import { StateStore } from "../../utils/enums";
 import { errorMessageFr } from "../../validation/errorMessages";
+import { BeforeRemoveSharedInvitationDialog } from "../../components/SharedNotes/DocumentsModal";
 
 window.Alpine = Alpine;
 
@@ -93,6 +94,10 @@ Alpine.data("DocumentsModal", DocumentsModal);
 Alpine.data("OpenModalByType", OpenModalByType);
 Alpine.data("PathologiesAutocomplete", PathologiesAutocomplete);
 Alpine.data("DeleteSelectedNotes", DeleteSelectedNotes);
+Alpine.data(
+  "BeforeRemoveSharedInvitationDialog",
+  BeforeRemoveSharedInvitationDialog
+);
 
 // Documents Files located in drawer and modal
 Alpine.data("DocumentFileListItem", DocumentFileListItem);

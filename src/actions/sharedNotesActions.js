@@ -110,6 +110,7 @@ async function setRemoveSharedInvitations(payload) {
       "Document supprimé",
       ToasterMsgTypes.SUCCESS
     );
+    await setSharedNoteList();
   } else {
     Alpine.store(StateStore.TOASTER).toasterMsg(
       "Erreur lors de la suppression du document",
@@ -127,16 +128,15 @@ async function setCloneNote(payload) {
     // Gives the user the option to redirect to my documents page to see the new created document
     // Cloning options usually is inside a sharing page
     Alpine.store(StateStore.TOASTER).toasterMsg(
-      `Copie de le document enregistrée. <a id="redirectNote" target="_self" href="${NotesUrls.MY_NOTES}">Redirect to my documents</a>`,
+      `Copie de le document enregistrée.`,
       ToasterMsgTypes.SUCCESS,
       4500
     );
-    $("#redirectNote").on("click", () => {
-      window.PineconeRouter.currentContext.redirect(NotesUrls.MY_NOTES);
-      return true;
-    });
+    setTimeout(() => {
+      location.href = "/debug/mes-documents#/list";
+    }, 1500);
   } catch (err) {
-    console.log(err);
+    console.error(err);
     Alpine.store(StateStore.TOASTER).toasterMsg(
       "Erreur de clonage du document",
       ToasterMsgTypes.ERROR

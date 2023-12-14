@@ -146,7 +146,12 @@ window.Webflow.push(() => {
 
     sharedLinkClipboard.on("success", function (e) {
       e.clearSelection();
-      Alpine.store("shareStore").showCopySuccessMsg = true;
+      Alpine.store(StateStore.SHARE).showCopySuccessMsg = true;
+
+      // Hide successfully copy text after 5 seconds
+      setTimeout(() => {
+        Alpine.store(StateStore.SHARE).showCopySuccessMsg = false;
+      }, 5000);
     });
 
     SkeletonLoaderEvent.init();

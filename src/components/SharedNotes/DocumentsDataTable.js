@@ -1,7 +1,9 @@
 import {
   setCloneNote,
   setRemoveSharedInvitations,
+  setSharedNoteList,
 } from "../../actions/sharedNotesActions";
+import { ShareStates, StateStore } from "../../utils/enums";
 
 function DataTableListItemSubmenu() {
   return {
@@ -9,8 +11,12 @@ function DataTableListItemSubmenu() {
       return {
         ["x-show"]: "true",
         ["@click.prevent"]: async function () {
-          const noteId = note._id;
-          await setRemoveSharedInvitations({ noteIds: [noteId] });
+          const noteId = this.note._id;
+          Alpine.store(StateStore.MODAL).removeShareNoteList = [noteId];
+          console.log("remove share modal");
+          Alpine.store(
+            StateStore.MODAL
+          ).showBeforeRemoveSharedInvitation = true;
         },
       };
     },
