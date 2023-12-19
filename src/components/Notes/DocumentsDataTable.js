@@ -103,6 +103,8 @@ function DataTableListItem() {
         ["x-on:click"]:
           "note.pathologies.length > 0 ? (location.href = `/pathologies/${note.pathologies[0].slug}`) : console.log('no pathology')",
         ["x-bind:class"]: "note.pathologies.length && 'active'",
+        ["x-bind:style"]:
+          "note.pathologies.length === 0 && {backgroundColor: 'transparent'}",
         ["x-text"]: "note.pathologies.length ? note.pathologies[0].title : '-'",
         ["x-bind:href"]:
           "note.pathologies.length ? '/pathologies/' + note.pathologies[0].slug : null",
