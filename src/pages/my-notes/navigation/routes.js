@@ -40,6 +40,7 @@ window.router = () => {
         await window.globals.drawer.handleDrawer({ id });
         console.log("drawer");
       }
+      NProgress.done();
     },
     createPrescription(context) {
       context.redirect("/");

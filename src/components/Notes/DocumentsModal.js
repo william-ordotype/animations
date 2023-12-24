@@ -88,11 +88,17 @@ function DocumentsModal() {
         ["x-transition"]: "",
         ["x-on:click.outside"]: (ev) => {
           const modalStore = Alpine.store(StateStore.MODAL);
+          // If clicks outside modal, close the modal
           if (
             !$(ev.target).parents(".modal_dialog_backdrop").length > 0 &&
             ev.target !== document.querySelector(".modal_dialog_backdrop")
           ) {
-            modalStore.showBeforeCancel = true;
+            // If click inside autocomplete dropdown (which is outside of the modal) ignore close
+            if ($(ev.target).parents(".aa-Panel").length > 0) {
+              modalStore.showBeforeCancel = false;
+            } else {
+              modalStore.showBeforeCancel = true;
+            }
           }
         },
       };

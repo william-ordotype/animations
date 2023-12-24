@@ -151,7 +151,7 @@ window.Webflow.push(() => {
       // Hide successfully copy text after 5 seconds
       setTimeout(() => {
         Alpine.store(StateStore.SHARE).showCopySuccessMsg = false;
-      }, 5000);
+      }, 3000);
     });
 
     SkeletonLoaderEvent.init();
