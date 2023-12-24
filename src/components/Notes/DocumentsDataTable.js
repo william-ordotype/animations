@@ -104,7 +104,7 @@ function DataTableListItem() {
           "note.pathologies.length > 0 ? (location.href = `/pathologies/${note.pathologies[0].slug}`) : console.log('no pathology')",
         ["x-bind:class"]: "note.pathologies.length && 'active'",
         ["x-bind:style"]:
-          "note.pathologies.length === 0 && {backgroundColor: 'transparent'}",
+          "note.pathologies.length === 0 ? {backgroundColor: 'transparent'} : ''",
         ["x-text"]: "note.pathologies.length ? note.pathologies[0].title : '-'",
         ["x-bind:href"]:
           "note.pathologies.length ? '/pathologies/' + note.pathologies[0].slug : null",
@@ -124,7 +124,7 @@ function DataTableListItem() {
       return getFileExtByMimeType[mime_type] || "file";
     },
     authorColumn: {
-      ["x-text"]: "note.updated_by.fullName || note.updated_by.full_name",
+      ["x-text"]: "note.updated_by?.fullName || note.created_by.email",
     },
   };
 }

@@ -156,12 +156,28 @@
   left: 50% !important;
 }
 
-.pathologie_tag {
-  max-width: 270px;
+.div-block-415 {
+  max-width: 100%;
+}
+
+.author_tag {
   overflow: hidden;
-  display: inline-block;
+  text-overflow: ellipsis;
+  text-wrap: nowrap;
+}
+
+.pathologie_tag {
+  max-width: 90%;
+  display: flex;
   text-overflow: ellipsis;
   white-space: nowrap;
+  justify-content: flex-start;
+
+  .pathologies_tag_text {
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
   @media screen and (max-width: 375px) {
     max-width: 300px;
   }
