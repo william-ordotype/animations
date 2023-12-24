@@ -39,8 +39,10 @@ window.router = () => {
               4500
             );
           }
+          NProgress.done();
         } catch (err) {
           // TODO Show warning error notification
+          NProgress.done();
         }
       }
     },
