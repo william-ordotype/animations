@@ -186,7 +186,7 @@ const modalStore = {
   async submitForm(ev) {
     this.form.rich_text_ordo = window.globals.createRTE.root.innerHTML;
 
-    const form = { ...this.form }; // Internal declaration. Because closeModal method resets form._id;
+    const form = this.form; // Internal declaration. Because closeModal method resets form._id;
     const files = this.files;
     const filesToDelete = this.filesToDelete;
     form.pathology = this.form.pathology.map((path) => path._id);
@@ -211,16 +211,13 @@ const modalStore = {
       let formResponse;
       if (isEdit) {
         // Transform fetch race to array of json
-        const [formRes, fileRes, filesDeletedRes] = notesService.updateOne(
-          form,
-          files,
-          filesToDelete
-        );
+        const [formRes, fileRes, filesDeletedRes] =
+          await notesService.updateOne(form, files, filesToDelete);
+
         formResponse = await formRes.json();
       } else {
         formResponse = await notesService.createOne(form, files);
       }
-
       // Handle server errors from notes form submission
       if (formResponse.error || formResponse.statusCode === 500) {
         console.error(formResponse);
