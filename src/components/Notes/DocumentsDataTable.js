@@ -124,7 +124,8 @@ function DataTableListItem() {
       return getFileExtByMimeType[mime_type] || "file";
     },
     authorColumn: {
-      ["x-text"]: "note.updated_by?.fullName || note.created_by.email",
+      ["x-text"]:
+        "note.updated_by?.fullName || note.updated_by?.full_name || note.created_by.email",
     },
   };
 }
