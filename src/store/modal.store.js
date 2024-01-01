@@ -214,7 +214,7 @@ const modalStore = {
         const [formRes, fileRes, filesDeletedRes] =
           await notesService.updateOne(form, files, filesToDelete);
 
-        formResponse = await formRes.json();
+        formResponse = formRes;
       } else {
         formResponse = await notesService.createOne(form, files);
       }
