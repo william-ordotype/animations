@@ -3,7 +3,7 @@ const dotenv = require("dotenv");
 dotenv.config({ path: ".env.dev" });
 const webpack = require("webpack");
 
-const environmentVariables = ["ORDOTYPE_API"];
+const environmentVariables = ["ORDOTYPE_API", "ORDOTYPE_API_VERSION"];
 
 const { merge } = require("webpack-merge");
 const common = require("./webpack.common.js");

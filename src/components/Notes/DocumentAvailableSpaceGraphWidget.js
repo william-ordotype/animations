@@ -1,33 +1,34 @@
-import Alpine from "alpinejs";
-
 function DocumentAvailableSpaceGraphWidget() {
   return {
-    docPercent:
-      "$store.documentsStore.rulesStatus.currentStatus.consumedMegabytesPercent",
-    notesPercent:
-      "$store.documentsStore.rulesStatus.currentStatus.consumedNotesPercent",
+    showRulesLoading: {
+      ["x-show"]: "$store.notesStore.isRuleStatusLoading === true",
+    },
+    showRulesWidget: {
+      ["x-show"]:
+        "$store.userStore.isAuth && !($store.notesStore.isRuleStatusLoading)",
+    },
+    docPercent: "$store.notesStore.currentRuleStatus.consumedMegabytesPercent",
+    notesPercent: "$store.notesStore.currentRuleStatus.consumedNotesPercent",
     consumedNotesNumber() {
       return {
-        ["x-text"]:
-          "$store.documentsStore.rulesStatus.currentStatus.consumedNotesNumber",
+        ["x-text"]: "$store.notesStore.currentRuleStatus.consumedNotesNumber",
       };
     },
     consumedMegabytesNumber() {
       return {
         ["x-text"]:
-          "$store.documentsStore.rulesStatus.currentStatus.consumedMegabytesNumber",
+          "$store.notesStore.currentRuleStatus.consumedMegabytesNumber",
       };
     },
     allowedNumberOfNotes() {
       return {
         ["x-text"]:
-          "' ' + $store.documentsStore.rulesStatus.currentStatus.allowedNumberOfNotes",
+          "' ' + $store.notesStore.currentRuleStatus.allowedNumberOfNotes",
       };
     },
     allowedMegabytes() {
       return {
-        ["x-text"]:
-          "' '+ $store.documentsStore.rulesStatus.currentStatus.allowedMegabyte",
+        ["x-text"]: "' '+ $store.notesStore.currentRuleStatus.allowedMegabyte",
       };
     },
     filesBar() {
