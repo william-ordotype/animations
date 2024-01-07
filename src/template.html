@@ -1,34 +1,34 @@
 <!DOCTYPE html>
-<!-- Last Published: Tue Dec 05 2023 14:22:54 GMT+0000 (Coordinated Universal Time) -->
+<!-- Last Published: Wed Aug 30 2023 20:25:15 GMT+0000 (Coordinated Universal Time) -->
 <html
-  data-wf-domain="ordotype.webflow.io"
-  data-wf-page="65654ef7d750204ffa31e4df"
+  data-wf-domain="www.ordotype.fr"
+  data-wf-page="64a834ded7afdb556f14296d"
   data-wf-site="604b9ac88b080efc7ce802bd"
   lang="fr"
 >
   <head>
     <meta charset="utf-8" />
-    <title>My shared documents</title>
+    <title>Mes Documents</title>
     <meta
       content="Retrouvez toutes vos notes et documents sur Ordotype"
       name="description"
     />
-    <meta content="My shared documents" property="og:title" />
+    <meta content="Mes Documents" property="og:title" />
     <meta
       content="Retrouvez toutes vos notes et documents sur Ordotype"
       property="og:description"
     />
     <meta
-      content="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/64e865aeafe104e52e746b94_Screenshot%202023-08-25%20at%2010.26.01%20AM.png"
+      content="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/64e865aeafe104e52e746b94_Screenshot%202023-08-25%20at%2010.26.01%20AM.png"
       property="og:image"
     />
-    <meta content="My shared documents" property="twitter:title" />
+    <meta content="Mes Documents" property="twitter:title" />
     <meta
       content="Retrouvez toutes vos notes et documents sur Ordotype"
       property="twitter:description"
     />
     <meta
-      content="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/64e865aeafe104e52e746b94_Screenshot%202023-08-25%20at%2010.26.01%20AM.png"
+      content="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/64e865aeafe104e52e746b94_Screenshot%202023-08-25%20at%2010.26.01%20AM.png"
       property="twitter:image"
     />
     <meta property="og:type" content="website" />
@@ -39,7 +39,7 @@
       name="google-site-verification"
     />
     <link
-      href="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.c243045ba.min.css"
+      href="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.af1ebb10e.min.css"
       rel="stylesheet"
       type="text/css"
     />
@@ -56,7 +56,14 @@
     <script type="text/javascript">
       WebFont.load({
         google: {
-          families: ["DM Serif Display:regular", "Inter:300,regular,500,600"],
+          families: [
+            "Lato:100,100italic,300,300italic,400,400italic,700,700italic,900,900italic",
+            "Open Sans:300,300italic,400,400italic,600,600italic,700,700italic,800,800italic",
+            "Varela:400",
+            "Varela Round:400",
+            "DM Serif Display:regular",
+            "Inter:300,regular,500,600",
+          ],
         },
       });
     </script>
@@ -71,18 +78,15 @@
       })(window, document);
     </script>
     <link
-      href="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/646489f6ff1b9504a8e033be_My%20project.png"
+      href="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/646489f6ff1b9504a8e033be_My%20project.png"
       rel="shortcut icon"
       type="image/x-icon"
     />
     <link
-      href="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/63e9f1ba593572dd6555b38a_logo_256_good-removebg-preview.png"
+      href="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/63e9f1ba593572dd6555b38a_logo_256_good-removebg-preview.png"
       rel="apple-touch-icon"
     />
-    <link
-      href="https://www.ordotype.fr/debug/my-shared-documents"
-      rel="canonical"
-    />
+    <link href="https://www.ordotype.fr/mes-documents" rel="canonical" />
     <!-- Memberstack webflow package -->
     <script defer>
       window.addEventListener("load", (event) => {
@@ -133,10 +137,10 @@
 
     <link
       rel="preconnect"
-      href="https://assets-global.website-files.com/"
+      href="https://global-uploads.webflow.com/"
       crossorigin
     />
-    <link rel="dns-prefetch" href="https://assets-global.website-files.com/" />
+    <link rel="dns-prefetch" href="https://global-uploads.webflow.com/" />
 
     <script defer>
       window.mainPlansIds = [
@@ -193,6 +197,11 @@
       })(window, document, "script", "dataLayer", "GTM-MPMWHVV");
     </script>
     <!-- End Google Tag Manager -->
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@algolia/autocomplete-theme-classic"
+    />
 
     <style type="text/css">
       /* Skeleton Loader styles */
@@ -262,15 +271,15 @@
         bottom: 0;
       }
 
-      /* iFrame Styles 
-        .iframe-src {
-          width: 0;
-          height: 0;
-          overflow: hidden;
-          opacity: 0;
-        }
-        
-        /* Autocomplete Styles */
+      /* iFrame Styles */
+      .iframe-src {
+        width: 0;
+        height: 0;
+        overflow: hidden;
+        opacity: 0;
+      }
+
+      /* Autocomplete Styles */
       .autocomplete-active {
         background-color: rgb(240, 243, 255) !important;
         color: #ffffff;
@@ -313,51 +322,10 @@
           width: 100% !important;
         }
       }
-
-      .ql-code-block {
-        display: none !important;
-      }
-      /* Change label for Heading 1 */
-      .ql-snow .ql-picker.ql-header .ql-picker-item[data-value="1"]::before,
-      .ql-snow .ql-picker.ql-header .ql-picker-label[data-value="1"]::before {
-        content: "Titre 1";
-      }
-
-      .ql-snow .ql-picker.ql-header .ql-picker-item[data-value="2"]::before,
-      .ql-snow .ql-picker.ql-header .ql-picker-label[data-value="2"]::before {
-        content: "Titre 2";
-      }
-
-      .ql-snow .ql-picker.ql-header .ql-picker-item[data-value="3"]::before,
-      .ql-snow .ql-picker.ql-header .ql-picker-label[data-value="3"]::before {
-        content: "Titre 3";
-      }
-
-      .ql-snow .ql-picker.ql-header .ql-picker-item[data-value="4"]::before,
-      .ql-snow .ql-picker.ql-header .ql-picker-label[data-value="4"]::before {
-        content: "Titre 4";
-      }
-
-      .ql-snow .ql-picker.ql-header .ql-picker-item[data-value="5"]::before,
-      .ql-snow .ql-picker.ql-header .ql-picker-label[data-value="5"]::before {
-        content: "Titre 5";
-      }
-
-      .ql-snow .ql-picker.ql-header .ql-picker-item[data-value="6"]::before,
-      .ql-snow .ql-picker.ql-header .ql-picker-label[data-value="6"]::before {
-        content: "Titre 6";
-      }
-
-      .file-label {
-        max-width: 150px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        vertical-align: middle;
-      }
     </style>
   </head>
   <body class="body_documents">
-    <div class="navigationhandler w-embed">
+    <div class="w-embed">
       <div x-data="router()">
         <template x-route="/" x-handler="redirectToAll"></template>
         <template x-route="/list" x-handler="listDocuments"></template>
@@ -570,11 +538,6 @@
              padding-left: 0rem !important;
          }
 
-         .shadow-small{
-             box-shadow: 0px 4px 6px rgba(12, 14, 22, 0.1);
-         }
-
-
          .shadow-medium{
              box-shadow: 0px 10px 15px rgba(12, 14, 22, 0.1);
          }
@@ -582,7 +545,6 @@
          .shadow-large{
              box-shadow: 0px 20px 25px rgba(12, 14, 22, 0.1);
          }
-
          /*
         body::-webkit-scrollbar {
             display: none; /* for Chrome, Safari, and Opera, if remove this the navbar will not consider the scrollbar so is more big than the body */
@@ -637,8 +599,7 @@
                  display: grid !important;} }
 
          .header_image-wrapper {
-             /* overflow: hidden !important;*/
-         }
+             overflow: hidden !important;}
 
 
          /* Add styles to Pricing page */
@@ -659,44 +620,6 @@
          .tab_link_card-2.w--current .check_black {
              border: 2px solid rgba(12,14,22,.9);
              background-color: rgba(12,14,22,.9);}
-
-         .tab_link_card.w--open .check_black {
-             border: 2px solid rgba(12,14,22,.9);
-             background-color: rgba(12,14,22,.9);}
-
-
-         .module-card-wrapper.w--open .module_card_offre{
-             border: 2px solid rgba(12,14,22,0.9);}
-
-         .module-card-wrapper.w--open {
-             border: 0px solid rgba(12,14,22,0.9);}
-
-         .module-card-wrapper.w--open .check_black {
-             border: 2px solid rgba(12,14,22,.9);
-             background-color: rgba(12,14,22,.9);}
-
-
-         .button.is-gradient {
-             position: relative;
-             background-image: radial-gradient(circle at 0 0,#7cd0ff,#3454f6 60%);
-             z-index: 1;
-         }
-
-         .button.is-gradient::before {
-             position: absolute;
-             content: "";
-             top: 0;
-             right: 0;
-             bottom: 0;
-             left: 0;
-             background-image: radial-gradient(circle at 0 0,#3454f6, #7cd0ff 60%);
-             z-index: -1;
-             transition: opacity 0.3s ease-in-out;
-             opacity: 0;
-         }
-         .button.is-gradient:hover::before {
-             opacity: 1;
-         }
       </style>
     </div>
     <div
@@ -713,17 +636,10 @@
         <div class="navbar2_container">
           <a href="/" native="" class="navbar2_logo-link w-nav-brand"
             ><img
-              src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/63dbc38b0006fbfb30cbcd64_Logo.svg"
+              src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/63dbc38b0006fbfb30cbcd64_Logo.svg"
               loading="lazy"
-              data-ms-content="!premium-pages"
               alt="LOGO ORDOTYPE"
-              class="navbar2_logo" /><img
-              src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/6526b623a2732eb9279f6adc_logo%20ordotype%20plus.svg"
-              loading="lazy"
-              data-ms-content="premium-pages"
-              data-ms-bind:style="display:block"
-              alt="logo ordotype +"
-              class="navbar2_logo hidden"
+              class="navbar2_logo"
           /></a>
           <div class="header-search-bar-wrapper nav-bar-size">
             <div
@@ -737,7 +653,7 @@
                   data-name="search bar form"
                   method="get"
                   class="form-large"
-                  data-wf-page-id="65654ef7d750204ffa31e4df"
+                  data-wf-page-id="64a834ded7afdb556f14296d"
                   data-wf-element-id="c662c3d1-e20f-ffa3-1c6d-05370242f28b"
                 >
                   <input
@@ -777,17 +693,49 @@
             </div>
           </div>
           <nav role="navigation" class="navbar2_menu w-nav-menu">
-            <a href="/offres-v3" native="" class="navbar2_link w-nav-link"
-              >Nos offres</a
+            <a
+              href="/membership/pricing"
+              native=""
+              class="navbar2_link w-nav-link"
+              >Tarifs</a
             ><a href="/specialites" native="" class="navbar2_link w-nav-link"
               >Spécialités</a
-            ><a
-              href="/mes-documents"
-              native=""
-              data-ms-content="members"
-              class="navbar2_link w-nav-link"
-              >Mes documents</a
-            ><a
+            >
+            <div
+              data-ms-content="premium-pages"
+              class="mes-documents-dropdown-wrapper"
+            >
+              <div
+                data-hover="false"
+                data-delay="0"
+                id="mes-documents"
+                data-ms-content="premium-pages"
+                class="mes-documents-dropdown w-dropdown"
+              >
+                <div native="" class="navbar2_link w-dropdown-toggle">
+                  <div>Mes documents</div>
+                </div>
+                <nav class="dropdown-list-10 w-dropdown-list">
+                  <a
+                    href="/tools/ordonnances-personnalisees"
+                    native=""
+                    class="w-dropdown-link"
+                    >Ordonnances personnalisées</a
+                  ><a
+                    href="/tools/ordonnances-favorites-v2"
+                    native=""
+                    class="w-dropdown-link"
+                    >Ordonnances favorites</a
+                  ><a
+                    href="/tools/conseils-patients-favoris-v2"
+                    native=""
+                    class="w-dropdown-link"
+                    >Fiches conseils favorites</a
+                  >
+                </nav>
+              </div>
+            </div>
+            <a
               href="/membership/profile"
               native=""
               data-ms-content="members"
@@ -1077,22 +1025,18 @@
                       />
                     </svg></div
                 ></a>
-                <div
-                  x-cloak=""
-                  x-data="DocumentAvailableSpaceGraphWidget"
-                  x-show="$store.userStore.isAuth"
-                  class="espace_wrapper"
-                >
+                <div x-if="$store.userStore.hasPaidSub">
                   <div
-                    x-bind="showRulesLoading"
+                    x-show="$store.documentsStore.rulesStatus.isLoading === true"
+                    x-data=""
                     class="loading_container center"
                   >
                     <div class="hide">Loading</div>
                     <div
                       class="lottie-animation"
-                      data-w-id="7b860905-761b-68b0-361a-c4e9dd9e6647"
+                      data-w-id="a1c20225-5961-c712-8c08-ae9ec371bb0f"
                       data-animation-type="lottie"
-                      data-src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/61f2cf4b2c288f34818ada35_52601-waiting.json"
+                      data-src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/61f2cf4b2c288f34818ada35_52601-waiting.json"
                       data-loop="1"
                       data-direction="1"
                       data-autoplay="1"
@@ -1103,8 +1047,9 @@
                     ></div>
                   </div>
                   <div
-                    x-bind="showRulesWidget"
                     x-cloak=""
+                    x-show="$store.userStore.hasPaidSub &amp;&amp; !($store.documentsStore.rulesStatus.isLoading)"
+                    x-data="DocumentsAvailableSpace"
                     class="espace_content text-size-tiny text-color-base-700"
                   >
                     <div class="text-weight-semibold">Espace disponible</div>
@@ -1153,24 +1098,16 @@
                         </div>
                       </div>
                     </div>
-                    <div class="margin-top margin-small">
-                      <a
-                        native=""
-                        href="/membership/stockage-supplementaire"
-                        class="button is-gradient w-button"
-                        >Acheter plus d&#x27;espace</a
-                      >
-                    </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div x-data="LayoutContainer" class="documents_tabs">
+            <div class="documents_tabs">
               <div x-data="DocumentsNavigation()" class="tabs_menu">
                 <a
                   native=""
                   x-bind="allType"
-                  href="/mes-documents#/list?type=all"
+                  href="#/list?type=all"
                   class="tab_link w-inline-block"
                   ><div class="w-layout-grid grid_gap_8">
                     <div class="tab_icon w-embed">
@@ -1218,7 +1155,7 @@
                 ><a
                   native=""
                   x-bind="prescriptionsType"
-                  href="/mes-documents#/list?type=prescriptions"
+                  href="#/list?type=prescriptions"
                   class="tab_link w-inline-block"
                   ><div class="w-layout-grid grid_gap_8">
                     <div class="tab_icon w-embed">
@@ -1259,7 +1196,7 @@
                 ><a
                   native=""
                   x-bind="notesType"
-                  href="/mes-documents#/list?type=notes"
+                  href="#/list?type=notes"
                   class="tab_link w-inline-block"
                   ><div class="w-layout-grid grid_gap_8">
                     <div class="tab_icon w-embed">
@@ -1300,7 +1237,7 @@
                 ><a
                   native=""
                   x-bind="recommendationsType"
-                  href="/mes-documents#/list?type=recommendations"
+                  href="#/list?type=recommendations"
                   class="tab_link w-inline-block"
                   ><div class="w-layout-grid grid_gap_8">
                     <div class="tab_icon w-embed">
@@ -1428,98 +1365,92 @@
                   rel="prefetch"
                   href="/notes-documents/mes-documents-partages"
                 />
-                <div
-                  x-cloak=""
-                  x-data="DocumentAvailableSpaceGraphWidget"
-                  x-show="$store.userStore.isAuth"
-                  class="espace_wrapper"
-                >
-                  <div
-                    x-bind="showRulesLoading"
-                    class="loading_container center"
-                  >
-                    <div class="hide">Loading</div>
+                <div class="espace_wrapper">
+                  <div x-if="$store.userStore.hasPaidSub">
                     <div
-                      class="lottie-animation"
-                      data-w-id="0d095569-8f05-fa03-4b01-7a45c038227f"
-                      data-animation-type="lottie"
-                      data-src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/61f2cf4b2c288f34818ada35_52601-waiting.json"
-                      data-loop="1"
-                      data-direction="1"
-                      data-autoplay="1"
-                      data-is-ix2-target="0"
-                      data-renderer="svg"
-                      data-default-duration="3.0030028806881908"
-                      data-duration="0"
-                    ></div>
-                  </div>
-                  <div
-                    x-bind="showRulesWidget"
-                    x-cloak=""
-                    class="espace_content text-size-tiny text-color-base-700"
-                  >
-                    <div class="text-weight-semibold">Espace disponible</div>
-                    <div class="espace_bar_wrapper">
-                      <div class="bar_base">
-                        <div x-bind="notesBar" class="doc_bar"></div>
-                      </div>
-                      <div class="bar_base">
-                        <div x-bind="filesBar" class="go_bar"></div>
-                      </div>
+                      x-show="$store.documentsStore.rulesStatus.isLoading === true"
+                      x-data=""
+                      class="loading_container center"
+                    >
+                      <div class="hide">Loading</div>
+                      <div
+                        class="lottie-animation"
+                        data-w-id="5eb4bdc4-f4f7-1861-e38b-1a875ad2ec31"
+                        data-animation-type="lottie"
+                        data-src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/61f2cf4b2c288f34818ada35_52601-waiting.json"
+                        data-loop="1"
+                        data-direction="1"
+                        data-autoplay="1"
+                        data-is-ix2-target="0"
+                        data-renderer="svg"
+                        data-default-duration="3.0030028806881908"
+                        data-duration="0"
+                      ></div>
                     </div>
-                    <div class="flex_horizontal">
-                      <div class="doc_bar_dot"></div>
-                      <div class="text_wrapper">
-                        <div
-                          x-bind="consumedNotesNumber"
-                          class="display-inlineflex"
-                        >
-                          {{37}}
+                    <div
+                      x-cloak=""
+                      x-show="$store.userStore.hasPaidSub &amp;&amp; !($store.documentsStore.rulesStatus.isLoading)"
+                      x-data="DocumentsAvailableSpace"
+                      class="espace_content text-size-tiny text-color-base-700"
+                    >
+                      <div class="text-weight-semibold">Espace disponible</div>
+                      <div class="espace_bar_wrapper">
+                        <div class="bar_base">
+                          <div x-bind="notesBar" class="doc_bar"></div>
                         </div>
-                        <div class="display-inlineflex">
-                          documents créés sur
-                          <span x-bind="allowedNumberOfNotes" class="text-span"
-                            >{{50}}</span
-                          >
-                        </div>
-                      </div>
-                    </div>
-                    <div class="flex_horizontal">
-                      <div class="go_bar_dot"></div>
-                      <div class="text_wrapper">
-                        <div
-                          x-bind="consumedMegabytesNumber"
-                          class="display-inlineflex"
-                        >
-                          {{3.75}}
-                        </div>
-                        <div class="display-inlineflex">
-                          Mo utilisés sur<span
-                            x-bind="allowedMegabytes"
-                            class="text-span"
-                          >
-                            {{5}}</span
-                          >
-                          Mo
+                        <div class="bar_base">
+                          <div x-bind="filesBar" class="go_bar"></div>
                         </div>
                       </div>
-                    </div>
-                    <div class="margin-top margin-small">
-                      <a
-                        native=""
-                        href="/membership/stockage-supplementaire"
-                        class="button is-gradient w-button"
-                        >Acheter plus d&#x27;espace</a
-                      >
+                      <div class="flex_horizontal">
+                        <div class="doc_bar_dot"></div>
+                        <div class="text_wrapper">
+                          <div
+                            x-bind="consumedNotesNumber"
+                            class="display-inlineflex"
+                          >
+                            {{37}}
+                          </div>
+                          <div class="display-inlineflex">
+                            documents créés sur
+                            <span
+                              x-bind="allowedNumberOfNotes"
+                              class="text-span"
+                              >{{50}}</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="flex_horizontal">
+                        <div class="go_bar_dot"></div>
+                        <div class="text_wrapper">
+                          <div
+                            x-bind="consumedMegabytesNumber"
+                            class="display-inlineflex"
+                          >
+                            {{3.75}}
+                          </div>
+                          <div class="display-inlineflex">
+                            Mo utilisés sur<span
+                              x-bind="allowedMegabytes"
+                              class="text-span"
+                            >
+                              {{5}}</span
+                            >
+                            Mo
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="tabs_documents">
                 <div
-                  x-cloak=""
+                  x-transition="fade"
                   x-data=""
                   x-show="$store.toasterStore.showToaster"
+                  x-cloak=""
                   class="toast_container"
                 >
                   <div class="toast-element">
@@ -1573,13 +1504,17 @@
                     </div>
                   </div>
                 </div>
-                <div x-bind="dataTableLoading" class="loading_container center">
+                <div
+                  x-show="$store.documentsStore.getList.isLoading"
+                  x-data=""
+                  class="loading_container center"
+                >
                   <div class="hide">Loading</div>
                   <div
                     class="lottie-animation"
                     data-w-id="cb625c82-be66-9092-c9eb-8b3473677579"
                     data-animation-type="lottie"
-                    data-src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/61f2cf4b2c288f34818ada35_52601-waiting.json"
+                    data-src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/61f2cf4b2c288f34818ada35_52601-waiting.json"
                     data-loop="1"
                     data-direction="1"
                     data-autoplay="1"
@@ -1589,18 +1524,23 @@
                     data-duration="0"
                   ></div>
                 </div>
-                <div x-bind="notMemberView" x-cloak="" class="paywall_wrapper">
+                <div
+                  x-show="!$store.userStore.isAuth || !$store.userStore.hasPaidSub"
+                  x-cloak=""
+                  x-data=""
+                  class="paywall_wrapper"
+                >
                   <div class="contenu-premium">
                     <div class="w-layout-grid cont_grid">
                       <img
-                        src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/640de7a644ffd08526acef3d_Icon.svg"
+                        src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/640de7a644ffd08526acef3d_Icon.svg"
                         loading="lazy"
-                        id="w-node-_89d354dc-effb-0a61-b581-76d756f42842-fa31e4df"
+                        id="w-node-_89d354dc-effb-0a61-b581-76d756f42842-6f14296d"
                         alt="cadenas"
                         class="cont_icon"
                       />
                       <div
-                        id="w-node-_89d354dc-effb-0a61-b581-76d756f42843-fa31e4df"
+                        id="w-node-_89d354dc-effb-0a61-b581-76d756f42843-6f14296d"
                         class="cont_header"
                       >
                         <h2 class="cont_header_h2">Contenu Premium</h2>
@@ -1610,27 +1550,27 @@
                         </div>
                       </div>
                       <div
-                        id="w-node-_89d354dc-effb-0a61-b581-76d756f42848-fa31e4df"
+                        id="w-node-_89d354dc-effb-0a61-b581-76d756f42848-6f14296d"
                         class="key_wrapper"
                       >
                         <img
-                          src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/64e865fa77552da129929973_3D%20Illustration.png"
+                          src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/64e865fa77552da129929973_3D%20Illustration.png"
                           alt="clef"
                           sizes="(max-width: 767px) 100vw, (max-width: 991px) 24vw, (max-width: 1279px) 30vw, (max-width: 1439px) 28vw, 384px"
                           srcset="
-                            https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/64e865fa77552da129929973_3D%20Illustration-p-500.png 500w,
-                            https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/64e865fa77552da129929973_3D%20Illustration.png       792w
+                            https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/64e865fa77552da129929973_3D%20Illustration-p-500.png 500w,
+                            https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/64e865fa77552da129929973_3D%20Illustration.png       792w
                           "
                           class="key"
                         />
                       </div>
                       <div
-                        id="w-node-_89d354dc-effb-0a61-b581-76d756f4284a-fa31e4df"
+                        id="w-node-_89d354dc-effb-0a61-b581-76d756f4284a-6f14296d"
                         class="text_wrapper"
                       >
                         <div class="w-layout-grid text_grid">
                           <div
-                            id="w-node-_89d354dc-effb-0a61-b581-76d756f4284c-fa31e4df"
+                            id="w-node-_89d354dc-effb-0a61-b581-76d756f4284c-6f14296d"
                             class="text-weight-semibold"
                           >
                             Réduisez votre charge mentale
@@ -1645,7 +1585,7 @@
                         <div class="padding-24">
                           <div class="w-layout-grid text_grid">
                             <div
-                              id="w-node-_89d354dc-effb-0a61-b581-76d756f42852-fa31e4df"
+                              id="w-node-_89d354dc-effb-0a61-b581-76d756f42852-6f14296d"
                               class="text-weight-semibold"
                             >
                               Gagnez du temps
@@ -1659,7 +1599,7 @@
                         </div>
                         <div class="w-layout-grid text_grid">
                           <div
-                            id="w-node-_89d354dc-effb-0a61-b581-76d756f42857-fa31e4df"
+                            id="w-node-_89d354dc-effb-0a61-b581-76d756f42857-6f14296d"
                             class="text-weight-semibold"
                           >
                             Restez à jour
@@ -1673,8 +1613,8 @@
                       </div>
                       <a
                         native=""
-                        id="w-node-_89d354dc-effb-0a61-b581-76d756f4285b-fa31e4df"
-                        href="#"
+                        id="w-node-_89d354dc-effb-0a61-b581-76d756f4285b-6f14296d"
+                        href="/membership/login-ms"
                         class="button is-docs w-inline-block"
                         ><div class="button_text">Essayer gratuitement</div></a
                       >
@@ -1683,38 +1623,46 @@
                 </div>
                 <div class="tabs_panel">
                   <div
-                    x-bind="isMemberView"
+                    x-show="$store.userStore.hasPaidSub &amp;&amp; !($store.documentsStore.getList.isLoading) &amp;&amp; !($store.documentsStore.getList.isEmpty)"
                     x-cloak=""
+                    x-data=""
                     class="content_main_wrapper"
                   >
                     <div class="padding-custom24">
                       <div class="w-layout-grid header_wrapper">
                         <h2
-                          id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0ed9-fa31e4df"
+                          x-text="$store.documentsStore.getList.documentTypeTitle"
+                          id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0ed9-6f14296d"
                           class="heading-h2-docs"
                         >
-                          Partagés avec moi
+                          {{Tous mes documents}}
                         </h2>
                         <div
                           x-data=""
-                          id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0edb-fa31e4df"
+                          id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0edb-6f14296d"
                           class="documents_count text-size-small text-weight-light"
                         >
                           <div class="doc_number">
-                            <div x-bind="noteTotal">{{128}}</div>
+                            <div
+                              x-text="$store.documentsStore.getList.itemsTotal"
+                            >
+                              {{128}}
+                            </div>
                           </div>
                           <div>documents</div>
                         </div>
                         <a
-                          x-bind="deleteManyButton"
-                          x-data="DeleteSelectedNotes"
-                          id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0ee1-fa31e4df"
+                          x-effect="hasChecks = $store.documentsStore.getList.documents.some(e =&gt; e.completed)"
+                          x-on:click="$event.preventDefault(); const docs = $store.documentsStore.getList.documents.filter(elem =&gt; elem.completed); $store.modalStore.openBeforeDelete(docs)"
+                          x-show="hasChecks"
+                          x-data="{hasChecks: $store.documentsStore.getList.documents.some(e =&gt; e.completed)}"
+                          id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0ee1-6f14296d"
                           href="#"
                           class="button is-delete w-inline-block"
                           ><img
                             alt="plus"
                             loading="lazy"
-                            src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/6408e2066f91b10fe4a53c3c_plus.svg"
+                            src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/6408e2066f91b10fe4a53c3c_plus.svg"
                             class="icon_plus"
                           />
                           <div class="button_text hide-mobile-landscape">
@@ -1724,7 +1672,7 @@
                         <div
                           data-hover="false"
                           data-delay="0"
-                          id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0ee5-fa31e4df"
+                          id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0ee5-6f14296d"
                           class="submenu_new sticky w-dropdown"
                         >
                           <div class="button is-plus w-dropdown-toggle">
@@ -1734,7 +1682,7 @@
                             <img
                               alt="plus"
                               loading="lazy"
-                              src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/6408e2066f91b10fe4a53c3c_plus.svg"
+                              src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/6408e2066f91b10fe4a53c3c_plus.svg"
                               class="icon_plus"
                             />
                           </div>
@@ -1876,47 +1824,64 @@
                           </nav>
                         </div>
                         <div
-                          id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0f04-fa31e4df"
+                          id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0f04-6f14296d"
                           class="submenu_component"
                         >
                           <div class="context_menu_btn">
                             <img
                               alt="burger menu"
                               loading="lazy"
-                              src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/64090e58ec104dcb5da0add0_ButtonRounded.svg"
+                              src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/64090e58ec104dcb5da0add0_ButtonRounded.svg"
                               class="img_full"
                             />
                           </div>
-                          <div x-data="DocumentsSearch" class="w-embed">
-                            <label>
-                              <input
-                                type="search"
-                                class="doc_search w-input"
-                                maxlength="256"
-                                name="query"
-                                placeholder="Rechercher"
-                                x-bind="handleSearchInput"
-                              />
-                            </label>
-                          </div>
+                          <form
+                            action="/search"
+                            id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0f07-6f14296d"
+                            class="doc_search_wrapper w-form"
+                          >
+                            <input
+                              type="search"
+                              class="doc_search w-input"
+                              maxlength="256"
+                              name="query"
+                              x-show="false"
+                              placeholder="Rechercher"
+                              required=""
+                            /><input
+                              type="submit"
+                              value="Search"
+                              class="hide w-button"
+                            />
+                          </form>
                           <div class="divider"></div>
                         </div>
                       </div>
                     </div>
                     <div class="docs_list_wrapper">
                       <div x-data="DataTableHeader" class="list_header">
-                        <div class="w-layout-grid doc_item_grid header_g">
+                        <div
+                          x-bind="tableHeadGrid"
+                          class="w-layout-grid doc_item_grid header_g"
+                        >
                           <div
-                            x-bind="sortByTitle"
-                            id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0f0e-fa31e4df"
+                            x-bind:class="sortByHeadClass(&#x27;sortByTitle&#x27;)"
+                            x-on:click="sortByClick(&#x27;sortByTitle&#x27;)"
+                            id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0f0e-6f14296d"
                             class="sort_cover first"
                           >
                             <div class="flex_horizontal">
-                              <input
-                                type="checkbox"
-                                class="check_box"
-                                x-bind="selectAllCheckbox"
-                              />
+                              <a
+                                x-bind:class="selectAllClass"
+                                x-bind="selectAllClick"
+                                href="#"
+                                class="check_box w-inline-block"
+                                ><img
+                                  alt="check"
+                                  loading="lazy"
+                                  src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/6408f49c84b6bf6fb46c68cf_check-mark.svg"
+                                  class="check_mark"
+                              /></a>
                               <div>Nom</div>
                               <div class="sort_wrapper">
                                 <div
@@ -1957,10 +1922,57 @@
                             </div>
                           </div>
                           <div
+                            x-bind="headType"
+                            x-on:click="sortByClick(&#x27;sortByType&#x27;)"
+                            x-bind:class="sortByHeadClass(&#x27;sortByType&#x27;)"
+                            id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0f17-6f14296d"
+                            class="sort_cover document_type"
+                          >
+                            <div class="flex_horizontal">
+                              <div>Type</div>
+                              <div class="sort_wrapper">
+                                <div
+                                  x-bind:class="sortByArrowClass(&#x27;sortByType&#x27;, &#x27;ASC&#x27;)"
+                                  class="sort_arrow w-embed"
+                                >
+                                  <svg
+                                    width="0.75rem"
+                                    height="0.375rem"
+                                    viewBox="0 0 12 6"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      d="M12 6L6 -5.24537e-07L0 6"
+                                      fill="currentColor"
+                                    />
+                                  </svg>
+                                </div>
+                                <div
+                                  x-bind:class="sortByArrowClass(&#x27;sortByType&#x27;, &#x27;DESC&#x27;)"
+                                  class="sort_arrow w-embed"
+                                >
+                                  <svg
+                                    width="0.75rem"
+                                    height="0.375rem"
+                                    viewBox="0 0 12 6"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      d="M0 0L6 6L12 0"
+                                      fill="currentColor"
+                                    />
+                                  </svg>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div
                             x-on:click="sortByClick(&#x27;sortByPrescriptionType&#x27;)"
                             x-bind="headPrescriptionType"
                             x-bind:class="sortByHeadClass(&#x27;sortByPrescriptionType&#x27;)"
-                            id="w-node-_2c9703a0-0ecd-95c4-ddaa-e2b8af7a4a60-fa31e4df"
+                            id="w-node-_2c9703a0-0ecd-95c4-ddaa-e2b8af7a4a60-6f14296d"
                             class="sort_cover prescription_type"
                           >
                             <div class="flex_horizontal">
@@ -2004,55 +2016,9 @@
                             </div>
                           </div>
                           <div
-                            x-bind:class="sortByHeadClass(&#x27;sortByDate&#x27;)"
-                            x-on:click="sortByClick(&#x27;sortByAuthor&#x27;)"
-                            id="w-node-_2a02c6e4-ca4c-ef52-78b5-7de813312282-fa31e4df"
-                            class="sort_cover"
-                          >
-                            <div class="flex_horizontal">
-                              <div>Author</div>
-                              <div class="sort_wrapper">
-                                <div
-                                  x-bind:class="sortByArrowClass(&#x27;sortByDate&#x27;, &#x27;ASC&#x27;)"
-                                  class="sort_arrow w-embed"
-                                >
-                                  <svg
-                                    width="0.75rem"
-                                    height="0.375rem"
-                                    viewBox="0 0 12 6"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                  >
-                                    <path
-                                      d="M12 6L6 -5.24537e-07L0 6"
-                                      fill="currentColor"
-                                    />
-                                  </svg>
-                                </div>
-                                <div
-                                  x-bind:class="sortByArrowClass(&#x27;sortByDate&#x27;, &#x27;DESC&#x27;)"
-                                  class="sort_arrow w-embed"
-                                >
-                                  <svg
-                                    width="0.75rem"
-                                    height="0.375rem"
-                                    viewBox="0 0 12 6"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                  >
-                                    <path
-                                      d="M0 0L6 6L12 0"
-                                      fill="currentColor"
-                                    />
-                                  </svg>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div
                             x-on:click="sortByClick(&#x27;sortByPathology&#x27;)"
                             x-bind:class="sortByHeadClass(&#x27;sortByPathology&#x27;)"
-                            id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0f1e-fa31e4df"
+                            id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0f1e-6f14296d"
                             class="sort_cover"
                           >
                             <div class="flex_horizontal">
@@ -2098,7 +2064,7 @@
                           <div
                             x-bind:class="sortByHeadClass(&#x27;sortByDate&#x27;)"
                             x-on:click="sortByClick(&#x27;sortByDate&#x27;)"
-                            id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0f25-fa31e4df"
+                            id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0f25-6f14296d"
                             class="sort_cover"
                           >
                             <div class="flex_horizontal">
@@ -2143,11 +2109,11 @@
                           </div>
                         </div>
                       </div>
-                      <template
-                        class="template"
-                        x-bind="listItems"
-                        x-data="DataTableListItem"
-                        ><div class="list_item">
+                      <div
+                        x-for="(d, index) in $store.documentsStore.getList.documents"
+                        class="list_items"
+                      >
+                        <div x-data="DataTableListItem" class="list_item">
                           <a href="#" class="type_tag_icon w-inline-block"
                             ><div class="type_icon w-embed">
                               <svg
@@ -2166,43 +2132,58 @@
                                 />
                               </svg></div
                           ></a>
-                          <div class="w-layout-grid doc_item_grid">
+                          <div
+                            x-bind="tableBodyGrid"
+                            class="w-layout-grid doc_item_grid"
+                          >
                             <div
-                              id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0f82-fa31e4df"
+                              id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0f82-6f14296d"
                               class="inside_left"
                             >
                               <div class="flex_horizontal">
-                                <input
-                                  type="checkbox"
-                                  class="check_box"
-                                  x-bind="noteCheckBox"
-                                />
+                                <a
+                                  x-effect="checked = $store.documentsStore.getList.documents.length ? $store.documentsStore.getList.documents[index]?.completed : false"
+                                  x-data="{checked: $store.documentsStore.getList.documents[index].completed || false}"
+                                  x-on:click="$event.preventDefault(); $store.documentsStore.getList.documents[index].completed = !checked"
+                                  x-bind:class="checked &amp;&amp; &#x27;active&#x27;"
+                                  href="#"
+                                  class="check_box-copy w-inline-block"
+                                  ><img
+                                    alt="check"
+                                    loading="lazy"
+                                    src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/6408f49c84b6bf6fb46c68cf_check-mark.svg"
+                                    class="check_mark"
+                                /></a>
                                 <div
-                                  x-bind="viewNote"
+                                  x-bind="openDrawer"
+                                  data-title=""
                                   class="flex_horizontal width-100"
                                 >
                                   <div
-                                    x-bind="noteTitle"
+                                    x-bind="textTitle(d)"
                                     class="text-weight-semibold"
                                   >
                                     {{Nom du document}}
                                   </div>
-                                  <template
-                                    class="template"
-                                    x-bind="noteFileIconsList"
-                                    ><div class="file_type_holder">
-                                      <div
-                                        x-bind:class="fileIconType(icon)"
-                                        class="file_type_icon pdf"
-                                      >
-                                        <div x-text="fileIconType(icon)">
-                                          {{pdf}}
-                                        </div>
-                                      </div>
-                                    </div></template
+                                  <div
+                                    x-for="icon in fileIcons"
+                                    x-init="checkFileIcons(d)"
+                                    class="file_type_holder"
                                   >
+                                    <div
+                                      x-bind:class="fileIconType(icon)"
+                                      class="file_type_icon pdf"
+                                    >
+                                      <div x-text="fileIconType(icon)">
+                                        {{pdf}}
+                                      </div>
+                                    </div>
+                                  </div>
                                 </div>
                               </div>
+                            </div>
+                            <div x-bind="rowType" class="type_tag">
+                              <div x-bind="textType(d)">{{Note}}</div>
                             </div>
                             <div
                               x-bind="rowPrescriptionType"
@@ -2213,24 +2194,21 @@
                               </div>
                             </div>
                             <div class="div-block-415">
-                              <div x-bind="authorColumn">{{Alina Abreu}}</div>
-                            </div>
-                            <div class="div-block-415">
-                              <div native="" class="pathologie_tag w-embed">
+                              <div class="w-embed">
                                 <a
                                   native
-                                  title="note.pathologies[0].title"
+                                  title="d.pathologies[0].title"
                                   x-bind="pathologyRef"
                                   class="pathologie_tag w-inline-block"
                                 >
                                   <div>{{Pathologie}}</div>
                                 </a>
                                 <div
-                                  x-show="note.pathologies.length > 1"
+                                  x-show="d.pathologies.length > 1"
                                   class="plus-pathologies"
                                 >
                                   <span>+</span
-                                  ><span x-text="note.pathologies.length - 1"
+                                  ><span x-text="d.pathologies.length - 1"
                                     >{{1}}</span
                                   >
                                 </div>
@@ -2246,7 +2224,7 @@
                               </div>
                             </div>
                             <div
-                              id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0f92-fa31e4df"
+                              id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0f92-6f14296d"
                               class="inside_right"
                             >
                               <div class="flex_horizontal">
@@ -2263,7 +2241,7 @@
                                       <img
                                         alt="burger menu"
                                         loading="lazy"
-                                        src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/6408f49fe058903e30fd205f_drop-dots.svg"
+                                        src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/6408f49fe058903e30fd205f_drop-dots.svg"
                                         class="dero_icon"
                                       />
                                     </div>
@@ -2272,7 +2250,7 @@
                                       class="sub_list w-dropdown-list"
                                     >
                                       <a
-                                        x-bind="cloneSharedNote(note)"
+                                        x-on:click="showEditModal($event, d)"
                                         href="#"
                                         class="sub_link w-inline-block"
                                         ><div class="w-layout-grid grid_gap_8">
@@ -2280,33 +2258,53 @@
                                             <svg
                                               width="1.25rem"
                                               height="1.25rem"
-                                              xmlns="http://www.w3.org/2000/svg"
-                                              viewBox="0 0 24 24"
+                                              viewBox="0 0 20 20"
                                               fill="none"
-                                              stroke="currentColor"
-                                              stroke-width="2"
-                                              stroke-linecap="round"
-                                              stroke-linejoin="round"
-                                              class="feather feather-copy"
+                                              xmlns="http://www.w3.org/2000/svg"
                                             >
-                                              <rect
-                                                x="9"
-                                                y="9"
-                                                width="13"
-                                                height="13"
-                                                rx="2"
-                                                ry="2"
-                                              ></rect>
                                               <path
-                                                d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
-                                              ></path>
+                                                d="M9.16602 3.33333H3.33268C2.89065 3.33333 2.46673 3.50893 2.15417 3.82149C1.84161 4.13405 1.66602 4.55797 1.66602 5V16.6667C1.66602 17.1087 1.84161 17.5326 2.15417 17.8452C2.46673 18.1577 2.89065 18.3333 3.33268 18.3333H14.9993C15.4414 18.3333 15.8653 18.1577 16.1779 17.8452C16.4904 17.5326 16.666 17.1087 16.666 16.6667V10.8333M15.416 2.08332C15.7475 1.7518 16.1972 1.56555 16.666 1.56555C17.1349 1.56555 17.5845 1.7518 17.916 2.08332C18.2475 2.41484 18.4338 2.86448 18.4338 3.33332C18.4338 3.80216 18.2475 4.2518 17.916 4.58332L9.99935 12.5L6.66602 13.3333L7.49935 9.99999L15.416 2.08332Z"
+                                                stroke="currentColor"
+                                                stroke-width="2"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                              />
                                             </svg>
                                           </div>
                                           <div class="display-inlineflex">
-                                            Cloner dans mes documents<br />
-                                          </div></div></a
+                                            Modifier
+                                          </div>
+                                        </div></a
                                       ><a
-                                        x-bind="removeSharedNote(note)"
+                                        x-show="false"
+                                        href="#"
+                                        class="sub_link borders w-inline-block"
+                                        ><div class="w-layout-grid grid_gap_8">
+                                          <div
+                                            class="tab_icon display-inlineflex w-embed"
+                                          >
+                                            <svg
+                                              width="1.25rem"
+                                              height="1.25rem"
+                                              viewBox="0 0 20 20"
+                                              fill="none"
+                                              xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                              <path
+                                                d="M1.33398 9.99999V16.6667C1.33398 17.1087 1.50958 17.5326 1.82214 17.8452C2.1347 18.1577 2.55862 18.3333 3.00065 18.3333H13.0007C13.4427 18.3333 13.8666 18.1577 14.1792 17.8452C14.4917 17.5326 14.6673 17.1087 14.6673 16.6667V9.99999M11.334 4.99999L8.00065 1.66666M8.00065 1.66666L4.66732 4.99999M8.00065 1.66666V12.5"
+                                                stroke="currentColor"
+                                                stroke-width="2"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                              />
+                                            </svg>
+                                          </div>
+                                          <div class="display-inlineflex">
+                                            Partager
+                                          </div>
+                                        </div></a
+                                      ><a
+                                        x-on:click="openDeleteDocument($event, d)"
                                         href="#"
                                         class="sub_link color_red w-inline-block"
                                         ><div class="w-layout-grid grid_gap_8">
@@ -2330,7 +2328,7 @@
                                             </svg>
                                           </div>
                                           <div class="display-inlineflex">
-                                            Révoquer l&#x27;accès partagé
+                                            Supprimer
                                           </div>
                                         </div></a
                                       >
@@ -2340,23 +2338,24 @@
                               </div>
                             </div>
                           </div>
-                        </div></template
-                      >
+                        </div>
+                      </div>
                     </div>
                     <div class="padding-custom24">
                       <div class="w-layout-grid pagination_grid">
                         <div
                           x-data="DataTablePaginationMenu"
-                          id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf10d0-fa31e4df"
+                          id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf10d0-6f14296d"
                           class="pagination_left"
                         >
-                          <template class="template" x-bind="paginationList"
-                            ><div class="page_numbers">
-                              <div x-bind="pageNumber" class="page_number">
-                                <div>{{1}}</div>
-                              </div>
-                            </div></template
+                          <div
+                            x-for="n in $store.documentsStore.getList.pageTotal"
+                            class="page_numbers"
                           >
+                            <div x-bind="pageNumber" class="page_number">
+                              <div>{{1}}</div>
+                            </div>
+                          </div>
                           <div
                             id="page_next"
                             x-bind="pageNext"
@@ -2365,13 +2364,13 @@
                             <img
                               alt="fleche droite"
                               loading="lazy"
-                              src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/6408f49e889404094b168ca4_arr-page.svg"
+                              src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/6408f49e889404094b168ca4_arr-page.svg"
                               class="arrow_number"
                             />
                           </div>
                         </div>
                         <div
-                          id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf10dc-fa31e4df"
+                          id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf10dc-6f14296d"
                           class="pagination_right"
                         >
                           <div
@@ -2384,7 +2383,7 @@
                               <img
                                 alt="fleche bas"
                                 loading="lazy"
-                                src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/6408f49ea5cfb4c0a65ce1d0_arr-down.svg"
+                                src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/6408f49ea5cfb4c0a65ce1d0_arr-down.svg"
                                 class="drop_arrow"
                               />
                               <div x-text="showDropdownText">
@@ -2424,34 +2423,35 @@
                     </div>
                   </div>
                   <div
-                    x-bind="isEmptyView"
+                    x-data=""
                     x-cloak=""
+                    x-show="$store.userStore.hasPaidSub &amp;&amp; !$store.documentsStore.getList.isLoading &amp;&amp; $store.documentsStore.getList.isEmpty"
                     class="content_main_wrapper"
                   >
                     <div class="padding-custom24">
                       <div class="w-layout-grid header_wrapper em">
                         <h2
-                          x-bind="mainHeading"
-                          id="w-node-_1264d39d-4dca-f98d-77d8-4153c34852cd-fa31e4df"
+                          x-text="$store.documentsStore.getList.documentTypeTitle"
+                          id="w-node-_1264d39d-4dca-f98d-77d8-4153c34852cd-6f14296d"
                           class="heading-h2-docs"
                         >
-                          Partagés avec moi
+                          {{Tous mes documents}}
                         </h2>
                         <div
-                          id="w-node-_1264d39d-4dca-f98d-77d8-4153c34852cf-fa31e4df"
+                          id="w-node-_1264d39d-4dca-f98d-77d8-4153c34852cf-6f14296d"
                           class="submenu_component empty"
                         >
                           <div class="context_menu_btn">
                             <img
                               alt="burger menu"
                               loading="lazy"
-                              src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/64090e58ec104dcb5da0add0_ButtonRounded.svg"
+                              src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/64090e58ec104dcb5da0add0_ButtonRounded.svg"
                               class="img_full"
                             />
                           </div>
                           <form
                             action="/search"
-                            id="w-node-_1264d39d-4dca-f98d-77d8-4153c34852d2-fa31e4df"
+                            id="w-node-_1264d39d-4dca-f98d-77d8-4153c34852d2-6f14296d"
                             class="doc_search_wrapper w-form"
                           >
                             <input
@@ -2474,20 +2474,20 @@
                     <div class="docs_list_wrapper">
                       <div class="empty_wrapper">
                         <img
-                          src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/64e8665857d7b739f91487ec_Medical%20Report.png"
+                          src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/64e8665857d7b739f91487ec_Medical%20Report.png"
                           loading="lazy"
                           alt="notes"
                           class="image-empty"
                         />
                         <div class="max-width-full text-color-base-800">
                           <h2 class="heading-h2-docs">
-                            Vous n&#x27;avez accepté aucune invitation de
-                            partage de documents
+                            Vous n’avez pas encore de documents
                           </h2>
                           <div class="padding-top padding-xsmall">
                             <div class="text-color-base-800">
-                              Vous verrez la liste des documents partagés avec
-                              vous ici
+                              Ordotype vous permet de créer et stocker vos
+                              notes, ordonnances et fiches conseils
+                              personnalisées en quelques clics.
                             </div>
                           </div>
                           <div class="padding-top padding-xmedium">
@@ -2496,22 +2496,20 @@
                               data-delay="0"
                               class="submenu_new w-dropdown"
                             >
-                              <div
-                                class="button is-empty-state w-dropdown-toggle"
-                              >
+                              <div class="button is-plus w-dropdown-toggle">
                                 <div class="button_text hide-mobile-landscape">
                                   Créer un document
                                 </div>
                                 <img
                                   alt="plus"
                                   loading="lazy"
-                                  src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/6408e2066f91b10fe4a53c3c_plus.svg"
+                                  src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/6408e2066f91b10fe4a53c3c_plus.svg"
                                   class="icon_plus"
                                 />
                               </div>
                               <nav
                                 x-data="OpenModalByType"
-                                class="sub_list_new is-empty-state w-dropdown-list"
+                                class="sub_list_new w-dropdown-list"
                               >
                                 <a
                                   x-bind="prescriptionsNewType"
@@ -2623,13 +2621,13 @@
                       <img
                         alt="burger menu"
                         loading="lazy"
-                        src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/6408f49fe058903e30fd205f_drop-dots.svg"
+                        src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/6408f49fe058903e30fd205f_drop-dots.svg"
                         class="dero_icon ac"
                       />
                     </div>
                     <nav class="sub_list_action w-dropdown-list">
                       <a
-                        x-bind="drawerClone"
+                        x-on:click="drawerEdit($event)"
                         href="#"
                         class="sub_link w-inline-block"
                         ><div class="w-layout-grid grid_gap_8">
@@ -2637,31 +2635,20 @@
                             <svg
                               width="1.25rem"
                               height="1.25rem"
-                              xmlns="http://www.w3.org/2000/svg"
-                              viewBox="0 0 24 24"
+                              viewBox="0 0 20 20"
                               fill="none"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              class="feather feather-copy"
+                              xmlns="http://www.w3.org/2000/svg"
                             >
-                              <rect
-                                x="9"
-                                y="9"
-                                width="13"
-                                height="13"
-                                rx="2"
-                                ry="2"
-                              ></rect>
                               <path
-                                d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
-                              ></path>
+                                d="M9.16602 3.33333H3.33268C2.89065 3.33333 2.46673 3.50893 2.15417 3.82149C1.84161 4.13405 1.66602 4.55797 1.66602 5V16.6667C1.66602 17.1087 1.84161 17.5326 2.15417 17.8452C2.46673 18.1577 2.89065 18.3333 3.33268 18.3333H14.9993C15.4414 18.3333 15.8653 18.1577 16.1779 17.8452C16.4904 17.5326 16.666 17.1087 16.666 16.6667V10.8333M15.416 2.08332C15.7475 1.7518 16.1972 1.56555 16.666 1.56555C17.1349 1.56555 17.5845 1.7518 17.916 2.08332C18.2475 2.41484 18.4338 2.86448 18.4338 3.33332C18.4338 3.80216 18.2475 4.2518 17.916 4.58332L9.99935 12.5L6.66602 13.3333L7.49935 9.99999L15.416 2.08332Z"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              />
                             </svg>
                           </div>
-                          <div class="display-inlineflex">
-                            Cloner dans mes documents
-                          </div>
+                          <div class="display-inlineflex">Modifier</div>
                         </div></a
                       ><a
                         x-on:click="globals.printDiv(&#x27;#drawer_rich_text_wrapper&#x27;)"
@@ -2670,8 +2657,8 @@
                         ><div class="w-layout-grid grid_gap_8">
                           <div class="tab_icon w-embed">
                             <svg
-                              width="1.25rem"
-                              height="1.25rem"
+                              width="16"
+                              height="16"
                               viewBox="0 0 16 16"
                               fill="none"
                               xmlns="http://www.w3.org/2000/svg"
@@ -2679,7 +2666,7 @@
                               <path
                                 d="M3.99992 5.99998V1.33331H11.9999V5.99998M3.99992 12H2.66659C2.31296 12 1.97382 11.8595 1.72378 11.6095C1.47373 11.3594 1.33325 11.0203 1.33325 10.6666V7.33331C1.33325 6.97969 1.47373 6.64055 1.72378 6.3905C1.97382 6.14046 2.31296 5.99998 2.66659 5.99998H13.3333C13.6869 5.99998 14.026 6.14046 14.2761 6.3905C14.5261 6.64055 14.6666 6.97969 14.6666 7.33331V10.6666C14.6666 11.0203 14.5261 11.3594 14.2761 11.6095C14.026 11.8595 13.6869 12 13.3333 12H11.9999M3.99992 9.33331H11.9999V14.6666H3.99992V9.33331Z"
                                 stroke="currentColor"
-                                stroke-width="1.2"
+                                stroke-width="1.5"
                                 stroke-linecap="round"
                                 stroke-linejoin="round"
                               />
@@ -2709,7 +2696,7 @@
                           <div class="display-inlineflex">Partager</div>
                         </div></a
                       ><a
-                        x-bind="drawerRemoveAccess"
+                        x-on:click="drawerDeleteOne($event)"
                         href="#"
                         class="sub_link color_red w-inline-block"
                         ><div class="w-layout-grid grid_gap_8">
@@ -2730,19 +2717,17 @@
                               />
                             </svg>
                           </div>
-                          <div class="display-inlineflex">
-                            Révoquer l&#x27;accès partagé
-                          </div>
+                          <div class="display-inlineflex">Supprimer</div>
                         </div></a
                       >
                     </nav>
                   </div>
                 </div>
                 <img
-                  src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/6409a60abee24b0929f62f72_cross.svg"
+                  src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/6409a60abee24b0929f62f72_cross.svg"
                   loading="lazy"
-                  id="w-node-_5e73bd5a-ce56-4459-5f7f-74573fcb3d7f-fa31e4df"
-                  x-bind="drawerClose"
+                  id="w-node-_5e73bd5a-ce56-4459-5f7f-74573fcb3d7f-6f14296d"
+                  x-on:click="drawerClose($event)"
                   alt="exit croix"
                   class="close_icon"
                 />
@@ -2755,7 +2740,7 @@
                   class="lottie-animation"
                   data-w-id="d08456f3-a02a-a423-a7b3-56fbd60371df"
                   data-animation-type="lottie"
-                  data-src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/61f2cf4b2c288f34818ada35_52601-waiting.json"
+                  data-src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/61f2cf4b2c288f34818ada35_52601-waiting.json"
                   data-loop="1"
                   data-direction="1"
                   data-autoplay="1"
@@ -2769,23 +2754,24 @@
             <div x-bind="drawerContent" class="w-layout-grid view_grid">
               <h2
                 x-bind="getOneTitle"
-                id="w-node-_5e73bd5a-ce56-4459-5f7f-74573fcb3d81-fa31e4df"
+                id="w-node-_5e73bd5a-ce56-4459-5f7f-74573fcb3d81-6f14296d"
                 class="view_heading"
               >
                 {{Nom de la note}}
               </h2>
               <div
-                id="w-node-_5e73bd5a-ce56-4459-5f7f-74573fcb3d83-fa31e4df"
+                id="w-node-_5e73bd5a-ce56-4459-5f7f-74573fcb3d83-6f14296d"
                 class="tags_wrapper"
               >
-                <template class="template" x-bind="listPathologies"
-                  ><div class="view_tag">
-                    <div x-text="ptag.title">{{Pathologie associée}}</div>
-                  </div></template
+                <div
+                  x-for="ptag in $store.documentsStore.getOne.document.note.pathologies"
+                  class="view_tag"
                 >
+                  <div x-text="ptag.title">{{Pathologie associée}}</div>
+                </div>
               </div>
               <div
-                id="w-node-_5e73bd5a-ce56-4459-5f7f-74573fcb3d87-fa31e4df"
+                id="w-node-_5e73bd5a-ce56-4459-5f7f-74573fcb3d87-6f14296d"
                 class="view_date"
               >
                 <div class="display-inlineflex">Créé le</div>
@@ -2802,20 +2788,56 @@
                 </div>
               </div>
               <div
-                id="w-node-_5e73bd5a-ce56-4459-5f7f-74573fcb3d92-fa31e4df"
+                id="w-node-_5e73bd5a-ce56-4459-5f7f-74573fcb3d92-6f14296d"
                 class="grey_divider"
               ></div>
               <div
                 id="drawer_rich_text_wrapper"
                 x-bind="getOneRichText"
-                class="text_wrapper w-node-_5e73bd5a-ce56-4459-5f7f-74573fcb3d93-fa31e4df"
+                class="text_wrapper w-node-_5e73bd5a-ce56-4459-5f7f-74573fcb3d93-6f14296d"
               >
-                <p class="text-size-body2">
-                  Text de la note personnalisée ici.<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />.
+                <p class="text-size-small">
+                  {{Lorem ipsum dolor sit amet consectetur. Lacus viverra ac at
+                  convallis diam diam aliquet aliquam. Arcu enim mi enim elit et
+                  nisl mi ut. Purus sed volutpat cursus faucibus elementum odio.
+                  Purus elementum praesent fusce adipiscing odio. Tempor odio
+                  arcu commodo tempus elementum. Mi mauris proin diam auctor
+                  netus id ornare non. Pellentesque venenatis elementum donec
+                  morbi. Adipiscing cras lectus porttitor augue tellus
+                  viverra.<br /><br />Consectetur quisque auctor nisl quisque
+                  urna justo nunc consectetur. Cras amet sagittis vel vel.
+                  Laoreet faucibus ultrices id odio. Viverra sollicitudin sed
+                  bibendum rhoncus. Eleifend sagittis in vestibulum ullamcorper
+                  platea enim tortor in et. Eu sed pulvinar imperdiet tellus.
+                  Dignissim condimentum adipiscing enim faucibus. Viverra
+                  aliquet nunc duis convallis orci vel. Tristique non
+                  suspendisse nisl orci ullamcorper sodales.<br /><br />Viverra
+                  integer nullam dolor sed mauris fermentum vitae ultrices. Non
+                  tempus molestie volutpat sed vitae. Ut neque urna massa
+                  egestas cras interdum. Purus hendrerit leo amet enim
+                  scelerisque malesuada neque. Laoreet blandit erat amet ac vel
+                  volutpat montes sit consectetur. Vitae tellus integer et
+                  adipiscing eu neque accumsan commodo sagittis. Tristique nibh
+                  ullamcorper eleifend euismod nec in. Dolor nunc gravida
+                  pellentesque vivamus. Nisi vel vel lorem phasellus porttitor
+                  quis aenean tristique. Pharetra mollis laoreet odio nam aenean
+                  volutpat pretium eleifend pellentesque. Turpis amet eleifend
+                  eleifend lectus in diam sed. Sed aliquet netus lacus viverra.
+                  Massa semper nullam vivamus commodo mollis. Ultrices nam diam
+                  vel ultricies lectus viverra urna.<br /><br />Lectus convallis
+                  etiam turpis sit. Nec est vestibulum aliquam quam interdum
+                  sapien. Pulvinar arcu scelerisque egestas non eget ac magnis
+                  velit. Nec tincidunt cursus iaculis purus. Dignissim purus
+                  nisi facilisis sagittis velit. Urna eget ornare nunc proin.
+                  Consectetur rhoncus id scelerisque nunc ornare eget massa
+                  aliquam. Aliquam fusce aliquam habitasse condimentum. Nec in
+                  sed hac pharetra faucibus. Pretium tellus parturient tempus
+                  justo. Adipiscing tortor enim consectetur tortor at tortor
+                  dolor commodo.}}
                 </p>
               </div>
               <div
-                id="w-node-_5e73bd5a-ce56-4459-5f7f-74573fcb3d9f-fa31e4df"
+                id="w-node-_5e73bd5a-ce56-4459-5f7f-74573fcb3d9f-6f14296d"
                 class="align-right hide"
               >
                 <a href="#" class="button is-copy w-inline-block"
@@ -2823,36 +2845,41 @@
                   <img
                     alt="copy button"
                     loading="lazy"
-                    src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/6408f49dd8cc0c80bdf6c081_copi.svg"
+                    src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/6408f49dd8cc0c80bdf6c081_copi.svg"
                     class="icon_copy"
                 /></a>
               </div>
               <div x-data="" class="files_wrapper">
                 <div class="files_holder">
-                  <template class="template" x-bind="getFiles"
-                    ><a
+                  <div
+                    x-for="file in $store.documentsStore.getOne.document.note.documents"
+                    class="file_block_wrapper"
+                  >
+                    <a
                       x-bind:href="fileSrc"
                       x-on:click="window.open(fileSrc, &#x27;_blank&#x27;)"
                       x-data="DocumentFileListItem(file)"
                       href="#"
                       class="file_block w-inline-block"
                       ><div class="w-layout-grid file_grid">
-                        <template
-                          id="w-node-_8b0b003c-2d9b-a58c-7405-a30867a2bc09-fa31e4df"
-                          class="template"
+                        <div
                           x-if="isImg"
-                          ><div
-                            id="w-node-f7619463-5fd8-f02d-64a4-0a18c56fb2d3-fa31e4df"
-                            class="file_img_wrapper"
-                          >
+                          id="w-node-f7619463-5fd8-f02d-64a4-0a18c56fb2d3-6f14296d"
+                          class="file_img_wrapper"
+                        >
+                          <div class="w-embed">
                             <img
-                              class="file_img"
+                              src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/649a52cf2ee9756547f93e3a_SCR-20230626-tzag.png"
+                              loading="lazy"
                               x-bind:src="isImg &amp;&amp; fileSrc"
-                              src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/649a52cf2ee9756547f93e3a_SCR-20230626-tzag.png"
-                            /></div
-                        ></template>
+                              sizes="(max-width: 479px) 286px, (max-width: 767px) 60vw, (max-width: 991px) 28vw, (max-width: 1279px) 26vw, (max-width: 1439px) 24vw, 334px"
+                              alt=""
+                              class="file_img"
+                            />
+                          </div>
+                        </div>
                         <figure
-                          id="w-node-f7619463-5fd8-f02d-64a4-0a18c56fb2d5-fa31e4df"
+                          id="w-node-f7619463-5fd8-f02d-64a4-0a18c56fb2d5-6f14296d"
                           class="file_description"
                         >
                           <div class="flex_horizontal">
@@ -2878,8 +2905,8 @@
                           </div>
                         </figure>
                       </div></a
-                    ></template
-                  >
+                    >
+                  </div>
                 </div>
               </div>
             </div>
@@ -2893,7 +2920,7 @@
                 <img
                   alt="copy button"
                   loading="lazy"
-                  src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/6408f49dd8cc0c80bdf6c081_copi.svg"
+                  src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/6408f49dd8cc0c80bdf6c081_copi.svg"
                   class="icon_copy" /></a
               ><a
                 x-bind="printBtn"
@@ -2902,9 +2929,9 @@
                 class="button is-print w-inline-block"
                 ><div class="button_text">Imprimer</div>
                 <img
-                  alt="print"
+                  alt=""
                   loading="lazy"
-                  src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/6408f49de77edce1ba41ad1c_print.svg"
+                  src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/6408f49de77edce1ba41ad1c_print.svg"
                   class="icon_copy"
               /></a>
             </div>
@@ -2924,7 +2951,7 @@
             data-name="mutateDocument"
             method="get"
             class="create_document_content"
-            data-wf-page-id="65654ef7d750204ffa31e4df"
+            data-wf-page-id="64a834ded7afdb556f14296d"
             data-wf-element-id="3fab5c17-9b38-81a4-0d63-6e5414850d5c"
           >
             <div x-bind="modalElem" class="view_wrapper edit_document">
@@ -2968,120 +2995,186 @@
                 >
                 <div x-data="DocumentFileInput" class="files_container">
                   <div class="files_modal_columns">
-                    <div id="files-server" class="files_wrapper_modal">
+                    <div
+                      id="files-server"
+                      x-data=""
+                      class="files_wrapper_modal"
+                    >
                       <div class="files_holder">
-                        <template class="template" x-bind="listFilesFromServer"
-                          ><div class="file_block">
+                        <div
+                          x-key="file_.id"
+                          x-for="file in $store.modalStore.form.files"
+                          class="file_block"
+                        >
+                          <div
+                            x-data="DocumentFileListItem(file)"
+                            class="w-layout-grid file_grid"
+                          >
                             <div
-                              x-data="DocumentFileListItem(file)"
-                              class="w-layout-grid file_grid"
+                              x-if="isImg"
+                              id="w-node-_5047aa32-b096-f60a-acfe-c7971ac334c1-6f14296d"
+                              class="file_img_wrapper"
                             >
-                              <template
-                                id="w-node-_6d68707a-1618-b35b-1985-519c8b14d3b9-fa31e4df"
-                                class="template"
-                                x-if="isImg"
-                                ><div
-                                  id="w-node-_6d68707a-1618-b35b-1985-519c8b14d3ba-fa31e4df"
-                                  class="file_img_wrapper"
-                                >
-                                  <img
-                                    class="file_img"
-                                    x-bind:src="isImg &amp;&amp; fileSrc"
-                                    src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/649a52cf2ee9756547f93e3a_SCR-20230626-tzag.png"
-                                  /></div
-                              ></template>
-                              <div
-                                id="w-node-_5047aa32-b096-f60a-acfe-c7971ac334c3-fa31e4df"
-                                class="file_description"
-                              >
-                                <div class="flex_horizontal">
-                                  <div class="file_type_holder action">
-                                    <div
-                                      x-bind:class="fileExt"
-                                      class="file_type_icon pdf"
-                                    >
-                                      <div x-text="fileExt">pdf</div>
-                                    </div>
-                                  </div>
-                                  <div class="file_title">
-                                    <div x-text="fileName" class="file-label">
-                                      {{FileName}}
-                                    </div>
-                                    <div
-                                      x-text="&#x27;.&#x27;+ fileExt"
-                                      class="ext-label"
-                                    >
-                                      .{{ext}}
-                                    </div>
+                              <div class="w-embed">
+                                <img
+                                  src=""
+                                  x-bind:src="fileSrc"
+                                  class="file_img"
+                                />
+                              </div>
+                            </div>
+                            <div
+                              id="w-node-_5047aa32-b096-f60a-acfe-c7971ac334c3-6f14296d"
+                              class="file_description"
+                            >
+                              <div class="flex_horizontal">
+                                <div class="file_type_holder action">
+                                  <div
+                                    x-bind:class="fileExt"
+                                    class="file_type_icon pdf"
+                                  >
+                                    <div x-text="fileExt">pdf</div>
                                   </div>
                                 </div>
-                                <div class="w-embed">
-                                  <img
-                                    src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/640b498538ea4d0ffac77e07_Butt-cross.svg"
-                                    loading="lazy"
-                                    alt=""
-                                    class="close_file"
-                                    x-on:click.once="deleteServerFiles($event, fileId)"
-                                  />
+                                <div class="file_title">
+                                  <div
+                                    x-text="fileName"
+                                    class="display-inlineflex"
+                                  >
+                                    {{FileName}}
+                                  </div>
+                                  <div
+                                    x-text="&#x27;.&#x27;+ fileExt"
+                                    class="display-inlineflex extention"
+                                  >
+                                    .{{ext}}
+                                  </div>
                                 </div>
                               </div>
-                            </div></div
-                        ></template>
+                              <div class="w-embed">
+                                <img
+                                  src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/640b498538ea4d0ffac77e07_Butt-cross.svg"
+                                  loading="lazy"
+                                  alt=""
+                                  class="close_file"
+                                  x-on:click.once="deleteServerFiles($event, fileId)"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                    <template x-if="filesAttached !== null"
-                      ><div id="files-local" class="files_wrapper_modal">
-                        <div class="files_holder">
-                          <template class="template" x-bind="listFilesFromInput"
-                            ><div class="file_block">
-                              <div class="w-layout-grid file_grid">
-                                <div
-                                  id="w-node-_166d42f0-63e1-c5fc-3c52-b37d7bb076b0-fa31e4df"
-                                  class="file_description"
-                                >
-                                  <div class="flex_horizontal">
-                                    <div class="file_type_holder action">
-                                      <div
-                                        x-bind:class="getFileExtension(fileItem.name)"
-                                        class="file_type_icon pdf"
-                                      >
-                                        <div
-                                          x-text="getFileExtension(fileItem.name)"
-                                        >
-                                          pdf
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="file_title">
-                                      <div
-                                        x-text="removeFileExtension(fileItem.name)"
-                                        class="file-label"
-                                      >
-                                        {{FileName}}
-                                      </div>
-                                      <div
-                                        x-text="&#x27;.&#x27; + getFileExtension(fileItem.name)"
-                                        class="ext-label"
-                                      >
-                                        .{{ext}}
-                                      </div>
+                    <div
+                      id="files-local"
+                      x-if="filesAttached !== null"
+                      class="files_wrapper_modal"
+                    >
+                      <div class="files_holder">
+                        <div
+                          x-for="(fileItem, index) in $store.modalStore.files"
+                          class="file_block"
+                        >
+                          <div class="w-layout-grid file_grid">
+                            <div
+                              id="w-node-_166d42f0-63e1-c5fc-3c52-b37d7bb076b0-6f14296d"
+                              class="file_description"
+                            >
+                              <div class="flex_horizontal">
+                                <div class="file_type_holder action">
+                                  <div
+                                    x-bind:class="getFileExtension(fileItem.name)"
+                                    class="file_type_icon pdf"
+                                  >
+                                    <div
+                                      x-text="getFileExtension(fileItem.name)"
+                                    >
+                                      pdf
                                     </div>
                                   </div>
-                                  <img
-                                    x-on:click="handleDeleteFile(fileItem, index)"
-                                    loading="lazy"
-                                    alt="croix"
-                                    src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/640b498538ea4d0ffac77e07_Butt-cross.svg"
-                                    class="close_file"
-                                  />
                                 </div>
-                              </div></div
-                          ></template>
-                        </div></div
-                    ></template>
+                                <div class="file_title">
+                                  <div
+                                    x-text="removeFileExtension(fileItem.name)"
+                                    class="display-inlineflex"
+                                  >
+                                    {{FileName}}
+                                  </div>
+                                  <div
+                                    x-text="&#x27;.&#x27; + getFileExtension(fileItem.name)"
+                                    class="display-inlineflex extention"
+                                  >
+                                    .{{ext}}
+                                  </div>
+                                </div>
+                              </div>
+                              <img
+                                src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/640b498538ea4d0ffac77e07_Butt-cross.svg"
+                                loading="lazy"
+                                x-on:click="handleDeleteFile(fileItem, index)"
+                                alt="croix"
+                                class="close_file"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                   <div class="w-embed">
                     <div id="FileUpload" class="file-upload__bg">
+                      <!-- <div x-if="filesAttached !== null">
+      <div x-data="" class="files_wrapper">
+        <div class="files_holder">
+          <a
+            x-for="(fileItem, index) in filesAttached"
+            href="#"
+            class="file_block w-inline-block"
+            ><div class="w-layout-grid file_grid">
+              <div
+                id="w-node-f7619463-5fd8-f02d-64a4-0a18c56fb2d5-dad78133"
+                class="file_description"
+              >
+                <div class="flex_horizontal">
+                  <div class="file_type_holder action">
+                    <div
+                      class="file_type_icon pdf"
+                      x-bind:class="getFileExtension(fileItem.name)"
+                    >
+                      <div
+                        x-text="getFileExtension(fileItem.name)"
+                      >
+                        pdf
+                      </div>
+                    </div>
+                  </div>
+                  <div class="file_title">
+                    <div
+                      x-text="removeFileExtension(fileItem.name)"
+                      class="display-inlineflex"
+                    >
+                      FileName
+                    </div>
+                    <div
+                      x-text="getFileExtension(fileItem.name)"
+                      class="display-inlineflex extention"
+                    >
+                      .ext
+                    </div>
+                  </div>
+                </div>
+                <img
+                  src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/640b498538ea4d0ffac77e07_Butt-cross.svg"
+                  loading="lazy"
+                  alt=""
+                  class="close_file"
+                  x-on:click="handleDeleteFile(fileItem, index)"
+                />
+              </div></div
+          ></a>
+        </div>
+      </div>
+    </div> --->
                       <div class="input_container">
                         <input
                           type="file"
@@ -3091,13 +3184,13 @@
                           x-on:dragover="$el.parentElement.classList.add('active')"
                           x-on:dragleave="$el.parentElement.classList.remove('active')"
                           x-on:drop="$el.parentElement.classList.remove('active')"
-                          accept=".jpg, .jpeg, .png, .webp, .gif, .bmp, .mp4, .avi, .wmv, .mov, .doc, .docx, .ppt, .pptx, .xls, .xlsx, .pdf, .zip, .txt, .odp, .key"
+                          accept=".jpg, .jpeg, .png, .webp, .gif, .bmp, .mp4, .avi, .wmv, .mov, .doc, .docx, .ppt, .pptx, .xls, .xlsx, .pdf, .zip, .txt"
                         />
                         <div class="empty-cols">
                           <img
                             alt=""
-                            src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/634971b94a6db345b0103192_upload-cloud.svg"
-                            class="upload-file-icon mobile-image"
+                            src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/634971b94a6db345b0103192_upload-cloud.svg"
+                            class="upload-file-icon"
                           />
                           <p class="text-gray-700">
                             Faites glisser vos fichiers ici ou cliquez dans
@@ -3118,7 +3211,6 @@
                       .upload-file-btn {
                         display: inline-block;
                         width: auto;
-                        padding: 9px 15px;
                       }
                       .upload-file-icon {
                         width: 40px;
@@ -3126,25 +3218,6 @@
                       }
                       .input_container input {
                         cursor: hover;
-                      }
-                      /* This will hide the image for mobile devices */
-                      @media (max-width: 768px) {
-                        .mobile-image {
-                          display: none;
-                        }
-
-                        /* This will show a background image in the place of the original image */
-                        .empty-cols::before {
-                          content: "";
-                          display: block;
-                          width: 40px;
-                          height: 40px;
-                          background-image: url("https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/64fecc58880af21199b19460_camera%20(1).jpg");
-                          background-size: cover;
-                          background-repeat: no-repeat;
-                          margin: 0 auto; /* This centers the background image */
-                          opacity: 0.5;
-                        }
                       }
                     </style>
                   </div>
@@ -3163,16 +3236,16 @@
                     </div>
                     <img
                       x-bind="showInsertUrlDialog(false)"
-                      loading="lazy"
                       alt="exit croix"
-                      src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/6409a60abee24b0929f62f72_cross.svg"
+                      src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/6409a60abee24b0929f62f72_cross.svg"
+                      loading="lazy"
                       class="close_icon is_corner"
                     />
                   </div>
                 </div>
                 <div class="inputs_wrapper">
                   <div
-                    id="w-node-de1e0b49-e7f5-086d-127e-445f6b0164b7-fa31e4df"
+                    id="w-node-de1e0b49-e7f5-086d-127e-445f6b0164b7-6f14296d"
                     class="action_input_wrapper"
                   >
                     <label for="recommendation-url" class="action_field_label"
@@ -3230,9 +3303,9 @@
                     <div class="display-inlineflex text_space">Annuler</div>
                     <img
                       x-bind="showBeforeCancel(false)"
-                      loading="lazy"
                       alt="exit croix"
-                      src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/6409a60abee24b0929f62f72_cross.svg"
+                      src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/6409a60abee24b0929f62f72_cross.svg"
+                      loading="lazy"
                       class="close_icon is_corner"
                     />
                     <div
@@ -3258,7 +3331,7 @@
                     x-bind="showBeforeCancel(false)"
                     href="#"
                     class="button is-annuler w-inline-block"
-                    ><div class="button_text">Non</div></a
+                    ><div class="button_text">Annuler</div></a
                   ><a
                     x-bind="confirmCancel"
                     href="#"
@@ -3267,7 +3340,7 @@
                       class="lottie-anim-buttom"
                       data-w-id="eee68a04-aec4-e7cc-ef0a-2eb782c5932b"
                       data-animation-type="lottie"
-                      data-src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/61f2cf4b2c288f34818ada35_52601-waiting.json"
+                      data-src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/61f2cf4b2c288f34818ada35_52601-waiting.json"
                       data-loop="1"
                       data-direction="1"
                       data-autoplay="1"
@@ -3276,7 +3349,7 @@
                       data-default-duration="3.0030028806881908"
                       data-duration="0"
                     ></div>
-                    <div class="button_text">Oui</div></a
+                    <div class="button_text">Confirmer</div></a
                   >
                 </div>
               </div>
@@ -3296,9 +3369,9 @@
                     </div>
                     <img
                       x-bind="showBeforeSave(false)"
-                      loading="lazy"
                       alt="exit croix"
-                      src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/6409a60abee24b0929f62f72_cross.svg"
+                      src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/6409a60abee24b0929f62f72_cross.svg"
+                      loading="lazy"
                       class="close_icon is_corner"
                     />
                   </div>
@@ -3367,39 +3440,38 @@
                       </div>
                     </div>
                     <div class="search_result_wrapper context_comment">
-                      <template class="template" x-bind="showSearchResults"
-                        ><div class="search_result_holder primary100">
-                          <div class="inner_header">
-                            <div x-bind="searchTitle">{{Pathologie}}</div>
-                            <img
-                              x-on:click="clearSearchResults(pathology)"
-                              loading="lazy"
-                              alt="exit croix"
-                              src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/6409a60abee24b0929f62f72_cross.svg"
-                              class="close_icon is_search"
-                            />
-                          </div></div
-                      ></template>
+                      <div
+                        x-for="pathology in $store.modalStore.form.pathology"
+                        x-bind="showSearchResults"
+                        class="search_result_holder primary100"
+                      >
+                        <div class="inner_header">
+                          <div x-text="pathology.title">{{Pathologie}}</div>
+                          <img
+                            x-on:click="clearSearchResults(pathology)"
+                            alt="exit croix"
+                            src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/6409a60abee24b0929f62f72_cross.svg"
+                            loading="lazy"
+                            class="close_icon is_search"
+                          />
+                        </div>
+                      </div>
                     </div>
                   </div>
                   <div class="action_input_wrapper">
-                    <label class="w-checkbox checkbox-field-2"
+                    <label class="w-checkbox"
                       ><input
                         type="checkbox"
                         id="aknowledgePrivacy"
                         name="aknowledgePrivacy"
                         data-name="aknowledgePrivacy"
                         required=""
-                        class="w-checkbox-input checkbox padding-right--5rem"
-                      /><span
-                        class="text-size-small w-form-label"
-                        for="aknowledgePrivacy"
+                        class="w-checkbox-input"
+                      /><span class="w-form-label" for="aknowledgePrivacy"
                         >Je reconnais savoir qu&#x27;Ordotype n&#x27;est pas un
                         hébergeur de données de santé et je confirme que ce
                         document ne contient
-                        <strong class="text-size-small"
-                          >AUCUNE donnée personnelle</strong
-                        >.</span
+                        <strong>AUCUNE donnée personnelle</strong>.</span
                       ></label
                     >
                   </div>
@@ -3426,39 +3498,68 @@
                       value="Confirmer"
                       data-wait="Patientez..."
                       x-bind="submitBtn"
-                      id="w-node-_89667e30-faf5-46eb-42c3-a330aa55e59f-fa31e4df"
+                      id="w-node-_89667e30-faf5-46eb-42c3-a330aa55e59f-6f14296d"
                       class="button is-docs submit w-button"
                     />
                   </div>
                 </div>
               </div>
-              <div x-show="false" class="view_wrapper r-voquer_partage">
+              <div
+                x-bind="beforeDeleteDialog"
+                class="view_wrapper before_delete_dialog"
+              >
                 <div class="header_holder context_comment">
                   <div class="inner_header">
-                    <div class="display-inlineflex text_space">Révoquer</div>
-                    <div class="display-inlineflex hide-mobile-landscape">
-                      le partage
-                    </div>
+                    <div class="display-inlineflex text_space">Supprimer</div>
                     <img
-                      loading="lazy"
-                      src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/6409a60abee24b0929f62f72_cross.svg"
+                      x-on:click="$store.modalStore.closeBeforeDelete()"
                       alt="exit croix"
+                      src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/6409a60abee24b0929f62f72_cross.svg"
+                      loading="lazy"
                       class="close_icon is_corner"
                     />
+                    <div
+                      x-text="$store.modalStore.contentBeforeDelete(&#x27;beforeDelete&#x27;,&#x27;title&#x27;)"
+                      class="display-inlineflex hide-mobile-landscape"
+                    >
+                      {{une ordonnance}}
+                    </div>
                   </div>
                 </div>
                 <div class="comment_wrapper">
-                  <p class="context_comment text-weight-light">
-                    Vous êtes sur le point de révoquer le partage de ce
-                    document. Une fois confirmée, les autres utilisateurs
-                    d’Ordotype n’auront plus accés à ce document.
+                  <p
+                    x-text="$store.modalStore.contentBeforeDelete(&#x27;beforeDelete&#x27;,&#x27;description&#x27;)"
+                    class="context_comment text-weight-light"
+                  >
+                    {{Vous êtes sur le point de supprimer une ordonnance. Une
+                    fois la suppression confirmée, vous n’aurez plus accès à
+                    cette ordonnance.}}
                   </p>
                 </div>
                 <div class="w-layout-grid action_btns_form ann">
-                  <a href="#" class="button is-annuler w-inline-block"
+                  <a
+                    x-on:click="$store.modalStore.closeBeforeDelete($event)"
+                    href="#"
+                    class="button is-annuler w-inline-block"
                     ><div class="button_text">Annuler</div></a
-                  ><a href="#" class="button is-docs w-inline-block"
-                    ><div class="button_text">Confirmer</div></a
+                  ><a
+                    x-on:click="$store.modalStore.submitDelete($event)"
+                    href="#"
+                    class="button is-docs w-inline-block"
+                    ><div
+                      class="lottie-anim-buttom"
+                      data-w-id="92387768-5c73-43c8-b215-33f78aaa68e1"
+                      data-animation-type="lottie"
+                      data-src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/61f2cf4b2c288f34818ada35_52601-waiting.json"
+                      data-loop="1"
+                      data-direction="1"
+                      data-autoplay="1"
+                      data-is-ix2-target="0"
+                      data-renderer="svg"
+                      data-default-duration="3.0030028806881908"
+                      data-duration="0"
+                    ></div>
+                    <div class="button_text">Confirmer</div></a
                   >
                 </div>
               </div>
@@ -3572,15 +3673,14 @@
                       <div class="switch_tabs-wrapper">
                         <div class="button-footer">
                           <img
-                            src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/62a8a85946267b2f7c2fd0f3_no-money.png"
+                            src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/62a8a85946267b2f7c2fd0f3_no-money.png"
                             loading="lazy"
-                            id="w-node-_4b086624-82b9-59b6-0a84-10e719809c78-19809c67"
-                            sizes="(max-width: 479px) 100vw, (max-width: 767px) 4vw, (max-width: 1279px) 2vw, 1vw"
-                            alt="indépendant de l&#x27;industrie"
+                            sizes="(max-width: 479px) 7vw, (max-width: 767px) 4vw, (max-width: 1279px) 2vw, 1vw"
                             srcset="
-                              https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/62a8a85946267b2f7c2fd0f3_no-money-p-500.png 500w,
-                              https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/62a8a85946267b2f7c2fd0f3_no-money.png       512w
+                              https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/62a8a85946267b2f7c2fd0f3_no-money-p-500.png 500w,
+                              https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/62a8a85946267b2f7c2fd0f3_no-money.png       512w
                             "
+                            alt="indépendant de l&#x27;industrie"
                             class="image-9"
                           />
                           <div class="text-size-small smaller">
@@ -3593,6 +3693,15 @@
                       <div class="footer3_credit-text">
                         © Copyright 2023 Ordotype
                       </div>
+                    </div>
+                    <div class="footer3_credit-text">
+                      Developed with 💙 by
+                      <a
+                        href="https://nicolatoledo.dev/"
+                        target="_blank"
+                        class="text-link text-color-white"
+                        >nicolatoledo.dev</a
+                      >
                     </div>
                   </div>
                   <div class="w-layout-grid footer3_menu-wrapper">
@@ -3623,9 +3732,9 @@
                       ><a
                         native=""
                         data-ms-content="!essai-expir"
-                        href="/tous-les-conseils-patients"
+                        href="/toutes-les-conseils-patients"
                         class="footer3_link"
-                        >Toutes les conseils patients</a
+                        >Toutes les conseils patient</a
                       ><a native="" href="/specialites" class="footer3_link"
                         >Toutes les spécialités</a
                       >
@@ -3641,13 +3750,17 @@
                         >RGPD</a
                       ><a href="/equipe" native="" class="footer3_link"
                         >Qui sommes nous ?</a
-                      ><a href="/confidentialite" native="" class="footer3_link"
+                      ><a
+                        href="https://www.iubenda.com/privacy-policy/38810067"
+                        native=""
+                        class="footer3_link"
                         >Confidentialité</a
                       ><a href="/faq" native="" class="footer3_link">FAQ</a
                       ><a href="/blog" native="" class="footer3_link">Blog</a
                       ><a
-                        href="/membership/demander-une-demo"
+                        href="https://calendly.com/louis-malachane/ordotype"
                         native=""
+                        target="_blank"
                         class="footer3_link"
                         >Demander une démo</a
                       >
@@ -3667,11 +3780,9 @@
       crossorigin="anonymous"
     ></script>
     <script
-      src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/js/webflow.380f91550.js"
+      src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/js/webflow.1073e472b.js"
       type="text/javascript"
     ></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
     <!-- Google Tag Manager (noscript) -->
     <noscript
       ><iframe
@@ -3685,18 +3796,17 @@
     <!-- End Google Tag Manager (noscript) -->
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@a60450308412697672c5b94b4ce3ce97937c2dd9/ordotype-index-2023-10-23.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@392c87ec0219659580cd135b41cccf7b4ad20afd/ordotype-index-2023-08-25.js"></script>
+    <!--<script src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@fdc01445a56d6b2b82a0682d8ee1de47ad2281ac/ordotype-index-2023-05-16.js"></script>-->
 
-    <!--
-<script src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@863d5ee519b2922917f613f85f50c698381d5c33/ordotype-index-2023-10-19.js"></script>-->
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/algoliasearch@4.14.2/dist/algoliasearch.umd.js"
+      integrity="sha256-DRnoUQAweVMsVPRMhfHC5zPqUP8s2fWUqD39yBsWg+M="
+      crossorigin="anonymous"
+    ></script>
 
-    <!--
-<script defer
-  src="https://cdn.jsdelivr.net/npm/algoliasearch@4.14.2/dist/algoliasearch.umd.js"
-  integrity="sha256-DRnoUQAweVMsVPRMhfHC5zPqUP8s2fWUqD39yBsWg+M="
-  crossorigin="anonymous"
-></script>-->
-
+    <!-- 💙 MEMBERSCRIPT #23 v0.1 💙 SKELETON SCREENS/CONTENT LOADERS -->
     <script>
       window.addEventListener("DOMContentLoaded", (event) => {
         const skeletonElements =
@@ -3732,56 +3842,58 @@
       });
     </script>
 
-    <!-- HTML Rich text reader 
-<script>
-Webflow.push(function(){$('.w-richtext p').html(function(){return $(this).html().indexOf('&lt;')==0&&$(this).html().indexOf('&gt;')>3?$(this).text():$(this).html()})})
-</script>
--->
+    <!-- HTML Rich text reader -->
     <script>
-      $(document).ready(function () {
+      Webflow.push(function () {
         $(".w-richtext p").html(function () {
-          return $(this).html().indexOf("&lt;") === 0 &&
+          return $(this).html().indexOf("&lt;") == 0 &&
             $(this).html().indexOf("&gt;") > 3
             ? $(this).text()
             : $(this).html();
         });
       });
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script>
-
-    <script
-      src="https://cdn.jsdelivr.net/npm/algoliasearch@4.14.2/dist/algoliasearch.umd.js"
-      integrity="sha256-DRnoUQAweVMsVPRMhfHC5zPqUP8s2fWUqD39yBsWg+M="
-      crossorigin="anonymous"
-    ></script>
-
-    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@algolia/autocomplete-js"></script>
-    <!--- <script src="https://static.ordotype.fr/my-documents.js"></script> -->
-    <!--- <script src="https://seashell-app-etfao.ondigitalocean.app/my-documents.js"></script> --->
-
-    <!--- 
-<script>
-    // Get the current domain
-    var currentDomain = window.location.hostname;
-
-    // Check if the domain matches a particular condition
-    if (currentDomain !== 'www.ordotype.fr') {
-        // Load the dev script
-        var scriptElement = document.createElement('script');
-        scriptElement.src = 'https://seashell-app-etfao.ondigitalocean.app/my-documents.js';
-        document.head.appendChild(scriptElement);
-    } else {
-     // Load prod script
-        var scriptElement = document.createElement('script');
-        scriptElement.src = 'https://static.ordotype.fr/my-documents.js';
-        document.head.appendChild(scriptElement);
-    }
-</script>
- --->
 
     <script>
-      const clipboard = new ClipboardJS("#copy-drawer");
+      window.mainPlansIds = [
+        "pln_essai-gratuit-5e4s0o0r",
+        "pln_compte-praticien-offre-speciale-500-premiers--893z0o60",
+        "pln_essai-expir--vr4r0ouk",
+        "pln_compte-interne-sy4j0oft",
+        "pln_interne-m-decine-g-n-rale-adh-rent--4a4t0o95",
+        "pln_compte-ouvert-u94k0of5",
+      ];
+      window.dataLayer = window.dataLayer || [];
+      $memberstackDom.getCurrentMember().then(({ data }) => {
+        if (data) {
+          const date = new Date(data.createdAt)
+            .toLocaleDateString("fr-FR")
+            .split("/");
+          const removeDD = date.shift();
+          const newDate = date.join("/");
+          const mainPlan =
+            data.planConnections.filter((plan) => {
+              return mainPlansIds.includes(plan.planId);
+            }) || "Not on main list";
+          const dataPlan = mainPlan.length > 0 && {
+            member_plan_id: mainPlan[0].planId,
+            member_plan_status: mainPlan[0].status,
+            member_plan_type: mainPlan[0].type,
+          };
+          dataLayer.push({
+            event: "userData",
+            member_id: data.id,
+            member_signup_date: newDate,
+            ...dataPlan,
+          });
+        }
+      });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script>
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@algolia/autocomplete-js"></script>
+    <script>
+      const clipboard = new ClipboardJS(".is-copy");
 
       clipboard.on("success", function (e) {
         console.info("Action:", e.action);
@@ -3834,18 +3946,6 @@ Webflow.push(function(){$('.w-richtext p').html(function(){return $(this).html()
           )
           .addClass("open");
       }
-    </script>
-
-    <script type="text/javascript">
-      window.$crisp = [];
-      window.CRISP_WEBSITE_ID = "7fcb1bdb-58d0-49a9-a269-397bac574b0b";
-      (function () {
-        d = document;
-        s = d.createElement("script");
-        s.src = "https://client.crisp.chat/l.js";
-        s.async = 1;
-        d.getElementsByTagName("head")[0].appendChild(s);
-      })();
     </script>
   </body>
 </html>

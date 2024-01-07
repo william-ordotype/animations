@@ -2,7 +2,7 @@
 import { autocomplete } from "@algolia/autocomplete-js";
 import "print-this";
 
-import { handleDrawer } from "../components/Notes/DocumentsDrawer";
+import { handleDrawer } from "../components/DocumentsDrawer";
 
 const globals = {};
 

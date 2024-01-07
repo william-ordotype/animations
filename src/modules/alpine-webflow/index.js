@@ -68,7 +68,7 @@ function init() {
 
   document
     .querySelectorAll(
-      "[x-data] [x-for], [x-data] [x-for][attribute*=':key'], [x-data] [x-if], [x-template]"
+      "[x-data] [x-for], [x-data] [x-for][attribute*=':key'], [x-data] [x-if]"
     )
     .forEach(wrapInTemplate);
 }
