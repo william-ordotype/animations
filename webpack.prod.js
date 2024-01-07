@@ -3,7 +3,7 @@ dotenv.config({ path: ".env.dev" });
 const webpack = require("webpack");
 const { merge } = require("webpack-merge");
 
-const environmentVariables = ["ORDOTYPE_API", "ORDOTYPE_API_VERSION"];
+const environmentVariables = ["ORDOTYPE_API"];
 
 const common = require("./webpack.common.js");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");

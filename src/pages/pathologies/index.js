@@ -15,12 +15,12 @@ import myDocumentsStore from "../../store/myDocuments.store";
 import modalStore from "../../store/modal.store";
 import drawerStore from "../../store/drawer.store";
 import toasterStore from "../../store/toaster.store";
-import DocumentsDrawer from "../../components/Notes/DocumentsDrawer";
+import DocumentsDrawer from "../../components/DocumentsDrawer";
 import {
   DocumentsModal,
   OpenModalByType,
   PathologiesAutocomplete,
-} from "../../components/Notes/DocumentsModal";
+} from "../../components/DocumentsModal";
 import {
   DocumentFileInput,
   DocumentFileListItem,

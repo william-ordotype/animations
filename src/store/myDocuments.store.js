@@ -1,8 +1,6 @@
 import Alpine from "alpinejs";
-import NotesService from "../services/notesService";
 
 const API_URL = `${process.env.ORDOTYPE_API}/v1.0.0`;
-const NoteService = new NotesService(API_URL);
 
 const myDocumentsStore = {
   getOne: {
@@ -10,9 +8,39 @@ const myDocumentsStore = {
       note: {},
       member: {},
     },
+    async getDocument({ id } = {}) {
+      try {
+        const response = await fetch(`${API_URL}/notes/${id}`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${window.memberToken}`,
+          },
+        });
+        if (response.ok) {
+          return await response.json();
+        } else {
+          if (response.status === 404) {
+            throw "Document introuvable";
+          }
+          throw response.status;
+        }
+      } catch (err) {
+        console.error(err);
+        Alpine.store("toasterStore").toasterMsg(err, "error");
+      }
+    },
     async setDocument(props) {
       const { id } = props;
-      await NoteService.getOne(id);
+      try {
+        const res = await this.getDocument({ id });
+        if (res) {
+          this.document = {
+            ...res,
+          };
+        }
+      } catch (err) {
+        throw err;
+      }
     },
   },
   getList: {
@@ -40,10 +68,9 @@ const myDocumentsStore = {
       let documentsResults;
       this.documents = []; // Reset checkboxes
       try {
-        documentsResults = await NoteService.getList(props);
+        documentsResults = await this.request(props);
       } catch (err) {
         console.error("getList error --", err);
-        return;
       }
       // Checks if empty
       if (documentsResults["data"].length === 0) {
@@ -78,21 +105,220 @@ const myDocumentsStore = {
         await Alpine.store("documentsStore").rulesStatus.exec();
       }
     },
+    async request({
+      page = 1,
+      limit = 10,
+      sort = "created_on",
+      direction = "DESC",
+      type = this.documentType || "",
+      pathology = "",
+      title = "",
+      noteTitleAndPathologyTitle = "",
+    } = {}) {
+      try {
+        const queryParams = {
+          page,
+          limit,
+          sort,
+          direction,
+          type: type || this.documentType || "",
+          pathology,
+          title,
+          noteTitleAndPathologyTitle,
+        };
+
+        // Remove empty parameters
+        Object.keys(queryParams).forEach(
+          (key) =>
+            (queryParams[key] === "" || queryParams[key] === undefined) &&
+            delete queryParams[key]
+        );
+
+        const queryString = new URLSearchParams(queryParams).toString();
+
+        const response = await fetch(`${API_URL}/notes?${queryString}`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${memberToken}`,
+          },
+        });
+        if (response.ok) {
+          return await response.json();
+        } else {
+          throw new Error("document - getList - fetch failed.");
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    },
   },
   mutateOne: {
-    async exec(payload, filesToAdd = [], filesToDelete = []) {
+    async exec(payload, files = [], filesToDelete = []) {
       try {
         return payload._id
-          ? await NoteService.updateOne(payload, filesToAdd, filesToDelete)
-          : await NoteService.createOne(payload, filesToAdd);
+          ? await this.updateReq(payload, files, filesToDelete)
+          : await this.createReq(payload, files);
       } catch (err) {
         throw new Error(err);
+      }
+    },
+    _validatePayload(payload, isUpdate = false) {
+      if (isUpdate) {
+        if (!payload._id) {
+          console.error("Document id not found");
+          throw "Id du document non trouvé";
+        }
+      }
+      if (!payload.title) {
+        console.error("Title not found");
+        throw "Titre non trouvé";
+      }
+      if (!payload.type) {
+        console.error("Document type not found");
+        throw "Type de document non trouvé";
+      }
+      if (payload.type === "prescriptions") {
+        if (
+          !(
+            payload.prescription_type === "balance_sheet" ||
+            payload.prescription_type === "treatment"
+          )
+        ) {
+          console.error("Prescription type must be balance_sheet or treatment");
+          throw "Type d'ordonnance doit être bilan ou traitement";
+        }
+      }
+      if (payload.type !== "prescriptions") {
+        delete payload.prescription_type;
+      }
+      return payload;
+    },
+    /**
+     * Create request
+     * @param {Object} formFields
+     * @param {Array} files
+     * @returns {Promise}
+     */
+    async createReq(formFields, files) {
+      try {
+        const validatedPayload = this._validatePayload(formFields);
+        const documentFormData = parseFormData(validatedPayload);
+        // Add files to formData
+        for (let i = 0; i < files.length; i++) {
+          documentFormData.append("files", files[i]);
+        }
+
+        return await fetch(`${API_URL}/notes`, {
+          method: "POST",
+          headers: {
+            // "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${window.memberToken}`,
+          },
+          body: documentFormData,
+        });
+      } catch (err) {
+        throw err;
+      }
+    },
+
+    /**
+     * Update request
+     * @param {Object} formFields
+     * @param {Array} files
+     * @param {Array} filesToDelete
+     * @returns {Promise<*>}
+     */
+    async updateReq(formFields, files, filesToDelete) {
+      try {
+        const validatedPayload = this._validatePayload(formFields, true);
+        // remove files and documents from formFields
+        delete validatedPayload.files;
+        delete validatedPayload.documents;
+
+        // Convert files proxy array to normal array
+        const filesArr = Array.from(files);
+        // Prepare files formData
+        const filesFormData = new FormData();
+        for (let i = 0; i < filesArr.length; i++) {
+          filesFormData.append("files", filesArr[i]);
+        }
+        filesFormData.append("noteId", formFields._id.toString());
+        const sendDocumentsPromise = async () =>
+          await fetch(`${API_URL}/notes/${formFields._id}`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${window.memberToken}`,
+            },
+            body: JSON.stringify(validatedPayload),
+          });
+        const sendFilesPromise = async () =>
+          await fetch(`${API_URL}/documents`, {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${window.memberToken}`,
+            },
+            body: filesFormData,
+          });
+        const deleteFilesPromise = async () =>
+          await fetch(`${API_URL}/documents`, {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${window.memberToken}`,
+            },
+            body: JSON.stringify({ document_id: filesToDelete }),
+          });
+
+        // run all promises
+        return await Promise.all([
+          sendDocumentsPromise(),
+          files.length > 0 && sendFilesPromise(),
+          filesToDelete.length > 0 && deleteFilesPromise(),
+        ]);
+      } catch (err) {
+        throw err;
       }
     },
   },
   deleteMany: {
     async exec(documentList) {
-      await NoteService.deleteMany(documentList);
+      try {
+        await this.request(documentList);
+      } catch (err) {
+        console.error("deleteMany - err", err);
+      }
+    },
+    _validatePayload(payload) {
+      if (!Array.isArray(payload)) {
+        throw new Error("Payload is not an array");
+      } else if (payload.length === 0) {
+        throw new Error("Payload array is empty");
+      } else if (!payload.every((item) => item._id && item._id.trim() !== "")) {
+        throw new Error(
+          "Payload array contains items without a valid _id property"
+        );
+      }
+      return payload;
+    },
+    async request(payload) {
+      try {
+        const validatedPayload = this._validatePayload(payload);
+        // Transform payload to array of ids
+        const ids = validatedPayload.map((item) => item._id);
+        const response = await fetch(`${API_URL}/notes`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${window.memberToken}`,
+          },
+          body: JSON.stringify({ note_ids: [...ids] }),
+        });
+
+        return await response;
+      } catch (err) {
+        throw new Error(err);
+      }
     },
   },
   pathologies: {
@@ -179,5 +405,31 @@ const myDocumentsStore = {
     });
   },
 };
+
+/**
+ * Handle request errors
+ * @param response
+ * @returns {Object | Error}
+ */
+function handleRequestErrors(response) {
+  if (response === false) return;
+
+  if (!response.ok) {
+    throw Error(response.statusText);
+  }
+  return response.json();
+}
+
+/**
+ * Convert form fields to FormData
+ * @param formFieldValues
+ * @returns {FormData}
+ */
+function parseFormData(formFieldValues) {
+  return Object.keys(formFieldValues).reduce((formData, key) => {
+    formData.append(key, formFieldValues[key]);
+    return formData;
+  }, new FormData());
+}
 
 export default myDocumentsStore;
