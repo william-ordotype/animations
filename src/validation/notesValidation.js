@@ -22,7 +22,7 @@ const deleteManyNotesValidation = async (payload) => {
 };
 
 const getOneValidation = async (payload) => {
-  const getOneSchema = string().required();
+  const getOneSchema = string();
   return await getOneSchema.validate(payload);
 };
 
@@ -62,7 +62,7 @@ const createOneValidation = async (payload) => {
     rich_text_ordo: string(),
   });
 
-  return createOneSchema.validate(payload);
+  return await createOneSchema.validate(payload);
 };
 
 const updateOneValidation = async (payload) => {
@@ -80,7 +80,7 @@ const updateOneValidation = async (payload) => {
     rich_text_ordo: string(),
   });
 
-  return updateOneSchema.validate(payload);
+  return await updateOneSchema.validate(payload);
 };
 
 const searchByNoteTitleAndPathologyTitleValidation = async (payload) => {

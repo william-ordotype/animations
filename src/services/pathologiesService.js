@@ -36,11 +36,22 @@ class PathologiesService extends ApiService {
     });
   }
 
+  /**
+   *
+   * @param searchQuery
+   * @return {Promise<Object>}
+   */
   async searchBySlug(searchQuery) {
-    const validatePayload = searchByTitleAndAliasValidation(searchQuery);
+    const validatePayload = searchQuery;
     return await this.request({
       method: "GET",
-      queryParams: `page=1&limit=2&sort=title&direction=ASC&slug=${validatePayload}`,
+      queryParams: {
+        page: 1,
+        limit: 2,
+        sort: "title",
+        direction: "ASC",
+        slug: validatePayload,
+      },
     });
   }
 }

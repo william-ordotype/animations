@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Last Published: Tue Dec 05 2023 04:05:06 GMT+0000 (Coordinated Universal Time) -->
+<!-- Last Published: Wed Dec 13 2023 23:37:22 GMT+0000 (Coordinated Universal Time) -->
 <html
   data-wf-domain="ordotype.webflow.io"
   data-wf-page="65387564e32907f177e49208"
@@ -17,7 +17,7 @@
       name="google-site-verification"
     />
     <link
-      href="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.118314d24.min.css"
+      href="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.f565b2520.min.css"
       rel="stylesheet"
       type="text/css"
     />
@@ -269,13 +269,14 @@
       name="viewport"
       content="width=device-width, initial-scale=1, maximum-scale=1"
     />
+
   </head>
   <body>
     <div class="navigationhandler w-embed">
       <div x-data="SharingNavigation">
-        <template x-route="/document-shared-invite" x-handler="home"></template>
+<!--        <template x-route="/document-shared-invite" x-handler="home"></template>-->
         <template x-route="notfound" x-handler="notfound"></template>
-        <!--- <template x-route="/document-shared-invite.html" x-handler="home"></template> --->
+        <template x-route="/document-shared-invite.html" x-handler="home"></template>
       </div>
     </div>
     <div
@@ -446,14 +447,16 @@
       <div
         x-cloak=""
         x-bind="sharedAccess"
-        class="view_wrapper document-partag---membre"
+        class="view_wrapper document-partag---membre-copy"
       >
         <div class="action_navigation">
           <div class="action_header">
             <h2 x-bind="noteTitle" class="view_heading">Nom de l’ordonnance</h2>
           </div>
           <div class="w-layout-grid action_btns partage">
-            <a href="#" class="button is-annuler w-inline-block"
+            <a
+              href="/debug/mes-documents#/list"
+              class="button is-annuler w-inline-block"
               ><div class="button_text">Mes documents</div></a
             ><a
               x-bind="cloneNote"
@@ -463,19 +466,7 @@
             >
           </div>
         </div>
-        <div class="text_editor_wrapper">
-          <img
-            src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/640a20aaaf8b4877a87518ae_menu-bar.png"
-            loading="lazy"
-            sizes="(max-width: 767px) 100vw, (max-width: 1439px) 70vw, 1008px"
-            srcset="
-              https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/640a20aaaf8b4877a87518ae_menu-bar-p-500.png  500w,
-              https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/640a20aaaf8b4877a87518ae_menu-bar-p-800.png  800w,
-              https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/640a20aaaf8b4877a87518ae_menu-bar.png       1013w
-            "
-            alt=""
-            class="delete-when-script"
-          />
+        <div class="text_editor_wrapper-copy">
           <div
             id="editor-container"
             x-bind="noteRichText"
@@ -571,7 +562,7 @@
       crossorigin="anonymous"
     ></script>
     <script
-      src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/js/webflow.29d7ed655.js"
+      src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/js/webflow.111e17552.js"
       type="text/javascript"
     ></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -592,7 +583,7 @@
     <script src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@a60450308412697672c5b94b4ce3ce97937c2dd9/ordotype-index-2023-10-23.js"></script>
 
     <!--
-<script src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@863d5ee519b2922917f613f85f50c698381d5c33/ordotype-index-2023-10-19.js"></script>-->
+<script src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@a3c5f5c5088f78470f1651ab06ac4ef2e85750c2/ordotype-index-2023-12-12.js"></script> -->
 
     <!--
 <script defer
@@ -651,5 +642,6 @@ Webflow.push(function(){$('.w-richtext p').html(function(){return $(this).html()
         });
       });
     </script>
+    
   </body>
 </html>

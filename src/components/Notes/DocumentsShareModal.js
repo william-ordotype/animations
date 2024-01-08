@@ -184,9 +184,11 @@ function DocumentsShareModal() {
     },
     validateButton() {
       return {
-        ["x-bind:disabled"]: () => {
+        ["x-bind:class"]: () => {
           return (
-            this.emailsToDelete.length === 0 && this.emailsToAdd.length === 0
+            this.emailsToDelete.length === 0 &&
+            this.emailsToAdd.length === 0 &&
+            "disabled"
           );
         },
         ["x-on:click.prevent"]: async () => {

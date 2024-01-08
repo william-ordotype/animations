@@ -44,6 +44,7 @@ class NotesService extends ApiService {
    */
   async getOne(id) {
     try {
+      debugger;
       const payload = await getOneValidation(id);
       return await this.request({
         method: "GET",
@@ -138,11 +139,12 @@ class NotesService extends ApiService {
    * @returns {Promise<Array>}
    */
   async updateOne(payload, filesToAdd, filesToDelete) {
+    delete payload.files;
+    delete payload.documents;
+    delete payload.prescription_type;
+    debugger;
     const validatePayload = await updateOneValidation(payload);
     // remove files and documents from formFields
-    delete validatePayload.files;
-    delete validatePayload.documents;
-    delete validatePayload.prescription_type;
 
     // Convert files proxy array to normal array
     const filesArr = Array.from(filesToAdd);
@@ -152,12 +154,12 @@ class NotesService extends ApiService {
       filesFormData.append("files", filesArr[i]);
     }
     filesFormData.append("noteId", validatePayload._id.toString());
-
     const updateFieldsReq = async () =>
       await this.request({
         routeParams: validatePayload._id,
         method: "PUT",
         data: validatePayload,
+        resCallBack: (res) => res,
       });
 
     const addFilesToNoteReq = async () =>
