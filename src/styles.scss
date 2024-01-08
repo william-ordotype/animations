@@ -194,7 +194,7 @@
   display: inline-block;
 }
 
-.w-button.disabled {
+.w-button.disabled, .disabled {
   cursor: auto;
   background-color: #858c95 !important;
   background-image: none !important;
