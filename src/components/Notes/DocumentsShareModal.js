@@ -178,7 +178,17 @@ function DocumentsShareModal() {
           ).activeNoteEmailList;
           const index = modalEmailList.indexOf(currentEmail);
           modalEmailList.splice(index, 1);
-          this.emailsToDelete.push(currentEmail.email);
+
+          // If email was recently added, delete it from the emailsToAdd array,
+          // if not add it to emailsToDelete array to be deleted on validation submit
+          if (this.emailsToAdd.some((email) => email === currentEmail.email)) {
+            const emailsToAddIndex = this.emailsToAdd.indexOf(
+              currentEmail.email
+            );
+            this.emailsToAdd.splice(emailsToAddIndex, 1);
+          } else {
+            this.emailsToDelete.push(currentEmail.email);
+          }
         },
       };
     },
