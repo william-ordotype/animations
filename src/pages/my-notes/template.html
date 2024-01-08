@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Last Published: Tue Dec 05 2023 14:22:54 GMT+0000 (Coordinated Universal Time) -->
+<!-- Last Published: Sun Dec 24 2023 13:55:55 GMT+0000 (Coordinated Universal Time) -->
 <html
   data-wf-domain="ordotype.webflow.io"
   data-wf-page="655bd64b4beebf9dc750ace3"
@@ -39,7 +39,7 @@
       name="google-site-verification"
     />
     <link
-      href="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.c243045ba.min.css"
+      href="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.50ca5fc4e.min.css"
       rel="stylesheet"
       type="text/css"
     />
@@ -296,6 +296,7 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/@algolia/autocomplete-theme-classic"
     />
+   
 
     <style>
       .ql-container.ql-snow {
@@ -715,12 +716,17 @@
               data-ms-content="!premium-pages"
               alt="LOGO ORDOTYPE"
               class="navbar2_logo" /><img
-              src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/6526b623a2732eb9279f6adc_logo%20ordotype%20plus.svg"
-              loading="lazy"
+              class="navbar2_logo hidden"
+              src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png"
+              alt="ordotype plus png"
+              sizes="100vw"
               data-ms-content="premium-pages"
               data-ms-bind:style="display:block"
-              alt="logo ordotype +"
-              class="navbar2_logo hidden"
+              loading="lazy"
+              srcset="
+                https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1)-p-500.png 500w,
+                https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png       501w
+              "
           /></a>
           <div class="header-search-bar-wrapper nav-bar-size">
             <div
@@ -793,11 +799,10 @@
             >
             <div data-ms-content="!members" class="navbar2_menu-buttons">
               <a
-                href="/membership/demander-une-demo"
                 id="navbar-calendly"
-                data-ms-content="!members"
                 native=""
-                class="button is-secondary larger w-inline-block"
+                href="/membership/demander-une-demo"
+                class="button is-grey w-inline-block"
                 ><div class="button_text">Demander une démo</div></a
               ><a
                 native=""
@@ -1163,6 +1168,63 @@
               </div>
             </div>
             <div x-data="LayoutContainer" class="documents_tabs">
+              <div
+                x-cloak=""
+                x-data=""
+                x-show="$store.toasterStore.showToaster"
+                class="toast_container"
+              >
+                <div class="toast-element">
+                  <div
+                    x-bind:class="$store.toasterStore.type"
+                    class="toast_icon_container"
+                  >
+                    <div class="toast_icon w-embed">
+                      <svg
+                        x-show="$store.toasterStore.type === globals.toaster.statusTypes.success"
+                        width=" 100%"
+                        height=" 100%"
+                        viewBox="0 0 22 23"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M21 11.08V12C20.9988 14.1564 20.3005 16.2547 19.0093 17.9818C17.7182 19.709 15.9033 20.9725 13.8354 21.5839C11.7674 22.1953 9.55726 22.1219 7.53447 21.3746C5.51168 20.6273 3.78465 19.2461 2.61096 17.4371C1.43727 15.628 0.879791 13.4881 1.02168 11.3363C1.16356 9.18455 1.99721 7.13631 3.39828 5.49706C4.79935 3.85781 6.69279 2.71537 8.79619 2.24013C10.8996 1.7649 13.1003 1.98232 15.07 2.85999M21 4L11 14.01L8 11.01"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+
+                      <svg
+                        x-show="$store.toasterStore.type === globals.toaster.statusTypes.error"
+                        width="22"
+                        height="22"
+                        viewBox="0 0 22 22"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M11 7V11M11 15H11.01M21 11C21 16.5228 16.5228 21 11 21C5.47715 21 1 16.5228 1 11C1 5.47715 5.47715 1 11 1C16.5228 1 21 5.47715 21 11Z"
+                          stroke="#DC2828"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                  <div class="padding-left padding-small">
+                    <p
+                      x-text="$store.toasterStore.message"
+                      class="text-weight-semibold no-margin"
+                    >
+                      {{toaster text}}
+                    </p>
+                  </div>
+                </div>
+              </div>
               <div x-data="DocumentsNavigation()" class="tabs_menu">
                 <a
                   native=""
@@ -1376,8 +1438,8 @@
                       />
                     </svg></div></a
                 ><a
-                  href="/notes-documents/mes-documents-partages"
-                  class="tab_link hide w-inline-block"
+                  href="/debug//debug/my-shared-documents#/list"
+                  class="tab_link w-inline-block"
                   ><div class="w-layout-grid grid_gap_8">
                     <div class="tab_icon w-embed">
                       <svg
@@ -1403,7 +1465,7 @@
                         </defs>
                       </svg>
                     </div>
-                    <div class="display-inlineflex">Partagés</div>
+                    <div class="display-inlineflex">Partagés avec moi</div>
                   </div>
                   <div class="tab_arrow w-embed">
                     <svg
@@ -1420,11 +1482,8 @@
                         stroke-linecap="round"
                         stroke-linejoin="round"
                       />
-                    </svg></div></a
-                ><link
-                  rel="prefetch"
-                  href="/notes-documents/mes-documents-partages"
-                />
+                    </svg></div
+                ></a>
                 <div
                   x-cloak=""
                   x-data="DocumentAvailableSpaceGraphWidget"
@@ -1513,63 +1572,6 @@
                 </div>
               </div>
               <div class="tabs_documents">
-                <div
-                  x-cloak=""
-                  x-data=""
-                  x-show="$store.toasterStore.showToaster"
-                  class="toast_container"
-                >
-                  <div class="toast-element">
-                    <div
-                      x-bind:class="$store.toasterStore.type"
-                      class="toast_icon_container"
-                    >
-                      <div class="toast_icon w-embed">
-                        <svg
-                          x-show="$store.toasterStore.type === globals.toaster.statusTypes.success"
-                          width=" 100%"
-                          height=" 100%"
-                          viewBox="0 0 22 23"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M21 11.08V12C20.9988 14.1564 20.3005 16.2547 19.0093 17.9818C17.7182 19.709 15.9033 20.9725 13.8354 21.5839C11.7674 22.1953 9.55726 22.1219 7.53447 21.3746C5.51168 20.6273 3.78465 19.2461 2.61096 17.4371C1.43727 15.628 0.879791 13.4881 1.02168 11.3363C1.16356 9.18455 1.99721 7.13631 3.39828 5.49706C4.79935 3.85781 6.69279 2.71537 8.79619 2.24013C10.8996 1.7649 13.1003 1.98232 15.07 2.85999M21 4L11 14.01L8 11.01"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                        </svg>
-
-                        <svg
-                          x-show="$store.toasterStore.type === globals.toaster.statusTypes.error"
-                          width="22"
-                          height="22"
-                          viewBox="0 0 22 22"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M11 7V11M11 15H11.01M21 11C21 16.5228 16.5228 21 11 21C5.47715 21 1 16.5228 1 11C1 5.47715 5.47715 1 11 1C16.5228 1 21 5.47715 21 11Z"
-                            stroke="#DC2828"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                        </svg>
-                      </div>
-                    </div>
-                    <div class="padding-left padding-small">
-                      <p
-                        x-text="$store.toasterStore.message"
-                        class="text-weight-semibold no-margin"
-                      >
-                        {{toaster text}}
-                      </p>
-                    </div>
-                  </div>
-                </div>
                 <div x-bind="dataTableLoading" class="loading_container center">
                   <div class="hide">Loading</div>
                   <div
@@ -1892,7 +1894,7 @@
                                 class="doc_search w-input"
                                 maxlength="256"
                                 name="query"
-                                placeholder="Rechercher"
+                                placeholder="Rechercher un document"
                                 x-bind="handleSearchInput"
                               />
                             </label>
@@ -2212,42 +2214,26 @@
                             <div x-bind="rowType" class="type_tag">
                               <div x-bind="textType(d)">{{Note}}</div>
                             </div>
+                            <div class="pathologie_tag">
+                              <a
+                                class="pathologies_tag_text"
+                                x-bind="pathologyRef"
+                                title="note.pathologies[0].title"
+                                >{{Pathologies}}</a
+                              ><span
+                                class="plus-pathologies"
+                                x-show="note.pathologies.length &gt; 1"
+                                class="plus-pathologies"
+                                x-text="note.pathologies.length - 1"
+                                >{{+1}}</span
+                              >
+                            </div>
                             <div
                               x-bind="rowPrescriptionType"
                               class="prescription_type_tag"
                             >
                               <div x-bind="textPrescriptionType(d)">
                                 {{Note}}
-                              </div>
-                            </div>
-                            <div class="div-block-415">
-                              <div native="" class="pathologie_tag w-embed">
-                                <a
-                                  native
-                                  title="note.pathologies[0].title"
-                                  x-bind="pathologyRef"
-                                  class="pathologie_tag w-inline-block"
-                                >
-                                  <div>{{Pathologie}}</div>
-                                </a>
-                                <div
-                                  x-show="note.pathologies.length > 1"
-                                  class="plus-pathologies"
-                                >
-                                  <span>+</span
-                                  ><span x-text="note.pathologies.length - 1"
-                                    >{{1}}</span
-                                  >
-                                </div>
-
-                                <style>
-                                  .plus-pathologies {
-                                    display: inline-block;
-                                    vertical-align: top;
-                                    padding: 2px;
-                                    color: #4d65ff;
-                                  }
-                                </style>
                               </div>
                             </div>
                             <div
@@ -2680,7 +2666,7 @@
                       ><a
                         x-on:click="globals.printDiv(&#x27;#drawer_rich_text_wrapper&#x27;)"
                         href="#"
-                        class="sub_link w-inline-block"
+                        class="sub_link borders top w-inline-block"
                         ><div class="w-layout-grid grid_gap_8">
                           <div class="tab_icon w-embed">
                             <svg
@@ -2701,8 +2687,10 @@
                           </div>
                           <div class="display-inlineflex">Imprimer</div>
                         </div></a
-                      ><a href="#" class="sub_link borders w-inline-block"
-                          x-bind="drawerShare"
+                      ><a
+                        x-bind="drawerShare"
+                        href="#"
+                        class="sub_link borders w-inline-block"
                         ><div class="w-layout-grid grid_gap_8">
                           <div class="tab_icon display-inlineflex w-embed">
                             <svg
@@ -2807,12 +2795,7 @@
                     {{08/11/2022}}
                   </div>
                 </div>
-                <div class="display-inlineflex">par</div>
-                <div class="view_author">
-                  <div x-bind="getAuthor" class="text-weight-semibold">
-                    {{AlineDieu}}
-                  </div>
-                </div>
+                <div class="view_author"></div>
               </div>
               <div
                 id="w-node-_5e73bd5a-ce56-4459-5f7f-74573fcb3d92-c750ace3"
@@ -3544,7 +3527,7 @@
                 x-bind="shareModal"
                 class="view_wrapper sauvegarder-ordonnance"
               >
-                <div class="header_holder context_comment">
+                <div class="header_holder context_comment_partager">
                   <div class="inner_header">
                     <div class="display-inlineflex text_space">Partager</div>
                     <div x-bind="noteTitle" class="display-inlineflex">
@@ -3601,7 +3584,7 @@
                       /><a
                         x-bind="addEmailtoListBtn"
                         href="#"
-                        class="button is-annuler w-button"
+                        class="button addemail w-button"
                         >Ajouter</a
                       >
                     </div>
@@ -3609,12 +3592,9 @@
                   <div class="search_result_wrapper partage">
                     <template class="template" x-bind="sharedEmailsList"
                       ><div class="search_result_holder">
-                        <div class="inner_header">
-                          <div
-                            x-bind="sharedEmailName"
-                            class="display-inlineflex"
-                          >
-                            name@mail.com
+                        <div class="inner_header isemail">
+                          <div x-bind="sharedEmailName" class="emailtext">
+                            {{name@mail.com}}
                           </div>
                           <img
                             x-bind="deleteSharedEmail"
@@ -3663,7 +3643,9 @@
                       x-bind="validateButton"
                       href="#"
                       class="button is-docs w-node-_8221f382-c1f8-518c-8100-db30588726a0-c750ace3 w-inline-block"
-                      ><div class="button_text">Valider</div></a
+                      ><div class="button_text">
+                        <strong>Partager</strong>
+                      </div></a
                     >
                   </div>
                 </div>
@@ -3781,7 +3763,7 @@
                             src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/62a8a85946267b2f7c2fd0f3_no-money.png"
                             loading="lazy"
                             id="w-node-_4b086624-82b9-59b6-0a84-10e719809c78-19809c67"
-                            sizes="(max-width: 479px) 100vw, (max-width: 767px) 4vw, (max-width: 1279px) 2vw, 1vw"
+                            sizes="(max-width: 479px) 7vw, (max-width: 767px) 4vw, (max-width: 1279px) 2vw, 1vw"
                             alt="indépendant de l&#x27;industrie"
                             srcset="
                               https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/62a8a85946267b2f7c2fd0f3_no-money-p-500.png 500w,
@@ -3873,7 +3855,7 @@
       crossorigin="anonymous"
     ></script>
     <script
-      src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/js/webflow.380f91550.js"
+      src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/js/webflow.df48f7402.js"
       type="text/javascript"
     ></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -3891,10 +3873,9 @@
     <!-- End Google Tag Manager (noscript) -->
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@a60450308412697672c5b94b4ce3ce97937c2dd9/ordotype-index-2023-10-23.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@bd57d69a745aaa535fa7798720986df0eb5f9c11/ordotype-index-2023-12-21.js"></script>
 
-    <!--
-<script src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@863d5ee519b2922917f613f85f50c698381d5c33/ordotype-index-2023-10-19.js"></script>-->
+    <!--<script src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@08cb4303b73f5f2d4f912e8ea0b29a3336178971/ordotype-index-2023-12-20.js"></script>-->
 
     <!--
 <script defer

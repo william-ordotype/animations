@@ -1,3 +1,8 @@
+import PathologiesService from "../services/pathologiesService";
+import { setNoteList } from "../actions/notesActions";
+
+const pathologyService = new PathologiesService();
+
 const pathologiesStore = {
   pathologies: [],
   async init() {
@@ -56,14 +61,13 @@ const pathologiesStore = {
       const pathologySlug = window.location.href.includes("localhost")
         ? "acne"
         : window.location.pathname.split("/")[2];
-      const pathology = await Alpine.store(
-        "documentsStore"
-      ).pathologies.searchIdBySlug(pathologySlug);
+      const pathology = await pathologyService.searchBySlug(pathologySlug);
       window.pathology = pathology.data[0];
 
-      await Alpine.store("documentsStore").getList.setDocuments({
+      await setNoteList({
+        page: 1,
         limit: 50,
-        pathology: window.pathology._id,
+        pathology: [window.pathology._id],
       });
       noteListComponents.forEach((component) => {
         component.dispatchEvent(window.customEvents.loadingCancel);

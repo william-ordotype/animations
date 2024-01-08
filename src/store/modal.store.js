@@ -184,9 +184,9 @@ const modalStore = {
     this.loadSubmit = false;
   },
   async submitForm(ev) {
+    ev.preventDefault();
     this.form.rich_text_ordo = window.globals.createRTE.root.innerHTML;
-
-    const form = this.form; // Internal declaration. Because closeModal method resets form._id;
+    const form = { ...this.form }; // Internal declaration. Because closeModal method resets form._id;
     const files = this.files;
     const filesToDelete = this.filesToDelete;
     form.pathology = this.form.pathology.map((path) => path._id);
@@ -232,7 +232,6 @@ const modalStore = {
       }
 
       this.closeModal();
-
       // If modal is open from pathologies page refresh the
       // getList filtered by the pathology slug
       if (window.location.pathname.includes("/pathologies")) {
@@ -249,7 +248,7 @@ const modalStore = {
 
         const pathologyId = window.pathology._id;
         await setNoteList({
-          pathology: pathologyId,
+          pathology: [pathologyId],
           limit: 40,
         });
 
@@ -273,13 +272,13 @@ const modalStore = {
         );
         // If modal is open from create button, refresh the getList documents
         // In order to update the table list
-
         await setNoteList({
           type: Alpine.store(StateStore.MY_NOTES).noteListType,
         });
       }
     } catch (err) {
       console.error(err);
+
       this.formError = true;
       this.formErrorMessage =
         err.message || window.globals.statusMessages.static.error;
