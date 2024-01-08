@@ -44,7 +44,6 @@ class NotesService extends ApiService {
    */
   async getOne(id) {
     try {
-      debugger;
       const payload = await getOneValidation(id);
       return await this.request({
         method: "GET",
@@ -142,7 +141,6 @@ class NotesService extends ApiService {
     delete payload.files;
     delete payload.documents;
     delete payload.prescription_type;
-    debugger;
     const validatePayload = await updateOneValidation(payload);
     // remove files and documents from formFields
 
