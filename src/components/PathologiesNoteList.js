@@ -1,4 +1,6 @@
 import getFileExtByMimeType from "../assets/file_ext";
+import Alpine from "alpinejs";
+import { StateStore } from "../utils/enums";
 
 function PathologiesNoteList() {
   return {
@@ -46,22 +48,40 @@ function PathologiesNoteList() {
 
 function PathologiesNoteItem() {
   return {
+    obj: [],
     // file icons
     fileIcons: [],
     fileIconType(mime_type) {
       return getFileExtByMimeType[mime_type] || "file";
     },
-    checkFileIcons(d) {
-      const { documents } = d;
-      if (!documents) {
-        this.fileIcons = [];
-        return;
-      }
+
+    // Sets file icon variables on load
+    checkFileIcons(ctx) {
+      const { documents } = ctx;
       const allDocTypes = documents.map((elem) => {
         return elem.mime_type;
       });
       const uniqueDocTypes = new Set(allDocTypes);
-      this.fileIcons = [...uniqueDocTypes];
+      return [...uniqueDocTypes];
+    },
+    noteFileIconsList() {
+      return {
+        ["x-init"]: () => {
+          const ctx =
+            this.notes ||
+            this.doc ||
+            this.bilan ||
+            this.treatment ||
+            this.conseil;
+          this.obj = Object.assign({}, ctx);
+          const notesStore = Alpine.store(StateStore.MY_NOTES);
+          const noteAtIndex = notesStore.noteList[this.index];
+          if (noteAtIndex) {
+            this.fileIcons = [...this.checkFileIcons(ctx)];
+          }
+        },
+        ["x-for"]: "icon in fileIcons",
+      };
     },
   };
 }

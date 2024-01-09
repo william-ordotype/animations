@@ -5,8 +5,11 @@ import focus from "@alpinejs/focus";
 import alpineWebflow from "../../modules/alpine-webflow";
 import Alpine from "alpinejs";
 
-import "../../router/routes";
-import "../../router/pagination";
+import SkeletonLoaderEvent from "../../events/SkeletonLoaderEvent";
+
+import "../../modules/slideon/slideon";
+import "../../modules/slideon/style.scss";
+import "./navigation/routes";
 import globals from "../../utils/globals";
 import "../../styles.scss";
 
@@ -38,6 +41,8 @@ import {
 } from "../../components/DocumentsFiles";
 import { DocumentAvailableSpaceGraphWidget } from "../../components/DocumentAvailableSpaceGraphWidget";
 import DocumentsSearch from "../../components/DocumentsSearch";
+import shareStore from "../../store/share.store";
+import DocumentsShareModal from "../../components/Notes/DocumentsShareModal";
 
 window.Alpine = Alpine;
 
@@ -60,6 +65,7 @@ Alpine.store("documentsStore", myDocumentsStore);
 Alpine.store("modalStore", modalStore);
 Alpine.store("drawerStore", drawerStore);
 Alpine.store("toasterStore", toasterStore);
+Alpine.store("shareStore", shareStore);
 
 /**
  * Declaring local state for each component
@@ -86,6 +92,9 @@ Alpine.data("DocumentFileInput", DocumentFileInput);
 
 // Documents Available Space Graph Widget
 Alpine.data("DocumentsAvailableSpace", DocumentAvailableSpaceGraphWidget);
+
+// Sharing
+Alpine.data("DocumentsShareModal", DocumentsShareModal);
 
 /**
  Runs program
@@ -115,6 +124,20 @@ window.Webflow.push(() => {
       await Alpine.store("modalStore").submitForm(ev);
       return false;
     });
+
+    const sharedLinkClipboard = new ClipboardJS("#copy-shared-link", {
+      container: document.querySelector(".sauvegarder-ordonnance"),
+      text: function () {
+        return Alpine.store("shareStore").activeNotePublicLink;
+      },
+    });
+
+    sharedLinkClipboard.on("success", function (e) {
+      e.clearSelection();
+      Alpine.store("shareStore").showCopySuccessMsg = true;
+    });
+
+    SkeletonLoaderEvent.init();
   });
 });
 

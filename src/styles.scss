@@ -4,10 +4,16 @@
   --aa-base-unit: 12 !important;
 }
 
+#nprogress .bar {
+  z-index: 999999;
+}
+
 .aa-PanelLayout {
   z-index: 99999;
   background: #fff;
   max-height: 300px;
+  border: 1px solid #d8d4d4;
+
 }
 
 #aa-pathology-label {
@@ -125,7 +131,8 @@
   background-color: #f2fdf5;
 }
 
-.tags_wrapper, .view_tag {
+.tags_wrapper,
+.view_tag {
   -webkit-print-color-adjust: exact;
 }
 
@@ -149,12 +156,28 @@
   left: 50% !important;
 }
 
-.pathologie_tag {
-  max-width: 270px;
+.div-block-415 {
+  max-width: 100%;
+}
+
+.author_tag {
   overflow: hidden;
-  display: inline-block;
+  text-overflow: ellipsis;
+  text-wrap: nowrap;
+}
+
+.pathologie_tag {
+  max-width: 90%;
+  display: flex;
   text-overflow: ellipsis;
   white-space: nowrap;
+  justify-content: flex-start;
+
+  .pathologies_tag_text {
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
   @media screen and (max-width: 375px) {
     max-width: 300px;
   }
@@ -171,16 +194,41 @@
   display: inline-block;
 }
 
-.w-button.disabled {
+.w-button.disabled, .disabled {
   cursor: auto;
-  background-color: #858c95;
-  background-image: none;
+  background-color: #858c95 !important;
+  background-image: none !important;
+  pointer-events: none;
+  color: rgba(12,14,22,.3);
+}
+
+.file_title  {
+  .file-label, .ext-label {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+    max-width: 150px;
+  }
+}
+
+.slideon input:checked ~ .slideon-slider {
+  background-color: rgb(52, 84, 246);
+}
+.search_result_holder {
+  .inner_header {
+    width: 100%;
+  }
+  .emailText {
+    max-width: 90%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    text-wrap: nowrap;
+  }
+}
+a#submit-share-btn[disabled] {
+  background: #6c757d;
+  cursor: auto;
   pointer-events: none;
 }
 
-.file_title [x-text="fileName"] {
-  overflow: hidden;
-  white-space: nowrap;
-  width: 200px;
-  text-overflow: ellipsis;
-}
