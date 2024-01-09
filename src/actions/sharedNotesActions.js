@@ -133,7 +133,7 @@ async function setCloneNote(payload) {
       4500
     );
     setTimeout(() => {
-      location.href = "/debug/mes-documents#/list";
+      location.href = NotesUrls.MY_NOTES;
     }, 1500);
   } catch (err) {
     console.error(err);

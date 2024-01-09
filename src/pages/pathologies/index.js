@@ -115,7 +115,7 @@ window.Webflow.push(() => {
       container: document.querySelector(".sauvegarder-ordonnance"),
       text: function () {
         const publicLinkId = Alpine.store("shareStore").activeNotePublicLink;
-        return `https://ordotype.webflow.io/document-shared-invite?type=link&id=${publicLinkId}`;
+        return `${location.host}/document-shared-invite?type=link&id=${publicLinkId}`;
       },
     });
 
