@@ -2223,8 +2223,7 @@
                               ><span
                                 class="plus-pathologies"
                                 x-show="note.pathologies.length &gt; 1"
-                                class="plus-pathologies"
-                                x-text="note.pathologies.length - 1"
+                                x-html="'<span>+</span><span>'+ parseInt(note.pathologies.length - 1) +'</span>'"
                                 >{{+1}}</span
                               >
                             </div>
