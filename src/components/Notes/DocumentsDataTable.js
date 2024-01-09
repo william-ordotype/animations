@@ -135,8 +135,10 @@ function DataTableListItemSubmenu() {
     deleteNote() {
       return {
         ["x-show"]: "true",
-        ["@click.prevent"]: async (ev) => {
-          Alpine.store("modalStore").openBeforeDelete(this.note);
+        ["@click.prevent"]: async () => {
+          const noteId = this.note._id;
+          Alpine.store(StateStore.MODAL).deleteList = [noteId];
+          Alpine.store(StateStore.MODAL).showBeforeDelete = true;
         },
       };
     },

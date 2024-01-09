@@ -113,6 +113,9 @@ function DocumentsModal() {
         ["x-on:click.self"]: (ev) => {
           const modalStore = Alpine.store(StateStore.MODAL);
           if (ev.currentTarget === ev.target) {
+            if (modalStore.showBeforeDelete) {
+              modalStore.showModal = false;
+            }
             modalStore.showBeforeSave = false;
             modalStore.showBeforeCancel = false;
             modalStore.showBeforeDelete = false;
@@ -355,7 +358,9 @@ function DeleteSelectedNotes() {
             }
           );
           modalStore.removeShareNoteList = selectedNotes;
-          modalStore.showBeforeRemoveSharedInvitation = true;
+          modalStore.deleteList = selectedNotes;
+          modalStore.showBeforeRemoveSharedInvitation = true; // this dialog will show on my shared documents
+          modalStore.showBeforeDelete = true; // this dialog will show in my documents
         },
       };
     },

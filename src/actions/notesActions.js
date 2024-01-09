@@ -1,6 +1,6 @@
 import Alpine from "alpinejs";
 
-import { StateStore } from "../utils/enums";
+import { StateStore, ToasterMsgTypes } from "../utils/enums";
 import NotesService from "../services/notesService";
 const noteService = new NotesService();
 
@@ -99,4 +99,67 @@ async function setNotesSearched(payload) {
   };
 }
 
-export { setNoteList, setNoteOpened, setNotesRuleStatus, setNotesSearched };
+async function setDeleteNotes(payload) {
+  debugger;
+  const { noteIds } = payload;
+  let body;
+  if (Array.isArray(noteIds)) {
+    if (noteIds.note) {
+      // If docsToDelete is from the getOne request, use the note property and convert to array
+      body = [noteIds.note];
+    } else {
+      body = [...noteIds];
+    }
+  }
+  try {
+    const res = await noteService.deleteMany({ noteIds: body });
+
+    if (Alpine.store("drawerStore").showDrawer === true) {
+      Alpine.store("drawerStore").hideDrawer();
+      const pageNumber =
+        Alpine.store(StateStore.MY_NOTES).noteListMeta?.pageNumber || 1;
+      const documentType = Alpine.store(StateStore.MY_NOTES).noteListType;
+      // Redirect to list
+      PineconeRouter.currentContext.redirect(
+        `/list?type=${documentType ? documentType : "all"}${
+          pageNumber && "&page=" + pageNumber
+        }`
+      );
+    }
+
+    if (res.deletedCount > 0) {
+      Alpine.store(StateStore.TOASTER).toasterMsg(
+        "Document supprimé",
+        ToasterMsgTypes.SUCCESS
+      );
+      await setNoteList({
+        page: 1,
+      });
+    } else {
+      Alpine.store(StateStore.TOASTER).toasterMsg(
+        "Erreur lors de la suppression du document",
+        ToasterMsgTypes.ERROR
+      );
+    }
+
+    Alpine.store(StateStore.MY_NOTES).noteOpened = {
+      note: {},
+      member: {},
+    };
+
+    Alpine.store(StateStore.MY_NOTES).removeShareNoteList = [];
+    Alpine.store(StateStore.MY_NOTES).deleteList = [];
+
+    return res;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+export {
+  setNoteList,
+  setNoteOpened,
+  setNotesRuleStatus,
+  setNotesSearched,
+  setDeleteNotes,
+};

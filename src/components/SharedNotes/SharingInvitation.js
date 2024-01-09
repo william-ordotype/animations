@@ -64,9 +64,7 @@ function SharingInvitation() {
               ?._id;
             await setCloneNote({ noteId });
             setTimeout(() => {
-              window.PineconeRouter.currentContext.redirect(
-                `${NotesUrls.MY_NOTES}`
-              );
+              location.href = `${NotesUrls.MY_NOTES}`;
             }, 2500);
           } catch (err) {
             Alpine.store(StateStore.TOASTER).toasterMsg(

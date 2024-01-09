@@ -100,6 +100,7 @@ class ShareNotesService extends ApiService {
             validatePayload[key].length === 0)) &&
         delete validatePayload[key]
     );
+
     return await this.request({
       routeParams: "me",
       method: "GET",
