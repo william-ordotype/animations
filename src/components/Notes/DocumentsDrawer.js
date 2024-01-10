@@ -68,9 +68,9 @@ function DocumentsDrawer() {
     },
     async drawerDeleteOne(ev) {
       ev.preventDefault();
-      await Alpine.store("modalStore").openBeforeDelete(
-        Alpine.store(StateStore.MY_NOTES).noteOpened.note
-      );
+      const noteId = Alpine.store(StateStore.MY_NOTES).noteOpened.note._id;
+      Alpine.store(StateStore.MODAL).deleteList = [noteId];
+      Alpine.store(StateStore.MODAL).showBeforeDelete = true;
     },
     drawerEdit(ev) {
       ev.preventDefault();

@@ -94,7 +94,7 @@ function DocumentsModal() {
     modalDialogBackdrop() {
       return {
         ["x-show"]:
-          "modalStore.showBeforeSave || modalStore.showBeforeCancel || modalStore.showBeforeDelete || modalStore.showInsertUrl || modalStore.showSharingOptions ",
+          "modalStore.showBeforeSave || modalStore.showBeforeCancel || modalStore.showBeforeDelete || modalStore.showInsertUrl || modalStore.showSharingOptions",
         ["x-bind:class"]:
           "(modalStore.showBeforeSave || modalStore.showBeforeCancel || modalStore.showBeforeDelete || modalStore.showInsertUrl || modalStore.showSharingOptions) && 'active'",
       };

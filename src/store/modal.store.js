@@ -2,7 +2,12 @@ import * as DOMPurify from "dompurify";
 import Alpine from "alpinejs";
 import NotesService from "../services/notesService";
 import { StateStore, ToasterMsgTypes } from "../utils/enums";
-import { setNoteList, setNoteOpened } from "../actions/notesActions";
+import {
+  setDeleteNotes,
+  setNoteList,
+  setNoteOpened,
+} from "../actions/notesActions";
+import NProgress from "nprogress";
 
 const notesService = new NotesService();
 
@@ -85,19 +90,6 @@ const modalStore = {
   },
   // Delete Path
   deleteList: [],
-  openBeforeDelete(docsToDelete) {
-    // Convert docsToDelete to array if it's not already
-    if (!Array.isArray(docsToDelete)) {
-      if (docsToDelete.note) {
-        // If docsToDelete is from the getOne request, use the note property and convert to array
-        docsToDelete = [docsToDelete.note];
-      } else {
-        docsToDelete = [docsToDelete];
-      }
-    }
-    this.deleteList = [...docsToDelete];
-    this.showBeforeDelete = true;
-  },
   contentBeforeDelete(container, elem) {
     const obj = { ...window.globals.modal.content };
     return obj["deleteMany"]["list"][container][elem];
@@ -107,49 +99,19 @@ const modalStore = {
       ev.preventDefault();
     }
     this.showBeforeDelete = false;
+    this.closeModal();
   },
   async submitDelete(ev) {
+    NProgress.start();
     ev.preventDefault();
     this.closeBeforeDelete();
     try {
-      const noteIds = this.deleteList;
-      const res = await notesService.deleteMany([...noteIds]);
-      if (Alpine.store("drawerStore").showDrawer === true) {
-        Alpine.store("drawerStore").hideDrawer();
-        const pageNumber =
-          Alpine.store(StateStore.MY_NOTES).noteListMeta?.pageNumber || 1;
-        const documentType = Alpine.store(StateStore.MY_NOTES).noteListType;
-        // Redirect to list
-        PineconeRouter.currentContext.redirect(
-          `/list?type=${documentType ? documentType : "all"}${
-            pageNumber && "&page=" + pageNumber
-          }`
-        );
-        Alpine.store(StateStore.MY_NOTES).noteOpened = {
-          note: {},
-          member: {},
-        };
-      }
-      if (res.deletedCount > 0) {
-        Alpine.store("toasterStore").toasterMsg(
-          "Documents supprimés avec succès",
-          ToasterMsgTypes.SUCCESS,
-          3000
-        );
-      } else {
-        Alpine.store("toasterStore").toasterMsg(
-          "Erreur",
-          ToasterMsgTypes.ERROR,
-          2000
-        );
-      }
-      await setNoteList({
-        page: 1,
-      });
+      await setDeleteNotes({ noteIds: this.deleteList });
     } catch (err) {
       console.error(err);
-      Alpine.store("toasterStore").toasterMsg("Erreur", "error", 2000);
     }
+
+    NProgress.done();
   },
   // Shared notes modal
   removeShareNoteList: [],

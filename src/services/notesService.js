@@ -20,12 +20,13 @@ class NotesService extends ApiService {
 
   /**
    *
-   * @param {array<string>}payload
+   * @param payload.noteIds {array<object>}
    * @returns {Promise<Object>}
    */
   async deleteMany(payload) {
-    const ids = payload.map((item) => item._id);
-    const body = { note_ids: ids };
+    const { noteIds } = payload;
+    const body = { note_ids: noteIds };
+
     try {
       const validatePayload = await deleteManyNotesValidation(body);
       return await this.request({
