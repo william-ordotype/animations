@@ -15,10 +15,11 @@ class FileNoteService extends apiService {
   }
 
   async removeFilesFromNote(payload) {
-    const validatePayload = removeFilesFromNoteValidation(payload);
+    const validatePayload = await removeFilesFromNoteValidation(payload);
+    debugger;
     return await this.request({
       method: "DELETE",
-      data: JSON.stringify({ document_id: validatePayload }),
+      data: { document_id: validatePayload },
     });
   }
 }
