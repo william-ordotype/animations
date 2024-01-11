@@ -16,7 +16,7 @@ function DocumentsDrawer() {
     drawerBackdrop() {
       return {
         ["x-show"]: "drawerStore.showDrawer",
-        ["x-on:click"]: "drawerClose($event)",
+        ["x-on:click.self"]: async () => await handleCloseDrawer(),
         ["x-transition.opacity"]: "",
       };
     },
@@ -40,30 +40,7 @@ function DocumentsDrawer() {
     },
     drawerClose() {
       return {
-        ["x-on:click.prevent.self"]: async () => {
-          if (window.location.pathname.includes("/pathologies")) {
-            Alpine.store("drawerStore").hideDrawer();
-          } else {
-            // Reset drawer
-            const pageNumber =
-              Alpine.store(StateStore.MY_NOTES).noteListMeta.pageNumber || "";
-            const documentType = Alpine.store(StateStore.MY_NOTES).noteListMeta
-              .noteListType;
-            // Redirect to list
-            PineconeRouter.currentContext.navigate(
-              `/list?type=${documentType ? documentType : "all"}${
-                pageNumber && "&page=" + pageNumber
-              }`
-            );
-          }
-          // Reset document object in store
-          console.log("close drawer");
-          await setNotesRuleStatus();
-          Alpine.store(StateStore.MY_NOTES).noteOpened = {
-            note: {},
-            member: {},
-          };
-        },
+        ["x-on:click.prevent.self"]: async () => await handleCloseDrawer(),
       };
     },
     async drawerDeleteOne(ev) {
@@ -239,6 +216,31 @@ async function handleDrawer({ id }) {
   } catch (err) {
     // TODO Show warning error notification
   }
+}
+
+async function handleCloseDrawer() {
+  if (window.location.pathname.includes("/pathologies")) {
+    Alpine.store("drawerStore").hideDrawer();
+  } else {
+    // Reset drawer
+    const pageNumber =
+      Alpine.store(StateStore.MY_NOTES).noteListMeta.pageNumber || "";
+    const documentType = Alpine.store(StateStore.MY_NOTES).noteListMeta
+      .noteListType;
+    // Redirect to list
+    PineconeRouter.currentContext.navigate(
+      `/list?type=${documentType ? documentType : "all"}${
+        pageNumber && "&page=" + pageNumber
+      }`
+    );
+  }
+  // Reset document object in store
+  console.log("close drawer");
+  await setNotesRuleStatus();
+  Alpine.store(StateStore.MY_NOTES).noteOpened = {
+    note: {},
+    member: {},
+  };
 }
 
 export default DocumentsDrawer;
