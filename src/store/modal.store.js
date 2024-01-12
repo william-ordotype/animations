@@ -166,7 +166,6 @@ const modalStore = {
       // Sanitize the string value of each property using DOMPurify
       form[key] = DOMPurify.sanitize(form[key]);
     });
-
     try {
       const isEdit = !!form._id;
       this.loadSubmit = true;
@@ -180,18 +179,7 @@ const modalStore = {
       } else {
         formResponse = await notesService.createOne(form, files);
       }
-      // Handle server errors from notes form submission
-      if (formResponse.error || formResponse.statusCode === 500) {
-        console.error(formResponse);
-        this.formError = true;
-        if (formResponse.statusCode === 401) {
-          this.formErrorMessage = `Vous &ecirc;tes &agrave; court de stockage, vous pouvez en acheter sur <a native href="/membership/stockage-supplementaire">cette page</a>`;
-        } else {
-          this.formErrorMessage = window.globals.statusMessages.static.error;
-        }
-        this.loadSubmit = false;
-        return;
-      }
+      debugger;
 
       this.closeModal();
       // If modal is open from pathologies page refresh the
@@ -228,7 +216,7 @@ const modalStore = {
         Alpine.store("drawerStore").loadDrawer = false;
       } else {
         Alpine.store("toasterStore").toasterMsg(
-          "Document créé avec succès",
+          window.toastActionMsg.notes.mutate.success,
           "success",
           2500
         );
@@ -240,11 +228,19 @@ const modalStore = {
       }
     } catch (err) {
       console.error(err);
-
       this.formError = true;
-      this.formErrorMessage =
-        err.message || window.globals.statusMessages.static.error;
       this.loadSubmit = false;
+      if (err.statusCode === 401) {
+        this.formErrorMessage = window.modalMsg.form.error.exceededStorage;
+        return;
+      }
+
+      if (err.name === "ValidationError") {
+        this.formErrorMessage = err.errors;
+        return;
+      }
+
+      this.formErrorMessage = err.message || window.modalMsg.form.error.general;
     }
   },
 };

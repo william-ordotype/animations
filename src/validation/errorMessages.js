@@ -2,7 +2,7 @@ const errorMessageFr = {
   mixed: {
     default: "Valeur invalide", // Invalid value
     required: "Ce champ est requis", // This field is required
-    oneOf: "Doit être l'un des suivants : ${values}", // Must be one of the following: ${values}
+    oneOf: "Doit être l'une des options autorisées.", // Must be one of the following: ${values}
     notOneOf: "Ne peut pas être l'un des suivants : ${values}", // Cannot be one of the following: ${values}
     notType: "Type de valeur invalide", // Invalid value type
   },

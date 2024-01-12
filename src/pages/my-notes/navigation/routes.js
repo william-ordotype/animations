@@ -61,7 +61,7 @@ window.router = () => {
     notfound(context) {
       console.log("Not found");
       Alpine.store(StateStore.TOASTER).toasterMsg(
-        "Not found",
+        window.toastActionMsg.navigation.notFound,
         ToasterMsgTypes.ERROR
       );
     },

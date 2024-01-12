@@ -88,7 +88,7 @@ async function setSharedNotesSearched(payload) {
     };
   } catch (err) {
     Alpine.store(StateStore.TOASTER).toasterMsg(
-      "Search error",
+      window.toastActionMsg.notes.search.error,
       ToasterMsgTypes.ERROR
     );
     console.error(err);
@@ -107,13 +107,13 @@ async function setRemoveSharedInvitations(payload) {
 
   if (res.deletedCount > 0) {
     Alpine.store(StateStore.TOASTER).toasterMsg(
-      "Document supprimé",
+      window.toastActionMsg.shareNotes.removeSharedInvitation.success,
       ToasterMsgTypes.SUCCESS
     );
     await setSharedNoteList();
   } else {
     Alpine.store(StateStore.TOASTER).toasterMsg(
-      "Erreur lors de la suppression du document",
+      window.toastActionMsg.shareNotes.removeSharedInvitation.error,
       ToasterMsgTypes.ERROR
     );
   }
@@ -128,7 +128,7 @@ async function setCloneNote(payload) {
     // Gives the user the option to redirect to my documents page to see the new created document
     // Cloning options usually is inside a sharing page
     Alpine.store(StateStore.TOASTER).toasterMsg(
-      `Copie de le document enregistrée.`,
+      window.toastActionMsg.shareNotes.cloneNote.success,
       ToasterMsgTypes.SUCCESS,
       4500
     );
@@ -138,7 +138,7 @@ async function setCloneNote(payload) {
   } catch (err) {
     console.error(err);
     Alpine.store(StateStore.TOASTER).toasterMsg(
-      "Erreur de clonage du document",
+      window.toastActionMsg.shareNotes.cloneNote.error,
       ToasterMsgTypes.ERROR
     );
   }
