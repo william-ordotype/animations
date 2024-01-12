@@ -19,6 +19,7 @@ const shareStore = {
   isInvitationLoading: true,
   isInvitedAllowed: true,
   invitationNote: {},
+  invitationNotExists: false,
 };
 
 export default shareStore;
