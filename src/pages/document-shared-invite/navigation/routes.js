@@ -22,7 +22,6 @@ function router() {
             const res = await shareNoteService.getNoteBasicInfo({
               id: acceptId || inviteId,
             });
-
             Alpine.store(StateStore.SHARE).invitationNote = {
               note: {
                 title: res.title,
@@ -54,6 +53,10 @@ function router() {
       } catch (err) {
         Alpine.store(StateStore.SHARE).isInvitedAllowed = false;
         Alpine.store(StateStore.SHARE).isInvitationLoading = false;
+
+        if (err.response.statusCode === 404) {
+          Alpine.store(StateStore.SHARE).invitationNotExists = true;
+        }
       }
       NProgress.done();
     },

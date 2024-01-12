@@ -18,14 +18,14 @@ function SharingInvitation() {
     notLoggedIn() {
       return {
         ["x-show"]:
-          "!$store.shareStore.isInvitationLoading && !$store.userStore.isAuth",
+          "!$store.shareStore.isInvitationLoading && (!$store.userStore.isAuth && !$store.shareStore.invitationNotExists)",
         ["x-transition"]: "",
       };
     },
     accessRevoked() {
       return {
         ["x-show"]:
-          "!$store.shareStore.isInvitationLoading && $store.userStore.isAuth && !$store.shareStore.isInvitedAllowed",
+          "(!$store.shareStore.isInvitationLoading && $store.userStore.isAuth && !$store.shareStore.isInvitedAllowed) || $store.shareStore.invitationNotExists",
         ["x-transition"]: "",
       };
     },
