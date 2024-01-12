@@ -62,7 +62,7 @@ function DocumentsShareModal() {
             shareStore.isShareSwitchLoading = false;
           } catch (err) {
             toastStore.toasterMsg(
-              "Une erreur s'est produite lors de la tentative de partage de votre document",
+              window.toastActionMsg.shareNotes.switchShare.error,
               ToasterMsgTypes.ERROR
             );
             console.error(err);
@@ -92,7 +92,8 @@ function DocumentsShareModal() {
             // Avoids sharing document to same owner user
             if (email === userStore.user.auth.email) {
               toastStore.toasterMsg(
-                "Vous ne pouvez pas partager un document avec vous-même!",
+                window.toastActionMsg.shareNotes.addEmailToList.error
+                  .noSelfSharing,
                 ToasterMsgTypes.ERROR
               );
               return;
@@ -100,7 +101,8 @@ function DocumentsShareModal() {
             // Checks if email already exists in shared list to avoid duplication
             if (shareStore.activeNoteEmailList.some((e) => e.email === email)) {
               toastStore.toasterMsg(
-                "L'e-mail existe déjà dans la liste partagée",
+                window.toastActionMsg.shareNotes.addEmailToList.error
+                  .alreadyExists,
                 ToasterMsgTypes.ERROR
               );
               return;
@@ -134,7 +136,8 @@ function DocumentsShareModal() {
             // Avoids sharing document to same owner user
             if (email === userStore.user.auth.email) {
               toastStore.toasterMsg(
-                "Vous ne pouvez pas partager un document avec vous-même!",
+                window.toastActionMsg.shareNotes.addEmailToList.error
+                  .noSelfSharing,
                 ToasterMsgTypes.ERROR
               );
               return;
@@ -142,7 +145,8 @@ function DocumentsShareModal() {
             // Checks if email already exists in shared list to avoid duplication
             if (shareStore.activeNoteEmailList.some((e) => e.email === email)) {
               toastStore.toasterMsg(
-                "L'e-mail existe déjà dans la liste partagée",
+                window.toastActionMsg.shareNotes.addEmailToList.error
+                  .alreadyExists,
                 ToasterMsgTypes.ERROR
               );
               return;
@@ -205,7 +209,8 @@ function DocumentsShareModal() {
           try {
             if (this.sharedEmailValue !== "") {
               Alpine.store(StateStore.TOASTER).toasterMsg(
-                "Assurez-vous d'avoir ajouté tous les e-mails de l'entrée avant de soumettre",
+                window.toastActionMsg.shareNotes.validateEmails.error
+                  .dirtyInput,
                 ToasterMsgTypes.ERROR
               );
               return;
@@ -213,20 +218,20 @@ function DocumentsShareModal() {
             const payload = {
               emailsToAdd: this.emailsToAdd,
               emailsToRemove: this.emailsToDelete,
-              noteId: Alpine.store("shareStore").activeNote._id,
+              noteId: Alpine.store(StateStore.SHARE).activeNote._id,
             };
             await ShareNoteService.updateEmailsToNote(payload);
-            Alpine.store("toasterStore").toasterMsg(
-              "Enregistré avec succès",
-              "success"
+            Alpine.store(StateStore.TOASTER).toasterMsg(
+              window.toastActionMsg.shareNotes.validateEmails.success,
+              ToasterMsgTypes.SUCCESS
             );
             this.emailsToAdd = [];
             this.emailsToDelete = [];
           } catch (err) {
             console.error(err);
-            Alpine.store("toasterStore").toasterMsg(
-              "Il y avait une erreur",
-              "error"
+            Alpine.store(StateStore.TOASTER).toasterMsg(
+              window.toastActionMsg.shareNotes.validateEmails.error.submitError,
+              ToasterMsgTypes.ERROR
             );
           }
         },
@@ -254,8 +259,8 @@ function DocumentsShareModal() {
 }
 
 const closeModalFn = () => {
-  Alpine.store("modalStore").showSharingOptions = false;
-  Alpine.store("shareStore").clearShareModalOptions();
+  Alpine.store(StateStore.MODAL).showSharingOptions = false;
+  Alpine.store(StateStore.SHARE).clearShareModalOptions();
 };
 
 export default DocumentsShareModal;

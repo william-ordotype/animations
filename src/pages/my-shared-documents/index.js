@@ -50,6 +50,12 @@ import { DocumentAvailableSpaceGraphWidget } from "../../components/Notes/Docume
 import { StateStore } from "../../utils/enums";
 import { errorMessageFr } from "../../validation/errorMessages";
 import { BeforeRemoveSharedInvitationDialog } from "../../components/SharedNotes/DocumentsModal";
+import {
+  navigationToastMsgs,
+  noteActionsToastMsgs,
+  shareNoteActionsToastMsgs,
+} from "../../utils/toastMessages";
+import { noteFormMsg } from "../../utils/modalMessages";
 
 window.Alpine = Alpine;
 
@@ -118,6 +124,31 @@ Alpine.data("DocumentsShareModal", DocumentsShareModal);
 
 window.memberstack = window.memberstack || {};
 window.memberstack.instance = window.$memberstackDom;
+
+window.toastActionMsgCustom = window.toastActionMsgCustom || {};
+window.modalMsgCustom = window.modalMsgCustom || {};
+
+window.toastActionMsg = {
+  notes: {
+    ...noteActionsToastMsgs,
+    ...window.toastActionMsgCustom.notes,
+  },
+  shareNotes: {
+    ...shareNoteActionsToastMsgs,
+    ...toastActionMsgCustom.shareNotes,
+  },
+  navigation: {
+    ...navigationToastMsgs,
+    ...toastActionMsgCustom.navigation,
+  },
+};
+
+window.modalMsg = {
+  form: {
+    ...noteFormMsg,
+    ...modalMsgCustom,
+  },
+};
 
 $(".create_document_form").removeClass("w-form");
 

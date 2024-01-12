@@ -13,6 +13,11 @@ import SharingInvitation from "../../components/SharedNotes/SharingInvitation";
 import shareStore from "../../store/share.store";
 import { DocumentFileListItem } from "../../components/DocumentsFiles";
 import "../../styles.scss";
+import {
+  navigationToastMsgs,
+  noteActionsToastMsgs,
+  shareNoteActionsToastMsgs,
+} from "../../utils/toastMessages";
 
 window.Alpine = Alpine;
 
@@ -44,6 +49,23 @@ Alpine.data("DocumentFileListItem", DocumentFileListItem);
 
 window.memberstack = window.memberstack || {};
 window.memberstack.instance = window.$memberstackDom;
+
+window.toastActionMsgCustom = window.toastActionMsgCustom || {};
+
+window.toastActionMsg = {
+  notes: {
+    ...noteActionsToastMsgs,
+    ...window.toastActionMsgCustom.notes,
+  },
+  shareNotes: {
+    ...shareNoteActionsToastMsgs,
+    ...toastActionMsgCustom.shareNotes,
+  },
+  navigation: {
+    ...navigationToastMsgs,
+    ...toastActionMsgCustom.navigation,
+  },
+};
 
 window.Webflow.push(() => {
   init().then(() => {

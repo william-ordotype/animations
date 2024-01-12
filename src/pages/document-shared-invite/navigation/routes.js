@@ -24,7 +24,7 @@ function router() {
           await setShowSharedNote({ inviteType, noteId: inviteId });
         } else {
           Alpine.store(StateStore.TOASTER).toasterMsg(
-            "URL invalide",
+            window.toastActionMsg.navigation.invalidUrlInvitation,
             ToasterMsgTypes.ERROR,
             10000
           );
@@ -38,22 +38,15 @@ function router() {
     },
     notfound(context) {
       Alpine.store(StateStore.TOASTER).toasterMsg(
-        "Not found",
+        window.toastActionMsg.navigation.notFound,
         ToasterMsgTypes.ERROR
       );
+      console.log("URL not found");
     },
   };
 }
 
 export { router };
-
-function notfound(context) {
-  Alpine.store(StateStore.TOASTER).toasterMsg(
-    "Not found",
-    ToasterMsgTypes.ERROR
-  );
-  console.log("not found");
-}
 
 async function acceptInvitation(acceptId) {
   // ordotype.fr/my-documents-invitation?acceptId=12345
@@ -63,7 +56,7 @@ async function acceptInvitation(acceptId) {
   const { noteId, alreadyAccepted } = res;
   if (!alreadyAccepted) {
     Alpine.store(StateStore.TOASTER).toasterMsg(
-      "Note ajoutée à la page des documents partagés avec moi",
+      window.toastActionMsg.shareNotes.acceptedInvitation.success,
       ToasterMsgTypes.SUCCESS
     );
   }

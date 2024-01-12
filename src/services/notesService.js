@@ -102,10 +102,6 @@ class NotesService extends ApiService {
       });
     } catch (err) {
       console.error(err);
-      Alpine.store(StateStore.TOASTER).toasterMsg(
-        "Il y a eu une erreur lors du traitement de votre demande",
-        ToasterMsgTypes.ERROR
-      );
       throw err;
     }
   }

@@ -6,22 +6,28 @@ const noteService = new NotesService();
 
 async function setNoteList(payload) {
   Alpine.store(StateStore.MY_NOTES).isNotesLoading = true;
+  try {
+    const notesRes = await noteService.getList(payload);
+    const { items_per_page, items_total, page_number, page_total } = notesRes;
+    Alpine.store(StateStore.MY_NOTES).noteList = notesRes.data;
+    Alpine.store(StateStore.MY_NOTES).noteListMeta = {
+      pageNumber: page_number,
+      pageTotal: page_total,
+      itemsTotal: items_total,
+      itemsPerPage: items_per_page,
+    };
+    Alpine.store(StateStore.MY_NOTES).isEmpty = page_total <= 0;
 
-  const notesRes = await noteService.getList(payload);
-  const { items_per_page, items_total, page_number, page_total } = notesRes;
-  Alpine.store(StateStore.MY_NOTES).noteList = notesRes.data;
-  Alpine.store(StateStore.MY_NOTES).noteListMeta = {
-    pageNumber: page_number,
-    pageTotal: page_total,
-    itemsTotal: items_total,
-    itemsPerPage: items_per_page,
-  };
-  Alpine.store(StateStore.MY_NOTES).isEmpty = page_total <= 0;
+    Alpine.store(StateStore.MY_NOTES).noteListType = payload.type;
 
-  Alpine.store(StateStore.MY_NOTES).noteListType = payload.type;
-
-  Alpine.store(StateStore.MY_NOTES).isNotesLoading = false;
-  await setNotesRuleStatus();
+    Alpine.store(StateStore.MY_NOTES).isNotesLoading = false;
+    await setNotesRuleStatus();
+  } catch (err) {
+    Alpine.store(StateStore.TOASTER).toasterMsg(
+      window.toastActionMsg.notes.list.error,
+      ToasterMsgTypes.ERROR
+    );
+  }
 }
 
 async function setNoteOpened(payload) {
@@ -129,7 +135,7 @@ async function setDeleteNotes(payload) {
 
     if (res.deletedCount > 0) {
       Alpine.store(StateStore.TOASTER).toasterMsg(
-        "Document supprimé",
+        window.toastActionMsg.notes.delete.success,
         ToasterMsgTypes.SUCCESS
       );
       await setNoteList({
@@ -137,7 +143,7 @@ async function setDeleteNotes(payload) {
       });
     } else {
       Alpine.store(StateStore.TOASTER).toasterMsg(
-        "Erreur lors de la suppression du document",
+        window.toastActionMsg.notes.delete.error,
         ToasterMsgTypes.ERROR
       );
     }

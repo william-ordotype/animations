@@ -33,6 +33,12 @@ import DocumentsShareModal from "../../components/Notes/DocumentsShareModal";
 import NProgress from "nprogress";
 import { setLocale } from "yup";
 import { errorMessageFr } from "../../validation/errorMessages";
+import {
+  navigationToastMsgs,
+  noteActionsToastMsgs,
+  shareNoteActionsToastMsgs,
+} from "../../utils/toastMessages";
+import { noteFormMsg } from "../../utils/modalMessages";
 
 console.log("pathologies");
 
@@ -90,6 +96,31 @@ Alpine.data("DocumentsShareModal", DocumentsShareModal);
 
 window.memberstack = window.memberstack || {};
 window.memberstack.instance = window.$memberstackDom;
+
+window.toastActionMsgCustom = window.toastActionMsgCustom || {};
+window.modalMsgCustom = window.modalMsgCustom || {};
+
+window.toastActionMsg = {
+  notes: {
+    ...noteActionsToastMsgs,
+    ...window.toastActionMsgCustom.notes,
+  },
+  shareNotes: {
+    ...shareNoteActionsToastMsgs,
+    ...toastActionMsgCustom.shareNotes,
+  },
+  navigation: {
+    ...navigationToastMsgs,
+    ...toastActionMsgCustom.navigation,
+  },
+};
+
+window.modalMsg = {
+  form: {
+    ...noteFormMsg,
+    ...modalMsgCustom,
+  },
+};
 
 $(".create_document_form").removeClass("w-form");
 
