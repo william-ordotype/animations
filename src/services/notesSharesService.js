@@ -150,6 +150,13 @@ class ShareNotesService extends ApiService {
     }
   }
 
+  async getNoteBasicInfo({ id }) {
+    return await this.request({
+      method: "GET",
+      routeParams: `guest/me/${id}`,
+    });
+  }
+
   async acceptNoteInvitation({ noteId }) {
     return await this.request({
       routeParams: `accept/${noteId}`,

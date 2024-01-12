@@ -16,6 +16,27 @@ function router() {
       const inviteType = obj["type"];
       const acceptId = obj["acceptId"];
       try {
+        if (acceptId || (inviteType && inviteId !== "undefined")) {
+          // If user is not logged in
+          if (Alpine.store(StateStore.USER).isAuth === false) {
+            const res = await shareNoteService.getNoteBasicInfo({
+              id: acceptId || inviteId,
+            });
+
+            Alpine.store(StateStore.SHARE).invitationNote = {
+              note: {
+                title: res.title,
+                author: res.author,
+              },
+            };
+
+            Alpine.store(StateStore.SHARE).isInvitedAllowed = false;
+            Alpine.store(StateStore.SHARE).isInvitationLoading = false;
+            NProgress.done();
+            return;
+          }
+        }
+
         if (acceptId) {
           // ordotype.fr/my-documents-invitation?acceptId=12345
           await acceptInvitation(acceptId);

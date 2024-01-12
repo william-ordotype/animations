@@ -43,6 +43,11 @@ function SharingInvitation() {
         ["x-text"]: "$store.shareStore.invitationNote?.note?.title",
       };
     },
+    noteAuthor() {
+      return {
+        ["x-text"]: "$store.shareStore.invitationNote?.note?.author",
+      };
+    },
     noteRichText() {
       return {
         ["x-html"]: "$store.shareStore.invitationNote?.note?.rich_text_ordo",
