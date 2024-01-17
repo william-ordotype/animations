@@ -53,7 +53,7 @@ async function init() {
   NProgress.start();
   const getUser = await $memberstackDom.getCurrentMember();
   Alpine.store(StateStore.USER, userStore(getUser));
-  setLocale(errorMessageFr);
+  setLocale({ ...errorMessageFr, ...window.validationMsgCustom });
 }
 
 /**
@@ -99,6 +99,7 @@ window.memberstack.instance = window.$memberstackDom;
 
 window.toastActionMsgCustom = window.toastActionMsgCustom || {};
 window.modalMsgCustom = window.modalMsgCustom || {};
+window.validationMsgCustom = window.validationMsgCustom || {};
 
 window.toastActionMsg = {
   notes: {
