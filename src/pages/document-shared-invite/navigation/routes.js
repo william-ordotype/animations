@@ -3,7 +3,10 @@ import { hashToObject } from "../../../router/pagination";
 import ShareNotesService from "../../../services/notesSharesService";
 import { StateStore, ToasterMsgTypes } from "../../../utils/enums";
 import NProgress from "nprogress";
-import { setShowSharedNote } from "../../../actions/sharedNotesActions";
+import {
+  setSharedNoteBasicInfo,
+  setShowSharedNote,
+} from "../../../actions/sharedNotesActions";
 
 const shareNoteService = new ShareNotesService();
 
@@ -15,31 +18,23 @@ function router() {
       const inviteId = obj["id"];
       const inviteType = obj["type"];
       const acceptId = obj["acceptId"];
-      try {
-        if (acceptId || (inviteType && inviteId !== "undefined")) {
-          // If user is not logged in
-          if (Alpine.store(StateStore.USER).isAuth === false) {
-            const res = await shareNoteService.getNoteBasicInfo({
-              id: acceptId || inviteId,
-            });
-            Alpine.store(StateStore.SHARE).invitationNote = {
-              note: {
-                title: res.title,
-                author: res.author,
-              },
-            };
+      const isAuth = Alpine.store(StateStore.USER).isAuth;
 
-            Alpine.store(StateStore.SHARE).isInvitedAllowed = false;
-            Alpine.store(StateStore.SHARE).isInvitationLoading = false;
-            NProgress.done();
+      try {
+        if (acceptId) {
+          if (!isAuth) {
+            await setSharedNoteBasicInfo({ id: acceptId, type: "email" });
             return;
           }
-        }
 
-        if (acceptId) {
           // ordotype.fr/my-documents-invitation?acceptId=12345
           await acceptInvitation(acceptId);
         } else if (inviteType && inviteId !== "undefined") {
+          if (!isAuth) {
+            await setSharedNoteBasicInfo({ id: inviteId, type: inviteType });
+            return;
+          }
+
           // ordotype.fr/my-documents-invitation?id=12345&type=email
           await setShowSharedNote({ inviteType, noteId: inviteId });
         } else {
@@ -53,9 +48,11 @@ function router() {
       } catch (err) {
         Alpine.store(StateStore.SHARE).isInvitedAllowed = false;
         Alpine.store(StateStore.SHARE).isInvitationLoading = false;
-
-        if (err.response.statusCode === 404) {
+        console.error(err);
+        if (err.response?.statusCode === 404) {
           Alpine.store(StateStore.SHARE).invitationNotExists = true;
+        } else {
+          console.log(err);
         }
       }
       NProgress.done();
