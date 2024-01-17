@@ -144,6 +144,22 @@ async function setCloneNote(payload) {
   }
 }
 
+async function setSharedNoteBasicInfo({ id, type }) {
+  const res = await sharedNotesService.getNoteBasicInfo({
+    id,
+    type,
+  });
+  Alpine.store(StateStore.SHARE).invitationNote = {
+    note: {
+      title: res.title,
+      author: res.author,
+    },
+  };
+
+  Alpine.store(StateStore.SHARE).isInvitedAllowed = false;
+  Alpine.store(StateStore.SHARE).isInvitationLoading = false;
+}
+
 export {
   setSharedNoteList,
   setSharedNoteOpened,
@@ -151,4 +167,5 @@ export {
   setSharedNotesSearched,
   setRemoveSharedInvitations,
   setCloneNote,
+  setSharedNoteBasicInfo,
 };
