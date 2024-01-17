@@ -120,6 +120,7 @@ Alpine.data("DocumentsShareModal", DocumentsShareModal);
 window.memberstack = window.memberstack || {};
 window.toastActionMsgCustom = window.toastActionMsgCustom || {};
 window.modalMsgCustom = window.modalMsgCustom || {};
+window.validationMsgCustom = window.validationMsgCustom || {};
 window.memberstack.instance = window.$memberstackDom;
 
 window.toastActionMsg = {
@@ -141,6 +142,10 @@ window.modalMsg = {
   form: {
     ...noteFormMsg,
     ...modalMsgCustom,
+  },
+  validation: {
+    ...errorMessageFr,
+    ...validationMsgCustom,
   },
 };
 
