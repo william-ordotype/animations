@@ -24,6 +24,7 @@ function router() {
         if (acceptId) {
           if (!isAuth) {
             await setSharedNoteBasicInfo({ id: acceptId, type: "email" });
+            NProgress.done();
             return;
           }
 
@@ -32,6 +33,7 @@ function router() {
         } else if (inviteType && inviteId !== "undefined") {
           if (!isAuth) {
             await setSharedNoteBasicInfo({ id: inviteId, type: inviteType });
+            NProgress.done();
             return;
           }
 
@@ -51,8 +53,6 @@ function router() {
         console.error(err);
         if (err.response?.statusCode === 404) {
           Alpine.store(StateStore.SHARE).invitationNotExists = true;
-        } else {
-          console.log(err);
         }
       }
       NProgress.done();
