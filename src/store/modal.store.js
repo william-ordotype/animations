@@ -230,7 +230,7 @@ const modalStore = {
       console.error(err);
       this.formError = true;
       this.loadSubmit = false;
-      if (err.statusCode === 401) {
+      if (err.response?.statusCode === 401) {
         this.formErrorMessage = window.modalMsg.form.error.exceededStorage;
         return;
       }
