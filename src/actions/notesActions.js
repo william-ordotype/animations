@@ -1,27 +1,47 @@
 import Alpine from "alpinejs";
 
-import { StateStore, ToasterMsgTypes } from "../utils/enums";
+import { NotesUrls, StateStore, ToasterMsgTypes } from "../utils/enums";
 import NotesService from "../services/notesService";
 const noteService = new NotesService();
 
+/**
+ *
+ * @param {Object} payload
+ * @return {Promise<void>}
+ */
 async function setNoteList(payload) {
   Alpine.store(StateStore.MY_NOTES).isNotesLoading = true;
   try {
     const notesRes = await noteService.getList(payload);
-    const { items_per_page, items_total, page_number, page_total } = notesRes;
+    debugger;
+    const {
+      items_per_page,
+      items_total,
+      page_number,
+      page_total,
+      sort,
+      direction,
+    } = notesRes;
     Alpine.store(StateStore.MY_NOTES).noteList = notesRes.data;
     Alpine.store(StateStore.MY_NOTES).noteListMeta = {
       pageNumber: page_number,
       pageTotal: page_total,
       itemsTotal: items_total,
       itemsPerPage: items_per_page,
+      sort,
+      direction,
     };
     Alpine.store(StateStore.MY_NOTES).isEmpty = page_total <= 0;
 
     Alpine.store(StateStore.MY_NOTES).noteListType = payload.type;
 
     Alpine.store(StateStore.MY_NOTES).isNotesLoading = false;
-    await setNotesRuleStatus();
+    if (
+      location.href.includes(NotesUrls.MY_NOTES) ||
+      location.href.includes("my-notes")
+    ) {
+      await setNotesRuleStatus();
+    }
   } catch (err) {
     Alpine.store(StateStore.TOASTER).toasterMsg(
       window.toastActionMsg.notes.list.error,
@@ -106,8 +126,11 @@ async function setNotesSearched(payload) {
 }
 
 async function setDeleteNotes(payload) {
-  debugger;
   const { noteIds } = payload;
+  const noteStore = Alpine.store(StateStore.MY_NOTES);
+  const drawerStore = Alpine.store("drawerStore");
+  const toasterStore = Alpine.store(StateStore.TOASTER);
+
   let body;
   if (Array.isArray(noteIds)) {
     if (noteIds.note) {
@@ -119,45 +142,55 @@ async function setDeleteNotes(payload) {
   }
   try {
     const res = await noteService.deleteMany({ noteIds: body });
-
-    if (Alpine.store("drawerStore").showDrawer === true) {
-      Alpine.store("drawerStore").hideDrawer();
-      const pageNumber =
-        Alpine.store(StateStore.MY_NOTES).noteListMeta?.pageNumber || 1;
-      const documentType = Alpine.store(StateStore.MY_NOTES).noteListType;
-      // Redirect to list
-      PineconeRouter.currentContext.redirect(
-        `/list?type=${documentType ? documentType : "all"}${
-          pageNumber && "&page=" + pageNumber
-        }`
-      );
-    }
-
+    const documentType = noteStore.noteListType;
+    const pageNumber = noteStore.noteListMeta?.pageNumber || 1;
     if (res.deletedCount > 0) {
-      Alpine.store(StateStore.TOASTER).toasterMsg(
+      if (drawerStore.showDrawer === true) {
+        drawerStore.hideDrawer();
+
+        if (location.href.includes(NotesUrls.MY_NOTES)) {
+          const redirectUrl = `/list?type=${
+            documentType ? documentType : "all"
+          }${pageNumber && "&page=" + pageNumber}`;
+          if (PineconeRouter) {
+            // Redirect to list
+            PineconeRouter.currentContext.redirect(redirectUrl);
+          }
+        }
+      }
+
+      toasterStore.toasterMsg(
         window.toastActionMsg.notes.delete.success,
         ToasterMsgTypes.SUCCESS
       );
       await setNoteList({
-        page: 1,
+        page: pageNumber || 1,
+        type: documentType ? documentType : "all",
+        sort: noteStore.noteListMeta.sort,
+        direction: noteStore.noteListMeta.direction,
       });
     } else {
-      Alpine.store(StateStore.TOASTER).toasterMsg(
+      toasterStore.toasterMsg(
         window.toastActionMsg.notes.delete.error,
         ToasterMsgTypes.ERROR
       );
+      return;
     }
 
-    Alpine.store(StateStore.MY_NOTES).noteOpened = {
+    noteStore.noteOpened = {
       note: {},
       member: {},
     };
 
-    Alpine.store(StateStore.MY_NOTES).removeShareNoteList = [];
-    Alpine.store(StateStore.MY_NOTES).deleteList = [];
+    noteStore.removeShareNoteList = [];
+    noteStore.deleteList = [];
 
     return res;
   } catch (err) {
+    toasterStore.toasterMsg(
+      window.toastActionMsg.notes.delete.error,
+      ToasterMsgTypes.ERROR
+    );
     console.error(err);
   }
 }

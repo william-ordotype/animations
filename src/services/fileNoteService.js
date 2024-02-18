@@ -16,7 +16,6 @@ class FileNoteService extends apiService {
 
   async removeFilesFromNote(payload) {
     const validatePayload = await removeFilesFromNoteValidation(payload);
-    debugger;
     return await this.request({
       method: "DELETE",
       data: { document_id: validatePayload },

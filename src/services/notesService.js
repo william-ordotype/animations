@@ -74,7 +74,7 @@ class NotesService extends ApiService {
     type = "",
     pathology = [],
     title = "",
-  }) {
+  } = {}) {
     try {
       const validatedPayload = await getListValidation({
         page,
@@ -96,10 +96,16 @@ class NotesService extends ApiService {
           delete validatedPayload[key]
       );
 
-      return await this.request({
+      const response = await this.request({
         method: "GET",
         queryParams: validatedPayload,
       });
+
+      return {
+        ...response,
+        direction: validatedPayload.direction,
+        sort: validatedPayload.sort,
+      };
     } catch (err) {
       console.error(err);
       throw err;
