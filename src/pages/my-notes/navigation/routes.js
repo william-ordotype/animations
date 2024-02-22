@@ -43,10 +43,10 @@ window.router = () => {
       NProgress.done();
     },
     createPrescription(context) {
+      const type = context.path.split("/")[2];
       context.redirect("/");
-
       Alpine.store("modalStore").openModal(null, {
-        type: "prescriptions",
+        type,
       });
 
       // Inserts pasteOnEditor storage variable saved on ordonnances-types page into rich text editor
