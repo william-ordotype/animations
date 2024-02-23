@@ -44,12 +44,13 @@ function DataTableListItem() {
     },
     viewNote() {
       return {
-        ["x-on:click"]: `$router.navigate('/view/' + note._id)`,
+        ["x-on:click.self"]: `$router.navigate('/view/' + note._id)`,
       };
     },
     noteTitle() {
       return {
         ["x-text"]: "note.title",
+        ["x-on:click.self"]: `$router.navigate('/view/' + note._id)`,
       };
     },
     noteFileIconsList() {
