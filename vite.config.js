@@ -1,0 +1,33 @@
+import { defineConfig } from "vite";
+import { resolve } from "path";
+
+export default defineConfig({
+  server: {
+    port: 3021,
+  },
+  build: {
+    target: "esnext",
+    emptyOutDir: true,
+
+    rollupOptions: {
+      input: {
+        pathologies: resolve(__dirname, "./src/pages/pathologies/index.html"),
+        notes: resolve(__dirname, "./src/pages/my-notes/index.html"),
+        "shared-notes": resolve(
+          __dirname,
+          "./src/pages/my-shared-documents/index.html"
+        ),
+        "sharing-invitation": resolve(
+          __dirname,
+          "./src/pages/document-shared-invite/index.html"
+        ),
+      },
+      output: {
+        entryFileNames: "assets/[name].js",
+        assetFileNames: "assets/[name].[ext]",
+        chunkFileNames: "assets/[name].js",
+      },
+    },
+    write: true, // Ensure files are written to disk before resolving
+  },
+});

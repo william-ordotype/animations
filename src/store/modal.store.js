@@ -1,7 +1,7 @@
-import * as DOMPurify from "dompurify";
+import purify from "dompurify";
 import Alpine from "alpinejs";
 import NotesService from "../services/notesService";
-import { StateStore, ToasterMsgTypes } from "../utils/enums";
+import { StateStore } from "../utils/enums";
 import {
   setDeleteNotes,
   setNoteList,
@@ -159,12 +159,12 @@ const modalStore = {
       if (key === "files" || key === "pathology") return;
       // Sanitize the html value of each property using DOMPurify
       if (key === "rich_text_ordo") {
-        form[key] = DOMPurify.sanitize(form[key], {
+        form[key] = purify.sanitize(form[key], {
           USE_PROFILES: { html: true },
         });
       }
       // Sanitize the string value of each property using DOMPurify
-      form[key] = DOMPurify.sanitize(form[key]);
+      form[key] = purify.sanitize(form[key]);
     });
     try {
       const isEdit = !!form._id;
