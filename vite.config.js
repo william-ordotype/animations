@@ -8,7 +8,6 @@ export default defineConfig({
   build: {
     target: "esnext",
     emptyOutDir: true,
-
     rollupOptions: {
       input: {
         pathologies: resolve(__dirname, "./src/pages/pathologies/index.html"),
@@ -26,8 +25,12 @@ export default defineConfig({
         entryFileNames: "assets/[name].js",
         assetFileNames: "assets/[name].[ext]",
         chunkFileNames: "assets/[name].js",
+        manualChunks(id, { getModuleIds, getModuleInfo }) {
+          if (id.includes("algolia")) {
+            return "algolia";
+          }
+        },
       },
     },
-    write: true, // Ensure files are written to disk before resolving
   },
 });

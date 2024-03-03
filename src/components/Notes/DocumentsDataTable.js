@@ -9,8 +9,7 @@ import {
 } from "../../pages/my-notes/navigation/pagination";
 import { StateStore } from "../../utils/enums";
 
-const API_URL = `${process.env.ORDOTYPE_API}/v1.0.0`;
-const ShareNotes = new ShareNotesService(API_URL, window.memberToken);
+const ShareNotes = new ShareNotesService();
 
 function DataTableListItem() {
   return {
