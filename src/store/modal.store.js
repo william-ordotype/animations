@@ -1,4 +1,3 @@
-import purify from "dompurify";
 import Alpine from "alpinejs";
 import NotesService from "../services/notesService";
 import { StateStore } from "../utils/enums";
@@ -147,6 +146,7 @@ const modalStore = {
   },
   async submitForm(ev) {
     ev.preventDefault();
+    const purify = await import("dompurify");
     this.form.rich_text_ordo = window.globals.createRTE.root.innerHTML;
     const form = { ...this.form }; // Internal declaration. Because closeModal method resets form._id;
     const files = this.files;
@@ -179,7 +179,6 @@ const modalStore = {
       } else {
         formResponse = await notesService.createOne(form, files);
       }
-      debugger;
 
       this.closeModal();
       // If modal is open from pathologies page refresh the

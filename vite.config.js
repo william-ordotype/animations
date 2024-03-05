@@ -25,11 +25,11 @@ export default defineConfig({
         entryFileNames: "assets/[name].js",
         assetFileNames: "assets/[name].[ext]",
         chunkFileNames: "assets/[name].js",
-        manualChunks(id, { getModuleIds, getModuleInfo }) {
-          if (id.includes("algolia")) {
-            return "algolia";
-          }
-        },
+        // manualChunks(id, { getModuleIds, getModuleInfo }) {
+        //   if (id.includes("algolia")) {
+        //     return "algolia";
+        //   }
+        // },
       },
     },
   },

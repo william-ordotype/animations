@@ -13,7 +13,6 @@ async function setNoteList(payload) {
   Alpine.store(StateStore.MY_NOTES).isNotesLoading = true;
   try {
     const notesRes = await noteService.getList(payload);
-    debugger;
     const {
       items_per_page,
       items_total,

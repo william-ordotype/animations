@@ -1,7 +1,7 @@
 import { string } from "yup";
-import purify from "dompurify";
 
 const searchByTitleAndAliasValidation = async (payload) => {
+  const purify = await import("dompurify");
   const sanitizedPayload = purify.sanitize(payload);
   const searchByTitleAndAliasSchema = string();
 
