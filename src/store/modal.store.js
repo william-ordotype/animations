@@ -41,32 +41,41 @@ const modalStore = {
 
     return dt ? obj[mutation][dt][container][elem] : undefined;
   },
-  openModal(note, config) {
+  async openModal(note, config) {
     // If modal opens using the "edit" button
     // fill the form store/form fields from note object from the getList chached response
     if (note) {
-      this.form._id = note._id;
-      this.form.title = note.title;
-      note.rich_text_ordo &&
-        window.globals.createRTE.clipboard.dangerouslyPasteHTML(
-          note.rich_text_ordo
-        );
-      this.form.documents = note.documents?.length > 0 ? note.documents : [];
-      this.form.type = note.type || "prescriptions";
-      this.form.pathology =
-        note.pathologies?.length > 0
-          ? // Add only id and title to pathology array
-            note.pathologies.map((pathology) => {
-              return {
-                _id: pathology._id,
-                title: pathology.title,
-              };
-            })
-          : [];
-      this.pathologyName =
-        note.pathologies?.length > 0 ? note.pathologies[0].title : "";
-      this.form.prescription_type = note.prescription_type;
-      this.form.files = note.documents?.length > 0 ? note.documents : [];
+      NProgress.start();
+      const getNote = await notesService.getOne(note._id);
+      const {
+        _id,
+        title,
+        documents,
+        type,
+        pathologies,
+        prescription_type,
+        rich_text_ordo,
+      } = getNote.note;
+      this.form = {
+        _id,
+        title,
+        documents: documents?.length > 0 ? note.documents : [],
+        type,
+        pathology:
+          pathologies?.length > 0
+            ? // Add only id and title to pathology array
+              pathologies.map((p) => {
+                return {
+                  _id: p._id,
+                  title: p.title,
+                };
+              })
+            : [],
+        pathologyName: pathologies?.length > 0 ? pathologies[0].title : "",
+        prescription_type: prescription_type,
+      };
+      window.globals.createRTE.clipboard.dangerouslyPasteHTML(rich_text_ordo);
+      NProgress.done();
     } else {
       // If modal is open from create button initialized form fields to empty values
       this.form._id = "";
