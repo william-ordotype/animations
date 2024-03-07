@@ -1,3 +1,5 @@
-const ORDOTYPE_API = `${process.env.ORDOTYPE_API}/${process.env.ORDOTYPE_API_VERSION}`;
+const ORDOTYPE_API = `${import.meta.env.VITE_ORDOTYPE_API}/${
+  import.meta.env.VITE_API_VERSION
+}`;
 
 export { ORDOTYPE_API };

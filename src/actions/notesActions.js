@@ -13,7 +13,6 @@ async function setNoteList(payload) {
   Alpine.store(StateStore.MY_NOTES).isNotesLoading = true;
   try {
     const notesRes = await noteService.getList(payload);
-    debugger;
     const {
       items_per_page,
       items_total,
@@ -36,12 +35,6 @@ async function setNoteList(payload) {
     Alpine.store(StateStore.MY_NOTES).noteListType = payload.type;
 
     Alpine.store(StateStore.MY_NOTES).isNotesLoading = false;
-    if (
-      location.href.includes(NotesUrls.MY_NOTES) ||
-      location.href.includes("my-notes")
-    ) {
-      await setNotesRuleStatus();
-    }
   } catch (err) {
     Alpine.store(StateStore.TOASTER).toasterMsg(
       window.toastActionMsg.notes.list.error,

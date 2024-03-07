@@ -1,7 +1,7 @@
-import * as DOMPurify from "dompurify";
-
 // Function to convert location.hash to an object
-function hashToObject(hash) {
+async function hashToObject(hash) {
+  const purify = await import("dompurify");
+
   let hashObj = {};
 
   if (hash !== "") {
@@ -10,7 +10,7 @@ function hashToObject(hash) {
       // split hash by "&" character
       let keyValue = pair.split("="); // split each pair by "=" character
       hashObj[keyValue[0]] = decodeURIComponent(
-        DOMPurify.sanitize(keyValue[1]) || ""
+        purify.sanitize(keyValue[1]) || ""
       ); // set object property with key and value, decoding the URI component
     });
   }

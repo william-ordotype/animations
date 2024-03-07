@@ -1,6 +1,4 @@
 // noinspection SpellCheckingInspection
-import { autocomplete } from "@algolia/autocomplete-js";
-import "print-this";
 
 import { handleDrawer } from "../components/Notes/DocumentsDrawer";
 
@@ -17,7 +15,9 @@ globals.prescriptionTypes = {
   treatment: "Traitement",
 };
 
-globals.printDiv = (divName) => {
+globals.printDiv = async (divName) => {
+  await import("print-this");
+
   $(divName).printThis({
     importCSS: true,
     importStyle: true,
@@ -34,8 +34,6 @@ globals.printDiv = (divName) => {
 globals.drawer = {
   handleDrawer,
 };
-
-globals.autocomplete = autocomplete;
 
 globals.modal = {
   content: {
