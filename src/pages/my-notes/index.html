@@ -2317,10 +2317,9 @@
                                 native="true"
                                 >{{Pathologies}}</a
                               ><span
+                                x-show="note.pathologies?.length &gt; 1"
                                 class="plus-pathologies"
-                                x-show="note.pathologies.length &gt; 1"
-                                class="plus-pathologies"
-                                x-html="&#x27;&lt;span&gt;+&lt;/span&gt;&lt;span&gt;&#x27;+ parseInt(note.pathologies.length - 1) +&#x27;&lt;/span&gt;&#x27;"
+                                x-html="&#x27;&lt;span&gt;+&lt;/span&gt;&lt;span&gt;&#x27;+ parseInt(note.pathologies?.length - 1) +&#x27;&lt;/span&gt;&#x27;"
                                 >{{+1}}</span
                               >
                             </div>
@@ -3627,6 +3626,7 @@
                   </div>
                   <div
                     x-data="PathologiesAutocomplete()"
+                    x-intersect.once="once"
                     class="action_search_wrapper pathology_autocomplete"
                   >
                     <div
