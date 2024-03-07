@@ -137,7 +137,9 @@ const modalStore = {
     globals.createRTE.container.querySelector(".ql-editor").innerHTML = "";
 
     // clear autocomplete
-    $("#pathology-autocomplete form")[0].reset();
+    if ($("#pathology-autocomplete form").length) {
+      $("#pathology-autocomplete form")[0].reset();
+    }
 
     // clear form status
     this.formError = false;
@@ -159,12 +161,12 @@ const modalStore = {
       if (key === "files" || key === "pathology") return;
       // Sanitize the html value of each property using DOMPurify
       if (key === "rich_text_ordo") {
-        form[key] = purify.sanitize(form[key], {
+        form[key] = purify.default.sanitize(form[key], {
           USE_PROFILES: { html: true },
         });
       }
       // Sanitize the string value of each property using DOMPurify
-      form[key] = purify.sanitize(form[key]);
+      form[key] = purify.default.sanitize(form[key]);
     });
     try {
       const isEdit = !!form._id;

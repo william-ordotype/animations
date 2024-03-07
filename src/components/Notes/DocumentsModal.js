@@ -1,5 +1,4 @@
 import Alpine from "alpinejs";
-import QRCode from "easyqrcodejs";
 
 import globals from "../../utils/globals";
 import PathologiesService from "../../services/pathologiesService";
@@ -143,7 +142,7 @@ function DocumentsModal() {
     // add URL
     url: "",
     urlTitle: "",
-    insertUrlSubmit() {
+    async insertUrlSubmit() {
       const quill = globals.createRTE;
       const qrWrapper = document.createElement("div");
 
@@ -158,7 +157,9 @@ function DocumentsModal() {
         titleFont: "normal 12px Arial",
       };
 
-      const qrCode = new QRCode(qrWrapper, options);
+      const QRCode = await import("easyqrcodejs");
+
+      const qrCode = new QRCode.default(qrWrapper, options);
       const linkedQR = `<a href="${
         options.text
       }"><img src=${qrCode._oDrawing._elCanvas.toDataURL()}  alt=""/> </a>`;
@@ -244,8 +245,10 @@ function PathologiesAutocomplete() {
         Alpine.store("modalStore").form.pathology.splice(index, 1);
       }
     },
-    init() {
-      globals.autocomplete({
+    async once() {
+      const { autocomplete } = await import("@algolia/autocomplete-js");
+
+      autocomplete({
         onStateChange({ state }) {
           if (state.isOpen === false && state.status === "idle") {
             state.completion = "";

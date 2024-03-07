@@ -2,6 +2,7 @@
 
 import PineconeRouter from "pinecone-router";
 import focus from "@alpinejs/focus";
+import intersect from "@alpinejs/intersect";
 import Alpine from "alpinejs";
 import NProgress from "nprogress";
 import { setLocale } from "yup";
@@ -154,7 +155,7 @@ window.Quill = Quill;
 window.Webflow.push(() => {
   init().then(() => {
     // alpineWebflow();
-
+    Alpine.plugin(intersect);
     Alpine.plugin(focus);
     Alpine.plugin(PineconeRouter);
     Alpine.start();

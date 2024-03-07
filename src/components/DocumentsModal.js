@@ -208,7 +208,7 @@ function PathologiesAutocomplete() {
         Alpine.store("modalStore").form.pathology.splice(index, 1);
       }
     },
-    init() {
+    once() {
       globals.autocomplete({
         onStateChange({ state, ...rest }) {
           if (state.isOpen === false && state.status === "idle") {
