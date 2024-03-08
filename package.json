@@ -6,6 +6,8 @@
   "main": "index.js",
   "scripts": {
     "build": "vite build",
+    "build:dev": "vite build --base=https://seashell-app-etfao.ondigitalocean.app",
+    "build:prod": "vite build --base=static.ordotype.fr",
     "start": "vite",
     "dev": "vite"
   },
