@@ -1,5 +1,6 @@
 import ApiService from "./apiService";
 import { searchByTitleAndAliasValidation } from "../validation/pathologiesValidation";
+
 class PathologiesService extends ApiService {
   constructor() {
     super("pathologies");
@@ -38,20 +39,13 @@ class PathologiesService extends ApiService {
 
   /**
    *
-   * @param searchQuery
+   * @param {string} slug
    * @return {Promise<Object>}
    */
-  async searchBySlug(searchQuery) {
-    const validatePayload = searchQuery;
+  async searchBySlug(slug) {
     return await this.request({
       method: "GET",
-      queryParams: {
-        page: 1,
-        limit: 2,
-        sort: "title",
-        direction: "ASC",
-        slug: validatePayload,
-      },
+      routeParams: slug,
     });
   }
 }

@@ -39,6 +39,7 @@ import {
   shareNoteActionsToastMsgs,
 } from "../../utils/toastMessages";
 import { noteFormMsg } from "../../utils/modalMessages";
+import intersect from "@alpinejs/intersect";
 
 console.log("pathologies");
 
@@ -134,6 +135,7 @@ window.Quill = Quill;
 window.Webflow.push(() => {
   init().then(() => {
     Alpine.plugin(focus);
+    Alpine.plugin(intersect);
     Alpine.start();
 
     $("#wf-form-mutateDocument").on("submit", async function (ev) {
