@@ -61,13 +61,14 @@ const pathologiesStore = {
       const pathologySlug = window.location.href.includes("localhost")
         ? "acne"
         : window.location.pathname.split("/")[2];
-      const pathology = await pathologyService.searchBySlug(pathologySlug);
-      window.pathology = pathology.data[0];
 
+      window.pathology = {
+        slug: pathologySlug,
+      };
       await setNoteList({
         page: 1,
         limit: 50,
-        pathology: [window.pathology._id],
+        pathology_slug: pathologySlug,
       });
       noteListComponents.forEach((component) => {
         component.dispatchEvent(window.customEvents.loadingCancel);

@@ -1,7 +1,7 @@
 import Alpine from "alpinejs";
 import { StateStore, ToasterMsgTypes } from "../../../utils/enums";
 import NProgress from "nprogress";
-import { setNoteList } from "../../../actions/notesActions";
+import { setNoteList, setNotesRuleStatus } from "../../../actions/notesActions";
 
 window.router = () => {
   return {
@@ -102,7 +102,8 @@ async function handleRouter(context, { type }) {
         direction,
         type,
       };
-      await setNoteList(payload);
+      await Promise.all([setNoteList(payload), setNotesRuleStatus()]);
+
       NProgress.done();
     } catch (err) {
       NProgress.done();

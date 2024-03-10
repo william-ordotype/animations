@@ -1,15 +1,16 @@
-import * as DOMPurify from "dompurify";
 import Alpine from "alpinejs";
 import NotesService from "../services/notesService";
-import { StateStore, ToasterMsgTypes } from "../utils/enums";
+import { StateStore } from "../utils/enums";
 import {
   setDeleteNotes,
   setNoteList,
   setNoteOpened,
 } from "../actions/notesActions";
 import NProgress from "nprogress";
+import PathologiesService from "../services/pathologiesService.js";
 
 const notesService = new NotesService();
+const pathologiesService = new PathologiesService();
 
 const modalStore = {
   showModal: false,
@@ -42,43 +43,56 @@ const modalStore = {
 
     return dt ? obj[mutation][dt][container][elem] : undefined;
   },
-  openModal(note, config) {
+  async openModal(note, config) {
     // If modal opens using the "edit" button
     // fill the form store/form fields from note object from the getList chached response
     if (note) {
-      this.form._id = note._id;
-      this.form.title = note.title;
-      note.rich_text_ordo &&
-        window.globals.createRTE.clipboard.dangerouslyPasteHTML(
-          note.rich_text_ordo
-        );
-      this.form.documents = note.documents?.length > 0 ? note.documents : [];
-      this.form.type = note.type || "prescriptions";
-      this.form.pathology =
-        note.pathologies?.length > 0
-          ? // Add only id and title to pathology array
-            note.pathologies.map((pathology) => {
-              return {
-                _id: pathology._id,
-                title: pathology.title,
-              };
-            })
-          : [];
-      this.pathologyName =
-        note.pathologies?.length > 0 ? note.pathologies[0].title : "";
-      this.form.prescription_type = note.prescription_type;
-      this.form.files = note.documents?.length > 0 ? note.documents : [];
+      NProgress.start();
+      const getNote = await notesService.getOne(note._id);
+      const {
+        _id,
+        title,
+        documents,
+        type,
+        pathologies,
+        prescription_type,
+        rich_text_ordo,
+      } = getNote.note;
+      this.form = {
+        _id,
+        title,
+        documents: documents?.length > 0 ? note.documents : [],
+        type,
+        pathology:
+          pathologies?.length > 0
+            ? // Add only id and title to pathology array
+              pathologies.map((p) => {
+                return {
+                  _id: p._id,
+                  title: p.title,
+                };
+              })
+            : [],
+        pathologyName: pathologies?.length > 0 ? pathologies[0].title : "",
+        prescription_type: prescription_type,
+      };
+      window.globals.createRTE.clipboard.dangerouslyPasteHTML(rich_text_ordo);
+      NProgress.done();
     } else {
       // If modal is open from create button initialized form fields to empty values
       this.form._id = "";
       this.form.title = "";
       this.form.rich_text_ordo = "";
       this.form.type = config.type;
+      this.showModal = true;
       if (window.location.pathname.includes("pathologies")) {
+        const pathology = await pathologiesService.searchBySlug(
+          window.pathology.slug
+        );
         this.form.pathology = [
           {
-            _id: window.pathology._id,
-            title: window.pathology.title,
+            _id: pathology._id,
+            title: pathology.title,
           },
         ];
       } else {
@@ -86,7 +100,6 @@ const modalStore = {
       }
       this.form.prescription_type = "";
     }
-    this.showModal = true;
   },
   // Delete Path
   deleteList: [],
@@ -138,7 +151,9 @@ const modalStore = {
     globals.createRTE.container.querySelector(".ql-editor").innerHTML = "";
 
     // clear autocomplete
-    $("#pathology-autocomplete form")[0].reset();
+    if ($("#pathology-autocomplete form").length) {
+      $("#pathology-autocomplete form")[0].reset();
+    }
 
     // clear form status
     this.formError = false;
@@ -147,6 +162,7 @@ const modalStore = {
   },
   async submitForm(ev) {
     ev.preventDefault();
+    const purify = await import("dompurify");
     this.form.rich_text_ordo = window.globals.createRTE.root.innerHTML;
     const form = { ...this.form }; // Internal declaration. Because closeModal method resets form._id;
     const files = this.files;
@@ -159,12 +175,12 @@ const modalStore = {
       if (key === "files" || key === "pathology") return;
       // Sanitize the html value of each property using DOMPurify
       if (key === "rich_text_ordo") {
-        form[key] = DOMPurify.sanitize(form[key], {
+        form[key] = purify.default.sanitize(form[key], {
           USE_PROFILES: { html: true },
         });
       }
       // Sanitize the string value of each property using DOMPurify
-      form[key] = DOMPurify.sanitize(form[key]);
+      form[key] = purify.default.sanitize(form[key]);
     });
     try {
       const isEdit = !!form._id;
@@ -179,7 +195,6 @@ const modalStore = {
       } else {
         formResponse = await notesService.createOne(form, files);
       }
-      debugger;
 
       this.closeModal();
       // If modal is open from pathologies page refresh the

@@ -1,19 +1,22 @@
 <!DOCTYPE html>
-<!-- Last Published: Sun Dec 24 2023 13:55:55 GMT+0000 (Coordinated Universal Time) -->
+<!-- Last Published: Thu Feb 29 2024 16:28:03 GMT+0000 (Coordinated Universal Time) -->
 <html
-  data-wf-domain="ordotype.webflow.io"
-  data-wf-page="65654ef7d750204ffa31e4df"
+  data-wf-domain="www.ordotype.fr"
+  data-wf-page="65a7f596a733dbc7f3f70a6c"
   data-wf-site="604b9ac88b080efc7ce802bd"
   lang="fr"
 >
   <head>
     <meta charset="utf-8" />
-    <title>My shared documents</title>
+    <title>Mes Documents personnalisés - Ordotype</title>
     <meta
       content="Retrouvez toutes vos notes et documents sur Ordotype"
       name="description"
     />
-    <meta content="My shared documents" property="og:title" />
+    <meta
+      content="Mes Documents personnalisés - Ordotype"
+      property="og:title"
+    />
     <meta
       content="Retrouvez toutes vos notes et documents sur Ordotype"
       property="og:description"
@@ -22,7 +25,10 @@
       content="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/64e865aeafe104e52e746b94_Screenshot%202023-08-25%20at%2010.26.01%20AM.png"
       property="og:image"
     />
-    <meta content="My shared documents" property="twitter:title" />
+    <meta
+      content="Mes Documents personnalisés - Ordotype"
+      property="twitter:title"
+    />
     <meta
       content="Retrouvez toutes vos notes et documents sur Ordotype"
       property="twitter:description"
@@ -39,7 +45,7 @@
       name="google-site-verification"
     />
     <link
-      href="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.50ca5fc4e.min.css"
+      href="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.11d96f991.min.css"
       rel="stylesheet"
       type="text/css"
     />
@@ -79,11 +85,7 @@
       href="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/63e9f1ba593572dd6555b38a_logo_256_good-removebg-preview.png"
       rel="apple-touch-icon"
     />
-    <link
-      href="https://www.ordotype.fr/debug/my-shared-documents"
-      rel="canonical"
-    />
-    <!-- Memberstack webflow package -->
+    <link href="https://www.ordotype.fr/mes-documents" rel="canonical" />
     <script defer>
       window.addEventListener("load", (event) => {
         console.log("Onload fired");
@@ -120,7 +122,7 @@
         }, 500);
       });
     </script>
-
+    <script type="module" src="index.js"></script>
     <script
       data-memberstack-domain="https://memberstack-client.ordotype.fr"
       data-memberstack-key="pk_sb_e80d8429a51c2ceb0530"
@@ -291,6 +293,12 @@
       name="viewport"
       content="width=device-width, initial-scale=1, maximum-scale=1"
     />
+
+    <!-- [Attributes by Finsweet] CMS Load -->
+    <script
+      async
+      src="https://cdn.jsdelivr.net/npm/@finsweet/attributes-cmsload@1/cmsload.js"
+    ></script>
     <link
       href="https://cdn.quilljs.com/1.3.6/quill.snow.css"
       rel="stylesheet"
@@ -299,10 +307,15 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/@algolia/autocomplete-theme-classic"
     />
-    
+    <link href="https://static.ordotype.fr/my-notes.css" rel="stylesheet" />
+
     <style>
       .ql-container.ql-snow {
         border: none;
+      }
+
+      .template {
+        display: none;
       }
 
       @media print {
@@ -354,9 +367,31 @@
         text-overflow: ellipsis;
         vertical-align: middle;
       }
+
+      label {
+        margin-bottom: 0px;
+      }
+
+      .pathologie_tag {
+        white-space: normal !important;
+      }
+
+      select {
+        /*container for custom dropdown arrow*/
+        -webkit-appearance: none;
+        -moz-appearance: window;
+        background-image: url("https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/634972954e8c8417bf6e12f2_chevron-down.svg");
+        background-repeat: no-repeat;
+        background-position: center right 10px;
+        background-size: 20px;
+      }
     </style>
+    <script
+      src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd%2F652d31f3dc22d7b4ee708e44%2F65c4b99013d2be46e4311665%2Fclarity_script-7.2.7.js"
+      type="text/javascript"
+    ></script>
   </head>
-  <body class="body_documents">
+  <body>
     <div class="navigationhandler w-embed">
       <div x-data="router()">
         <template x-route="/" x-handler="redirectToAll"></template>
@@ -367,12 +402,32 @@
           x-route="/create/prescription"
           x-handler="createPrescription"
         ></template>
+        <template
+          x-route="/create/recommendations"
+          x-handler="createPrescription"
+        ></template>
+
         <!-- 404 handler -->
         <template x-route="notfound" x-handler="notfound"></template>
       </div>
+
+      <style>
+        select {
+          -webkit-appearance: none;
+          -moz-appearance: window;
+          background-image: url("https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/634972954e8c8417bf6e12f2_chevron-down.svg");
+          background-repeat: no-repeat;
+          background-position: center right 10px;
+          background-size: 20px;
+        }
+      </style>
     </div>
     <div class="global-styles w-embed">
       <style>
+
+         strong {
+             font-weight: 600 !important;
+         }
          html { font-size: 1rem; }
          @media screen and (max-width:1920px) { html { font-size: 1rem; } }
          @media screen and (max-width:1440px) { html { font-size: calc(0.25078043704474506rem + 0.8324661810613945vw); } }
@@ -697,6 +752,51 @@
          .button.is-gradient:hover::before {
              opacity: 1;
          }
+
+         .long {
+             display: -webkit-box;
+             -webkit-line-clamp: 1;
+             -webkit-box-orient: vertical;
+             overflow: hidden;}
+
+
+         .compte_tab-link:last-child {
+             border: none;}
+
+         @media screen and (max-width:767px) {
+             .compte_tab-link:first-child {
+                 border-top-left-radius: 0.25rem;
+                 border-bottom-left-radius: 0.25rem;}}
+
+         @media screen and (max-width:767px) {
+             .compte_tab-link:last-child {
+                 border-top-right-radius: 0.25rem;
+                 border-bottom-right-radius: 0.25rem;
+                 border: 1px solid var(--base-200);}}
+
+
+
+         .cb-toggle.w--redirected-checked .toggle-check {
+             background-color: rgba(12,14,22,.9);
+         }
+
+         .facture-item:last-child {
+             border: none;}
+
+
+         .career_tab-link.is-btn:first-child {
+             border-top-left-radius: 0.25rem;
+             border-bottom-left-radius: 0.25rem;}
+
+         .career_tab-link.is-btn:last-child {
+             border-top-right-radius: 0.25rem;
+             border-style: solid solid solid solid;}
+
+         .edit_bar {
+             background: linear-gradient(0deg, rgba(12, 14, 22, 0.02) 0%, rgba(12, 14, 22, 0.02) 100%), #FFF;
+
+             /* Shadow/Shadow_xs */
+             box-shadow: 0px 1px 3px 0px rgba(12, 14, 22, 0.08);}
       </style>
     </div>
     <div
@@ -742,17 +842,17 @@
                   data-name="search bar form"
                   method="get"
                   class="form-large"
-                  data-wf-page-id="65654ef7d750204ffa31e4df"
+                  data-wf-page-id="65a7f596a733dbc7f3f70a6c"
                   data-wf-element-id="c662c3d1-e20f-ffa3-1c6d-05370242f28b"
                 >
                   <input
-                    type="text"
                     class="search-bar nav-bar-size w-input"
                     autocomplete="off"
                     maxlength="256"
                     name="field"
                     data-name="Field"
                     placeholder="Rechercher"
+                    type="text"
                     id="search-bar-nav"
                     required=""
                   />
@@ -790,10 +890,11 @@
               href="/mes-documents"
               native=""
               data-ms-content="members"
-              class="navbar2_link w-nav-link"
+              aria-current="page"
+              class="navbar2_link w-nav-link w--current"
               >Mes documents</a
             ><a
-              href="/membership/profile"
+              href="/membership/compte"
               native=""
               data-ms-content="members"
               class="navbar2_link w-nav-link"
@@ -803,15 +904,15 @@
               <a
                 id="navbar-calendly"
                 native=""
-                href="/membership/demander-une-demo"
+                href="/membership/login-ms"
                 class="button is-grey w-inline-block"
-                ><div class="button_text">Demander une démo</div></a
+                ><div class="button_text">Se connecter</div></a
               ><a
                 native=""
                 data-ms-content="!members"
-                href="/membership/login-ms"
+                href="/offres-v3"
                 class="button is-gradient navbar w-inline-block"
-                ><div class="button_text">Connexion</div></a
+                ><div class="button_text">Se créer un compte</div></a
               >
             </div>
           </nav>
@@ -838,13 +939,13 @@
               <div class="search_mobile">
                 <form action="/search" class="doc_search_wrapper w-form">
                   <input
-                    type="search"
                     maxlength="256"
                     name="query"
                     placeholder="Rechercher"
                     required=""
+                    type="search"
                     class="doc_search w-input"
-                  /><input type="submit" value="Search" class="hide w-button" />
+                  /><input type="submit" class="hide w-button" value="Search" />
                 </form>
               </div>
             </div>
@@ -854,16 +955,16 @@
                 <div class="search_mobile">
                   <form action="/search" class="doc_search_wrapper w-form">
                     <input
-                      type="search"
                       maxlength="256"
                       name="query"
                       placeholder="Rechercher"
                       required=""
+                      type="search"
                       class="doc_search w-input"
                     /><input
                       type="submit"
-                      value="Search"
                       class="hide w-button"
+                      value="Search"
                     />
                   </form>
                 </div>
@@ -1094,7 +1195,7 @@
                     <div class="hide">Loading</div>
                     <div
                       class="lottie-animation"
-                      data-w-id="7b860905-761b-68b0-361a-c4e9dd9e6647"
+                      data-w-id="ab944ad1-e5ae-49ca-32b2-f218e77b2a8b"
                       data-animation-type="lottie"
                       data-src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/61f2cf4b2c288f34818ada35_52601-waiting.json"
                       data-loop="1"
@@ -1219,7 +1320,7 @@
                   </div>
                   <div class="padding-left padding-small">
                     <p
-                      x-html="$store.toasterStore.message"
+                      x-text="$store.toasterStore.message"
                       class="text-weight-semibold no-margin"
                     >
                       {{toaster text}}
@@ -1231,7 +1332,7 @@
                 <a
                   native=""
                   x-bind="allType"
-                  href="/mes-documents#/list?type=all"
+                  href="#/list?type=all"
                   class="tab_link w-inline-block"
                   ><div class="w-layout-grid grid_gap_8">
                     <div class="tab_icon w-embed">
@@ -1279,7 +1380,7 @@
                 ><a
                   native=""
                   x-bind="prescriptionsType"
-                  href="/mes-documents#/list?type=prescriptions"
+                  href="#/list?type=prescriptions"
                   class="tab_link w-inline-block"
                   ><div class="w-layout-grid grid_gap_8">
                     <div class="tab_icon w-embed">
@@ -1320,7 +1421,7 @@
                 ><a
                   native=""
                   x-bind="notesType"
-                  href="/mes-documents#/list?type=notes"
+                  href="#/list?type=notes"
                   class="tab_link w-inline-block"
                   ><div class="w-layout-grid grid_gap_8">
                     <div class="tab_icon w-embed">
@@ -1361,7 +1462,7 @@
                 ><a
                   native=""
                   x-bind="recommendationsType"
-                  href="/mes-documents#/list?type=recommendations"
+                  href="#/list?type=recommendations"
                   class="tab_link w-inline-block"
                   ><div class="w-layout-grid grid_gap_8">
                     <div class="tab_icon w-embed">
@@ -1440,8 +1541,9 @@
                       />
                     </svg></div></a
                 ><a
-                  href="/debug/my-shared-documents#/list"
-                  class="tab_link active w-inline-block"
+                  native=""
+                  href="/my-shared-documents"
+                  class="tab_link hide-share w-inline-block"
                   ><div class="w-layout-grid grid_gap_8">
                     <div class="tab_icon w-embed">
                       <svg
@@ -1499,7 +1601,7 @@
                     <div class="hide">Loading</div>
                     <div
                       class="lottie-animation"
-                      data-w-id="0d095569-8f05-fa03-4b01-7a45c038227f"
+                      data-w-id="5eb4bdc4-f4f7-1861-e38b-1a875ad2ec31"
                       data-animation-type="lottie"
                       data-src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/61f2cf4b2c288f34818ada35_52601-waiting.json"
                       data-loop="1"
@@ -1591,94 +1693,73 @@
                   ></div>
                 </div>
                 <div x-bind="notMemberView" x-cloak="" class="paywall_wrapper">
-                  <div class="contenu-premium">
-                    <div class="w-layout-grid cont_grid">
+                  <div
+                    data-ms-content="!members"
+                    class="premium-content-component new-paywall no-border"
+                  >
+                    <div class="premium-content-left center no-margin-down">
                       <img
-                        src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/640de7a644ffd08526acef3d_Icon.svg"
+                        src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/6526509d516702a22fbfedad_Icon.svg"
                         loading="lazy"
-                        id="w-node-_89d354dc-effb-0a61-b581-76d756f42842-fa31e4df"
-                        alt="cadenas"
-                        class="cont_icon"
+                        alt="accès limité
+"
+                        class="img_absolute top-left"
                       />
-                      <div
-                        id="w-node-_89d354dc-effb-0a61-b581-76d756f42843-fa31e4df"
-                        class="cont_header"
-                      >
-                        <h2 class="cont_header_h2">Contenu Premium</h2>
-                        <div class="text-weight-light">
-                          Accéder gratuitement au contenu premium d’Ordotype
-                          pendant 1 mois.
+                      <div class="margin-left margin-small">
+                        <div class="margin-bottom-4 margin-top _5rem">
+                          <div class="margin-bottom-4 margin-xxsmall">
+                            <h2 class="heading-style-h3 padding-top _4rem">
+                              Accès réservé aux professionnels de santé
+                            </h2>
+                          </div>
+                          <div class="margin-bottom-4 margin-small">
+                            <p>
+                              Cette fiche est reservée aux utilisateurs
+                              d’Ordotype.<br />
+                            </p>
+                          </div>
+                          <div class="margin-bottom-4 margin-small">
+                            <p>
+                              Pour pouvoir y accéder vous devez être connecté à
+                              Ordotype. Si vous n’avez pas encore de compte,
+                              inscrivez-vous et profitez d’un mois d’essai
+                              gratuit.<br />
+                            </p>
+                          </div>
                         </div>
-                      </div>
-                      <div
-                        id="w-node-_89d354dc-effb-0a61-b581-76d756f42848-fa31e4df"
-                        class="key_wrapper"
-                      >
-                        <img
-                          src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/64e865fa77552da129929973_3D%20Illustration.png"
-                          alt="clef"
-                          sizes="(max-width: 767px) 100vw, (max-width: 991px) 24vw, (max-width: 1279px) 30vw, (max-width: 1439px) 28vw, 384px"
-                          srcset="
-                            https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/64e865fa77552da129929973_3D%20Illustration-p-500.png 500w,
-                            https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/64e865fa77552da129929973_3D%20Illustration.png       792w
-                          "
-                          class="key"
-                        />
-                      </div>
-                      <div
-                        id="w-node-_89d354dc-effb-0a61-b581-76d756f4284a-fa31e4df"
-                        class="text_wrapper"
-                      >
-                        <div class="w-layout-grid text_grid">
-                          <div
-                            id="w-node-_89d354dc-effb-0a61-b581-76d756f4284c-fa31e4df"
-                            class="text-weight-semibold"
+                        <div class="button-connect-wrapper justify-left">
+                          <a
+                            id="calendly-not-connected-btn"
+                            native=""
+                            href="/membership/demander-une-demo"
+                            target="_blank"
+                            class="button is-grey w-node-f4b48890-cd04-c73f-7dfc-3851364361e4-f3f70a6c w-inline-block"
+                            ><div>Demander une démo</div></a
+                          ><a
+                            id="moyen-paiement-connected-btn"
+                            native=""
+                            href="/offres-v3"
+                            target="_blank"
+                            class="button is-gradient w-inline-block"
+                            ><div>Se créer un compte</div></a
                           >
-                            Réduisez votre charge mentale
-                          </div>
-                          <div class="text-weight-light text-size-small">
-                            Plus besoin de multiplier les sources pour trouver
-                            une information fiable et à jour. Ordotype
-                            centralise toutes les informations dans un seul
-                            moteur de recherche.
-                          </div>
                         </div>
-                        <div class="padding-24">
-                          <div class="w-layout-grid text_grid">
-                            <div
-                              id="w-node-_89d354dc-effb-0a61-b581-76d756f42852-fa31e4df"
-                              class="text-weight-semibold"
-                            >
-                              Gagnez du temps
-                            </div>
-                            <div class="text-weight-light text-size-small">
-                              Ne perdez plus de temps à réécrire les mêmes
-                              informations grâce aux 1500+ ordonnances types et
-                              conseils patients prérédigés.
-                            </div>
-                          </div>
-                        </div>
-                        <div class="w-layout-grid text_grid">
-                          <div
-                            id="w-node-_89d354dc-effb-0a61-b581-76d756f42857-fa31e4df"
-                            class="text-weight-semibold"
-                          >
-                            Restez à jour
-                          </div>
-                          <div class="text-weight-light text-size-small">
-                            Ordotype veille pour vous et s’adapte en continu aux
-                            nouvelles recommandations. Notre équipe veille à ce
-                            que nos fiches soient toujours d’actualités.
-                          </div>
+                        <div
+                          data-ms-content="!members"
+                          class="margin-top margin-small"
+                        >
+                          <p>
+                            Déjà inscrit ?
+                            <a
+                              href="/membership/login-ms"
+                              native=""
+                              target="_blank"
+                              class="fs-cc-banner_text-link"
+                              ><strong>Se connecter</strong></a
+                            ><br />
+                          </p>
                         </div>
                       </div>
-                      <a
-                        native=""
-                        id="w-node-_89d354dc-effb-0a61-b581-76d756f4285b-fa31e4df"
-                        href="#"
-                        class="button is-docs w-inline-block"
-                        ><div class="button_text">Essayer gratuitement</div></a
-                      >
                     </div>
                   </div>
                 </div>
@@ -1691,14 +1772,15 @@
                     <div class="padding-custom24">
                       <div class="w-layout-grid header_wrapper">
                         <h2
-                          id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0ed9-fa31e4df"
+                          x-bind="mainHeading"
+                          id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0ed9-f3f70a6c"
                           class="heading-h2-docs"
                         >
-                          Partagés avec moi
+                          {{Tous mes documents}}
                         </h2>
                         <div
                           x-data=""
-                          id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0edb-fa31e4df"
+                          id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0edb-f3f70a6c"
                           class="documents_count text-size-small text-weight-light"
                         >
                           <div class="doc_number">
@@ -1706,26 +1788,31 @@
                           </div>
                           <div>documents</div>
                         </div>
-                        <a
-                          x-bind="deleteManyButton"
-                          x-data="DeleteSelectedNotes"
-                          id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0ee1-fa31e4df"
-                          href="#"
-                          class="button is-delete w-inline-block"
-                          ><img
-                            alt="plus"
-                            loading="lazy"
-                            src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/6408e2066f91b10fe4a53c3c_plus.svg"
-                            class="icon_plus"
-                          />
-                          <div class="button_text hide-mobile-landscape">
-                            Supprimer
-                          </div></a
+                        <div
+                          id="w-node-cffb8e89-22ad-243d-152e-f4f6d920fbe6-f3f70a6c"
+                          class="btn-dib"
                         >
+                          <a
+                            x-bind="deleteManyButton"
+                            x-data="DeleteSelectedNotes"
+                            id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0ee1-f3f70a6c"
+                            href="#"
+                            class="button is-delete w-inline-block"
+                            ><img
+                              alt="plus"
+                              loading="lazy"
+                              src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/6408e2066f91b10fe4a53c3c_plus.svg"
+                              class="icon_plus"
+                            />
+                            <div class="button_text hide-mobile-landscape">
+                              Supprimer
+                            </div></a
+                          >
+                        </div>
                         <div
                           data-hover="false"
                           data-delay="0"
-                          id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0ee5-fa31e4df"
+                          id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0ee5-f3f70a6c"
                           class="submenu_new sticky w-dropdown"
                         >
                           <div class="button is-plus w-dropdown-toggle">
@@ -1877,7 +1964,7 @@
                           </nav>
                         </div>
                         <div
-                          id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0f04-fa31e4df"
+                          id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0f04-f3f70a6c"
                           class="submenu_component"
                         >
                           <div class="context_menu_btn">
@@ -1906,16 +1993,19 @@
                     </div>
                     <div class="docs_list_wrapper">
                       <div x-data="DataTableHeader" class="list_header">
-                        <div class="w-layout-grid doc_item_grid header_g">
+                        <div
+                          x-bind="tableHeadGrid"
+                          class="w-layout-grid doc_item_grid header_g"
+                        >
                           <div
                             x-bind="sortByTitle"
-                            id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0f0e-fa31e4df"
+                            id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0f0e-f3f70a6c"
                             class="sort_cover first"
                           >
                             <div class="flex_horizontal">
                               <input
-                                type="checkbox"
                                 class="check_box"
+                                type="checkbox"
                                 x-bind="selectAllCheckbox"
                               />
                               <div>Nom</div>
@@ -1958,14 +2048,14 @@
                             </div>
                           </div>
                           <div
-                            x-on:click="sortByClick(&#x27;sortByPrescriptionType&#x27;)"
-                            x-bind="headPrescriptionType"
-                            x-bind:class="sortByHeadClass(&#x27;sortByPrescriptionType&#x27;)"
-                            id="w-node-_2c9703a0-0ecd-95c4-ddaa-e2b8af7a4a60-fa31e4df"
-                            class="sort_cover prescription_type"
+                            x-bind="headType"
+                            x-on:click="sortByClick(&#x27;sortByType&#x27;)"
+                            x-bind:class="sortByHeadClass(&#x27;sortByType&#x27;)"
+                            id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0f17-f3f70a6c"
+                            class="sort_cover document_type"
                           >
                             <div class="flex_horizontal">
-                              <div>Ordonnance Type</div>
+                              <div>Type</div>
                               <div class="sort_wrapper">
                                 <div
                                   x-bind:class="sortByArrowClass(&#x27;sortByType&#x27;, &#x27;ASC&#x27;)"
@@ -2005,16 +2095,17 @@
                             </div>
                           </div>
                           <div
-                            x-bind:class="sortByHeadClass(&#x27;sortByDate&#x27;)"
-                            x-on:click="sortByClick(&#x27;sortByDate&#x27;)"
-                            id="w-node-_2a02c6e4-ca4c-ef52-78b5-7de813312282-fa31e4df"
-                            class="sort_cover"
+                            x-on:click="sortByClick(&#x27;sortByPrescriptionType&#x27;)"
+                            x-bind="headPrescriptionType"
+                            x-bind:class="sortByHeadClass(&#x27;sortByPrescriptionType&#x27;)"
+                            id="w-node-_2c9703a0-0ecd-95c4-ddaa-e2b8af7a4a60-f3f70a6c"
+                            class="sort_cover prescription_type"
                           >
                             <div class="flex_horizontal">
-                              <div>Author</div>
+                              <div>Type d&#x27;ordonnance</div>
                               <div class="sort_wrapper">
                                 <div
-                                  x-bind:class="sortByArrowClass(&#x27;sortByDate&#x27;, &#x27;ASC&#x27;)"
+                                  x-bind:class="sortByArrowClass(&#x27;sortByType&#x27;, &#x27;ASC&#x27;)"
                                   class="sort_arrow w-embed"
                                 >
                                   <svg
@@ -2031,7 +2122,7 @@
                                   </svg>
                                 </div>
                                 <div
-                                  x-bind:class="sortByArrowClass(&#x27;sortByDate&#x27;, &#x27;DESC&#x27;)"
+                                  x-bind:class="sortByArrowClass(&#x27;sortByType&#x27;, &#x27;DESC&#x27;)"
                                   class="sort_arrow w-embed"
                                 >
                                   <svg
@@ -2053,7 +2144,7 @@
                           <div
                             x-on:click="sortByClick(&#x27;sortByPathology&#x27;)"
                             x-bind:class="sortByHeadClass(&#x27;sortByPathology&#x27;)"
-                            id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0f1e-fa31e4df"
+                            id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0f1e-f3f70a6c"
                             class="sort_cover"
                           >
                             <div class="flex_horizontal">
@@ -2099,7 +2190,7 @@
                           <div
                             x-bind:class="sortByHeadClass(&#x27;sortByDate&#x27;)"
                             x-on:click="sortByClick(&#x27;sortByDate&#x27;)"
-                            id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0f25-fa31e4df"
+                            id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0f25-f3f70a6c"
                             class="sort_cover"
                           >
                             <div class="flex_horizontal">
@@ -2167,15 +2258,18 @@
                                 />
                               </svg></div
                           ></a>
-                          <div class="w-layout-grid doc_item_grid">
+                          <div
+                            x-bind="tableBodyGrid"
+                            class="w-layout-grid doc_item_grid"
+                          >
                             <div
-                              id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0f82-fa31e4df"
+                              id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0f82-f3f70a6c"
                               class="inside_left"
                             >
                               <div class="flex_horizontal">
                                 <input
-                                  type="checkbox"
                                   class="check_box"
+                                  type="checkbox"
                                   x-bind="noteCheckBox"
                                 />
                                 <div
@@ -2205,6 +2299,9 @@
                                 </div>
                               </div>
                             </div>
+                            <div x-bind="rowType" class="type_tag">
+                              <div x-bind="textType(d)">{{Note}}</div>
+                            </div>
                             <div
                               x-bind="rowPrescriptionType"
                               class="prescription_type_tag"
@@ -2213,32 +2310,30 @@
                                 {{Note}}
                               </div>
                             </div>
-                            <div class="div-block-415">
-                              <div class="author_tag" x-bind="authorColumn">{{Alina Abreu}}</div>
-                            </div>
                             <div class="pathologie_tag">
                               <a
                                 class="pathologies_tag_text"
                                 x-bind="pathologyRef"
-                                title="note.pathologies[0].title"
+                                native="true"
                                 >{{Pathologies}}</a
                               ><span
+                                x-show="note.pathologies?.length &gt; 1"
                                 class="plus-pathologies"
-                                x-show="note.pathologies.length &gt; 1"
-                                class="plus-pathologies"
-                                x-text="note.pathologies.length - 1"
+                                x-html="&#x27;&lt;span&gt;+&lt;/span&gt;&lt;span&gt;&#x27;+ parseInt(note.pathologies?.length - 1) +&#x27;&lt;/span&gt;&#x27;"
                                 >{{+1}}</span
                               >
                             </div>
                             <div
-                              id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0f92-fa31e4df"
-                              class="inside_right"
+                              id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf0f92-f3f70a6c"
+                              class="inside_right date-menu"
                             >
-                              <div class="flex_horizontal">
-                                <div class="date_tag">
-                                  <div x-bind="textDate(d)">{{12/10/2022}}</div>
+                              <div class="flex_horizontal split-blocks">
+                                <div class="date_tag note_date">
+                                  <div x-bind="textDate(d)" class="date-tag">
+                                    {{12/10/2022}}
+                                  </div>
                                 </div>
-                                <div class="sub_menu">
+                                <div class="sub_menu hide">
                                   <div
                                     data-delay="0"
                                     data-hover="false"
@@ -2253,11 +2348,11 @@
                                       />
                                     </div>
                                     <nav
-                                      x-data="DataTableListItemSubmenu"
+                                      x-data="DataTableListItemSubmenu(note, index)"
                                       class="sub_list w-dropdown-list"
                                     >
                                       <a
-                                        x-bind="cloneSharedNote(note)"
+                                        x-bind="editNote(note)"
                                         href="#"
                                         class="sub_link w-inline-block"
                                         ><div class="w-layout-grid grid_gap_8">
@@ -2265,33 +2360,53 @@
                                             <svg
                                               width="1.25rem"
                                               height="1.25rem"
-                                              xmlns="http://www.w3.org/2000/svg"
-                                              viewBox="0 0 24 24"
+                                              viewBox="0 0 20 20"
                                               fill="none"
-                                              stroke="currentColor"
-                                              stroke-width="2"
-                                              stroke-linecap="round"
-                                              stroke-linejoin="round"
-                                              class="feather feather-copy"
+                                              xmlns="http://www.w3.org/2000/svg"
                                             >
-                                              <rect
-                                                x="9"
-                                                y="9"
-                                                width="13"
-                                                height="13"
-                                                rx="2"
-                                                ry="2"
-                                              ></rect>
                                               <path
-                                                d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
-                                              ></path>
+                                                d="M9.16602 3.33333H3.33268C2.89065 3.33333 2.46673 3.50893 2.15417 3.82149C1.84161 4.13405 1.66602 4.55797 1.66602 5V16.6667C1.66602 17.1087 1.84161 17.5326 2.15417 17.8452C2.46673 18.1577 2.89065 18.3333 3.33268 18.3333H14.9993C15.4414 18.3333 15.8653 18.1577 16.1779 17.8452C16.4904 17.5326 16.666 17.1087 16.666 16.6667V10.8333M15.416 2.08332C15.7475 1.7518 16.1972 1.56555 16.666 1.56555C17.1349 1.56555 17.5845 1.7518 17.916 2.08332C18.2475 2.41484 18.4338 2.86448 18.4338 3.33332C18.4338 3.80216 18.2475 4.2518 17.916 4.58332L9.99935 12.5L6.66602 13.3333L7.49935 9.99999L15.416 2.08332Z"
+                                                stroke="currentColor"
+                                                stroke-width="2"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                              />
                                             </svg>
                                           </div>
                                           <div class="display-inlineflex">
-                                            Cloner dans mes documents<br />
-                                          </div></div></a
+                                            Modifier
+                                          </div>
+                                        </div></a
                                       ><a
-                                        x-bind="removeSharedNote(note)"
+                                        x-bind="shareNote(note)"
+                                        href="#"
+                                        class="sub_link borders w-inline-block"
+                                        ><div class="w-layout-grid grid_gap_8">
+                                          <div
+                                            class="tab_icon display-inlineflex w-embed"
+                                          >
+                                            <svg
+                                              width="1.25rem"
+                                              height="1.25rem"
+                                              viewBox="0 0 20 20"
+                                              fill="none"
+                                              xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                              <path
+                                                d="M1.33398 9.99999V16.6667C1.33398 17.1087 1.50958 17.5326 1.82214 17.8452C2.1347 18.1577 2.55862 18.3333 3.00065 18.3333H13.0007C13.4427 18.3333 13.8666 18.1577 14.1792 17.8452C14.4917 17.5326 14.6673 17.1087 14.6673 16.6667V9.99999M11.334 4.99999L8.00065 1.66666M8.00065 1.66666L4.66732 4.99999M8.00065 1.66666V12.5"
+                                                stroke="currentColor"
+                                                stroke-width="2"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                              />
+                                            </svg>
+                                          </div>
+                                          <div class="display-inlineflex">
+                                            Partager
+                                          </div>
+                                        </div></a
+                                      ><a
+                                        x-bind="deleteNote(note)"
                                         href="#"
                                         class="sub_link color_red w-inline-block"
                                         ><div class="w-layout-grid grid_gap_8">
@@ -2315,8 +2430,193 @@
                                             </svg>
                                           </div>
                                           <div class="display-inlineflex">
-                                            Révoquer l&#x27;accès partagé
+                                            Supprimer
                                           </div>
+                                        </div></a
+                                      >
+                                    </nav>
+                                  </div>
+                                </div>
+                                <div
+                                  x-data="DataTableListItemSubmenu"
+                                  class="sub_menu_actions"
+                                >
+                                  <a
+                                    x-cloak="true"
+                                    x-bind="editNote(note)"
+                                    href="#"
+                                    class="link_action hidden w-inline-block"
+                                    ><div class="icon_action w-embed">
+                                      <svg
+                                        width="100%"
+                                        height="auto"
+                                        viewBox="0 0 20 20"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                      >
+                                        <path
+                                          d="M9.16602 3.33333H3.33268C2.89065 3.33333 2.46673 3.50893 2.15417 3.82149C1.84161 4.13405 1.66602 4.55797 1.66602 5V16.6667C1.66602 17.1087 1.84161 17.5326 2.15417 17.8452C2.46673 18.1577 2.89065 18.3333 3.33268 18.3333H14.9993C15.4414 18.3333 15.8653 18.1577 16.1779 17.8452C16.4904 17.5326 16.666 17.1087 16.666 16.6667V10.8333M15.416 2.08332C15.7475 1.7518 16.1972 1.56555 16.666 1.56555C17.1349 1.56555 17.5845 1.7518 17.916 2.08332C18.2475 2.41484 18.4338 2.86448 18.4338 3.33332C18.4338 3.80216 18.2475 4.2518 17.916 4.58332L9.99935 12.5L6.66602 13.3333L7.49935 9.99999L15.416 2.08332Z"
+                                          stroke="currentColor"
+                                          stroke-width="2"
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round"
+                                        />
+                                      </svg>
+                                    </div>
+                                    <div class="bubble">
+                                      <div class="b---text">Modifier</div>
+                                    </div></a
+                                  ><a
+                                    x-cloak="true"
+                                    x-bind="shareNote(note)"
+                                    href="#"
+                                    class="link_action hidden w-inline-block"
+                                    ><div class="icon_action w-embed">
+                                      <svg
+                                        width="100%"
+                                        height="auto"
+                                        viewBox="0 0 14 16"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                      >
+                                        <path
+                                          d="M1.66663 8.00016V13.3335C1.66663 13.6871 1.8071 14.0263 2.05715 14.2763C2.3072 14.5264 2.64634 14.6668 2.99996 14.6668H11C11.3536 14.6668 11.6927 14.5264 11.9428 14.2763C12.1928 14.0263 12.3333 13.6871 12.3333 13.3335V8.00016M9.66663 4.00016L6.99996 1.3335M6.99996 1.3335L4.33329 4.00016M6.99996 1.3335V10.0002"
+                                          stroke="currentColor"
+                                          stroke-width="1.5"
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round"
+                                        />
+                                      </svg>
+                                    </div>
+                                    <div class="bubble">
+                                      <div class="b---text">Partager</div>
+                                    </div></a
+                                  ><a
+                                    x-cloak="true"
+                                    x-bind="deleteNote(note)"
+                                    href="#"
+                                    class="link_action hidden w-inline-block"
+                                    ><div class="icon_action color_red w-embed">
+                                      <svg
+                                        width="100%"
+                                        height="auto"
+                                        viewBox="0 0 14 16"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                      >
+                                        <path
+                                          d="M1 4.00016H2.33333M2.33333 4.00016H13M2.33333 4.00016V13.3335C2.33333 13.6871 2.47381 14.0263 2.72386 14.2763C2.97391 14.5264 3.31304 14.6668 3.66667 14.6668H10.3333C10.687 14.6668 11.0261 14.5264 11.2761 14.2763C11.5262 14.0263 11.6667 13.6871 11.6667 13.3335V4.00016H2.33333ZM4.33333 4.00016V2.66683C4.33333 2.31321 4.47381 1.97407 4.72386 1.72402C4.97391 1.47397 5.31304 1.3335 5.66667 1.3335H8.33333C8.68696 1.3335 9.02609 1.47397 9.27614 1.72402C9.52619 1.97407 9.66667 2.31321 9.66667 2.66683V4.00016"
+                                          stroke="currentColor"
+                                          stroke-width="1.5"
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round"
+                                        />
+                                      </svg>
+                                    </div>
+                                    <div class="bubble red--bb">
+                                      <div class="b---text">Supprimer</div>
+                                    </div></a
+                                  >
+                                  <div class="toggle_action">
+                                    <img
+                                      alt=""
+                                      loading="lazy"
+                                      src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/65b7ba55c70bdcdd6bb8a75d_more-vertical.svg"
+                                      class="image-74"
+                                    />
+                                  </div>
+                                  <div
+                                    data-delay="0"
+                                    data-hover="true"
+                                    class="menu_action w-dropdown"
+                                  >
+                                    <div
+                                      class="toggle_action w-dropdown-toggle"
+                                    >
+                                      <img
+                                        alt=""
+                                        loading="lazy"
+                                        src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/65b7ba55c70bdcdd6bb8a75d_more-vertical.svg"
+                                        class="image-74"
+                                      />
+                                    </div>
+                                    <nav
+                                      x-data="DataTableListItemSubmenu(note, index)"
+                                      class="list_action w-dropdown-list"
+                                    >
+                                      <a
+                                        x-bind="editNote(note)"
+                                        href="#"
+                                        class="link_action w-inline-block"
+                                        ><div class="icon_action w-embed">
+                                          <svg
+                                            width="100%"
+                                            height="auto"
+                                            viewBox="0 0 20 20"
+                                            fill="none"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                          >
+                                            <path
+                                              d="M9.16602 3.33333H3.33268C2.89065 3.33333 2.46673 3.50893 2.15417 3.82149C1.84161 4.13405 1.66602 4.55797 1.66602 5V16.6667C1.66602 17.1087 1.84161 17.5326 2.15417 17.8452C2.46673 18.1577 2.89065 18.3333 3.33268 18.3333H14.9993C15.4414 18.3333 15.8653 18.1577 16.1779 17.8452C16.4904 17.5326 16.666 17.1087 16.666 16.6667V10.8333M15.416 2.08332C15.7475 1.7518 16.1972 1.56555 16.666 1.56555C17.1349 1.56555 17.5845 1.7518 17.916 2.08332C18.2475 2.41484 18.4338 2.86448 18.4338 3.33332C18.4338 3.80216 18.2475 4.2518 17.916 4.58332L9.99935 12.5L6.66602 13.3333L7.49935 9.99999L15.416 2.08332Z"
+                                              stroke="currentColor"
+                                              stroke-width="2"
+                                              stroke-linecap="round"
+                                              stroke-linejoin="round"
+                                            />
+                                          </svg>
+                                        </div>
+                                        <div class="bubble">
+                                          <div class="b---text">Modifier</div>
+                                        </div></a
+                                      ><a
+                                        x-bind="shareNote(note)"
+                                        href="#"
+                                        class="link_action w-inline-block"
+                                        ><div class="icon_action w-embed">
+                                          <svg
+                                            width="100%"
+                                            height="auto"
+                                            viewBox="0 0 20 20"
+                                            fill="none"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                          >
+                                            <path
+                                              d="M1.33398 9.99999V16.6667C1.33398 17.1087 1.50958 17.5326 1.82214 17.8452C2.1347 18.1577 2.55862 18.3333 3.00065 18.3333H13.0007C13.4427 18.3333 13.8666 18.1577 14.1792 17.8452C14.4917 17.5326 14.6673 17.1087 14.6673 16.6667V9.99999M11.334 4.99999L8.00065 1.66666M8.00065 1.66666L4.66732 4.99999M8.00065 1.66666V12.5"
+                                              stroke="currentColor"
+                                              stroke-width="2"
+                                              stroke-linecap="round"
+                                              stroke-linejoin="round"
+                                            />
+                                          </svg>
+                                        </div>
+                                        <div class="bubble">
+                                          <div class="b---text">Partager</div>
+                                        </div></a
+                                      ><a
+                                        x-bind="deleteNote(note)"
+                                        href="#"
+                                        class="link_action w-inline-block"
+                                        ><div
+                                          class="icon_action color_red w-embed"
+                                        >
+                                          <svg
+                                            width="100%"
+                                            height="auto"
+                                            viewBox="0 0 20 20"
+                                            fill="none"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                          >
+                                            <path
+                                              d="M1.5 5.00002H3.16667M3.16667 5.00002H16.5M3.16667 5.00002V16.6667C3.16667 17.1087 3.34226 17.5326 3.65482 17.8452C3.96738 18.1578 4.39131 18.3334 4.83333 18.3334H13.1667C13.6087 18.3334 14.0326 18.1578 14.3452 17.8452C14.6577 17.5326 14.8333 17.1087 14.8333 16.6667V5.00002H3.16667ZM5.66667 5.00002V3.33335C5.66667 2.89133 5.84226 2.4674 6.15482 2.15484C6.46738 1.84228 6.89131 1.66669 7.33333 1.66669H10.6667C11.1087 1.66669 11.5326 1.84228 11.8452 2.15484C12.1577 2.4674 12.3333 2.89133 12.3333 3.33335V5.00002"
+                                              stroke="currentColor"
+                                              stroke-width="2"
+                                              stroke-linecap="round"
+                                              stroke-linejoin="round"
+                                            />
+                                          </svg>
+                                        </div>
+                                        <div class="bubble red--bb">
+                                          <div class="b---text">Supprimer</div>
                                         </div></a
                                       >
                                     </nav>
@@ -2332,7 +2632,7 @@
                       <div class="w-layout-grid pagination_grid">
                         <div
                           x-data="DataTablePaginationMenu"
-                          id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf10d0-fa31e4df"
+                          id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf10d0-f3f70a6c"
                           class="pagination_left"
                         >
                           <template class="template" x-bind="paginationList"
@@ -2356,7 +2656,7 @@
                           </div>
                         </div>
                         <div
-                          id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf10dc-fa31e4df"
+                          id="w-node-_91306451-5f8b-2555-4911-6ce9f2cf10dc-f3f70a6c"
                           class="pagination_right"
                         >
                           <div
@@ -2417,13 +2717,13 @@
                       <div class="w-layout-grid header_wrapper em">
                         <h2
                           x-bind="mainHeading"
-                          id="w-node-_1264d39d-4dca-f98d-77d8-4153c34852cd-fa31e4df"
+                          id="w-node-_1264d39d-4dca-f98d-77d8-4153c34852cd-f3f70a6c"
                           class="heading-h2-docs"
                         >
-                          Partagés avec moi
+                          {{Tous mes documents}}
                         </h2>
                         <div
-                          id="w-node-_1264d39d-4dca-f98d-77d8-4153c34852cf-fa31e4df"
+                          id="w-node-_1264d39d-4dca-f98d-77d8-4153c34852cf-f3f70a6c"
                           class="submenu_component empty"
                         >
                           <div class="context_menu_btn">
@@ -2436,20 +2736,20 @@
                           </div>
                           <form
                             action="/search"
-                            id="w-node-_1264d39d-4dca-f98d-77d8-4153c34852d2-fa31e4df"
+                            id="w-node-_1264d39d-4dca-f98d-77d8-4153c34852d2-f3f70a6c"
                             class="doc_search_wrapper w-form"
                           >
                             <input
-                              type="search"
                               placeholder="Rechercher"
                               maxlength="256"
                               name="query"
                               required=""
+                              type="search"
                               class="doc_search w-input"
                             /><input
                               type="submit"
-                              value="Search"
                               class="hide w-button"
+                              value="Search"
                             />
                           </form>
                           <div class="divider"></div>
@@ -2466,13 +2766,13 @@
                         />
                         <div class="max-width-full text-color-base-800">
                           <h2 class="heading-h2-docs">
-                            Vous n&#x27;avez accepté aucune invitation de
-                            partage de documents
+                            Vous n’avez pas encore de documents
                           </h2>
                           <div class="padding-top padding-xsmall">
                             <div class="text-color-base-800">
-                              Vous verrez la liste des documents partagés avec
-                              vous ici
+                              Ordotype vous permet de créer et stocker vos
+                              notes, ordonnances et fiches conseils
+                              personnalisées en quelques clics.
                             </div>
                           </div>
                           <div class="padding-top padding-xmedium">
@@ -2614,7 +2914,7 @@
                     </div>
                     <nav class="sub_list_action w-dropdown-list">
                       <a
-                        x-bind="drawerClone"
+                        x-on:click="drawerEdit($event)"
                         href="#"
                         class="sub_link w-inline-block"
                         ><div class="w-layout-grid grid_gap_8">
@@ -2622,36 +2922,25 @@
                             <svg
                               width="1.25rem"
                               height="1.25rem"
-                              xmlns="http://www.w3.org/2000/svg"
-                              viewBox="0 0 24 24"
+                              viewBox="0 0 20 20"
                               fill="none"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              class="feather feather-copy"
+                              xmlns="http://www.w3.org/2000/svg"
                             >
-                              <rect
-                                x="9"
-                                y="9"
-                                width="13"
-                                height="13"
-                                rx="2"
-                                ry="2"
-                              ></rect>
                               <path
-                                d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
-                              ></path>
+                                d="M9.16602 3.33333H3.33268C2.89065 3.33333 2.46673 3.50893 2.15417 3.82149C1.84161 4.13405 1.66602 4.55797 1.66602 5V16.6667C1.66602 17.1087 1.84161 17.5326 2.15417 17.8452C2.46673 18.1577 2.89065 18.3333 3.33268 18.3333H14.9993C15.4414 18.3333 15.8653 18.1577 16.1779 17.8452C16.4904 17.5326 16.666 17.1087 16.666 16.6667V10.8333M15.416 2.08332C15.7475 1.7518 16.1972 1.56555 16.666 1.56555C17.1349 1.56555 17.5845 1.7518 17.916 2.08332C18.2475 2.41484 18.4338 2.86448 18.4338 3.33332C18.4338 3.80216 18.2475 4.2518 17.916 4.58332L9.99935 12.5L6.66602 13.3333L7.49935 9.99999L15.416 2.08332Z"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              />
                             </svg>
                           </div>
-                          <div class="display-inlineflex">
-                            Cloner dans mes documents
-                          </div>
+                          <div class="display-inlineflex">Modifier</div>
                         </div></a
                       ><a
-                        x-on:click="globals.printDiv(&#x27;#drawer_rich_text_wrapper&#x27;)"
+                        x-on:click="$event.preventDefault(); globals.printDiv(&#x27;#drawer_rich_text_wrapper&#x27;)"
                         href="#"
-                        class="sub_link borders w-inline-block"
+                        class="sub_link borders top w-inline-block"
                         ><div class="w-layout-grid grid_gap_8">
                           <div class="tab_icon w-embed">
                             <svg
@@ -2664,7 +2953,7 @@
                               <path
                                 d="M3.99992 5.99998V1.33331H11.9999V5.99998M3.99992 12H2.66659C2.31296 12 1.97382 11.8595 1.72378 11.6095C1.47373 11.3594 1.33325 11.0203 1.33325 10.6666V7.33331C1.33325 6.97969 1.47373 6.64055 1.72378 6.3905C1.97382 6.14046 2.31296 5.99998 2.66659 5.99998H13.3333C13.6869 5.99998 14.026 6.14046 14.2761 6.3905C14.5261 6.64055 14.6666 6.97969 14.6666 7.33331V10.6666C14.6666 11.0203 14.5261 11.3594 14.2761 11.6095C14.026 11.8595 13.6869 12 13.3333 12H11.9999M3.99992 9.33331H11.9999V14.6666H3.99992V9.33331Z"
                                 stroke="currentColor"
-                                stroke-width="1.2"
+                                stroke-width="1.5"
                                 stroke-linecap="round"
                                 stroke-linejoin="round"
                               />
@@ -2673,7 +2962,31 @@
                           <div class="display-inlineflex">Imprimer</div>
                         </div></a
                       ><a
-                        x-bind="drawerRemoveAccess"
+                        x-bind="drawerShare"
+                        href="#"
+                        class="sub_link borders w-inline-block"
+                        ><div class="w-layout-grid grid_gap_8">
+                          <div class="tab_icon display-inlineflex w-embed">
+                            <svg
+                              width="1.25rem"
+                              height="1.25rem"
+                              viewBox="0 0 20 20"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M1.33398 9.99999V16.6667C1.33398 17.1087 1.50958 17.5326 1.82214 17.8452C2.1347 18.1577 2.55862 18.3333 3.00065 18.3333H13.0007C13.4427 18.3333 13.8666 18.1577 14.1792 17.8452C14.4917 17.5326 14.6673 17.1087 14.6673 16.6667V9.99999M11.334 4.99999L8.00065 1.66666M8.00065 1.66666L4.66732 4.99999M8.00065 1.66666V12.5"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              />
+                            </svg>
+                          </div>
+                          <div class="display-inlineflex">Partager</div>
+                        </div></a
+                      ><a
+                        x-on:click="drawerDeleteOne($event)"
                         href="#"
                         class="sub_link color_red w-inline-block"
                         ><div class="w-layout-grid grid_gap_8">
@@ -2694,9 +3007,7 @@
                               />
                             </svg>
                           </div>
-                          <div class="display-inlineflex">
-                            Révoquer l&#x27;accès partagé
-                          </div>
+                          <div class="display-inlineflex">Supprimer</div>
                         </div></a
                       >
                     </nav>
@@ -2705,7 +3016,7 @@
                 <img
                   src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/6409a60abee24b0929f62f72_cross.svg"
                   loading="lazy"
-                  id="w-node-_5e73bd5a-ce56-4459-5f7f-74573fcb3d7f-fa31e4df"
+                  id="w-node-_5e73bd5a-ce56-4459-5f7f-74573fcb3d7f-f3f70a6c"
                   x-bind="drawerClose"
                   alt="exit croix"
                   class="close_icon"
@@ -2733,13 +3044,13 @@
             <div x-bind="drawerContent" class="w-layout-grid view_grid">
               <h2
                 x-bind="getOneTitle"
-                id="w-node-_5e73bd5a-ce56-4459-5f7f-74573fcb3d81-fa31e4df"
+                id="w-node-_5e73bd5a-ce56-4459-5f7f-74573fcb3d81-f3f70a6c"
                 class="view_heading"
               >
                 {{Nom de la note}}
               </h2>
               <div
-                id="w-node-_5e73bd5a-ce56-4459-5f7f-74573fcb3d83-fa31e4df"
+                id="w-node-_5e73bd5a-ce56-4459-5f7f-74573fcb3d83-f3f70a6c"
                 class="tags_wrapper"
               >
                 <template class="template" x-bind="listPathologies"
@@ -2749,7 +3060,7 @@
                 >
               </div>
               <div
-                id="w-node-_5e73bd5a-ce56-4459-5f7f-74573fcb3d87-fa31e4df"
+                id="w-node-_5e73bd5a-ce56-4459-5f7f-74573fcb3d87-f3f70a6c"
                 class="view_date"
               >
                 <div class="display-inlineflex">Créé le</div>
@@ -2758,28 +3069,14 @@
                     {{08/11/2022}}
                   </div>
                 </div>
-                <div class="display-inlineflex">par</div>
-                <div class="view_author">
-                  <div x-bind="getAuthor" class="text-weight-semibold">
-                    {{AlineDieu}}
-                  </div>
-                </div>
+                <div class="view_author"></div>
               </div>
               <div
-                id="w-node-_5e73bd5a-ce56-4459-5f7f-74573fcb3d92-fa31e4df"
+                id="w-node-_5e73bd5a-ce56-4459-5f7f-74573fcb3d92-f3f70a6c"
                 class="grey_divider"
               ></div>
               <div
-                id="drawer_rich_text_wrapper"
-                x-bind="getOneRichText"
-                class="text_wrapper w-node-_5e73bd5a-ce56-4459-5f7f-74573fcb3d93-fa31e4df"
-              >
-                <p class="text-size-body2">
-                  Text de la note personnalisée ici.<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />.
-                </p>
-              </div>
-              <div
-                id="w-node-_5e73bd5a-ce56-4459-5f7f-74573fcb3d9f-fa31e4df"
+                id="w-node-_5e73bd5a-ce56-4459-5f7f-74573fcb3d9f-f3f70a6c"
                 class="align-right hide"
               >
                 <a href="#" class="button is-copy w-inline-block"
@@ -2791,59 +3088,72 @@
                     class="icon_copy"
                 /></a>
               </div>
-              <div x-data="" class="files_wrapper">
-                <div class="files_holder">
-                  <template class="template" x-bind="getFiles"
-                    ><a
-                      x-bind:href="fileSrc"
-                      x-on:click="window.open(fileSrc, &#x27;_blank&#x27;)"
-                      x-data="DocumentFileListItem(file)"
-                      href="#"
-                      class="file_block w-inline-block"
-                      ><div class="w-layout-grid file_grid">
-                        <template
-                          id="w-node-_8b0b003c-2d9b-a58c-7405-a30867a2bc09-fa31e4df"
-                          class="template"
-                          x-if="isImg"
-                          ><div
-                            id="w-node-f7619463-5fd8-f02d-64a4-0a18c56fb2d3-fa31e4df"
-                            class="file_img_wrapper"
+              <div
+                id="drawer_rich_text_wrapper"
+                class="drawer_print_wrapper w-node-_485a9676-3abb-0415-d497-1cdf029462d0-f3f70a6c"
+              >
+                <div
+                  x-bind="getOneRichText"
+                  id="w-node-_5e73bd5a-ce56-4459-5f7f-74573fcb3d93-f3f70a6c"
+                  class="text_wrapper drawer"
+                >
+                  <p class="text-size-body2">
+                    Text de la note personnalisée ici.<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />.
+                  </p>
+                </div>
+                <div x-data="" class="files_wrapper">
+                  <div class="files_holder">
+                    <template class="template" x-bind="getFiles"
+                      ><a
+                        x-data="DocumentFileListItem(file)"
+                        x-on:click="window.open(fileSrc, &#x27;_blank&#x27;)"
+                        href="#"
+                        class="file_block w-inline-block"
+                        ><div class="w-layout-grid file_grid">
+                          <template
+                            id="w-node-_8b0b003c-2d9b-a58c-7405-a30867a2bc09-f3f70a6c"
+                            class="template"
+                            x-if="isImg"
+                            ><div
+                              id="w-node-f7619463-5fd8-f02d-64a4-0a18c56fb2d3-f3f70a6c"
+                              class="file_img_wrapper"
+                            >
+                              <img
+                                class="file_img"
+                                x-bind:src="isImg &amp;&amp; fileSrc"
+                                src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/649a52cf2ee9756547f93e3a_SCR-20230626-tzag.png"
+                              /></div
+                          ></template>
+                          <figure
+                            id="w-node-f7619463-5fd8-f02d-64a4-0a18c56fb2d5-f3f70a6c"
+                            class="file_description"
                           >
-                            <img
-                              class="file_img"
-                              x-bind:src="isImg &amp;&amp; fileSrc"
-                              src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/649a52cf2ee9756547f93e3a_SCR-20230626-tzag.png"
-                            /></div
-                        ></template>
-                        <figure
-                          id="w-node-f7619463-5fd8-f02d-64a4-0a18c56fb2d5-fa31e4df"
-                          class="file_description"
-                        >
-                          <div class="flex_horizontal">
-                            <div class="file_type_holder action">
-                              <div
-                                x-bind:class="fileExt"
-                                class="file_type_icon pdf"
-                              >
-                                <div x-text="fileExt">pdf</div>
+                            <div class="flex_horizontal">
+                              <div class="file_type_holder action">
+                                <div
+                                  x-bind:class="fileExt"
+                                  class="file_type_icon pdf"
+                                >
+                                  <div x-text="fileExt">pdf</div>
+                                </div>
+                              </div>
+                              <div class="file_title">
+                                <div x-text="fileName" class="file-label">
+                                  FileName
+                                </div>
+                                <div
+                                  x-text="&#x27;.&#x27;+fileExt"
+                                  class="ext-label"
+                                >
+                                  .ext
+                                </div>
                               </div>
                             </div>
-                            <div class="file_title">
-                              <div x-text="fileName" class="file-label">
-                                FileName
-                              </div>
-                              <div
-                                x-text="&#x27;.&#x27;+fileExt"
-                                class="ext-label"
-                              >
-                                .ext
-                              </div>
-                            </div>
-                          </div>
-                        </figure>
-                      </div></a
-                    ></template
-                  >
+                          </figure>
+                        </div></a
+                      ></template
+                    >
+                  </div>
                 </div>
               </div>
             </div>
@@ -2889,7 +3199,7 @@
             data-name="mutateDocument"
             method="get"
             class="create_document_content"
-            data-wf-page-id="65654ef7d750204ffa31e4df"
+            data-wf-page-id="65a7f596a733dbc7f3f70a6c"
             data-wf-element-id="3fab5c17-9b38-81a4-0d63-6e5414850d5c"
           >
             <div x-bind="modalElem" class="view_wrapper edit_document">
@@ -2926,14 +3236,18 @@
               <div class="modal_footer">
                 <a
                   x-bind="showInsertUrlDialog(true)"
-                  x-show="$store.modalStore.form.type === &#x27;recommendations&#x27;"
+                  x-show="$store.modalStore.form.type !== &#x27;notes&#x27;"
                   href="#"
                   class="button is-url-copy w-inline-block"
-                  ><div class="button_text">Ajouter l’URL d’un site</div></a
+                  ><div class="button_text">Générer un QR code</div></a
                 >
                 <div x-data="DocumentFileInput" class="files_container">
                   <div class="files_modal_columns">
-                    <div id="files-server" class="files_wrapper_modal">
+                    <div
+                      id="files-server"
+                      x-data=""
+                      class="files_wrapper_modal"
+                    >
                       <div class="files_holder">
                         <template class="template" x-bind="listFilesFromServer"
                           ><div class="file_block">
@@ -2942,11 +3256,11 @@
                               class="w-layout-grid file_grid"
                             >
                               <template
-                                id="w-node-_6d68707a-1618-b35b-1985-519c8b14d3b9-fa31e4df"
+                                id="w-node-_6d68707a-1618-b35b-1985-519c8b14d3b9-f3f70a6c"
                                 class="template"
                                 x-if="isImg"
                                 ><div
-                                  id="w-node-_6d68707a-1618-b35b-1985-519c8b14d3ba-fa31e4df"
+                                  id="w-node-_6d68707a-1618-b35b-1985-519c8b14d3ba-f3f70a6c"
                                   class="file_img_wrapper"
                                 >
                                   <img
@@ -2956,7 +3270,7 @@
                                   /></div
                               ></template>
                               <div
-                                id="w-node-_5047aa32-b096-f60a-acfe-c7971ac334c3-fa31e4df"
+                                id="w-node-_5047aa32-b096-f60a-acfe-c7971ac334c3-f3f70a6c"
                                 class="file_description"
                               >
                                 <div class="flex_horizontal">
@@ -2995,13 +3309,13 @@
                       </div>
                     </div>
                     <template x-if="filesAttached !== null"
-                      ><div id="files-local" class="files_wrapper_modal">
+                      ><address id="files-local" class="files_wrapper_modal">
                         <div class="files_holder">
                           <template class="template" x-bind="listFilesFromInput"
                             ><div class="file_block">
                               <div class="w-layout-grid file_grid">
                                 <div
-                                  id="w-node-_166d42f0-63e1-c5fc-3c52-b37d7bb076b0-fa31e4df"
+                                  id="w-node-_166d42f0-63e1-c5fc-3c52-b37d7bb076b0-f3f70a6c"
                                   class="file_description"
                                 >
                                   <div class="flex_horizontal">
@@ -3042,7 +3356,7 @@
                                 </div>
                               </div></div
                           ></template>
-                        </div></div
+                        </div></address
                     ></template>
                   </div>
                   <div class="w-embed">
@@ -3137,19 +3451,19 @@
                 </div>
                 <div class="inputs_wrapper">
                   <div
-                    id="w-node-de1e0b49-e7f5-086d-127e-445f6b0164b7-fa31e4df"
+                    id="w-node-de1e0b49-e7f5-086d-127e-445f6b0164b7-f3f70a6c"
                     class="action_input_wrapper"
                   >
                     <label for="recommendation-url" class="action_field_label"
                       >URL du site</label
                     ><input
-                      type="text"
                       class="action_text_field w-input"
                       maxlength="256"
                       name="recommendation-url"
                       data-name="recommendation-url"
                       placeholder="https://example.com"
                       x-model="url"
+                      type="text"
                       id="recommendation-url"
                     />
                   </div>
@@ -3159,13 +3473,13 @@
                       class="action_field_label"
                       >Titre</label
                     ><input
-                      type="text"
                       class="action_text_field w-input"
                       maxlength="256"
                       name="recommendation-url-qr"
                       data-name="recommendation-url-qr"
                       placeholder="Titre du QR code"
                       x-model="urlTitle"
+                      type="text"
                       id="recommendation-url-qr"
                     />
                   </div>
@@ -3177,10 +3491,10 @@
                       ><div class="button_text">Annuler</div></a
                     ><input
                       type="submit"
-                      value="Sauvegarder"
                       data-wait="Please wait..."
                       x-on:click="insertUrlSubmit"
                       class="button is-docs w-button"
+                      value="Sauvegarder"
                     />
                   </div>
                 </div>
@@ -3223,11 +3537,11 @@
                     x-bind="showBeforeCancel(false)"
                     href="#"
                     class="button is-annuler w-inline-block"
-                    ><div class="button_text">Non</div></a
+                    ><div class="button_text">Revenir au document</div></a
                   ><a
                     x-bind="confirmCancel"
                     href="#"
-                    class="button is-docs w-inline-block"
+                    class="button red w-inline-block"
                     ><div
                       class="lottie-anim-buttom"
                       data-w-id="eee68a04-aec4-e7cc-ef0a-2eb782c5932b"
@@ -3241,7 +3555,7 @@
                       data-default-duration="3.0030028806881908"
                       data-duration="0"
                     ></div>
-                    <div class="button_text">Oui</div></a
+                    <div class="button_text">Supprimer la modification</div></a
                   >
                 </div>
               </div>
@@ -3276,7 +3590,6 @@
                       class="action_field_label"
                       >{{Nom de l’ordonnance}}</label
                     ><input
-                      type="text"
                       class="action_text_field w-input"
                       maxlength="256"
                       x-bind:placeholder="$store.modalStore.content(&#x27;beforeSave&#x27;,&#x27;phInputTitle&#x27;)"
@@ -3284,6 +3597,7 @@
                       data-name="title"
                       placeholder="{{Ma nouvelle ordonnance}}"
                       x-model="modalStore.form.title"
+                      type="text"
                       id="docs-title"
                       required=""
                     />
@@ -3312,11 +3626,12 @@
                   </div>
                   <div
                     x-data="PathologiesAutocomplete()"
-                    class="action_search_wrapper"
+                    x-intersect.once="once"
+                    class="action_search_wrapper pathology_autocomplete"
                   >
                     <div
                       x-text="$store.modalStore.content(&#x27;beforeSave&#x27;, &#x27;inputPathology&#x27;)"
-                      class="text-weight-light context_comment"
+                      class="action_field_label"
                     >
                       {{Associer une pathologie à cette fiche conseil :}}
                     </div>
@@ -3350,8 +3665,8 @@
                   <div class="action_input_wrapper">
                     <label class="w-checkbox checkbox-field-2"
                       ><input
-                        type="checkbox"
                         id="aknowledgePrivacy"
+                        type="checkbox"
                         name="aknowledgePrivacy"
                         data-name="aknowledgePrivacy"
                         required=""
@@ -3388,19 +3703,75 @@
                       ><div class="button_text">Annuler</div></a
                     ><input
                       type="submit"
-                      value="Confirmer"
                       data-wait="Patientez..."
                       x-bind="submitBtn"
-                      id="w-node-_89667e30-faf5-46eb-42c3-a330aa55e59f-fa31e4df"
+                      id="w-node-_89667e30-faf5-46eb-42c3-a330aa55e59f-f3f70a6c"
                       class="button is-docs submit w-button"
+                      value="Confirmer"
                     />
                   </div>
                 </div>
               </div>
-              <div x-data="BeforeRemoveSharedInvitationDialog"
-                x-bind="modal"
-                class="view_wrapper r-voquer_partage"
+              <div
+                x-bind="beforeDeleteDialog"
+                class="view_wrapper before_delete_dialog"
               >
+                <div class="header_holder context_comment">
+                  <div class="inner_header">
+                    <div class="display-inlineflex text_space">Supprimer</div>
+                    <img
+                      x-on:click="$store.modalStore.closeBeforeDelete()"
+                      loading="lazy"
+                      alt="exit croix"
+                      src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/6409a60abee24b0929f62f72_cross.svg"
+                      class="close_icon is_corner"
+                    />
+                    <div
+                      x-text="$store.modalStore.contentBeforeDelete(&#x27;beforeDelete&#x27;,&#x27;title&#x27;)"
+                      class="display-inlineflex hide-mobile-landscape"
+                    >
+                      {{une ordonnance}}
+                    </div>
+                  </div>
+                </div>
+                <div class="comment_wrapper">
+                  <p
+                    x-text="$store.modalStore.contentBeforeDelete(&#x27;beforeDelete&#x27;,&#x27;description&#x27;)"
+                    class="context_comment text-weight-light"
+                  >
+                    {{Vous êtes sur le point de supprimer une ordonnance. Une
+                    fois la suppression confirmée, vous n’aurez plus accès à
+                    cette ordonnance.}}
+                  </p>
+                </div>
+                <div class="w-layout-grid action_btns_form ann">
+                  <a
+                    x-on:click="$store.modalStore.closeBeforeDelete($event)"
+                    href="#"
+                    class="button is-annuler w-inline-block"
+                    ><div class="button_text">Annuler</div></a
+                  ><a
+                    x-on:click="$store.modalStore.submitDelete($event)"
+                    href="#"
+                    class="button is-docs w-inline-block"
+                    ><div
+                      class="lottie-anim-buttom"
+                      data-w-id="92387768-5c73-43c8-b215-33f78aaa68e1"
+                      data-animation-type="lottie"
+                      data-src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/61f2cf4b2c288f34818ada35_52601-waiting.json"
+                      data-loop="1"
+                      data-direction="1"
+                      data-autoplay="1"
+                      data-is-ix2-target="0"
+                      data-renderer="svg"
+                      data-default-duration="3.0030028806881908"
+                      data-duration="0"
+                    ></div>
+                    <div class="button_text">Confirmer</div></a
+                  >
+                </div>
+              </div>
+              <div x-show="false" class="view_wrapper r-voquer_partage">
                 <div class="header_holder context_comment">
                   <div class="inner_header">
                     <div class="display-inlineflex text_space">Révoquer</div>
@@ -3408,7 +3779,6 @@
                       le partage
                     </div>
                     <img
-                         x-bind="modalCancelBtn"
                       loading="lazy"
                       src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/6409a60abee24b0929f62f72_cross.svg"
                       alt="exit croix"
@@ -3424,11 +3794,139 @@
                   </p>
                 </div>
                 <div class="w-layout-grid action_btns_form ann">
-                  <a x-bind="modalCancelBtn" href="#" class="button is-annuler w-inline-block"
+                  <a href="#" class="button is-annuler w-inline-block"
                     ><div class="button_text">Annuler</div></a
-                  ><a x-bind="modalAcceptBtn" href="#" class="button is-docs w-inline-block"
+                  ><a href="#" class="button is-docs w-inline-block"
                     ><div class="button_text">Confirmer</div></a
                   >
+                </div>
+              </div>
+              <div
+                x-data="DocumentsShareModal"
+                x-bind="shareModal"
+                class="view_wrapper sauvegarder-ordonnance"
+              >
+                <div class="header_holder context_comment_partager">
+                  <div class="inner_header">
+                    <div class="display-inlineflex text_space">Partager</div>
+                    <div x-bind="noteTitle" class="display-inlineflex">
+                      {{“Nom du document”}}
+                    </div>
+                    <img
+                      x-bind="closeSharingModal"
+                      loading="lazy"
+                      alt="exit croix"
+                      src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/6409a60abee24b0929f62f72_cross.svg"
+                      class="close_icon is_corner"
+                    />
+                  </div>
+                </div>
+                <figure class="activer_par_wrapper-2">
+                  <div class="toggle-sharing-options w-embed">
+                    <label class="slideon slideon-lg slideon-p2">
+                      <input type="checkbox" x-bind="switchButton" />
+                      <span class="slideon-slider"></span>
+                    </label>
+                  </div>
+                  <div>
+                    <div class="text-size-regular text-weight-semibold">
+                      Activer le partage de ce document
+                    </div>
+                    <div class="text-color-base-700 text-size-small">
+                      Ce document pourra être partagé avec tous les utilisateurs
+                      d’Ordotype
+                    </div>
+                  </div>
+                </figure>
+                <div
+                  x-bind="sharingOptionsWrapper"
+                  class="inputs_wrapper partage_inputs"
+                >
+                  <div class="action_input_wrapper">
+                    <label
+                      for="Ma-nouvelle-ordonnance"
+                      class="action_field_label"
+                      >Partager par email</label
+                    >
+                    <div class="flex_horizontal">
+                      <input
+                        class="action_text_field w-input"
+                        autocomplete="off"
+                        maxlength="256"
+                        name="docEmailInvitee"
+                        aria-autocomplete="none"
+                        data-name="Doc Email Invitee"
+                        x-bind="sharedEmailInput"
+                        placeholder="nom.prénom@mail.com"
+                        type="email"
+                        id="docEmailInvitee"
+                      /><a
+                        x-bind="addEmailtoListBtn"
+                        href="#"
+                        class="button addemail w-button"
+                        >Ajouter</a
+                      >
+                    </div>
+                  </div>
+                  <div class="search_result_wrapper partage">
+                    <template class="template" x-bind="sharedEmailsList"
+                      ><div class="search_result_holder">
+                        <div class="inner_header isemail">
+                          <div x-bind="sharedEmailName" class="emailtext">
+                            {{name@mail.com}}
+                          </div>
+                          <img
+                            x-bind="deleteSharedEmail"
+                            loading="lazy"
+                            alt="exit croix"
+                            src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/6409a60abee24b0929f62f72_cross.svg"
+                            class="close_icon is_search"
+                          />
+                        </div></div
+                    ></template>
+                  </div>
+                  <div class="w-layout-grid action_btns_form partage-btns">
+                    <div
+                      id="w-node-_8221f382-c1f8-518c-8100-db3058872697-f3f70a6c"
+                      class="copy_link_wrapper"
+                    >
+                      <a
+                        id="copy-shared-link"
+                        x-bind="copySharedLinkBtn"
+                        href="#"
+                        class="button is-copy part w-inline-block"
+                        ><div class="button_text">Copier le lien</div>
+                        <img
+                          loading="lazy"
+                          src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/640e172a66334e596103b030_link.svg"
+                          alt="URL"
+                          class="icon_copy rt"
+                      /></a>
+                      <div
+                        x-bind="copySharedLinkSuccessMsg"
+                        class="copy_message"
+                      >
+                        <img
+                          loading="lazy"
+                          src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/640e151c4b3f3456e32acd02_check-circle.svg"
+                          alt="copié"
+                          class="copy_mark"
+                        />
+                        <div class="text-size-small text-weight-semibold">
+                          Lien copié
+                        </div>
+                      </div>
+                    </div>
+                    <a
+                      id="submit-share-btn"
+                      x-bind="validateButton"
+                      href="#"
+                      class="button is-docs w-node-_8221f382-c1f8-518c-8100-db30588726a0-f3f70a6c w-inline-block"
+                      ><div class="button_text">
+                        <strong>Partager</strong>
+                      </div></a
+                    >
+                  </div>
                 </div>
               </div>
             </div>
@@ -3544,7 +4042,7 @@
                             src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/62a8a85946267b2f7c2fd0f3_no-money.png"
                             loading="lazy"
                             id="w-node-_4b086624-82b9-59b6-0a84-10e719809c78-19809c67"
-                            sizes="(max-width: 479px) 7vw, (max-width: 767px) 4vw, (max-width: 1279px) 2vw, 1vw"
+                            sizes="(max-width: 479px) 100vw, (max-width: 767px) 4vw, (max-width: 1279px) 2vw, 1vw"
                             alt="indépendant de l&#x27;industrie"
                             srcset="
                               https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/62a8a85946267b2f7c2fd0f3_no-money-p-500.png 500w,
@@ -3559,8 +4057,48 @@
                       </div>
                     </div>
                     <div class="margin-bottom-4 margin-small">
+                      <div class="flex_horizontal footer3_credit-text w-embed">
+                        <svg
+                          width="22"
+                          height="18"
+                          viewBox="0 0 22 18"
+                          fill="white"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M21 9H15L13 12H9L7 9H1M21 9V15C21 15.5304 20.7893 16.0391 20.4142 16.4142C20.0391 16.7893 19.5304 17 19 17H3C2.46957 17 1.96086 16.7893 1.58579 16.4142C1.21071 16.0391 1 15.5304 1 15V9M21 9L17.55 2.11C17.3844 1.77679 17.1292 1.49637 16.813 1.30028C16.4967 1.10419 16.1321 1.0002 15.76 1H6.24C5.86792 1.0002 5.50326 1.10419 5.18704 1.30028C4.87083 1.49637 4.61558 1.77679 4.45 2.11L1 9"
+                            stroke="#0C0E16"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          /></svg
+                        >&nbsp;
+                        <p>contact@ordotype.fr</p>
+                      </div>
+                    </div>
+                    <div class="margin-bottom-4 margin-small">
+                      <div class="flex_horizontal footer3_credit-text w-embed">
+                        <svg
+                          width="24"
+                          height="20"
+                          viewBox="0 0 20 20"
+                          fill="white"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M21.9999 16.92V19.92C22.0011 20.1985 21.944 20.4741 21.8324 20.7293C21.7209 20.9845 21.5572 21.2136 21.352 21.4018C21.1468 21.5901 20.9045 21.7335 20.6407 21.8227C20.3769 21.9119 20.0973 21.945 19.8199 21.92C16.7428 21.5856 13.7869 20.5341 11.1899 18.85C8.77376 17.3146 6.72527 15.2661 5.18993 12.85C3.49991 10.2412 2.44818 7.27097 2.11993 4.17997C2.09494 3.90344 2.12781 3.62474 2.21643 3.3616C2.30506 3.09846 2.4475 2.85666 2.6347 2.6516C2.82189 2.44653 3.04974 2.28268 3.30372 2.1705C3.55771 2.05831 3.83227 2.00024 4.10993 1.99997H7.10993C7.59524 1.9952 8.06572 2.16705 8.43369 2.48351C8.80166 2.79996 9.04201 3.23942 9.10993 3.71997C9.23656 4.68004 9.47138 5.6227 9.80993 6.52997C9.94448 6.8879 9.9736 7.27689 9.89384 7.65086C9.81408 8.02482 9.6288 8.36809 9.35993 8.63998L8.08993 9.90997C9.51349 12.4135 11.5864 14.4864 14.0899 15.91L15.3599 14.64C15.6318 14.3711 15.9751 14.1858 16.3491 14.1061C16.723 14.0263 17.112 14.0554 17.4699 14.19C18.3772 14.5285 19.3199 14.7634 20.2799 14.89C20.7657 14.9585 21.2093 15.2032 21.5265 15.5775C21.8436 15.9518 22.0121 16.4296 21.9999 16.92Z"
+                            stroke="#0C0E16"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          /></svg
+                        >&nbsp;
+                        <p>+33 7 44 78 55 03</p>
+                      </div>
+                    </div>
+                    <div class="margin-bottom-4 margin-small">
                       <div class="footer3_credit-text">
-                        © Copyright 2023 Ordotype
+                        © Copyright 2024 Ordotype
                       </div>
                     </div>
                   </div>
@@ -3636,7 +4174,7 @@
       crossorigin="anonymous"
     ></script>
     <script
-      src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/js/webflow.df48f7402.js"
+      src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/js/webflow.b9d967581.js"
       type="text/javascript"
     ></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -3654,16 +4192,9 @@
     <!-- End Google Tag Manager (noscript) -->
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@bd57d69a745aaa535fa7798720986df0eb5f9c11/ordotype-index-2023-12-21.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@e498efa8cb14c2204dd1c60aaa9bd946cf13ec5f/ordotype-index-2024-02-26.js"></script>
 
-    <!--<script src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@08cb4303b73f5f2d4f912e8ea0b29a3336178971/ordotype-index-2023-12-20.js"></script>-->
-
-    <!--
-<script defer
-  src="https://cdn.jsdelivr.net/npm/algoliasearch@4.14.2/dist/algoliasearch.umd.js"
-  integrity="sha256-DRnoUQAweVMsVPRMhfHC5zPqUP8s2fWUqD39yBsWg+M="
-  crossorigin="anonymous"
-></script>-->
+    <!--<script src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@6baed76fdb832155c9de13c01b16e6b525cb8ea7/ordotype-index-2024-02-13.js"></script>-->
 
     <script>
       window.addEventListener("DOMContentLoaded", (event) => {
@@ -3717,36 +4248,15 @@ Webflow.push(function(){$('.w-richtext p').html(function(){return $(this).html()
     </script>
     <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script>
 
-    <script
-      src="https://cdn.jsdelivr.net/npm/algoliasearch@4.14.2/dist/algoliasearch.umd.js"
-      integrity="sha256-DRnoUQAweVMsVPRMhfHC5zPqUP8s2fWUqD39yBsWg+M="
-      crossorigin="anonymous"
-    ></script>
+   
 
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@algolia/autocomplete-js"></script>
-    <!--- <script src="https://static.ordotype.fr/my-documents.js"></script> -->
-    <!--- <script src="https://seashell-app-etfao.ondigitalocean.app/my-documents.js"></script> --->
 
-    <!--- 
-<script>
-    // Get the current domain
-    var currentDomain = window.location.hostname;
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/gh/william-ordotype/yup-ordotype@main/toasters-doc-sharing.js"
+    ></script>
 
-    // Check if the domain matches a particular condition
-    if (currentDomain !== 'www.ordotype.fr') {
-        // Load the dev script
-        var scriptElement = document.createElement('script');
-        scriptElement.src = 'https://seashell-app-etfao.ondigitalocean.app/my-documents.js';
-        document.head.appendChild(scriptElement);
-    } else {
-     // Load prod script
-        var scriptElement = document.createElement('script');
-        scriptElement.src = 'https://static.ordotype.fr/my-documents.js';
-        document.head.appendChild(scriptElement);
-    }
-</script>
- --->
 
     <script>
       const clipboard = new ClipboardJS("#copy-drawer");
