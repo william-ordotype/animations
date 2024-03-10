@@ -39,6 +39,7 @@ const getListValidation = async (payload) => {
       .oneOf(["balance_sheet", "treatment", ""])
       .optional(),
     pathology: array().of(string()).optional(),
+    pathology_slug: string().optional(),
   });
 
   return await getListSchema.validate(payload);

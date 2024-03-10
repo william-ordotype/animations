@@ -7,8 +7,10 @@ import {
   setNoteOpened,
 } from "../actions/notesActions";
 import NProgress from "nprogress";
+import PathologiesService from "../services/pathologiesService.js";
 
 const notesService = new NotesService();
+const pathologiesService = new PathologiesService();
 
 const modalStore = {
   showModal: false,
@@ -82,11 +84,15 @@ const modalStore = {
       this.form.title = "";
       this.form.rich_text_ordo = "";
       this.form.type = config.type;
+      this.showModal = true;
       if (window.location.pathname.includes("pathologies")) {
+        const pathology = await pathologiesService.searchBySlug(
+          window.pathology.slug
+        );
         this.form.pathology = [
           {
-            _id: window.pathology._id,
-            title: window.pathology.title,
+            _id: pathology._id,
+            title: pathology.title,
           },
         ];
       } else {
@@ -94,7 +100,6 @@ const modalStore = {
       }
       this.form.prescription_type = "";
     }
-    this.showModal = true;
   },
   // Delete Path
   deleteList: [],

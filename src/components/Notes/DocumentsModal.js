@@ -245,77 +245,81 @@ function PathologiesAutocomplete() {
         Alpine.store("modalStore").form.pathology.splice(index, 1);
       }
     },
-    async once() {
-      const { autocomplete } = await import("@algolia/autocomplete-js");
+    once() {
+      return {
+        ["x-intersect.once"]: async () => {
+          const { autocomplete } = await import("@algolia/autocomplete-js");
 
-      autocomplete({
-        onStateChange({ state }) {
-          if (state.isOpen === false && state.status === "idle") {
-            state.completion = "";
-          }
-          if (state.isOpen === true && state.status === "loading") {
-            Alpine.store("modalStore").loadSubmit = true;
-          } else if (state.isOpen === false) {
-            Alpine.store("modalStore").loadSubmit = false;
-          }
-        },
-        container: "#pathology-autocomplete",
-        placeholder: "Rechercher une pathologie",
-        id: "aa-pathology",
-        detachedMediaQuery: "none",
-        debug: false,
-        async getSources({ query = "" }) {
-          const res = await pathologiesService.searchByTitleAndAlias(query);
-          return [
-            {
-              sourceId: "pathologies",
-              getItems() {
-                return (
-                  res.data.filter((pathology) => {
-                    return pathology.is_ok_for_posos === "true";
-                  }) || []
-                );
-              },
-              getItemInputValue({ item }) {
-                return item.title;
-              },
-              templates: {
-                item({ item, html }) {
-                  return html`<div>${item.title}</div>`;
-                },
-              },
-              onSelect(obj) {
-                // Review if pathology id already exists in pathology store array
-                const pathologyExists = Alpine.store(
-                  "modalStore"
-                ).form.pathology.find((pathology) => {
-                  return pathology._id === obj.item._id;
-                });
-                if (pathologyExists) {
-                  return;
-                }
-
-                Alpine.store("modalStore").form.pathology.push({
-                  _id: obj.item._id,
-                  title: obj.itemInputValue,
-                });
-                // Reset autocomplete input
-                $("#pathology-autocomplete form")[0].reset();
-              },
+          autocomplete({
+            onStateChange({ state }) {
+              if (state.isOpen === false && state.status === "idle") {
+                state.completion = "";
+              }
+              if (state.isOpen === true && state.status === "loading") {
+                Alpine.store("modalStore").loadSubmit = true;
+              } else if (state.isOpen === false) {
+                Alpine.store("modalStore").loadSubmit = false;
+              }
             },
-          ];
+            container: "#pathology-autocomplete",
+            placeholder: "Rechercher une pathologie",
+            id: "aa-pathology",
+            detachedMediaQuery: "none",
+            debug: false,
+            async getSources({ query = "" }) {
+              const res = await pathologiesService.searchByTitleAndAlias(query);
+              return [
+                {
+                  sourceId: "pathologies",
+                  getItems() {
+                    return (
+                      res.data.filter((pathology) => {
+                        return pathology.is_ok_for_posos === "true";
+                      }) || []
+                    );
+                  },
+                  getItemInputValue({ item }) {
+                    return item.title;
+                  },
+                  templates: {
+                    item({ item, html }) {
+                      return html` <div>${item.title}</div>`;
+                    },
+                  },
+                  onSelect(obj) {
+                    // Review if pathology id already exists in pathology store array
+                    const pathologyExists = Alpine.store(
+                      "modalStore"
+                    ).form.pathology.find((pathology) => {
+                      return pathology._id === obj.item._id;
+                    });
+                    if (pathologyExists) {
+                      return;
+                    }
+
+                    Alpine.store("modalStore").form.pathology.push({
+                      _id: obj.item._id,
+                      title: obj.itemInputValue,
+                    });
+                    // Reset autocomplete input
+                    $("#pathology-autocomplete form")[0].reset();
+                  },
+                },
+              ];
+            },
+            renderNoResults({ render, html, state }, root) {
+              render(
+                html`
+                  <div class="aa-PanelLayout aa-Panel--scrollable">
+                    Aucun résultat trouvé pour "${state.query}".
+                  </div>
+                `,
+                root
+              );
+            },
+          });
         },
-        renderNoResults({ render, html, state }, root) {
-          render(
-            html`
-              <div class="aa-PanelLayout aa-Panel--scrollable">
-                Aucun résultat trouvé pour "${state.query}".
-              </div>
-            `,
-            root
-          );
-        },
-      });
+      };
     },
   };
 }
