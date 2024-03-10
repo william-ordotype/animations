@@ -65,7 +65,7 @@ const pathologiesStore = {
       await setNoteList({
         page: 1,
         limit: 50,
-        pathologySlug,
+        pathology_slug: pathologySlug,
       });
       noteListComponents.forEach((component) => {
         component.dispatchEvent(window.customEvents.loadingCancel);

@@ -64,6 +64,7 @@ class NotesService extends ApiService {
    * @param {string} type
    * @param {array<string>} pathology
    * @param {string} title
+   * @param {string} pathology_slug
    * @returns {Promise<Object>}
    */
   async getList({
@@ -74,6 +75,7 @@ class NotesService extends ApiService {
     type = "",
     pathology = [],
     title = "",
+    pathology_slug,
   } = {}) {
     try {
       const validatedPayload = await getListValidation({
@@ -84,6 +86,7 @@ class NotesService extends ApiService {
         type,
         pathology,
         title,
+        pathology_slug,
       });
 
       // Remove empty parameters

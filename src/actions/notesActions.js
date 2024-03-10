@@ -20,6 +20,7 @@ async function setNoteList(payload) {
       page_total,
       sort,
       direction,
+      pathology_slug,
     } = notesRes;
     Alpine.store(StateStore.MY_NOTES).noteList = notesRes.data;
     Alpine.store(StateStore.MY_NOTES).noteListMeta = {
@@ -29,6 +30,7 @@ async function setNoteList(payload) {
       itemsPerPage: items_per_page,
       sort,
       direction,
+      pathology_slug,
     };
     Alpine.store(StateStore.MY_NOTES).isEmpty = page_total <= 0;
 
