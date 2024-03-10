@@ -77,6 +77,7 @@ const modalStore = {
         prescription_type: prescription_type,
       };
       window.globals.createRTE.clipboard.dangerouslyPasteHTML(rich_text_ordo);
+      this.showModal = true;
       NProgress.done();
     } else {
       // If modal is open from create button initialized form fields to empty values
