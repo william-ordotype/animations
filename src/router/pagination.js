@@ -1,7 +1,6 @@
 // Function to convert location.hash to an object
-async function hashToObject(hash) {
-  const purify = await import("dompurify");
-
+import purify from "dompurify";
+function hashToObject(hash) {
   let hashObj = {};
 
   if (hash !== "") {
