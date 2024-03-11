@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Last Published: Thu Feb 29 2024 16:28:03 GMT+0000 (Coordinated Universal Time) -->
+<!-- Last Published: Mon Mar 11 2024 00:51:53 GMT+0000 (Coordinated Universal Time) -->
 <html
   data-wf-domain="www.ordotype.fr"
   data-wf-page="65a7f596a733dbc7f3f70a6c"
@@ -45,7 +45,7 @@
       name="google-site-verification"
     />
     <link
-      href="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.11d96f991.min.css"
+      href="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.8802f61fa.min.css"
       rel="stylesheet"
       type="text/css"
     />
@@ -86,6 +86,7 @@
       rel="apple-touch-icon"
     />
     <link href="https://www.ordotype.fr/mes-documents" rel="canonical" />
+    <!-- Memberstack webflow package -->
     <script defer>
       window.addEventListener("load", (event) => {
         console.log("Onload fired");
@@ -122,7 +123,8 @@
         }, 500);
       });
     </script>
-    <script type="module" src="index.js"></script>
+
+    <!-- Memberstack webflow package -->
     <script
       data-memberstack-domain="https://memberstack-client.ordotype.fr"
       data-memberstack-key="pk_sb_e80d8429a51c2ceb0530"
@@ -307,7 +309,7 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/@algolia/autocomplete-theme-classic"
     />
-    <link href="https://static.ordotype.fr/my-notes.css" rel="stylesheet" />
+    <!--- <link href="https://static.ordotype.fr/my-notes.css" rel="stylesheet" /> --->
 
     <style>
       .ql-container.ql-snow {
@@ -386,10 +388,9 @@
         background-size: 20px;
       }
     </style>
-    <script
-      src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd%2F652d31f3dc22d7b4ee708e44%2F65c4b99013d2be46e4311665%2Fclarity_script-7.2.7.js"
-      type="text/javascript"
-    ></script>
+
+    <script src="https://cdn.jsdelivr.net/gh/william-ordotype/yup-ordotype@main/toasters-doc-sharing.js"></script>
+    <script src="index.js" type="module"></script>
   </head>
   <body>
     <div class="navigationhandler w-embed">
@@ -797,6 +798,11 @@
 
              /* Shadow/Shadow_xs */
              box-shadow: 0px 1px 3px 0px rgba(12, 14, 22, 0.08);}
+
+
+         .no-wrap {
+             text-wrap: nowrap !important;
+         }
       </style>
     </div>
     <div
@@ -2317,6 +2323,7 @@
                                 native="true"
                                 >{{Pathologies}}</a
                               ><span
+                                class="plus-pathologies"
                                 x-show="note.pathologies?.length &gt; 1"
                                 class="plus-pathologies"
                                 x-html="&#x27;&lt;span&gt;+&lt;/span&gt;&lt;span&gt;&#x27;+ parseInt(note.pathologies?.length - 1) +&#x27;&lt;/span&gt;&#x27;"
@@ -2448,8 +2455,7 @@
                                     class="link_action hidden w-inline-block"
                                     ><div class="icon_action w-embed">
                                       <svg
-                                        width="100%"
-                                        height="auto"
+                                        style="width: auto; height: auto"
                                         viewBox="0 0 20 20"
                                         fill="none"
                                         xmlns="http://www.w3.org/2000/svg"
@@ -2473,8 +2479,7 @@
                                     class="link_action hidden w-inline-block"
                                     ><div class="icon_action w-embed">
                                       <svg
-                                        width="100%"
-                                        height="auto"
+                                        style="width: auto; height: auto"
                                         viewBox="0 0 14 16"
                                         fill="none"
                                         xmlns="http://www.w3.org/2000/svg"
@@ -2498,8 +2503,7 @@
                                     class="link_action hidden w-inline-block"
                                     ><div class="icon_action color_red w-embed">
                                       <svg
-                                        width="100%"
-                                        height="auto"
+                                        style="width: auto; height: auto"
                                         viewBox="0 0 14 16"
                                         fill="none"
                                         xmlns="http://www.w3.org/2000/svg"
@@ -2550,8 +2554,7 @@
                                         class="link_action w-inline-block"
                                         ><div class="icon_action w-embed">
                                           <svg
-                                            width="100%"
-                                            height="auto"
+                                            style="width: auto; height: auto"
                                             viewBox="0 0 20 20"
                                             fill="none"
                                             xmlns="http://www.w3.org/2000/svg"
@@ -2574,8 +2577,7 @@
                                         class="link_action w-inline-block"
                                         ><div class="icon_action w-embed">
                                           <svg
-                                            width="100%"
-                                            height="auto"
+                                            style="width: auto; height: auto"
                                             viewBox="0 0 20 20"
                                             fill="none"
                                             xmlns="http://www.w3.org/2000/svg"
@@ -2600,8 +2602,7 @@
                                           class="icon_action color_red w-embed"
                                         >
                                           <svg
-                                            width="100%"
-                                            height="auto"
+                                            style="width: auto; height: auto"
                                             viewBox="0 0 20 20"
                                             fill="none"
                                             xmlns="http://www.w3.org/2000/svg"
@@ -3625,8 +3626,8 @@
                     </select>
                   </div>
                   <div
+                    x-bind="once"
                     x-data="PathologiesAutocomplete()"
-                    x-intersect.once="once"
                     class="action_search_wrapper pathology_autocomplete"
                   >
                     <div
@@ -4042,7 +4043,7 @@
                             src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/62a8a85946267b2f7c2fd0f3_no-money.png"
                             loading="lazy"
                             id="w-node-_4b086624-82b9-59b6-0a84-10e719809c78-19809c67"
-                            sizes="(max-width: 479px) 100vw, (max-width: 767px) 4vw, (max-width: 1279px) 2vw, 1vw"
+                            sizes="(max-width: 479px) 7vw, (max-width: 767px) 4vw, (max-width: 1279px) 2vw, 1vw"
                             alt="indépendant de l&#x27;industrie"
                             srcset="
                               https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/62a8a85946267b2f7c2fd0f3_no-money-p-500.png 500w,
@@ -4174,7 +4175,7 @@
       crossorigin="anonymous"
     ></script>
     <script
-      src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/js/webflow.b9d967581.js"
+      src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/js/webflow.0a58e019e.js"
       type="text/javascript"
     ></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -4192,9 +4193,9 @@
     <!-- End Google Tag Manager (noscript) -->
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@e498efa8cb14c2204dd1c60aaa9bd946cf13ec5f/ordotype-index-2024-02-26.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@e2da16906b73aa2212154ea3e515a414bfc43bde/ordotype-index-2024-03-06.js"></script>
 
-    <!--<script src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@6baed76fdb832155c9de13c01b16e6b525cb8ea7/ordotype-index-2024-02-13.js"></script>-->
+    <!--<script src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@057c6dbdbad77c6e073b92d84fb0f65c1b97e8fe/ordotype-index-2024-03-01.js"></script>-->
 
     <script>
       window.addEventListener("DOMContentLoaded", (event) => {
@@ -4248,15 +4249,8 @@ Webflow.push(function(){$('.w-richtext p').html(function(){return $(this).html()
     </script>
     <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script>
 
-   
-
+    <!---- <script defer src="https://static.ordotype.fr/my-notes.js"></script> ---->
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-
-    <script
-      defer
-      src="https://cdn.jsdelivr.net/gh/william-ordotype/yup-ordotype@main/toasters-doc-sharing.js"
-    ></script>
-
 
     <script>
       const clipboard = new ClipboardJS("#copy-drawer");
