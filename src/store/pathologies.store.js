@@ -62,7 +62,7 @@ const pathologiesStore = {
         ? "acne"
         : window.location.pathname.split("/")[2];
 
-      window.pathology = {
+      window.pathologies = {
         slug: pathologySlug,
       };
       await setNoteList({
