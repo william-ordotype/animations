@@ -160,7 +160,7 @@ async function setDeleteNotes(payload) {
       );
       await setNoteList({
         page: pageNumber || 1,
-        type: documentType ? documentType : "all",
+        type: documentType ? documentType : "",
         sort: noteStore.noteListMeta.sort,
         direction: noteStore.noteListMeta.direction,
       });

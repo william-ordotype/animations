@@ -115,7 +115,6 @@ function DocumentsShareModal() {
             this.emailsToAdd.push(this.sharedEmailValue);
             this.sharedEmailValue = "";
           } catch (err) {
-            debugger;
             if (err.name === "ValidationError") {
               toastStore.toasterMsg(err.errors, ToasterMsgTypes.ERROR);
             }
