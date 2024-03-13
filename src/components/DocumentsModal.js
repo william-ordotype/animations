@@ -197,7 +197,7 @@ function PathologiesAutocomplete() {
     // pathologyInputValue: Alpine.store("modalStore").pathologyName,
     showSearchResults() {
       return {
-        ["x-show"]: "$store.modalStore.form.pathology.length > 0",
+        ["x-show"]: "$store.modalStore.form.pathologies.length > 0",
         ["x-transition"]: "",
       };
     },

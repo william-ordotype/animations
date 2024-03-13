@@ -228,9 +228,9 @@ function PathologiesAutocomplete() {
     // pathologyInputValue: Alpine.store("modalStore").pathologyName,
     showSearchResults() {
       return {
-        ["x-show"]: "$store.modalStore.form.pathology.length > 0",
+        ["x-show"]: "$store.modalStore.form.pathologies.length > 0",
         ["x-transition"]: "",
-        ["x-for"]: "(pathology, pindex) in $store.modalStore.form.pathology",
+        ["x-for"]: "(pathology, pindex) in $store.modalStore.form.pathologies",
       };
     },
     searchTitle() {
@@ -290,14 +290,14 @@ function PathologiesAutocomplete() {
                     // Review if pathology id already exists in pathology store array
                     const pathologyExists = Alpine.store(
                       "modalStore"
-                    ).form.pathology.find((pathology) => {
+                    ).form.pathologies.find((pathology) => {
                       return pathology._id === obj.item._id;
                     });
                     if (pathologyExists) {
                       return;
                     }
 
-                    Alpine.store("modalStore").form.pathology.push({
+                    Alpine.store("modalStore").form.pathologies.push({
                       _id: obj.item._id,
                       title: obj.itemInputValue,
                     });

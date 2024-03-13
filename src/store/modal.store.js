@@ -30,7 +30,7 @@ const modalStore = {
     title: "",
     rich_text_ordo: "",
     prescription_type: "",
-    pathology: [],
+    pathologies: [],
     documents: [],
   },
   files: [],
@@ -58,12 +58,13 @@ const modalStore = {
         prescription_type,
         rich_text_ordo,
       } = getNote.note;
+      debugger;
       this.form = {
         _id,
         title,
         documents: documents?.length > 0 ? note.documents : [],
         type,
-        pathology:
+        pathologies:
           pathologies?.length > 0
             ? // Add only id and title to pathology array
               pathologies.map((p) => {
@@ -87,17 +88,17 @@ const modalStore = {
       this.form.type = config.type;
       this.showModal = true;
       if (window.location.pathname.includes("pathologies")) {
-        const pathology = await pathologiesService.searchBySlug(
-          window.pathology.slug
+        const pathologies = await pathologiesService.searchBySlug(
+          window.pathologies.slug
         );
-        this.form.pathology = [
+        this.form.pathologies = [
           {
-            _id: pathology._id,
-            title: pathology.title,
+            _id: pathologies._id,
+            title: pathologies.title,
           },
         ];
       } else {
-        this.form.pathology = [];
+        this.form.pathologies = [];
       }
       this.form.prescription_type = "";
     }
@@ -141,7 +142,7 @@ const modalStore = {
     this.form._id = null;
     this.form.title = "";
     this.form.rich_text_ordo = "";
-    this.form.pathology = [];
+    this.form.pathologies = [];
     this.form.documents = [];
     this.files = [];
     this.form.files = [];
@@ -168,12 +169,12 @@ const modalStore = {
     const form = { ...this.form }; // Internal declaration. Because closeModal method resets form._id;
     const files = this.files;
     const filesToDelete = this.filesToDelete;
-    form.pathology = this.form.pathology.map((path) => path._id);
-
+    debugger;
+    form.pathologies = this.form.pathologies.map((path) => path._id);
     // Iterate through each property of the object
     Object.keys(form).forEach((key) => {
       // Skip if property is files or pathology
-      if (key === "files" || key === "pathology") return;
+      if (key === "files" || key === "pathologies") return;
       // Sanitize the html value of each property using DOMPurify
       if (key === "rich_text_ordo") {
         form[key] = purify.default.sanitize(form[key], {
