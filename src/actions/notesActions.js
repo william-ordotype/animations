@@ -139,7 +139,6 @@ async function setDeleteNotes(payload) {
     const res = await noteService.deleteMany({ noteIds: body });
     const documentType = noteStore.noteListType;
     const pageNumber = noteStore.noteListMeta?.pageNumber || 1;
-    debugger;
     if (res.deletedCount > 0) {
       if (drawerStore.showDrawer === true) {
         drawerStore.hideDrawer();

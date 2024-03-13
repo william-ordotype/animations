@@ -58,7 +58,6 @@ const modalStore = {
         prescription_type,
         rich_text_ordo,
       } = getNote.note;
-      debugger;
       this.form = {
         _id,
         title,
@@ -169,7 +168,6 @@ const modalStore = {
     const form = { ...this.form }; // Internal declaration. Because closeModal method resets form._id;
     const files = this.files;
     const filesToDelete = this.filesToDelete;
-    debugger;
     form.pathologies = this.form.pathologies.map((path) => path._id);
     // Iterate through each property of the object
     Object.keys(form).forEach((key) => {
