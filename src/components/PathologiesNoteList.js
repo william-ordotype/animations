@@ -58,6 +58,7 @@ function PathologiesNoteItem() {
     checkFileIcons() {
       const ctx =
         this.notes || this.doc || this.bilan || this.treatment || this.conseil;
+
       const { documents } = ctx;
       const allDocTypes = documents.map((elem) => {
         return elem.mime_type;
@@ -69,17 +70,17 @@ function PathologiesNoteItem() {
       return {
         ["x-init"]: () => {
           // Fix fileIcons not updating when note item updated filesList
+          const notesStore = Alpine.store(StateStore.MY_NOTES);
           Alpine.effect(() => {
-            if (Alpine.store(StateStore.MY_NOTES).noteList) {
+            if (notesStore.noteList) {
               const ctx =
                 this.notes ||
                 this.doc ||
                 this.bilan ||
                 this.treatment ||
                 this.conseil;
-              const notesStore = Alpine.store(StateStore.MY_NOTES);
-              const noteAtIndex = notesStore.noteList[this.index];
 
+              const noteAtIndex = notesStore.noteList[this.index];
               if (noteAtIndex) {
                 this.fileIcons = [...this.checkFileIcons(ctx)];
               }
