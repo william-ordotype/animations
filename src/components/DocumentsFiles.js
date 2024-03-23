@@ -46,15 +46,17 @@ function DocumentFileInput() {
       ["x-for"]: "(fileItem, index) in $store.modalStore.files",
     },
     listFilesFromServer: {
-      ["x-for"]: "file in $store.modalStore.form.files",
+      ["x-for"]: "file in $store.modalStore.form.documents",
     },
   };
 }
 
 function DocumentFileListItem({
-  file_name,
+  file_name = original_name || file_name,
   mime_type,
   file_url,
+  thumbnail_name,
+  thumbnail_url,
   size,
   _id,
 } = {}) {
@@ -72,8 +74,10 @@ function DocumentFileListItem({
   return {
     fileName: getFileName(),
     fileExt: getFileExt(),
-    isImg: mime_type.includes("image"),
+    isImg: thumbnail_url,
     fileSrc: getFileSrc(),
+    thumbnail_name,
+    thumbnail_url,
     fileId: _id,
     filesToDelete: [],
     deleteServerFiles(ev, id) {
