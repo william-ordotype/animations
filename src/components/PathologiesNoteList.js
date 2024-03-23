@@ -81,7 +81,6 @@ function PathologiesNoteItem() {
                 this.conseil;
 
               const noteAtIndex = notesStore.noteList[this.index];
-              debugger;
               if (noteAtIndex) {
                 this.fileIcons = [...this.checkFileIcons(ctx)];
               }
