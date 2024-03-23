@@ -17,16 +17,16 @@
   "devDependencies": {
     "concurrently": "^8.2.2",
     "dotenv": "^16.4.5",
-    "sass": "^1.71.1",
-    "vite": "^5.1.5",
-    "vite-bundle-visualizer": "^1.0.1",
+    "sass": "^1.72.0",
+    "vite": "^5.1.6",
+    "vite-bundle-visualizer": "^1.1.0",
     "vite-plugin-chunk-split": "^0.5.0"
   },
   "dependencies": {
     "@algolia/autocomplete-js": "^1.17.0",
-    "@alpinejs/focus": "^3.13.6",
-    "@alpinejs/intersect": "^3.13.6",
-    "alpinejs": "^3.13.6",
+    "@alpinejs/focus": "^3.13.7",
+    "@alpinejs/intersect": "^3.13.7",
+    "alpinejs": "^3.13.7",
     "dompurify": "^3.0.9",
     "easyqrcodejs": "^4.6.1",
     "nprogress": "^0.2.0",

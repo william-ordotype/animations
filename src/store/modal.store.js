@@ -61,7 +61,7 @@ const modalStore = {
       this.form = {
         _id,
         title,
-        documents: documents?.length > 0 ? note.documents : [],
+        documents: documents?.length > 0 ? documents : [],
         type,
         pathologies:
           pathologies?.length > 0
