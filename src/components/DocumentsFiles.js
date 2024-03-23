@@ -74,7 +74,7 @@ function DocumentFileListItem({
   return {
     fileName: getFileName(),
     fileExt: getFileExt(),
-    isImg: mime_type.includes("image"),
+    isImg: thumbnail_url,
     fileSrc: getFileSrc(),
     thumbnail_name,
     thumbnail_url,
