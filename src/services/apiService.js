@@ -59,7 +59,12 @@ class ApiService {
       }
 
       if (response.ok) {
-        return await response.json();
+        const contentLength = response.headers.get("Content-Length");
+        if (contentLength && parseInt(contentLength) === 0) {
+          return null;
+        } else {
+          return await response.json();
+        }
       } else {
         const error = new Error(`Request error. Status: ${response.status}`);
         error.name = "RequestError";
