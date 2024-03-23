@@ -96,6 +96,11 @@ const modalStore = {
             title: pathologies.title,
           },
         ];
+
+        window.pathology = {
+          _id: pathologies._id,
+          title: pathologies.title,
+        };
       } else {
         this.form.pathologies = [];
       }

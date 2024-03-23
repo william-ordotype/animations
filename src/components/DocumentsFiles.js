@@ -52,7 +52,7 @@ function DocumentFileInput() {
 }
 
 function DocumentFileListItem({
-  file_name = original_name || file_name,
+  original_name: file_name,
   mime_type,
   file_url,
   thumbnail_name,
