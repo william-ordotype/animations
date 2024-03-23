@@ -216,10 +216,9 @@ const modalStore = {
           await setNoteOpened(form._id);
         }
 
-        const pathologyId = window.pathology._id;
         await setNoteList({
-          pathology: [pathologyId],
-          limit: 40,
+          pathology_slug: window.pathologies.slug,
+          limit: 50,
         });
 
         noteListComponents.forEach((component) => {
