@@ -79,8 +79,9 @@ function DocumentFileListItem({
     fileExt: getFileExt(),
     isImg: thumbnail_url || mime_type.includes("image"),
     fileSrc: getFileSrc(),
-    thumbnail_name: thumbnail_name || getFileSrc(),
-    thumbnail_url,
+    thumbnail_name,
+    file_url,
+    thumbnail_url: thumbnail_url || file_url,
     fileId: _id,
     filesToDelete: [],
     deleteServerFiles(ev, id) {
