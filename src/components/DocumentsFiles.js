@@ -52,7 +52,8 @@ function DocumentFileInput() {
 }
 
 function DocumentFileListItem({
-  original_name: file_name,
+  original_name,
+  file_name,
   mime_type,
   file_url,
   thumbnail_name,
@@ -60,11 +61,13 @@ function DocumentFileListItem({
   size,
   _id,
 } = {}) {
+  const fileName = original_name || file_name;
+
   const getFileName = () => {
-    return file_name.split(".").shift();
+    return fileName.split(".").shift();
   };
   const getFileExt = () => {
-    const ext = file_name.split(".");
+    const ext = fileName.split(".");
     return `${ext[ext.length - 1]}`;
   };
   const getFileSrc = () => {
