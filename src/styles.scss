@@ -232,3 +232,19 @@ a#submit-share-btn[disabled] {
   pointer-events: none;
 }
 
+.qrCodesWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+.qrCodesWrapper a {
+  flex-basis: 100px;
+  flex-grow: 0;
+  flex-shrink: 1;
+  text-align: center;
+  padding: 8px;
+  margin: 8px;
+}
+
+
+
