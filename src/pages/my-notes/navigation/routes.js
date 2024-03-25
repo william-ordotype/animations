@@ -44,6 +44,7 @@ window.router = () => {
     },
     createPrescription(context) {
       const type = context.path.split("/")[2];
+      const qlEditor = $(".ql-editor");
       context.redirect("/");
       Alpine.store("modalStore").openModal(null, {
         type,
@@ -51,9 +52,17 @@ window.router = () => {
 
       // Inserts pasteOnEditor storage variable saved on ordonnances-types page into rich text editor
       if (localStorage.pasteOnEditor) {
-        $(".ql-editor").html("<p></p>");
-        $(".ql-editor").append(localStorage.pasteOnEditor);
-        $(".ql-editor").find("p:empty").remove();
+        qlEditor.html("<p></p>");
+        qlEditor.append(localStorage.pasteOnEditor);
+
+        if (qlEditor.find(".qr-code-link-block").length > 0) {
+          const qrCodes = $(".qr-code-link-block").detach().unwrap("p");
+          $(".ql-editor p:last-child")
+            .addClass("qrCodesWrapper")
+            .append(qrCodes);
+        }
+
+        qlEditor.find("p:empty").remove();
 
         localStorage.removeItem("pasteOnEditor");
       }
