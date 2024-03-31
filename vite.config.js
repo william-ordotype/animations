@@ -8,7 +8,7 @@ export default defineConfig({
   build: {
     target: "esnext",
     emptyOutDir: true,
-    sourcemap: false,
+    sourcemap: true,
     rollupOptions: {
       input: {
         pathologies: resolve(__dirname, "./src/pages/pathologies/index.html"),
