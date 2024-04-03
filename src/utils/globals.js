@@ -16,6 +16,7 @@ globals.prescriptionTypes = {
 };
 
 globals.printDiv = async (divName) => {
+  // @ts-ignore
   await import("print-this");
 
   $(divName).printThis({
