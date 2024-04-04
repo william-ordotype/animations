@@ -1,5 +1,5 @@
-import { string, array, object, number, mixed } from "yup";
-import { NoteTypes } from "../utils/enums";
+import {array, number, object, string} from "yup";
+import {NoteTypes} from "../utils/enums";
 
 const sortByValues = [
   "created_on",
@@ -10,14 +10,14 @@ const sortByValues = [
   "updated_by.full_name",
 ];
 
-const deleteManyNotesValidation = async (payload) => {
-  const deleteNotesSchema = object({
-    note_ids: array().of(string()).required(),
+const deleteNotesSchema = object({
+  note_ids: array().of(string()).required(),
+})
+  .shape({
+    note_ids: array(),
   })
-    .shape({
-      note_ids: array(),
-    })
-    .noUnknown();
+  .noUnknown();
+const deleteManyNotesValidation = async (payload) => {
   return await deleteNotesSchema.validate(payload);
 };
 
@@ -26,22 +26,22 @@ const getOneValidation = async (payload) => {
   return await getOneSchema.validate(payload);
 };
 
+export const getListSchema = object({
+  page: number().required().positive().integer(),
+  limit: number().required().positive().integer(),
+  sort: string().oneOf(sortByValues).required(),
+  direction: string().oneOf(["DESC", "ASC"]).required(),
+  type: string()
+    .oneOf(["notes", "prescriptions", "recommendations", ""])
+    .optional(),
+  prescription_type: string()
+    .oneOf(["balance_sheet", "treatment", ""])
+    .optional(),
+  pathology: array().of(string()).optional(),
+  pathology_slug: string().optional(),
+  title: string(),
+});
 const getListValidation = async (payload) => {
-  const getListSchema = object({
-    page: number().required().positive().integer(),
-    limit: number().required().positive().integer(),
-    sort: string().oneOf(sortByValues).required(),
-    direction: string().oneOf(["DESC", "ASC"]).required(),
-    type: string()
-      .oneOf(["notes", "prescriptions", "recommendations", ""])
-      .optional(),
-    prescription_type: string()
-      .oneOf(["balance_sheet", "treatment", ""])
-      .optional(),
-    pathology: array().of(string()).optional(),
-    pathology_slug: string().optional(),
-  });
-
   return await getListSchema.validate(payload);
 };
 

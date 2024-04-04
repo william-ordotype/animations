@@ -6,7 +6,7 @@ const pathologyService = new PathologiesService();
 const pathologiesStore = {
   pathologies: [],
   async init() {
-    window.memberToken = $memberstackDom.getMemberCookie();
+    window.memberToken = window.$memberstackDom.getMemberCookie();
     console.log("note list init");
     if (!window.memberToken) {
       // User is not logged in

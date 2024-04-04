@@ -8,9 +8,9 @@ import {
   searchByNoteTitleAndPathologyTitleValidation,
   updateOneValidation,
 } from "../validation/notesValidation";
-import {parseFormData} from "./apiUtils";
+import { parseFormData } from "./apiUtils";
 import FileNoteService from "./fileNoteService";
-import {InferType} from "yup";
+import { InferType } from "yup";
 
 class NotesService extends ApiService {
   private fileNoteService: FileNoteService;

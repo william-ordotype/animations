@@ -1,5 +1,5 @@
 import Alpine from "alpinejs";
-import {Status_Types, ToastStore} from "./toaster.store.js";
+import { Status_Types, ToastStore } from "./toaster.store.js";
 
 const userStore = (getUser) => {
   return {
