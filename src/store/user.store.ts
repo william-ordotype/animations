@@ -1,3 +1,6 @@
+import Alpine from "alpinejs";
+import {Status_Types, ToastStore} from "./toaster.store.js";
+
 const userStore = (getUser) => {
   return {
     user: null,
@@ -11,15 +14,17 @@ const userStore = (getUser) => {
             location.href.includes("localhost") ||
             location.href.includes("static")
           ) {
-            $memberstackDom
+            window.$memberstackDom
               .openModal("LOGIN")
               .then(({ data }) => {
                 this.user = data;
                 this.isAuth = true;
-                $memberstackDom.hideModal();
-                Alpine.store("toasterStore").toasterMsg(
+                window.$memberstackDom.hideModal();
+
+                const toastStore = Alpine.store("toasterStore") as ToastStore;
+                toastStore.toasterMsg(
                   "Please, refresh the page",
-                  "success",
+                  Status_Types.Success,
                   3000
                 );
               })
@@ -29,10 +34,12 @@ const userStore = (getUser) => {
         }
         this.isAuth = true;
         this.user = getUser.data;
-        window.memberToken = $memberstackDom.getMemberCookie();
-        const mainPlan = this.user.planConnections.filter((plan) => {
-          return window.mainPlansIds.includes(plan.planId);
-        });
+        window.memberToken = window.$memberstackDom.getMemberCookie();
+        const mainPlan = this.user.planConnections.filter(
+          (plan: { planId: string }) => {
+            return window.mainPlansIds.includes(plan.planId);
+          }
+        );
 
         if (mainPlan) {
           this.hasPaidSub = true;

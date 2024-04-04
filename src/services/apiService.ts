@@ -1,11 +1,21 @@
-import { objectToQueryParams } from "./apiUtils";
-import { ORDOTYPE_API } from "./apiConfig";
+import {objectToQueryParams} from "./apiUtils";
+import {ORDOTYPE_API} from "./apiConfig";
+
+type RequestOptions = {
+  method?: string;
+  routeParams?: string;
+  queryParams?: object;
+  data?: object | undefined;
+  contentType?: string;
+  resCallBack?: Function;
+  noContentType?: boolean;
+};
 
 class ApiService {
-  /**
-   * @param {string} endpoint
-   */
-  constructor(endpoint) {
+  private readonly API_URL: string;
+  private readonly endpoint: string;
+
+  constructor(endpoint: string) {
     this.API_URL = ORDOTYPE_API;
     this.endpoint = endpoint;
   }
@@ -20,6 +30,7 @@ class ApiService {
    * @param {Object} [options.data] - The request body data.
    * @param {String} [options.contentType="application/json"] - Content-Type for the request
    * @param {Function} [options.resCallBack] - A callback function to overwrite the response object.
+   * @param {boolean} [options.noContentType] -
    * @returns {Promise<object>} A promise that resolves with the response data or rejects with an error.
    */
   async request({
@@ -30,9 +41,9 @@ class ApiService {
     resCallBack,
     contentType = "application/json",
     noContentType = false,
-  }) {
-    let parsedQueryParams;
-    let parsedRouteParams;
+  }: RequestOptions): Promise<Response> {
+    let parsedQueryParams: string;
+    let parsedRouteParams: string;
     if (queryParams) {
       parsedQueryParams = `?${objectToQueryParams(queryParams)}`;
     }
@@ -45,13 +56,18 @@ class ApiService {
     }${parsedQueryParams || ""}`;
 
     try {
+      const body = data
+        ? noContentType
+          ? data
+          : JSON.stringify(data)
+        : undefined;
       const response = await fetch(fetchURL, {
         method: method,
         headers: {
           Authorization: `Bearer ${window.memberToken}`,
           ...(noContentType ? {} : { "Content-Type": contentType }),
         },
-        body: data ? (noContentType ? data : JSON.stringify(data)) : undefined,
+        body: body,
       });
 
       if (resCallBack) {

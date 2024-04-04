@@ -1,31 +1,31 @@
-import Alpine from "alpinejs";
-import ApiService from "./apiService";
+import ApiService from "./apiService.js";
 import {
   createOneValidation,
   deleteManyNotesValidation,
+  getListSchema,
   getListValidation,
   getOneValidation,
   searchByNoteTitleAndPathologyTitleValidation,
   updateOneValidation,
 } from "../validation/notesValidation";
-import { StateStore, ToasterMsgTypes } from "../utils/enums";
-import { parseFormData } from "./apiUtils";
+import {parseFormData} from "./apiUtils";
 import FileNoteService from "./fileNoteService";
+import {InferType} from "yup";
 
 class NotesService extends ApiService {
+  private fileNoteService: FileNoteService;
   constructor() {
     super("notes");
     this.fileNoteService = new FileNoteService();
   }
 
   /**
-   *
-   * @param payload.noteIds {array<object>}
+   * @param {object} payload
+   * @param {string[]} payload.noteIds
    * @returns {Promise<Object>}
    */
-  async deleteMany(payload) {
-    const { noteIds } = payload;
-    const body = { note_ids: noteIds };
+  async deleteMany(payload: { noteIds: string[] }): Promise<any> {
+    const body = { note_ids: payload.noteIds };
 
     try {
       const validatePayload = await deleteManyNotesValidation(body);
@@ -40,10 +40,10 @@ class NotesService extends ApiService {
 
   /**
    *
-   * @param {string} id
+   * @param id {string}
    * @returns {Promise<Object>}
    */
-  async getOne(id) {
+  async getOne(id: string) {
     try {
       const payload = await getOneValidation(id);
       return await this.request({
@@ -55,18 +55,6 @@ class NotesService extends ApiService {
     }
   }
 
-  /**
-   *
-   * @param {number} page
-   * @param {number} limit
-   * @param {string} sort
-   * @param {string} direction
-   * @param {string} type
-   * @param {array<string>} pathology
-   * @param {string} title
-   * @param {string} pathology_slug
-   * @returns {Promise<Object>}
-   */
   async getList({
     page = 1,
     limit = 10,
@@ -76,7 +64,7 @@ class NotesService extends ApiService {
     pathology = [],
     title = "",
     pathology_slug,
-  } = {}) {
+  }: InferType<typeof getListSchema>) {
     try {
       const validatedPayload = await getListValidation({
         page,
@@ -136,14 +124,7 @@ class NotesService extends ApiService {
     });
   }
 
-  /**
-   *
-   * @param {object} payload
-   * @param {FileList} filesToAdd
-   * @param {FileList} filesToDelete
-   * @returns {Promise<Array>}
-   */
-  async updateOne(payload, filesToAdd, filesToDelete) {
+  async updateOne(payload: any, filesToAdd: FileList, filesToDelete: FileList) {
     delete payload.files;
     delete payload.documents;
     delete payload.prescription_type;

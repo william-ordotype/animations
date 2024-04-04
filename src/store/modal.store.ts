@@ -1,11 +1,7 @@
 import Alpine from "alpinejs";
 import NotesService from "../services/notesService";
-import { StateStore } from "../utils/enums";
-import {
-  setDeleteNotes,
-  setNoteList,
-  setNoteOpened,
-} from "../actions/notesActions";
+import {StateStore} from "../utils/enums";
+import {setDeleteNotes, setNoteList, setNoteOpened,} from "../actions/notesActions";
 import NProgress from "nprogress";
 import PathologiesService from "../services/pathologiesService.js";
 
