@@ -1,7 +1,7 @@
-import {NoteType} from "../models/notes.js";
+import { NoteType } from "../models/notes.js";
 import Alpine from "alpinejs";
 
-export type NotesStore = {
+export interface INotesStore {
   isNotesLoading: boolean;
   isEmpty: boolean;
   noteList: any[];
@@ -13,6 +13,7 @@ export type NotesStore = {
     direction: string;
   };
   isSearch: boolean;
+
   searchValue: string;
   noteListType: NoteType | "";
   areNotesSelected: boolean;
@@ -27,10 +28,10 @@ export type NotesStore = {
   };
   isNoteLoading: boolean;
   noteOpened: any;
-  init(): Promise<void>;
-};
+  init: () => void;
+}
 
-const NotesStore: NotesStore = {
+const NotesStore: INotesStore = {
   // GetList
   isNotesLoading: true,
   isEmpty: false,

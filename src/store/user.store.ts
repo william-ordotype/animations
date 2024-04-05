@@ -1,14 +1,26 @@
 import Alpine from "alpinejs";
-import { Status_Types, ToastStore } from "./toaster.store.js";
+import { Status_Type, IToastStore } from "./toaster.store.js";
+import { GetCurrentMemberPayload } from "@memberstack/dom";
 
-const userStore = (getUser) => {
+export interface IUserStore {
+  user: GetCurrentMemberPayload["data"];
+  isAuth: boolean;
+  hasPaidSub: boolean;
+  init: () => void;
+}
+
+const toastStore = Alpine.store("toasterStore") as IToastStore;
+
+const userStore = (
+  user: GetCurrentMemberPayload["data"] | null
+): IUserStore => {
   return {
-    user: null,
+    user: user,
     isAuth: false,
     hasPaidSub: false,
     async init() {
       try {
-        if (!getUser.data) {
+        if (!user) {
           this.isAuth = false;
           if (
             location.href.includes("localhost") ||
@@ -16,15 +28,14 @@ const userStore = (getUser) => {
           ) {
             window.$memberstackDom
               .openModal("LOGIN")
-              .then(({ data }) => {
+              .then(({ data }: GetCurrentMemberPayload) => {
                 this.user = data;
                 this.isAuth = true;
                 window.$memberstackDom.hideModal();
 
-                const toastStore = Alpine.store("toasterStore") as ToastStore;
                 toastStore.toasterMsg(
                   "Please, refresh the page",
-                  Status_Types.Success,
+                  Status_Type.Success,
                   3000
                 );
               })
@@ -33,9 +44,9 @@ const userStore = (getUser) => {
           return;
         }
         this.isAuth = true;
-        this.user = getUser.data;
+        this.user = user;
         window.memberToken = window.$memberstackDom.getMemberCookie();
-        const mainPlan = this.user.planConnections.filter(
+        const mainPlan: string = this.user.planConnections.filter(
           (plan: { planId: string }) => {
             return window.mainPlansIds.includes(plan.planId);
           }

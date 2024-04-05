@@ -5,28 +5,28 @@ const STATUS_TYPES = {
   info: "info",
 };
 
-export enum Status_Types {
+export enum Status_Type {
   Success = "success",
   Error = "error",
   Info = "info",
 }
 
 export type ToastStatus =
-  | Status_Types.Success
-  | Status_Types.Error
-  | Status_Types.Info;
+  | Status_Type.Success
+  | Status_Type.Error
+  | Status_Type.Info;
 
-export interface ToastStore {
+export interface IToastStore {
   showToaster: boolean;
   message: string;
   type: ToastStatus;
   toasterMsg: (msg: string, type: ToastStatus, time: number) => void;
 }
 
-const toasterStore: ToastStore = {
+const toasterStore: IToastStore = {
   showToaster: false,
   message: "",
-  type: Status_Types.Info,
+  type: Status_Type.Info,
   toasterMsg(msg = "", type, time = 3000) {
     if (STATUS_TYPES[type] === undefined) {
       this.type = "none";
