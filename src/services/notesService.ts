@@ -11,7 +11,14 @@ import {
 import { parseFormData } from "./apiUtils";
 import FileNoteService from "./fileNoteService";
 import { InferType } from "yup";
+import { PaginatedResponse } from "../types/apiTypes/common.js";
+import { NoteList } from "../types/apiTypes/notesTypes.js";
 
+type NoteListExtended = NoteList & {
+  direction: string;
+  sort: string;
+  pathology_slug?: string;
+};
 class NotesService extends ApiService {
   private fileNoteService: FileNoteService;
   constructor() {
@@ -65,42 +72,43 @@ class NotesService extends ApiService {
     title = "",
     pathology_slug,
   }: InferType<typeof getListSchema>) {
-    try {
-      const validatedPayload = await getListValidation({
-        page,
-        limit,
-        sort,
-        direction,
-        type,
-        pathology,
-        title,
-        pathology_slug,
-      });
+    const validatedPayload = await getListValidation({
+      page,
+      limit,
+      sort,
+      direction,
+      type,
+      pathology,
+      title,
+      pathology_slug,
+    });
 
-      // Remove empty parameters
-      Object.keys(validatedPayload).forEach(
-        (key) =>
-          (validatedPayload[key] === "" ||
-            validatedPayload[key] === undefined ||
-            (Array.isArray(validatedPayload[key]) &&
-              validatedPayload[key].length === 0)) &&
-          delete validatedPayload[key]
-      );
+    // Remove empty parameters
+    Object.keys(validatedPayload).forEach(
+      (key) =>
+        (validatedPayload[key] === "" ||
+          validatedPayload[key] === undefined ||
+          (Array.isArray(validatedPayload[key]) &&
+            validatedPayload[key].length === 0)) &&
+        delete validatedPayload[key]
+    );
 
-      const response = await this.request({
-        method: "GET",
-        queryParams: validatedPayload,
-      });
-
-      return {
-        ...response,
-        direction: validatedPayload.direction,
-        sort: validatedPayload.sort,
-      };
-    } catch (err) {
-      console.error(err);
-      throw err;
-    }
+    return await this.request<
+      null,
+      InferType<typeof getListSchema>,
+      PaginatedResponse<NoteListExtended>
+    >({
+      method: "GET",
+      queryParams: validatedPayload,
+      resCallBack: (response) => {
+        return {
+          ...response,
+          direction: validatedPayload.direction,
+          sort: validatedPayload.sort,
+          pathology_slug: validatedPayload.pathology_slug,
+        };
+      },
+    });
   }
 
   /**
@@ -144,7 +152,7 @@ class NotesService extends ApiService {
         routeParams: validatePayload._id,
         method: "PUT",
         data: validatePayload,
-        resCallBack: (res) => res,
+        resCallBack: (res: object) => res,
       });
 
     const addFilesToNoteReq = async () =>
