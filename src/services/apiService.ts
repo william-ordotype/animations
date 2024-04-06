@@ -1,23 +1,37 @@
-import {objectToQueryParams} from "./apiUtils";
-import {ORDOTYPE_API} from "./apiConfig";
+import { ORDOTYPE_API } from "./apiConfig";
+import axios, {
+  AxiosInstance,
+  AxiosRequestConfig,
+  AxiosResponse,
+  isAxiosError,
+} from "axios";
+import Alpine from "alpinejs";
+import { StateStore } from "../utils/enums.js";
+import { IToastStore, Status_Type } from "../store/toaster.store.js";
 
-type RequestOptions = {
+const toastStore = Alpine.store(StateStore.TOASTER) as IToastStore;
+
+interface RequestOptions<TBody, TParams, TResponse> {
   method?: string;
   routeParams?: string;
-  queryParams?: object;
-  data?: object | undefined;
+  queryParams?: TParams;
+  data?: TBody;
+  resCallBack?: (response: AxiosResponse<TResponse>) => any;
   contentType?: string;
-  resCallBack?: Function;
-  noContentType?: boolean;
-};
+}
 
 class ApiService {
   private readonly API_URL: string;
   private readonly endpoint: string;
+  private instance: AxiosInstance;
 
   constructor(endpoint: string) {
     this.API_URL = ORDOTYPE_API;
     this.endpoint = endpoint;
+
+    this.instance = axios.create({
+      baseURL: this.API_URL,
+    });
   }
 
   /**
@@ -30,74 +44,38 @@ class ApiService {
    * @param {Object} [options.data] - The request body data.
    * @param {String} [options.contentType="application/json"] - Content-Type for the request
    * @param {Function} [options.resCallBack] - A callback function to overwrite the response object.
-   * @param {boolean} [options.noContentType] -
-   * @returns {Promise<object>} A promise that resolves with the response data or rejects with an error.
    */
-  async request({
+  async request<TBody, TParams, TResponse>({
     method = "POST",
     routeParams,
     queryParams,
     data,
     resCallBack,
     contentType = "application/json",
-    noContentType = false,
-  }: RequestOptions): Promise<Response> {
-    let parsedQueryParams: string;
-    let parsedRouteParams: string;
-    if (queryParams) {
-      parsedQueryParams = `?${objectToQueryParams(queryParams)}`;
-    }
-    if (routeParams) {
-      parsedRouteParams = `/${routeParams}`;
-    }
-
-    const fetchURL = `${this.API_URL}/${this.endpoint}${
-      parsedRouteParams || ""
-    }${parsedQueryParams || ""}`;
-
+  }: RequestOptions<TBody, TParams, TResponse>): Promise<
+    AxiosResponse<TResponse>
+  > {
+    const config: AxiosRequestConfig<
+      RequestOptions<TBody, TParams, TResponse>
+    > = {
+      method,
+      url: routeParams,
+      data,
+      params: queryParams,
+      headers: {
+        Authorization: `Bearer ${window.memberToken}`,
+        "Content-Type": contentType,
+      },
+      transformResponse: resCallBack,
+    };
     try {
-      const body = data
-        ? noContentType
-          ? data
-          : JSON.stringify(data)
-        : undefined;
-      const response = await fetch(fetchURL, {
-        method: method,
-        headers: {
-          Authorization: `Bearer ${window.memberToken}`,
-          ...(noContentType ? {} : { "Content-Type": contentType }),
-        },
-        body: body,
-      });
-
-      if (resCallBack) {
-        return resCallBack(response);
-      }
-
-      if (response.ok) {
-        const contentLength = response.headers.get("Content-Length");
-        if (contentLength && parseInt(contentLength) === 0) {
-          return null;
-        } else {
-          return await response.json();
-        }
-      } else {
-        const error = new Error(`Request error. Status: ${response.status}`);
-        error.name = "RequestError";
-        error.response = response;
-        throw error;
-      }
+      return await this.instance.request(config);
     } catch (err) {
-      const errObj = {
-        ...err,
-      };
-      // Logs error trace from service request
-      console.error(err);
-      if (err.response) {
-        // Optionally handle the response payload from the server on error
-        errObj.response = await err.response.json();
+      if (isAxiosError(err)) {
+        toastStore.toasterMsg("Server Error", Status_Type.Error, 2500);
       }
-      throw errObj;
+      console.error(err);
+      throw err;
     }
   }
 }

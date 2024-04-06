@@ -1,4 +1,4 @@
-import { NoteType } from "../models/notes.js";
+import { NoteType } from "../types/apiTypes/notesTypes";
 import Alpine from "alpinejs";
 
 export interface INotesStore {

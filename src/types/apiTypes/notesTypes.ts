@@ -1,3 +1,5 @@
+import { PathologyItem } from "./pathologiesTypes.js";
+
 type NoteType = "notes" | "prescriptions" | "recommendations";
 type PrescriptionType = "balance_sheet" | "treatment" | "";
 type AuthorRole = "client" | "admin";
@@ -11,7 +13,7 @@ interface NoteItemData {
   created_by: { role: AuthorRole; email: string; full_name: string };
   created_on: string;
   documents?: FileData[];
-  pathologies?: { _id: string; title: string; slug: string }[];
+  pathologies?: PathologyItem[];
   member_id: string;
   prescription_type: PrescriptionType;
   title: string;
@@ -27,11 +29,11 @@ interface NoteItemMember {
   name: string;
 }
 
-interface NoteList extends NoteItem {
+interface NoteList {
   created_by: { role: AuthorRole; email: string; full_name: string };
   created_on: string;
   documents?: { mime_type: string }[];
-  pathologies?: { _id: string; title: string; slug: string };
+  pathologies?: PathologyItem;
   member_id: string;
   prescription_type: PrescriptionType;
   title: string;
