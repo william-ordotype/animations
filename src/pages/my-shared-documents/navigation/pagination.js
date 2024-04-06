@@ -1,4 +1,4 @@
-import { hashToObject, objectToHash } from "../../../router/pagination";
+import { hashToObject, objectToHash } from "../../../utils/pagination";
 
 const handlePagination = (routerParams, pageNumber) => {
   const page = pageNumber || routerParams.page;

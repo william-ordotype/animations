@@ -65,7 +65,10 @@ window.Alpine = Alpine;
 async function init() {
   globals.run();
   NProgress.start();
-  const getUser = await $memberstackDom.getCurrentMember();
+  // const getUser = await $memberstackDom.getCurrentMember();
+
+  // const currentUser = localStorage.getItem('_ms') as Omit<, 'data'>
+
   Alpine.store(StateStore.USER, userStore(getUser));
   setLocale({ ...errorMessageFr, ...window.validationMsgCustom });
 }

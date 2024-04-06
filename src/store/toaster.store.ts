@@ -3,7 +3,11 @@ const STATUS_TYPES = {
   success: "success",
   error: "error",
   info: "info",
-};
+} as const;
+
+type ObjectValues<T> = T[keyof T];
+
+type Status_Level = ObjectValues<typeof STATUS_TYPES>;
 
 export enum Status_Type {
   Success = "success",
@@ -19,8 +23,8 @@ export type ToastStatus =
 export interface IToastStore {
   showToaster: boolean;
   message: string;
-  type: ToastStatus;
-  toasterMsg: (msg: string, type: ToastStatus, time: number) => void;
+  type: Status_Level;
+  toasterMsg: (msg: string, type: Status_Level, time?: number) => void;
 }
 
 const toasterStore: IToastStore = {
@@ -32,7 +36,7 @@ const toasterStore: IToastStore = {
       this.type = "none";
       console.error("Toaster type not found");
     } else {
-      this.type = type;
+      this.type = STATUS_TYPES[type];
     }
     this.message = msg;
     this.showToaster = true;

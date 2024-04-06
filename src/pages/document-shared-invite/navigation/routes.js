@@ -1,5 +1,5 @@
 import Alpine from "alpinejs";
-import { hashToObject } from "../../../router/pagination";
+import { hashToObject } from "../../../utils/pagination";
 import ShareNotesService from "../../../services/notesSharesService";
 import { StateStore, ToasterMsgTypes } from "../../../utils/enums";
 import NProgress from "nprogress";
