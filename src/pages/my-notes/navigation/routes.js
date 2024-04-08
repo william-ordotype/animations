@@ -1,7 +1,11 @@
 import Alpine from "alpinejs";
-import { StateStore, ToasterMsgTypes } from "../../../utils/enums";
+import { StateStore, ToasterMsgTypes } from "@utils/enums.js";
 import NProgress from "nprogress";
-import { setNoteList, setNotesRuleStatus } from "../../../actions/notesActions";
+import {
+  setNoteList,
+  setNoteOpened,
+  setNotesRuleStatus,
+} from "../../../actions/notesActions";
 
 window.router = () => {
   return {
@@ -37,7 +41,8 @@ window.router = () => {
       const id = context.params.id;
       if (id) {
         // Shows getOne drawer
-        await window.globals.drawer.handleDrawer({ id });
+        // await window.globals.drawer.handleDrawer({ id });
+        await setNoteOpened(id);
         console.log("drawer");
       }
       NProgress.done();

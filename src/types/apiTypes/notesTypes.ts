@@ -5,7 +5,7 @@ type PrescriptionType = "balance_sheet" | "treatment" | "";
 type AuthorRole = "client" | "admin";
 
 interface NoteItem {
-  item: NoteItemData;
+  note: NoteItemData;
   member: NoteItemMember;
 }
 
@@ -41,6 +41,7 @@ interface NoteList {
   updated_on: string;
   _id: string;
   can_share?: boolean;
+  checked?: boolean;
 }
 
 interface FileData {

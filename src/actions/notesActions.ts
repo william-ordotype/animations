@@ -47,16 +47,23 @@ async function setNoteList(payload: ToDo) {
 
 async function setNoteOpened(payload: ToDo) {
   const noteStore = Alpine.store(StateStore.MY_NOTES) as INotesStore;
+  const toastStore = Alpine.store(StateStore.TOASTER) as IToastStore;
+
+  // @ts-ignore ToDo remove
+  Alpine.store("modalStore").showModal = false;
 
   noteStore.isNoteLoading = true;
+  noteStore.drawerOpened = true;
   try {
     const getNoteRes = await noteService.getOne(payload);
-    const { member, item: note } = getNoteRes.data;
+    const { member, note } = getNoteRes.data;
+    debugger;
     noteStore.noteOpened = { note, member };
     noteStore.isNoteLoading = false;
   } catch (err) {
+    noteStore.drawerOpened = false;
+    toastStore.toasterMsg("Document introuvable", "error", 4500);
     console.error(err);
-    throw err;
   }
 }
 
@@ -183,8 +190,8 @@ async function setDeleteNotes(payload: ToDo) {
     }
 
     noteStore.noteOpened = {
-      note: {},
-      member: {},
+      note: null,
+      member: null,
     };
 
     noteStore.removeShareNoteList = [];

@@ -80,7 +80,6 @@ class ApiService {
       if (isAxiosError(err)) {
         toastStore.toasterMsg("Server Error", Status_Type.Error, 2500);
       }
-      console.error(err);
       throw err;
     }
   }

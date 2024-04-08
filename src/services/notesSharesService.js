@@ -138,7 +138,6 @@ class ShareNotesService extends ApiService {
    *
    * @param {string} type
    * @param {string} id
-   * @returns {Promise<Object>}
    */
   async getNoteByType({ type, id }) {
     try {

@@ -1,10 +1,16 @@
-import { NoteType } from "../types/apiTypes/notesTypes";
+import {
+  NoteItem,
+  NoteItemData,
+  NoteItemMember,
+  NoteList,
+  NoteType,
+} from "../types/apiTypes/notesTypes";
 import Alpine from "alpinejs";
 
 export interface INotesStore {
   isNotesLoading: boolean;
   isEmpty: boolean;
-  noteList: any[];
+  noteList: NoteList[];
   noteListMeta: {
     pageNumber: number;
     pageTotal: number;
@@ -15,13 +21,11 @@ export interface INotesStore {
     pathology_slug?: string;
   };
   isSearch: boolean;
-
-  removeShareNoteList: ToDo;
-  deleteList: ToDo;
-
   searchValue: string;
   noteListType: NoteType | "";
   areNotesSelected: boolean;
+  deleteList: ToDo;
+
   isRuleStatusLoading: boolean;
   currentRuleStatus: {
     consumedNotesPercent: number;
@@ -31,8 +35,18 @@ export interface INotesStore {
     allowedNumberOfNotes: number;
     allowedMegabyte: number;
   };
+
+  removeShareNoteList: ToDo;
+
   isNoteLoading: boolean;
-  noteOpened: any;
+  noteOpened: {
+    note: NoteItemData | null;
+    member: NoteItemMember | null;
+  };
+  drawerOpened: boolean;
+
+  isEdit: boolean;
+
   init: () => void;
 }
 
@@ -67,7 +81,13 @@ const NotesStore: INotesStore = {
 
   // GetOne
   isNoteLoading: true,
-  noteOpened: {},
+  noteOpened: {
+    member: null,
+    note: null,
+  },
+  drawerOpened: false,
+
+  isEdit: false,
 
   // Delete
   removeShareNoteList: [],

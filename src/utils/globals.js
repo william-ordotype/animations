@@ -1,7 +1,5 @@
 // noinspection SpellCheckingInspection
 
-import { handleDrawer } from "../components/Notes/DocumentsDrawer";
-
 const globals = {};
 
 globals.documentTypes = {
@@ -30,10 +28,6 @@ globals.printDiv = async (divName) => {
       $(divName).find(".w--open").show();
     },
   });
-};
-
-globals.drawer = {
-  handleDrawer,
 };
 
 globals.modal = {

@@ -23,9 +23,6 @@ window.router = () => {
       const id = context.params.id;
       if (id) {
         // Shows getOne drawer
-        Alpine.store("drawerStore").loadDrawer = true;
-        Alpine.store("drawerStore").showDrawer = true;
-        Alpine.store("modalStore").showModal = false;
 
         try {
           await setSharedNoteOpened({ noteId: id });

@@ -12,7 +12,6 @@ import {
   PathologiesNoteItem,
 } from "../../components/PathologiesNoteList";
 import modalStore from "../../store/modal.store";
-import drawerStore from "../../store/drawer.store";
 import toasterStore from "../../store/toaster.store";
 import DocumentsDrawer from "../../components/Notes/DocumentsDrawer";
 import {
@@ -63,7 +62,6 @@ async function init() {
 
 Alpine.store(StateStore.MY_NOTES, myNotesStore);
 Alpine.store(StateStore.MODAL, modalStore);
-Alpine.store("drawerStore", drawerStore);
 Alpine.store(StateStore.TOASTER, toasterStore);
 Alpine.store(StateStore.SHARE, shareStore);
 Alpine.store("pathologiesStore", pathologiesStore);
