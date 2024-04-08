@@ -5,6 +5,20 @@ export default defineConfig({
   server: {
     port: 3021,
   },
+  resolve: {
+    alias: {
+      "@assets": resolve(__dirname, "./src/assets"),
+      "@components": resolve(__dirname, "./src/components"),
+      "@store": resolve(__dirname, "./src/store"),
+      "@services": resolve(__dirname, "./src/services"),
+      "@pages": resolve(__dirname, "./src/pages"),
+      "@utils": resolve(__dirname, "./src/utils"),
+      "@types": resolve(__dirname, "./src/types"),
+      // alias for JSDoc in JS files. Prefix @ doesn't work
+      "#store": resolve(__dirname, "./src/store"),
+      "#types": resolve(__dirname, "./src/types"),
+    },
+  },
   build: {
     target: "esnext",
     emptyOutDir: true,
@@ -26,11 +40,6 @@ export default defineConfig({
         entryFileNames: "assets/[name].js",
         assetFileNames: "assets/[name].[ext]",
         chunkFileNames: "assets/[name].js",
-        // manualChunks(id, { getModuleIds, getModuleInfo }) {
-        //   if (id.includes("algolia")) {
-        //     return "algolia";
-        //   }
-        // },
       },
     },
   },
