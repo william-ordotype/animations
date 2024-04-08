@@ -8,7 +8,7 @@ type PaginatedResponse<TData> = {
   items_total: number;
   page_number: number;
   page_total: number;
-  data: TData[];
+  data: [] | TData[];
 };
 
 type DeletedResponse = {

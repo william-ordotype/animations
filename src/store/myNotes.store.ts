@@ -10,7 +10,7 @@ import Alpine from "alpinejs";
 export interface INotesStore {
   isNotesLoading: boolean;
   isEmpty: boolean;
-  noteList: NoteList[];
+  noteList: NoteList[] | [];
   noteListMeta: {
     pageNumber: number;
     pageTotal: number;
@@ -28,12 +28,12 @@ export interface INotesStore {
 
   isRuleStatusLoading: boolean;
   currentRuleStatus: {
-    consumedNotesPercent: number;
-    consumedMegabytesPercent: number;
-    consumedNotesNumber: number;
-    consumedMegabytesNumber: number;
-    allowedNumberOfNotes: number;
-    allowedMegabyte: number;
+    consumedNotesPercent: number | undefined;
+    consumedMegabytesPercent: number | undefined;
+    consumedNotesNumber: number | undefined;
+    consumedMegabytesNumber: number | undefined;
+    allowedNumberOfNotes: number | undefined;
+    allowedMegabyte: number | undefined;
   };
 
   removeShareNoteList: ToDo;

@@ -83,15 +83,14 @@ const updateOneValidation = async (payload) => {
   return await updateOneSchema.validate(payload);
 };
 
+export const searchByNoteTitleAndPathologyTitleSchema = object({
+  page: number().required().positive().integer().optional(),
+  limit: number().required().positive().integer().optional(),
+  sort: string().oneOf(sortByValues).optional(),
+  direction: string().oneOf(["DESC", "ASC"]).optional(),
+  noteTitleAndPathologyTitle: string().required(),
+});
 const searchByNoteTitleAndPathologyTitleValidation = async (payload) => {
-  const searchByNoteTitleAndPathologyTitleSchema = object({
-    page: number().required().positive().integer(),
-    limit: number().required().positive().integer(),
-    sort: string().oneOf(sortByValues).required(),
-    direction: string().oneOf(["DESC", "ASC"]).required(),
-    noteTitleAndPathologyTitle: string(),
-  });
-
   return await searchByNoteTitleAndPathologyTitleSchema.validate(payload);
 };
 

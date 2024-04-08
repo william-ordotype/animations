@@ -1,10 +1,11 @@
 import Alpine from "alpinejs";
 
-import { NotesUrls, StateStore } from "../utils/enums";
-import NotesService from "../services/notesService";
-import { INotesStore } from "../store/myNotes.store";
-import { IToastStore } from "../store/toaster.store";
-import { IUserStore } from "../store/user.store";
+import { NotesUrls, StateStore } from "@utils/enums";
+import NotesService from "@services/notesService";
+import { INotesStore } from "@store/myNotes.store";
+import { IToastStore } from "@store/toaster.store";
+import { IUserStore } from "@store/user.store";
+import { handleCloseDrawer } from "@components/Notes/DocumentsDrawer.js";
 
 const noteService = new NotesService();
 
@@ -15,6 +16,7 @@ async function setNoteList(payload: ToDo) {
   noteStore.isNotesLoading = true;
   try {
     const notesRes = await noteService.getList(payload);
+
     const {
       items_per_page,
       items_total,
@@ -25,6 +27,7 @@ async function setNoteList(payload: ToDo) {
       pathology_slug,
       data,
     } = notesRes.data;
+
     noteStore.noteList = data;
     noteStore.noteListMeta = {
       pageNumber: page_number,
@@ -66,12 +69,14 @@ async function setNoteOpened(payload: ToDo) {
   }
 }
 
+// @ts-ignore
 async function createNote(payload) {
-  // TODO handle side effects from modal using
+  // TODO NewEditor: handle side effects
 }
 
+// @ts-ignore
 async function editNote(payload) {
-  // TODO handle side effects from modal
+  // TODO NewEditor: handle side effects
 }
 
 async function setNotesRuleStatus() {
@@ -113,7 +118,7 @@ async function setNotesRuleStatus() {
   }
 }
 
-async function setNotesSearched(payload: ToDo) {
+async function setNotesSearched(payload: string) {
   const noteStore = Alpine.store(StateStore.MY_NOTES) as INotesStore;
 
   noteStore.isSearch = true;
@@ -136,22 +141,16 @@ async function setNotesSearched(payload: ToDo) {
   };
 }
 
-async function setDeleteNotes(payload: ToDo) {
+async function setDeleteNotes(payload: { noteIds: string[] }) {
   const { noteIds } = payload;
   const noteStore = Alpine.store(StateStore.MY_NOTES) as INotesStore;
-  const drawerStore = Alpine.store("drawerStore");
   const toastStore = Alpine.store(StateStore.TOASTER) as IToastStore;
-
-  let body;
+  // ToDo review delete in List and Drawer
+  let body: string[] = [];
   if (noteIds && Array.isArray(noteIds)) {
-    // @ts-ignore TODO Redo delete functionality
-    if (noteIds.note) {
-      // If docsToDelete is from the getOne request, use the note property and convert to array
-      // @ts-ignore
-      body = [noteIds.note];
-    } else {
-      body = [...noteIds];
-    }
+    body = [...noteIds];
+  } else {
+    throw new Error("NoteIds not array");
   }
   try {
     const res = await noteService.deleteMany({ noteIds: body });
@@ -159,9 +158,9 @@ async function setDeleteNotes(payload: ToDo) {
     const pageNumber = noteStore.noteListMeta?.pageNumber || 1;
     if (res.data.deletedCount > 0) {
       // @ts-ignore
-      if (drawerStore.showDrawer === true) {
+      if (noteStore.drawerOpened) {
         // @ts-ignore
-        drawerStore.hideDrawer();
+        await handleCloseDrawer();
 
         if (location.href.includes(NotesUrls.MY_NOTES)) {
           const redirectUrl = `/list?type=${

@@ -8,6 +8,7 @@ import {
   getOneValidation,
   searchByNoteTitleAndPathologyTitleValidation,
   updateOneValidation,
+  searchByNoteTitleAndPathologyTitleSchema,
 } from "../validation/notesValidation";
 import { parseFormData } from "./apiUtils";
 import FileNoteService from "./fileNoteService";
@@ -87,14 +88,19 @@ class NotesService extends ApiService {
     });
 
     // Remove empty parameters
-    Object.keys(validatedPayload).forEach(
-      (key) =>
-        (validatedPayload[key] === "" ||
-          validatedPayload[key] === undefined ||
-          (Array.isArray(validatedPayload[key]) &&
-            validatedPayload[key].length === 0)) &&
-        delete validatedPayload[key]
-    );
+    Object.keys(validatedPayload).forEach((key: string) => {
+      if (
+        validatedPayload[key as keyof typeof validatedPayload] === "" ||
+        validatedPayload[key as keyof typeof validatedPayload] === undefined ||
+        (Array.isArray(
+          validatedPayload[key as keyof typeof validatedPayload]
+        ) &&
+          // @ts-ignore
+          validatedPayload[key as keyof typeof validatedPayload].length === 0)
+      ) {
+        delete validatedPayload[key as keyof typeof validatedPayload];
+      }
+    });
     return await this.request<
       null,
       InferType<typeof getListSchema>,
@@ -121,9 +127,10 @@ class NotesService extends ApiService {
   async createOne(payload: InferType<typeof createOneSchema>, files: FileList) {
     const validatePayload = await createOneValidation(payload);
     const notesFormData = parseFormData(validatePayload);
+
     // Add files to formData
     for (let i = 0; i < files.length; i++) {
-      notesFormData.append("files", files[i]);
+      notesFormData.append("files", files[i] as Blob);
     }
     return await this.request<ToDo, null, NoteItem>({
       method: "POST",
@@ -144,7 +151,7 @@ class NotesService extends ApiService {
     // Prepare files formData
     const filesFormData = new FormData();
     for (let i = 0; i < filesArr.length; i++) {
-      filesFormData.append("files", filesArr[i]);
+      filesFormData.append("files", filesArr[i] as Blob);
     }
     filesFormData.append("noteId", validatePayload._id.toString());
     const updateFieldsReq = async () =>
@@ -172,7 +179,7 @@ class NotesService extends ApiService {
     sort = "created_on",
     direction = "DESC",
     noteTitleAndPathologyTitle,
-  }) {
+  }: InferType<typeof searchByNoteTitleAndPathologyTitleSchema>) {
     const validatePayload = await searchByNoteTitleAndPathologyTitleValidation({
       page,
       limit,
@@ -180,7 +187,11 @@ class NotesService extends ApiService {
       direction,
       noteTitleAndPathologyTitle,
     });
-    return await this.request<ToDo, ToDo, PaginatedResponse<NoteList>>({
+    return await this.request<
+      null,
+      InferType<typeof searchByNoteTitleAndPathologyTitleSchema>,
+      PaginatedResponse<NoteList>
+    >({
       method: "GET",
       queryParams: validatePayload,
     });

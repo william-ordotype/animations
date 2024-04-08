@@ -189,7 +189,7 @@ function DocumentsDrawer() {
   };
 }
 
-async function handleCloseDrawer() {
+export async function handleCloseDrawer() {
   /**
    * @type import('#store').INotesStore
    */

@@ -1,5 +1,5 @@
-// ToDo evaluate implementation and replace by enum
-const STATUS_TYPES = {
+// ToDo evaluate implementation and replace by const
+export const STATUS_TYPES = {
   success: "success",
   error: "error",
   info: "info",

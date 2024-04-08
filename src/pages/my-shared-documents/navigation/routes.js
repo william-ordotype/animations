@@ -25,9 +25,7 @@ window.router = () => {
         try {
           await setSharedNoteOpened({ noteId: id });
           if (Alpine.store(StateStore.MY_NOTES).noteOpened.note?._id) {
-            Alpine.store("drawerStore").loadDrawer = false;
           } else {
-            Alpine.store("drawerStore").hideDrawer();
             Alpine.store("toasterStore").toasterMsg(
               "Document introuvable",
               "error",
