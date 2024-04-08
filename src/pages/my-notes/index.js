@@ -29,7 +29,7 @@ import {
   DataTablePaginationMenu,
   DataTablePerPageDropdown,
   LayoutContainer,
-} from "@components/Notes/DocumentsDataTable.js";
+} from "@components/Notes/DocumentsDataTable";
 import DocumentsTypeNavigation from "../../components/Notes/DocumentsTypeNavigation";
 import DocumentsDrawer from "../../components/Notes/DocumentsDrawer";
 import {
@@ -37,24 +37,24 @@ import {
   DocumentsModal,
   OpenModalByType,
   PathologiesAutocomplete,
-} from "@components/Notes/DocumentsModal.js";
+} from "@components/Notes/DocumentsModal";
 import {
   DocumentFileInput,
   DocumentFileListItem,
-} from "@components/DocumentsFiles.js";
+} from "@components/DocumentsFiles";
 import DocumentsSearch from "../../components/Notes/DocumentsSearch";
 import DocumentsShareModal from "../../components/Notes/DocumentsShareModal";
-import { DocumentAvailableSpaceGraphWidget } from "@components/Notes/DocumentAvailableSpaceGraphWidget.js";
+import { DocumentAvailableSpaceGraphWidget } from "@components/Notes/DocumentAvailableSpaceGraphWidget";
 
-import { StateStore } from "@utils/enums.js";
+import { StateStore } from "@utils/enums";
 import { errorMessageFr } from "../../validation/errorMessages";
 import {
   navigationToastMsgs,
   noteActionsToastMsgs,
   shareNoteActionsToastMsgs,
 } from "@utils/toastMessages.js";
-import { noteFormMsg } from "@utils/modalMessages.js";
-import { getUser } from "@services/UsersService.js";
+import { noteFormMsg } from "@utils/modalMessages";
+import { getUser } from "@services/UsersService";
 
 window.Alpine = Alpine;
 
