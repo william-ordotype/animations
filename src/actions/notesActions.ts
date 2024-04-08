@@ -57,7 +57,6 @@ async function setNoteOpened(payload: ToDo) {
   try {
     const getNoteRes = await noteService.getOne(payload);
     const { member, note } = getNoteRes.data;
-    debugger;
     noteStore.noteOpened = { note, member };
     noteStore.isNoteLoading = false;
   } catch (err) {
@@ -80,7 +79,6 @@ async function setNotesRuleStatus() {
   const userStore = Alpine.store(StateStore.USER) as IUserStore;
 
   try {
-    debugger;
     noteStore.isRuleStatusLoading = true;
     if (!userStore.isAuth) {
       return;
@@ -146,7 +144,7 @@ async function setDeleteNotes(payload: ToDo) {
 
   let body;
   if (noteIds && Array.isArray(noteIds)) {
-    // @ts-ignore TODO
+    // @ts-ignore TODO Redo delete functionality
     if (noteIds.note) {
       // If docsToDelete is from the getOne request, use the note property and convert to array
       // @ts-ignore

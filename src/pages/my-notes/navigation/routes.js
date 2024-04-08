@@ -98,7 +98,6 @@ async function handleRouter(context, { type }) {
 
   // Shows getList items
   Alpine.store("modalStore").showModal = false;
-  Alpine.store("drawerStore").showDrawer = false;
 
   // Do a reload if necessary
   // AKA if when closing the drawer there are not documents loaded

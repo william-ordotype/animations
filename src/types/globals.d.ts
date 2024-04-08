@@ -1,5 +1,6 @@
 import { default as MsTypes } from "@memberstack/dom/lib/index";
 import PineconeRouter from "pinecone-router";
+import { errorMessageFr } from "../validation/errorMessages.js";
 /// <reference types="alpinejs" />
 
 declare global {
@@ -14,7 +15,8 @@ declare global {
     Webflow: any;
 
     PineconeRouter: PineconeRouter;
-    toastActionMsg: any;
+    toastActionMsg: ToDo;
+    validationMsgCustom: typeof errorMessageFr;
   }
 
   type ToDo = any;

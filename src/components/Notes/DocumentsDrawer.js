@@ -211,6 +211,7 @@ async function handleCloseDrawer() {
   // Reset document object in store
   console.log("close drawer");
   await setNotesRuleStatus();
+  notesStore.drawerOpened = false;
   notesStore.noteOpened = {
     note: null,
     member: null,
@@ -218,4 +219,3 @@ async function handleCloseDrawer() {
 }
 
 export default DocumentsDrawer;
-export { handleDrawer };

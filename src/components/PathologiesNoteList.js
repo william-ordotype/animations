@@ -1,6 +1,9 @@
 import getFileExtByMimeType from "../assets/file_ext";
 import Alpine from "alpinejs";
 import { StateStore } from "../utils/enums";
+import { setNoteOpened } from "../actions/notesActions.js";
+
+// ToDo refactor this component to execute only on tab change
 
 function PathologiesNoteList() {
   return {
@@ -25,22 +28,29 @@ function PathologiesNoteList() {
     },
     openDrawer() {
       return {
-        ["x-on:click.prevent"]: `await window.globals.drawer.handleDrawer({ id: doc._id })`,
+        ["x-on:click.prevent"]: async () =>
+          await setNoteOpened({ id: doc._id }),
       };
     },
     openDrawerBilan() {
       return {
-        ["x-on:click.prevent"]: `await window.globals.drawer.handleDrawer({ id: bilan._id })`,
+        ["x-on:click.prevent"]: async () => {
+          await setNoteOpened({ id: bilan._id });
+        },
       };
     },
     openDrawerTreatment() {
       return {
-        ["x-on:click.prevent"]: `await window.globals.drawer.handleDrawer({ id: treatment._id })`,
+        ["x-on:click.prevent"]: async () => {
+          await setNoteOpened({ id: treatment._id });
+        },
       };
     },
     openDrawerConseil() {
       return {
-        ["x-on:click.prevent"]: `await window.globals.drawer.handleDrawer({ id: conseil._id })`,
+        ["x-on:click.prevent"]: async () => {
+          await setNoteOpened({ id: conseil._id });
+        },
       };
     },
   };
