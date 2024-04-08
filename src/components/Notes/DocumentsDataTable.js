@@ -1,13 +1,13 @@
 import Alpine from "alpinejs";
-import getFileExtByMimeType from "../../assets/file_ext.js";
-import ShareNotesService from "../../services/notesSharesService";
+import getFileExtByMimeType from "@assets/file_ext.js";
+import ShareNotesService from "@services/notesSharesService.js";
 import SkeletonLoaderEvent from "../../events/SkeletonLoaderEvent";
 import {
   handleItemsPerPage,
   handlePagination,
   handleSorting,
-} from "../../pages/my-notes/navigation/pagination";
-import { StateStore } from "../../utils/enums";
+} from "@pages/my-notes/navigation/pagination.js";
+import { StateStore } from "@utils/enums.js";
 
 const ShareNotes = new ShareNotesService();
 
@@ -28,14 +28,19 @@ function DataTableListItem() {
     },
     // Row items
     noteCheckBox() {
+      /**
+       * @type import('#store').INotesStore
+       */
+      const notesStore = Alpine.store(StateStore.MY_NOTES);
+
       return {
         ["x-on:change"]: () => {
-          Alpine.store(StateStore.MY_NOTES).noteList[this.index].checked =
-            !Alpine.store(StateStore.MY_NOTES).noteList[this.index].checked;
+          notesStore.noteList[this.index].checked =
+            !notesStore.noteList[this.index].checked;
           // $store.documentsStore.getList.documents.some(e =&gt; e.completed)
-          Alpine.store(StateStore.MY_NOTES).areNotesSelected = Alpine.store(
-            StateStore.MY_NOTES
-          ).noteList.some((note) => note.checked);
+          notesStore.areNotesSelected = notesStore.noteList.some(
+            (note) => note.checked
+          );
         },
         ["x-model"]: () => this.note.checked,
         ["x-init"]: "$store.notesStore.noteList[index].checked = false;",
@@ -53,12 +58,16 @@ function DataTableListItem() {
       };
     },
     noteFileIconsList() {
+      /**
+       * @type import('#store').INotesStore
+       */
+      const notesStore = Alpine.store(StateStore.MY_NOTES);
+
       return {
         ["x-init"]: () => {
           Alpine.effect(() => {
             // Fix fileIcons not showing on pagination
-            if (Alpine.store(StateStore.MY_NOTES).noteList) {
-              const notesStore = Alpine.store(StateStore.MY_NOTES);
+            if (notesStore.noteList) {
               const noteAtIndex = notesStore.noteList[this.index];
 
               if (noteAtIndex) {
@@ -137,7 +146,10 @@ function DataTableListItemSubmenu() {
       return {
         ["x-show"]: "true",
         ["@click.prevent"]: async () => {
-          const noteId = this.note._id;
+          /**
+           * @type import('#types').NoteList._id
+           */
+          const noteId = this.$data.note._id;
           Alpine.store(StateStore.MODAL).deleteList = [noteId];
           Alpine.store(StateStore.MODAL).showBeforeDelete = true;
         },
@@ -157,7 +169,10 @@ function DataTableListItemSubmenu() {
       return {
         ["x-show"]: "true",
         ["@click.prevent"]: async (ev) => {
-          const note = this.note;
+          /**
+           * @type import('#types').NoteList
+           */
+          const note = this.$data.note;
           const isShareActive = !!note["can_share"];
 
           SkeletonLoaderEvent.dispatchCustomEvent(
@@ -291,13 +306,17 @@ function DataTableHeader() {
     },
     selectAll: false,
     selectAllCheckbox() {
+      /**
+       * @type import('#store').INotesStore
+       */
+      const notesStore = Alpine.store(StateStore.MY_NOTES);
       return {
         ["x-on:click"]: (ev) => {
           this.selectAll = !this.selectAll;
-          Alpine.store(StateStore.MY_NOTES).noteList.forEach((noteItem) => {
+          notesStore.noteList.forEach((noteItem) => {
             noteItem.checked = this.selectAll;
           });
-          Alpine.store(StateStore.MY_NOTES).areNotesSelected = this.selectAll;
+          notesStore.areNotesSelected = this.selectAll;
         },
         ["x-model"]: this.selectAll,
       };
@@ -332,6 +351,10 @@ function DataTablePaginationMenu() {
       };
     },
     pageNumber() {
+      /**
+       * @type import('#store').INotesStore
+       */
+      const notesStore = Alpine.store(StateStore.MY_NOTES);
       return {
         ["x-text"]: "pNumber",
         ["x-on:click"]: () => {
@@ -339,16 +362,18 @@ function DataTablePaginationMenu() {
         },
         [":class"]: () => {
           return (
-            +Alpine.store(StateStore.MY_NOTES).noteListMeta.pageNumber ===
-              +this.pNumber && "active"
+            +notesStore.noteListMeta.pageNumber === +this.pNumber && "active"
           );
         },
       };
     },
     pageNext() {
+      /**
+       * @type import('#store').INotesStore
+       */
+      const notesStore = Alpine.store(StateStore.MY_NOTES);
       return {
         ["x-on:click"]: () => {
-          const notesStore = Alpine.store(StateStore.MY_NOTES);
           const $router = window.PineconeRouter.currentContext;
           return (
             +notesStore.noteListMeta.pageNumber <
