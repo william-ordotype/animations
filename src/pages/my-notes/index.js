@@ -55,6 +55,7 @@ import {
   shareNoteActionsToastMsgs,
 } from "../../utils/toastMessages";
 import { noteFormMsg } from "../../utils/modalMessages";
+import { getUser } from "../../services/UsersService";
 
 window.Alpine = Alpine;
 
@@ -67,9 +68,9 @@ async function init() {
   NProgress.start();
   // const getUser = await $memberstackDom.getCurrentMember();
 
-  // const currentUser = localStorage.getItem('_ms') as Omit<, 'data'>
+  const currentUser = await getUser();
 
-  Alpine.store(StateStore.USER, userStore(getUser));
+  Alpine.store(StateStore.USER, userStore(currentUser));
   setLocale({ ...errorMessageFr, ...window.validationMsgCustom });
 }
 

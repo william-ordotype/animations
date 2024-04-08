@@ -3,7 +3,7 @@ import { Status_Type, IToastStore } from "./toaster.store.js";
 import { GetCurrentMemberPayload } from "@memberstack/dom";
 
 export interface IUserStore {
-  user: GetCurrentMemberPayload["data"];
+  user: GetCurrentMemberPayload["data"] | null;
   isAuth: boolean;
   hasPaidSub: boolean;
   init: () => void;
@@ -12,7 +12,7 @@ export interface IUserStore {
 const toastStore = Alpine.store("toasterStore") as IToastStore;
 
 const userStore = (
-  user: GetCurrentMemberPayload["data"] | null
+  user: Awaited<GetCurrentMemberPayload["data"]> | null
 ): IUserStore => {
   return {
     user: user,

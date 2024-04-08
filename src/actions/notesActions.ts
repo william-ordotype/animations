@@ -1,16 +1,18 @@
 import Alpine from "alpinejs";
 
-import { NotesUrls, StateStore, ToasterMsgTypes } from "../utils/enums";
+import { NotesUrls, StateStore } from "../utils/enums";
 import NotesService from "../services/notesService";
+import { INotesStore } from "../store/myNotes.store";
+import { IToastStore } from "../store/toaster.store";
+import { IUserStore } from "../store/user.store";
+
 const noteService = new NotesService();
 
-/**
- *
- * @param {Object} payload
- * @return {Promise<void>}
- */
-async function setNoteList(payload) {
-  Alpine.store(StateStore.MY_NOTES).isNotesLoading = true;
+async function setNoteList(payload: ToDo) {
+  const noteStore = Alpine.store(StateStore.MY_NOTES) as INotesStore;
+  const toastStore = Alpine.store(StateStore.TOASTER) as IToastStore;
+
+  noteStore.isNotesLoading = true;
   try {
     const notesRes = await noteService.getList(payload);
     const {
@@ -21,9 +23,10 @@ async function setNoteList(payload) {
       sort,
       direction,
       pathology_slug,
-    } = notesRes;
-    Alpine.store(StateStore.MY_NOTES).noteList = notesRes.data;
-    Alpine.store(StateStore.MY_NOTES).noteListMeta = {
+      data,
+    } = notesRes.data;
+    noteStore.noteList = data;
+    noteStore.noteListMeta = {
       pageNumber: page_number,
       pageTotal: page_total,
       itemsTotal: items_total,
@@ -32,26 +35,25 @@ async function setNoteList(payload) {
       direction,
       pathology_slug,
     };
-    Alpine.store(StateStore.MY_NOTES).isEmpty = page_total <= 0;
+    noteStore.isEmpty = page_total <= 0;
 
-    Alpine.store(StateStore.MY_NOTES).noteListType = payload.type;
+    noteStore.noteListType = payload.type;
 
-    Alpine.store(StateStore.MY_NOTES).isNotesLoading = false;
+    noteStore.isNotesLoading = false;
   } catch (err) {
-    Alpine.store(StateStore.TOASTER).toasterMsg(
-      window.toastActionMsg.notes.list.error,
-      ToasterMsgTypes.ERROR
-    );
+    toastStore.toasterMsg(window.toastActionMsg.notes.list.error, "error");
   }
 }
 
-async function setNoteOpened(payload) {
-  Alpine.store(StateStore.MY_NOTES).isNoteLoading = true;
+async function setNoteOpened(payload: ToDo) {
+  const noteStore = Alpine.store(StateStore.MY_NOTES) as INotesStore;
+
+  noteStore.isNoteLoading = true;
   try {
     const getNoteRes = await noteService.getOne(payload);
-    const { member, note } = getNoteRes;
-    Alpine.store(StateStore.MY_NOTES).noteOpened = { note, member };
-    Alpine.store(StateStore.MY_NOTES).isNoteLoading = false;
+    const { member, item: note } = getNoteRes.data;
+    noteStore.noteOpened = { note, member };
+    noteStore.isNoteLoading = false;
   } catch (err) {
     console.error(err);
     throw err;
@@ -67,52 +69,61 @@ async function editNote(payload) {
 }
 
 async function setNotesRuleStatus() {
+  const noteStore = Alpine.store(StateStore.MY_NOTES) as INotesStore;
+  const userStore = Alpine.store(StateStore.USER) as IUserStore;
+
   try {
-    Alpine.store(StateStore.MY_NOTES).isRuleStatusLoading = true;
-    if (!Alpine.store(StateStore.USER).isAuth) {
+    debugger;
+    noteStore.isRuleStatusLoading = true;
+    if (!userStore.isAuth) {
       return;
     }
     const response = await noteService.getRulesStatus();
 
     const consumedNotesNumber =
-      response.allowedNumberOfNotes - response.numberOfRemainingNotes;
+      response.data.allowedNumberOfNotes - response.data.numberOfRemainingNotes;
     const consumedMegabytesNumber =
-      response.allowedMegabyte - response.numberOfMegabyteRemaining;
+      response.data.allowedMegabyte - response.data.numberOfMegabyteRemaining;
 
     const currentStatus = {
       consumedNotesNumber:
-        response.allowedNumberOfNotes - response.numberOfRemainingNotes,
+        response.data.allowedNumberOfNotes -
+        response.data.numberOfRemainingNotes,
       consumedMegabytesNumber:
-        response.allowedMegabyte - response.numberOfMegabyteRemaining,
-      allowedNumberOfNotes: response.allowedNumberOfNotes,
-      allowedMegabyte: response.allowedMegabyte,
+        response.data.allowedMegabyte - response.data.numberOfMegabyteRemaining,
+      allowedNumberOfNotes: response.data.allowedNumberOfNotes,
+      allowedMegabyte: response.data.allowedMegabyte,
       consumedNotesPercent:
-        (consumedNotesNumber / response.allowedNumberOfNotes) * 100,
+        (consumedNotesNumber / response.data.allowedNumberOfNotes) * 100,
       consumedMegabytesPercent:
-        (consumedMegabytesNumber / response.allowedMegabyte) * 100,
+        (consumedMegabytesNumber / response.data.allowedMegabyte) * 100,
     };
 
-    Alpine.store(StateStore.MY_NOTES).currentRuleStatus = {
+    noteStore.currentRuleStatus = {
       ...currentStatus,
     };
-    Alpine.store(StateStore.MY_NOTES).isRuleStatusLoading = false;
+    noteStore.isRuleStatusLoading = false;
   } catch (err) {
     console.error(err);
   }
 }
 
-async function setNotesSearched(payload) {
-  Alpine.store(StateStore.MY_NOTES).isSearch = true;
+async function setNotesSearched(payload: ToDo) {
+  const noteStore = Alpine.store(StateStore.MY_NOTES) as INotesStore;
+
+  noteStore.isSearch = true;
 
   const searchedNotesRes =
     await noteService.searchNotesByTitleAndPathologyTitle({
       noteTitleAndPathologyTitle: payload,
     });
   const { items_per_page, items_total, page_number, page_total } =
-    searchedNotesRes;
+    searchedNotesRes.data;
 
-  Alpine.store(StateStore.MY_NOTES).noteList = searchedNotesRes.data;
-  Alpine.store(StateStore.MY_NOTES).noteListMeta = {
+  noteStore.noteList = searchedNotesRes.data.data;
+  noteStore.noteListMeta = {
+    direction: "DESC",
+    sort: "created_on",
     pageNumber: page_number,
     pageTotal: page_total,
     itemsTotal: items_total,
@@ -120,16 +131,18 @@ async function setNotesSearched(payload) {
   };
 }
 
-async function setDeleteNotes(payload) {
+async function setDeleteNotes(payload: ToDo) {
   const { noteIds } = payload;
-  const noteStore = Alpine.store(StateStore.MY_NOTES);
+  const noteStore = Alpine.store(StateStore.MY_NOTES) as INotesStore;
   const drawerStore = Alpine.store("drawerStore");
-  const toasterStore = Alpine.store(StateStore.TOASTER);
+  const toastStore = Alpine.store(StateStore.TOASTER) as IToastStore;
 
   let body;
-  if (Array.isArray(noteIds)) {
+  if (noteIds && Array.isArray(noteIds)) {
+    // @ts-ignore TODO
     if (noteIds.note) {
       // If docsToDelete is from the getOne request, use the note property and convert to array
+      // @ts-ignore
       body = [noteIds.note];
     } else {
       body = [...noteIds];
@@ -139,24 +152,24 @@ async function setDeleteNotes(payload) {
     const res = await noteService.deleteMany({ noteIds: body });
     const documentType = noteStore.noteListType;
     const pageNumber = noteStore.noteListMeta?.pageNumber || 1;
-    if (res.deletedCount > 0) {
+    if (res.data.deletedCount > 0) {
+      // @ts-ignore
       if (drawerStore.showDrawer === true) {
+        // @ts-ignore
         drawerStore.hideDrawer();
 
         if (location.href.includes(NotesUrls.MY_NOTES)) {
           const redirectUrl = `/list?type=${
             documentType ? documentType : "all"
           }${pageNumber && "&page=" + pageNumber}`;
-          if (PineconeRouter) {
-            // Redirect to list
-            PineconeRouter.currentContext.redirect(redirectUrl);
-          }
+          // Redirect to list
+          window.PineconeRouter.currentContext.redirect(redirectUrl);
         }
       }
 
-      toasterStore.toasterMsg(
+      toastStore.toasterMsg(
         window.toastActionMsg.notes.delete.success,
-        ToasterMsgTypes.SUCCESS
+        "success"
       );
       await setNoteList({
         page: pageNumber || 1,
@@ -165,10 +178,7 @@ async function setDeleteNotes(payload) {
         direction: noteStore.noteListMeta.direction,
       });
     } else {
-      toasterStore.toasterMsg(
-        window.toastActionMsg.notes.delete.error,
-        ToasterMsgTypes.ERROR
-      );
+      toastStore.toasterMsg(window.toastActionMsg.notes.delete.error, "error");
       return;
     }
 
@@ -182,10 +192,7 @@ async function setDeleteNotes(payload) {
 
     return res;
   } catch (err) {
-    toasterStore.toasterMsg(
-      window.toastActionMsg.notes.delete.error,
-      ToasterMsgTypes.ERROR
-    );
+    toastStore.toasterMsg(window.toastActionMsg.notes.delete.error, "error");
     console.error(err);
   }
 }

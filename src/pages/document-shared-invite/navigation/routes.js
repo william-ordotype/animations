@@ -57,7 +57,7 @@ function router() {
       }
       NProgress.done();
     },
-    notfound(context) {
+    notfound() {
       Alpine.store(StateStore.TOASTER).toasterMsg(
         window.toastActionMsg.navigation.notFound,
         ToasterMsgTypes.ERROR

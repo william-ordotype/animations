@@ -1,5 +1,5 @@
-import {array, number, object, string} from "yup";
-import {NoteTypes} from "../utils/enums";
+import { array, number, object, string } from "yup";
+import { NoteTypes } from "../utils/enums";
 
 const sortByValues = [
   "created_on",
@@ -45,24 +45,23 @@ const getListValidation = async (payload) => {
   return await getListSchema.validate(payload);
 };
 
+export const createOneSchema = object({
+  title: string().required().max(200),
+  type: string()
+    .required()
+    .oneOf([
+      NoteTypes.NOTES,
+      NoteTypes.PRESCRIPTIONS,
+      NoteTypes.RECOMMENDATIONS,
+    ]),
+  prescription_type: string().when("type", {
+    is: "prescriptions",
+    then: (schema) => schema.oneOf(["balance_sheet", "treatment"]),
+  }),
+  pathology: array().of(string()).optional(),
+  rich_text_ordo: string(),
+});
 const createOneValidation = async (payload) => {
-  const createOneSchema = object({
-    title: string().required().max(200),
-    type: string()
-      .required()
-      .oneOf([
-        NoteTypes.NOTES,
-        NoteTypes.PRESCRIPTIONS,
-        NoteTypes.RECOMMENDATIONS,
-      ]),
-    prescription_type: string().when("type", {
-      is: "prescriptions",
-      then: (schema) => schema.oneOf(["balance_sheet", "treatment"]),
-    }),
-    pathology: array().of(string()).optional(),
-    rich_text_ordo: string(),
-  });
-
   return await createOneSchema.validate(payload);
 };
 

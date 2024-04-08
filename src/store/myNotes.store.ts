@@ -11,8 +11,13 @@ export interface INotesStore {
     itemsTotal: number;
     sort: string;
     direction: string;
+    itemsPerPage: number;
+    pathology_slug?: string;
   };
   isSearch: boolean;
+
+  removeShareNoteList: ToDo;
+  deleteList: ToDo;
 
   searchValue: string;
   noteListType: NoteType | "";
@@ -42,6 +47,7 @@ const NotesStore: INotesStore = {
     itemsTotal: 10,
     sort: "created_on",
     direction: "DESC",
+    itemsPerPage: 10,
   },
   isSearch: false,
   searchValue: "",
@@ -62,6 +68,10 @@ const NotesStore: INotesStore = {
   // GetOne
   isNoteLoading: true,
   noteOpened: {},
+
+  // Delete
+  removeShareNoteList: [],
+  deleteList: [],
 
   async init() {
     console.log("Alpine init store");

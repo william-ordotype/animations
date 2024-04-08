@@ -1,4 +1,5 @@
 import { default as MsTypes } from "@memberstack/dom/lib/index";
+import PineconeRouter from "pinecone-router";
 /// <reference types="alpinejs" />
 
 declare global {
@@ -11,5 +12,10 @@ declare global {
     mainPlansIds: string[];
     memberToken: string;
     Webflow: any;
+
+    PineconeRouter: PineconeRouter;
+    toastActionMsg: any;
   }
+
+  type ToDo = any;
 }

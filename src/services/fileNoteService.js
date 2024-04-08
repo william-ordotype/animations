@@ -9,7 +9,6 @@ class FileNoteService extends apiService {
   async addFilesToNote(payload) {
     return await this.request({
       method: "POST",
-      noContentType: true,
       data: payload,
     });
   }

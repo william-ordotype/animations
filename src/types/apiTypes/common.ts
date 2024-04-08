@@ -11,4 +11,9 @@ type PaginatedResponse<TData> = {
   data: TData[];
 };
 
-export { ApiResponse, PaginatedResponse };
+type DeletedResponse = {
+  acknowledged: true;
+  deletedCount: number;
+};
+
+export { ApiResponse, PaginatedResponse, DeletedResponse };

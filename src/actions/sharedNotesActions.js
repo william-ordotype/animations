@@ -1,3 +1,4 @@
+// @ts-nocheck
 import Alpine from "alpinejs";
 
 import { NotesUrls, StateStore, ToasterMsgTypes } from "../utils/enums";
@@ -12,7 +13,7 @@ async function setSharedNoteList(payload) {
 
   const notesRes = await sharedNotesService.getNotes(payload);
   const { items_per_page, items_total, page_number, page_total } = notesRes;
-  Alpine.store(StateStore.MY_NOTES).noteList = notesRes.data;
+  Alpine.store(StateStore.MY_NOTES).noteList = notesRes.data.data;
   Alpine.store(StateStore.MY_NOTES).noteListMeta = {
     pageNumber: page_number,
     pageTotal: page_total,

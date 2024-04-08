@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import Alpine from "alpinejs";
 import NotesService from "../services/notesService";
 import { StateStore } from "../utils/enums";
@@ -5,7 +7,7 @@ import {
   setDeleteNotes,
   setNoteList,
   setNoteOpened,
-} from "../actions/notesActions";
+} from "../actions/notesActions.js";
 import NProgress from "nprogress";
 import PathologiesService from "../services/pathologiesService";
 

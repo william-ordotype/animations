@@ -3,6 +3,7 @@ import {
   createOneValidation,
   deleteManyNotesValidation,
   getListSchema,
+  createOneSchema,
   getListValidation,
   getOneValidation,
   searchByNoteTitleAndPathologyTitleValidation,
@@ -11,14 +12,18 @@ import {
 import { parseFormData } from "./apiUtils";
 import FileNoteService from "./fileNoteService";
 import { InferType } from "yup";
-import { PaginatedResponse } from "../types/apiTypes/common.js";
-import { NoteList } from "../types/apiTypes/notesTypes.js";
+import {
+  DeletedResponse,
+  PaginatedResponse,
+} from "../types/apiTypes/common.js";
+import { NoteItem, NoteList, NoteRules } from "../types/apiTypes/notesTypes.js";
 
-type NoteListExtended = NoteList & {
+type PaginatedNoteListExtended<TNoteList> = PaginatedResponse<TNoteList> & {
   direction: string;
   sort: string;
   pathology_slug?: string;
 };
+
 class NotesService extends ApiService {
   private fileNoteService: FileNoteService;
   constructor() {
@@ -29,14 +34,13 @@ class NotesService extends ApiService {
   /**
    * @param {object} payload
    * @param {string[]} payload.noteIds
-   * @returns {Promise<Object>}
    */
-  async deleteMany(payload: { noteIds: string[] }): Promise<any> {
+  async deleteMany(payload: { noteIds: string[] }) {
     const body = { note_ids: payload.noteIds };
 
     try {
       const validatePayload = await deleteManyNotesValidation(body);
-      return await this.request({
+      return await this.request<ToDo, ToDo, DeletedResponse>({
         method: "DELETE",
         data: validatePayload,
       });
@@ -48,12 +52,11 @@ class NotesService extends ApiService {
   /**
    *
    * @param id {string}
-   * @returns {Promise<Object>}
    */
   async getOne(id: string) {
     try {
       const payload = await getOneValidation(id);
-      return await this.request({
+      return await this.request<null, ToDo, NoteItem>({
         method: "GET",
         routeParams: payload,
       });
@@ -92,17 +95,16 @@ class NotesService extends ApiService {
             validatedPayload[key].length === 0)) &&
         delete validatedPayload[key]
     );
-
     return await this.request<
       null,
       InferType<typeof getListSchema>,
-      PaginatedResponse<NoteListExtended>
+      PaginatedNoteListExtended<NoteList>
     >({
       method: "GET",
       queryParams: validatedPayload,
-      resCallBack: (response) => {
+      resCallBack: (response: string) => {
         return {
-          ...response,
+          ...JSON.parse(response),
           direction: validatedPayload.direction,
           sort: validatedPayload.sort,
           pathology_slug: validatedPayload.pathology_slug,
@@ -115,20 +117,18 @@ class NotesService extends ApiService {
    *
    * @param {object} payload
    * @param {FileList} files
-   * @returns {Promise<Object>}
    */
-  async createOne(payload, files) {
+  async createOne(payload: InferType<typeof createOneSchema>, files: FileList) {
     const validatePayload = await createOneValidation(payload);
     const notesFormData = parseFormData(validatePayload);
     // Add files to formData
     for (let i = 0; i < files.length; i++) {
       notesFormData.append("files", files[i]);
     }
-    return await this.request({
+    return await this.request<ToDo, null, NoteItem>({
       method: "POST",
       contentType: "multipart/form-data",
       data: notesFormData,
-      noContentType: true,
     });
   }
 
@@ -152,7 +152,6 @@ class NotesService extends ApiService {
         routeParams: validatePayload._id,
         method: "PUT",
         data: validatePayload,
-        resCallBack: (res: object) => res,
       });
 
     const addFilesToNoteReq = async () =>
@@ -181,14 +180,14 @@ class NotesService extends ApiService {
       direction,
       noteTitleAndPathologyTitle,
     });
-    return await this.request({
+    return await this.request<ToDo, ToDo, PaginatedResponse<NoteList>>({
       method: "GET",
       queryParams: validatePayload,
     });
   }
 
   async getRulesStatus() {
-    return this.request({
+    return this.request<null, null, NoteRules>({
       method: "GET",
       routeParams: "rules/status",
     });

@@ -58,6 +58,13 @@ interface FileData {
   _id: string;
 }
 
+interface NoteRules {
+  allowedMegabyte: number;
+  allowedNumberOfNotes: number;
+  numberOfMegabyteRemaining: number;
+  numberOfRemainingNotes: number;
+}
+
 export {
   NoteList,
   NoteItem,
@@ -66,4 +73,5 @@ export {
   NoteType,
   PrescriptionType,
   FileData,
+  NoteRules,
 };

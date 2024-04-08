@@ -3,21 +3,22 @@ import axios, {
   AxiosInstance,
   AxiosRequestConfig,
   AxiosResponse,
+  AxiosResponseTransformer,
   isAxiosError,
+  ResponseType,
 } from "axios";
 import Alpine from "alpinejs";
 import { StateStore } from "../utils/enums.js";
 import { IToastStore, Status_Type } from "../store/toaster.store.js";
 
-const toastStore = Alpine.store(StateStore.TOASTER) as IToastStore;
-
-interface RequestOptions<TBody, TParams, TResponse> {
+interface RequestOptions<TBody, TParams> {
   method?: string;
   routeParams?: string;
   queryParams?: TParams;
   data?: TBody;
-  resCallBack?: (response: AxiosResponse<TResponse>) => any;
+  resCallBack?: AxiosResponseTransformer | AxiosResponseTransformer[];
   contentType?: string;
+  responseType?: ResponseType;
 }
 
 class ApiService {
@@ -43,6 +44,7 @@ class ApiService {
    * @param {Object} [options.queryParams={}] - The query parameters for the URL.
    * @param {Object} [options.data] - The request body data.
    * @param {String} [options.contentType="application/json"] - Content-Type for the request
+   * @param {string} [options.responseType="json"] - Response type format
    * @param {Function} [options.resCallBack] - A callback function to overwrite the response object.
    */
   async request<TBody, TParams, TResponse>({
@@ -52,14 +54,15 @@ class ApiService {
     data,
     resCallBack,
     contentType = "application/json",
-  }: RequestOptions<TBody, TParams, TResponse>): Promise<
-    AxiosResponse<TResponse>
-  > {
-    const config: AxiosRequestConfig<
-      RequestOptions<TBody, TParams, TResponse>
-    > = {
+    responseType = "json",
+  }: RequestOptions<TBody, TParams>): Promise<AxiosResponse<TResponse>> {
+    const fetchURL = routeParams
+      ? `${this.endpoint}/${routeParams}`
+      : `${this.endpoint}`;
+
+    const config: AxiosRequestConfig<TBody> = {
       method,
-      url: routeParams,
+      url: fetchURL,
       data,
       params: queryParams,
       headers: {
@@ -67,10 +70,13 @@ class ApiService {
         "Content-Type": contentType,
       },
       transformResponse: resCallBack,
+      responseType,
     };
     try {
       return await this.instance.request(config);
     } catch (err) {
+      const toastStore = Alpine.store(StateStore.TOASTER) as IToastStore;
+
       if (isAxiosError(err)) {
         toastStore.toasterMsg("Server Error", Status_Type.Error, 2500);
       }

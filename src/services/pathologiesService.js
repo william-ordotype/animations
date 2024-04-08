@@ -1,3 +1,5 @@
+// @ts-nocheck
+//
 import ApiService from "./apiService";
 import { searchByTitleAndAliasValidation } from "../validation/pathologiesValidation";
 

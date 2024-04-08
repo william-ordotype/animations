@@ -1,5 +1,7 @@
+// @ts-nocheck
+
 import PathologiesService from "../services/pathologiesService";
-import {setNoteList} from "../actions/notesActions";
+import { setNoteList } from "../actions/notesActions";
 
 const pathologyService = new PathologiesService();
 
