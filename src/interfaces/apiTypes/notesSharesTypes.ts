@@ -1,9 +1,4 @@
-import {
-  NoteItem,
-  NoteItemData,
-  NoteItemMember,
-  NoteList,
-} from "#types/apiTypes/notesTypes";
+import { NoteItem, NoteItemData, NoteItemMember, NoteList } from "./notesTypes";
 
 type ShareStates = "invitation_sent" | "revoked" | "expired" | "available";
 type SharingTypes = "email" | "link";

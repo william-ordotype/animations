@@ -29,7 +29,7 @@ function DataTableListItem() {
     // Row items
     noteCheckBox() {
       /**
-       * @type import('#store').INotesStore
+       * @type INotesStore
        */
       const notesStore = Alpine.store(StateStore.MY_NOTES);
 
@@ -59,7 +59,7 @@ function DataTableListItem() {
     },
     noteFileIconsList() {
       /**
-       * @type import('#store').INotesStore
+       * @type INotesStore
        */
       const notesStore = Alpine.store(StateStore.MY_NOTES);
 
@@ -147,7 +147,7 @@ function DataTableListItemSubmenu() {
         ["x-show"]: "true",
         ["@click.prevent"]: async () => {
           /**
-           * @type import('#types').NoteList._id
+           * @type NoteList._id
            */
           const noteId = this.$data.note._id;
           Alpine.store(StateStore.MODAL).deleteList = [noteId];
@@ -170,7 +170,7 @@ function DataTableListItemSubmenu() {
         ["x-show"]: "true",
         ["@click.prevent"]: async (ev) => {
           /**
-           * @type import('#types').NoteList
+           * @type NoteList
            */
           const note = this.$data.note;
           const isShareActive = !!note["can_share"];
@@ -310,7 +310,7 @@ function DataTableHeader() {
     selectAll: false,
     selectAllCheckbox() {
       /**
-       * @type import('#store').INotesStore
+       * @type INotesStore
        */
       const notesStore = Alpine.store(StateStore.MY_NOTES);
       return {
@@ -355,7 +355,7 @@ function DataTablePaginationMenu() {
     },
     pageNumber() {
       /**
-       * @type import('#store').INotesStore
+       * @type INotesStore
        */
       const notesStore = Alpine.store(StateStore.MY_NOTES);
       return {
@@ -372,7 +372,7 @@ function DataTablePaginationMenu() {
     },
     pageNext() {
       /**
-       * @type import('#store').INotesStore
+       * @type INotesStore
        */
       const notesStore = Alpine.store(StateStore.MY_NOTES);
       return {

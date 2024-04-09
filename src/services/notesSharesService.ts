@@ -21,9 +21,12 @@ import {
   DeactivateNote,
   UpdateSharedNoteOptions,
   SharedNoteItem,
-} from "#types/apiTypes/notesSharesTypes";
+} from "@interfaces/apiTypes/notesSharesTypes";
 import { InferType } from "yup";
-import { DeletedResponse, PaginatedResponse } from "#types/apiTypes/common";
+import {
+  DeletedResponse,
+  PaginatedResponse,
+} from "@interfaces/apiTypes/common";
 
 class ShareNotesService extends ApiService {
   constructor() {

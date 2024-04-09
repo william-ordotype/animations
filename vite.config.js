@@ -13,10 +13,7 @@ export default defineConfig({
       "@services": resolve(__dirname, "./src/services"),
       "@pages": resolve(__dirname, "./src/pages"),
       "@utils": resolve(__dirname, "./src/utils"),
-      "@types": resolve(__dirname, "./src/types"),
-      // alias for JSDoc in JS files. Prefix @ doesn't work
-      "#store": resolve(__dirname, "./src/store"),
-      "#types": resolve(__dirname, "./src/types"),
+      "@interfaces": resolve(__dirname, "./src/interfaces"),
     },
   },
   build: {

@@ -3,9 +3,9 @@ import {
   NoteItemMember,
   NoteList,
   NoteType,
-} from "#types/apiTypes/notesTypes";
+} from "@interfaces/apiTypes/notesTypes";
 import Alpine from "alpinejs";
-import { SharedWithMeNoteList } from "#types/apiTypes/notesSharesTypes";
+import { SharedWithMeNoteList } from "@interfaces//apiTypes/notesSharesTypes";
 
 export interface INotesStore {
   isNotesLoading: boolean;

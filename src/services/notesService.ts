@@ -16,8 +16,8 @@ import { InferType } from "yup";
 import {
   DeletedResponse,
   PaginatedResponse,
-} from "../types/apiTypes/common.js";
-import { NoteItem, NoteList, NoteRules } from "../types/apiTypes/notesTypes.js";
+} from "@interfaces/apiTypes/common";
+import { NoteItem, NoteList, NoteRules } from "@interfaces/apiTypes/notesTypes";
 
 type PaginatedNoteListExtended<TNoteList> = PaginatedResponse<TNoteList> & {
   direction: string;
