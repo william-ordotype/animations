@@ -1,6 +1,6 @@
 import Alpine from "alpinejs";
 import getFileExtByMimeType from "@assets/file_ext.js";
-import ShareNotesService from "@services/notesSharesService.js";
+import ShareNotesService from "@services/notesSharesService";
 import SkeletonLoaderEvent from "../../events/SkeletonLoaderEvent";
 import {
   handleItemsPerPage,
@@ -191,12 +191,15 @@ function DataTableListItemSubmenu() {
           Alpine.store("shareStore").showSharingOptions = isShareActive;
           Alpine.store("shareStore").activeNote = note;
           if (isShareActive) {
-            const { emails, linkId } = await ShareNotes.getSharedInfoFromNote({
+            const res = await ShareNotes.getSharedInfoFromNote({
               noteId: note._id,
             });
+            const { emails, linkId } = res.data;
             Alpine.store("shareStore").activeNoteEmailList = emails;
             Alpine.store("shareStore").activeNotePublicLink = linkId;
           }
+
+          // ToDo Redo skeleton logic. Maybe binding the class to the response time
           SkeletonLoaderEvent.dispatchCustomEvent(
             document.querySelector(".search_result_wrapper.partage"),
             false

@@ -7,10 +7,29 @@ import {
   setSharedNoteBasicInfo,
   setShowSharedNote,
 } from "../../../actions/sharedNotesActions";
+import { STATUS_TYPES } from "@store/toaster.store.js";
 
 const shareNoteService = new ShareNotesService();
 
 function router() {
+  /**
+   * @type import('#store').INotesStore
+   */
+  const notesStore = Alpine.store(StateStore.MY_NOTES);
+  /**
+   * @type import('#store').IUserStore
+   */
+  const userStore = Alpine.store(StateStore.USER);
+  /**
+   * @type import('#store').IToastStore
+   */
+  const toastStore = Alpine.store(StateStore.TOASTER);
+
+  /**
+   * @type import('#store').IShareStore
+   */
+  const shareStore = Alpine.store(StateStore.SHARE);
+
   return {
     async home(context) {
       const { query } = context;
@@ -18,7 +37,7 @@ function router() {
       const inviteId = obj["id"];
       const inviteType = obj["type"];
       const acceptId = obj["acceptId"];
-      const isAuth = Alpine.store(StateStore.USER).isAuth;
+      const isAuth = userStore.isAuth;
 
       try {
         if (acceptId) {
@@ -40,27 +59,27 @@ function router() {
           // ordotype.fr/my-documents-invitation?id=12345&type=email
           await setShowSharedNote({ inviteType, noteId: inviteId });
         } else {
-          Alpine.store(StateStore.TOASTER).toasterMsg(
+          toastStore.toasterMsg(
             window.toastActionMsg.navigation.invalidUrlInvitation,
-            ToasterMsgTypes.ERROR,
+            STATUS_TYPES.error,
             10000
           );
           console.error("Invalid URL. Missing type or id");
         }
       } catch (err) {
-        Alpine.store(StateStore.SHARE).isInvitedAllowed = false;
-        Alpine.store(StateStore.SHARE).isInvitationLoading = false;
+        shareStore.isInvitedAllowed = false;
+        shareStore.isInvitationLoading = false;
         console.error(err);
         if (err.response?.statusCode === 404) {
-          Alpine.store(StateStore.SHARE).invitationNotExists = true;
+          shareStore.invitationNotExists = true;
         }
       }
       NProgress.done();
     },
     notfound() {
-      Alpine.store(StateStore.TOASTER).toasterMsg(
+      toastStore.toasterMsg(
         window.toastActionMsg.navigation.notFound,
-        ToasterMsgTypes.ERROR
+        STATUS_TYPES.error
       );
       console.log("URL not found");
     },
@@ -74,7 +93,7 @@ async function acceptInvitation(acceptId) {
   const res = await shareNoteService.acceptNoteInvitation({ noteId: acceptId });
   NProgress.set(0.5);
 
-  const { noteId, alreadyAccepted } = res;
+  const { noteId, alreadyAccepted } = res.data;
   if (!alreadyAccepted) {
     Alpine.store(StateStore.TOASTER).toasterMsg(
       window.toastActionMsg.shareNotes.acceptedInvitation.success,

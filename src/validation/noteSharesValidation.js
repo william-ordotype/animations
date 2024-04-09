@@ -15,13 +15,12 @@ const activateSharedNoteValidation = async (payload) => {
   return await activateSharedNoteSchema.validate(payload);
 };
 
+export const updateEmailsToNoteSchema = object({
+  emailsToAdd: array().of(string().email()),
+  emailsToRemove: array().of(string().email()),
+  noteId: string().required(),
+});
 const updateEmailsToNoteValidation = async (payload) => {
-  const updateEmailsToNoteSchema = object({
-    emailsToAdd: array().of(string().email()),
-    emailsToRemove: array().of(string().email()),
-    noteId: string().required(),
-  });
-
   return await updateEmailsToNoteSchema.validate(payload);
 };
 
@@ -34,35 +33,33 @@ const getNoteByTypeValidation = async (payload) => {
   return await getNoteByTypeSchema.validate(payload);
 };
 
+export const getNotesSchema = object({
+  page: number().required().positive().integer(),
+  limit: number().required().positive().integer(),
+  sort: string().oneOf(sortByValues).required(),
+  direction: string().oneOf(["DESC", "ASC"]).required(),
+  type: string()
+    .oneOf(["notes", "prescriptions", "recommendations", ""])
+    .optional(),
+  prescription_type: string()
+    .oneOf(["balance_sheet", "treatment", ""])
+    .optional(),
+  pathology: array().of(string()).optional(),
+  state: string().oneOf([ShareStates.AVAILABLE, ShareStates.INVITATION_SENT]),
+});
 const getNotesValidation = async (payload) => {
-  const getNotesSchema = object({
-    page: number().required().positive().integer(),
-    limit: number().required().positive().integer(),
-    sort: string().oneOf(sortByValues).required(),
-    direction: string().oneOf(["DESC", "ASC"]).required(),
-    type: string()
-      .oneOf(["notes", "prescriptions", "recommendations", ""])
-      .optional(),
-    prescription_type: string()
-      .oneOf(["balance_sheet", "treatment", ""])
-      .optional(),
-    pathology: array().of(string()).optional(),
-    state: string().oneOf([ShareStates.AVAILABLE, ShareStates.INVITATION_SENT]),
-  });
-
   return await getNotesSchema.validate(payload);
 };
 
+export const searchSharedNotesByTitleAndPathologySchema = object({
+  page: number().positive().integer(),
+  limit: number().positive().integer(),
+  sort: string().oneOf(sortByValues),
+  direction: string().oneOf(["DESC", "ASC"]),
+  noteTitleAndPathologyTitle: string().required(),
+  state: string().oneOf([ShareStates.AVAILABLE, ShareStates.INVITATION_SENT]),
+});
 const searchSharedNotesByTitleAndPathology = async (payload) => {
-  const searchSharedNotesByTitleAndPathologySchema = object({
-    page: number().required().positive().integer(),
-    limit: number().required().positive().integer(),
-    sort: string().oneOf(sortByValues).required(),
-    direction: string().oneOf(["DESC", "ASC"]).required(),
-    noteTitleAndPathologyTitle: string(),
-    state: string().oneOf([ShareStates.AVAILABLE, ShareStates.INVITATION_SENT]),
-  });
-
   return await searchSharedNotesByTitleAndPathologySchema.validate(payload);
 };
 

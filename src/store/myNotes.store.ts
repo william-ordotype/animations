@@ -1,23 +1,23 @@
 import {
-  NoteItem,
   NoteItemData,
   NoteItemMember,
   NoteList,
   NoteType,
-} from "../types/apiTypes/notesTypes";
+} from "#types/apiTypes/notesTypes";
 import Alpine from "alpinejs";
+import { SharedWithMeNoteList } from "#types/apiTypes/notesSharesTypes";
 
 export interface INotesStore {
   isNotesLoading: boolean;
   isEmpty: boolean;
-  noteList: NoteList[] | [];
+  noteList: SharedWithMeNoteList[] | NoteList[] | [];
   noteListMeta: {
     pageNumber: number;
     pageTotal: number;
     itemsTotal: number;
-    sort: string;
-    direction: string;
     itemsPerPage: number;
+    sort?: string;
+    direction?: string;
     pathology_slug?: string;
   };
   isSearch: boolean;

@@ -10,7 +10,7 @@ interface NoteItem {
 }
 
 interface NoteItemData {
-  created_by: { role: AuthorRole; email: string; full_name: string };
+  created_by: { role: AuthorRole; email: string; full_name?: string };
   created_on: string;
   documents?: FileData[];
   pathologies?: PathologyItem[];
