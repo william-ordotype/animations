@@ -1,6 +1,6 @@
 import Alpine from "alpinejs";
 
-import { NotesUrls, StateStore } from "../utils/enums";
+import { NotesUrls, StateStore } from "@utils/enums";
 import ShareNotesService from "../services/notesSharesService";
 import { setNotesRuleStatus } from "./notesActions";
 import { INotesStore } from "@store/myNotes.store";

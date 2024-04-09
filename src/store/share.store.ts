@@ -1,4 +1,21 @@
-const shareStore = {
+export interface IShareStore {
+  shareOptionsEnabled: boolean;
+  shareSwitch: boolean;
+  isShareSwitchLoading: boolean;
+  activeNote: ToDo;
+  activeNoteEmailList: string[];
+  activeNotePublicLink: string;
+  showCopySuccessMsg: boolean;
+  clearShareModalOptions: () => void;
+
+  // Invitation page
+  isInvitationLoading: boolean;
+  isInvitedAllowed: boolean;
+  invitationNote: ToDo;
+  invitationNotExists: boolean;
+}
+
+const shareStore: IShareStore = {
   // My documents page
   shareOptionsEnabled: false,
   shareSwitch: false,

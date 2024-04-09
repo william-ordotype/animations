@@ -149,7 +149,7 @@ function DataTableListItemSubmenu() {
           /**
            * @type NoteList._id
            */
-          const noteId = this.$data.note._id;
+          const noteId = this.$data.note?._id;
           Alpine.store(StateStore.MODAL).deleteList = [noteId];
           Alpine.store(StateStore.MODAL).showBeforeDelete = true;
         },

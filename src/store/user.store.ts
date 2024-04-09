@@ -28,7 +28,8 @@ const userStore = (
           ) {
             window.$memberstackDom
               .openModal("LOGIN")
-              .then(({ data }: GetCurrentMemberPayload) => {
+              .then((value) => {
+                const { data } = value as GetCurrentMemberPayload;
                 this.user = data;
                 this.isAuth = true;
                 window.$memberstackDom.hideModal();
@@ -46,11 +47,11 @@ const userStore = (
         this.isAuth = true;
         this.user = user;
         window.memberToken = window.$memberstackDom.getMemberCookie();
-        const mainPlan: string = this.user.planConnections.filter(
-          (plan: { planId: string }) => {
+        const mainPlan: string = this.user.planConnections
+          .filter((plan: { planId: string }) => {
             return window.mainPlansIds.includes(plan.planId);
-          }
-        );
+          })
+          .toString();
 
         if (mainPlan) {
           this.hasPaidSub = true;
