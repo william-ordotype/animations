@@ -20,6 +20,7 @@ import {
   NoteFromLinkUnauth,
   DeactivateNote,
   UpdateSharedNoteOptions,
+  SharedNoteItem,
 } from "#types/apiTypes/notesSharesTypes";
 import { InferType } from "yup";
 import { DeletedResponse, PaginatedResponse } from "#types/apiTypes/common";
@@ -183,7 +184,7 @@ class ShareNotesService extends ApiService {
   async getNoteByType({ type, id }: { type: "email" | "link"; id: string }) {
     try {
       const validatePayload = await getNoteByTypeValidation({ type, id });
-      return await this.request<null, null, NoteFromLinkAuth>({
+      return await this.request<null, null, SharedNoteItem>({
         routeParams: `me/${validatePayload.type}/${validatePayload.id}`,
         method: "GET",
       });

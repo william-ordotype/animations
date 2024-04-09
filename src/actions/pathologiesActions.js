@@ -1,3 +1,4 @@
+// @ts-nocheck
 import PathologiesService from "../services/pathologiesService";
 
 const pathologyService = new PathologiesService();

@@ -1,4 +1,9 @@
-import { NoteItemData, NoteList } from "#types/apiTypes/notesTypes";
+import {
+  NoteItem,
+  NoteItemData,
+  NoteItemMember,
+  NoteList,
+} from "#types/apiTypes/notesTypes";
 
 type ShareStates = "invitation_sent" | "revoked" | "expired" | "available";
 type SharingTypes = "email" | "link";
@@ -34,6 +39,11 @@ export interface NoteFromLinkAuth extends NoteItemData {
   updated_by: {
     full_name: string;
   };
+}
+
+export interface SharedNoteItem extends NoteItem {
+  member: NoteItemMember;
+  note: NoteFromLinkAuth;
 }
 
 export interface AcceptNoteInvitation {
