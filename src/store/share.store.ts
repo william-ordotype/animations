@@ -1,11 +1,16 @@
+import { boolean } from "yup";
+import { SharedEmailsInNote } from "@interfaces/apiTypes/notesSharesTypes";
+import { NoteItemData } from "@interfaces/apiTypes/notesTypes";
+
 export interface IShareStore {
   shareOptionsEnabled: boolean;
   shareSwitch: boolean;
   isShareSwitchLoading: boolean;
-  activeNote: ToDo;
-  activeNoteEmailList: string[];
+  activeNote: NoteItemData | null;
+  activeNoteEmailList: SharedEmailsInNote[] | [];
   activeNotePublicLink: string;
   showCopySuccessMsg: boolean;
+  showSharingOptions: boolean;
   clearShareModalOptions: () => void;
 
   // Invitation page
@@ -20,13 +25,14 @@ const shareStore: IShareStore = {
   shareOptionsEnabled: false,
   shareSwitch: false,
   isShareSwitchLoading: false,
-  activeNote: {},
+  activeNote: null,
   activeNoteEmailList: [],
   activeNotePublicLink: "",
   showCopySuccessMsg: false,
+  showSharingOptions: false,
   clearShareModalOptions() {
     this.shareOptionsEnabled = false;
-    this.activeNote = {};
+    this.activeNote = null;
     this.activeNoteEmailList = [];
     this.activeNotePublicLink = "";
     this.showCopySuccessMsg = false;

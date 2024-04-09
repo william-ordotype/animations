@@ -6,14 +6,14 @@ class FileNoteService extends apiService {
     super("documents");
   }
 
-  async addFilesToNote(payload) {
+  async addFilesToNote(payload: ToDo) {
     return await this.request({
       method: "POST",
       data: payload,
     });
   }
 
-  async removeFilesFromNote(payload) {
+  async removeFilesFromNote(payload: ToDo) {
     const validatePayload = await removeFilesFromNoteValidation(payload);
     return await this.request({
       method: "DELETE",

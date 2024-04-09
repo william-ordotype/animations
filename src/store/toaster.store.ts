@@ -33,7 +33,6 @@ const toasterStore: IToastStore = {
   type: Status_Type.Info,
   toasterMsg(msg = "", type, time = 3000) {
     if (STATUS_TYPES[type] === undefined) {
-      this.type = "none";
       console.error("Toaster type not found");
     } else {
       this.type = STATUS_TYPES[type];
@@ -43,7 +42,6 @@ const toasterStore: IToastStore = {
     setTimeout(() => {
       this.message = "";
       this.showToaster = false;
-      this.type = "none";
     }, time);
   },
 };

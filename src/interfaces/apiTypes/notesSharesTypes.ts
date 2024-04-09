@@ -3,6 +3,11 @@ import { NoteItem, NoteItemData, NoteItemMember, NoteList } from "./notesTypes";
 type ShareStates = "invitation_sent" | "revoked" | "expired" | "available";
 type SharingTypes = "email" | "link";
 
+interface SharedEmailsInNote {
+  email: string;
+  state: ShareStates;
+}
+
 interface ActivateNote {
   linkId: string;
 }
@@ -11,10 +16,7 @@ type DeactivateNote = null;
 
 interface SharedNoteInvitees {
   linkId: string;
-  emails: {
-    email: string;
-    state: ShareStates;
-  }[];
+  emails: SharedEmailsInNote[];
 }
 
 type UpdateSharedNoteOptions = null;
@@ -54,4 +56,5 @@ export {
   ShareStates,
   DeactivateNote,
   UpdateSharedNoteOptions,
+  SharedEmailsInNote,
 };

@@ -1,5 +1,5 @@
 import Alpine from "alpinejs";
-import { StateStore } from "../../utils/enums";
+import { StateStore } from "@utils/enums";
 import { setNotesSearched } from "../../actions/notesActions";
 import NProgress from "nprogress";
 

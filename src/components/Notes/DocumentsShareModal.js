@@ -1,6 +1,6 @@
 import Alpine from "alpinejs";
 import ShareNotesService from "../../services/notesSharesService";
-import { StateStore, ToasterMsgTypes } from "../../utils/enums";
+import { StateStore, ToasterMsgTypes } from "@utils/enums";
 import NProgress from "nprogress";
 import { string } from "yup";
 

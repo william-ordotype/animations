@@ -1,9 +1,11 @@
+// @ts-nocheck
+
 /**
  * Returns queryParams String from an object
  * @param {Object} obj
  * @returns {string}
  */
-function objectToQueryParams(obj) {
+function objectToQueryParams(obj: ToDo) {
   const queryParams = new URLSearchParams();
 
   for (const key in obj) {
@@ -19,7 +21,7 @@ function objectToQueryParams(obj) {
   return queryParams.toString();
 }
 
-function parseFormData(formFieldValues) {
+function parseFormData(formFieldValues: ToDo) {
   return Object.keys(formFieldValues).reduce((formData, key) => {
     formData.append(key, formFieldValues[key]);
     return formData;

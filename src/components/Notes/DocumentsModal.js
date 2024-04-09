@@ -2,7 +2,7 @@ import Alpine from "alpinejs";
 
 import globals from "../../utils/globals";
 import PathologiesService from "../../services/pathologiesService";
-import { StateStore } from "../../utils/enums";
+import { StateStore } from "@utils/enums.js";
 
 const pathologiesService = new PathologiesService();
 function DocumentsModal() {
@@ -92,7 +92,7 @@ function DocumentsModal() {
             !$(ev.target).parents(".modal_dialog_backdrop").length > 0 &&
             ev.target !== document.querySelector(".modal_dialog_backdrop")
           ) {
-            // If click inside autocomplete dropdown (which is outside of the modal) ignore close
+            // If click inside autocomplete dropdown (which is outside the modal) ignore close
             if ($(ev.target).parents(".aa-Panel").length > 0) {
               modalStore.showBeforeCancel = false;
             } else {

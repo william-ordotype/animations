@@ -8,20 +8,11 @@ class PathologiesService extends ApiService {
     super("pathologies");
   }
 
-  // async getList(payload) {
-  //   // const validatedPayload
-  //   return await this.request({
-  //     method: "GET",
-  //     queryParams: `page=1&limit=50&sort=title&direction=DESC&title=${validatePayload}&alias=${validatePayload}`,
-  //   });
-  // }
-
   /**
    *
    * @param {string} searchQuery
-   * @returns {Promise<Object>}
    */
-  async searchByTitleAndAlias(searchQuery) {
+  async searchByTitleAndAlias(searchQuery: ToDo) {
     const reqParams = {
       page: 1,
       limit: 50,
@@ -42,9 +33,8 @@ class PathologiesService extends ApiService {
   /**
    *
    * @param {string} slug
-   * @return {Promise<Object>}
    */
-  async searchBySlug(slug) {
+  async searchBySlug(slug: string) {
     return await this.request({
       method: "GET",
       routeParams: slug,
