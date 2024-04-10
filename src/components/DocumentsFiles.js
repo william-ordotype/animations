@@ -87,7 +87,7 @@ function DocumentFileListItem({
     deleteServerFiles(ev, id) {
       Alpine.store("modalStore").filesToDelete.push(id);
 
-      $(ev.target).unbind("click").parents(".file_block").css("opacity", "0.5");
+      $(ev.target).off("click").parents(".file_block").css("opacity", "0.5");
     },
   };
 }

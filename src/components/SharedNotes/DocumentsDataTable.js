@@ -1,9 +1,5 @@
-import {
-  setCloneNote,
-  setRemoveSharedInvitations,
-  setSharedNoteList,
-} from "../../actions/sharedNotesActions";
-import { ShareStates, StateStore } from "../../utils/enums";
+import { setCloneNote } from "../../actions/sharedNotesActions";
+import { StateStore } from "@utils/enums.js";
 
 function DataTableListItemSubmenu() {
   return {

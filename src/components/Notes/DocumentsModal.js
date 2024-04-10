@@ -93,11 +93,8 @@ function DocumentsModal() {
             ev.target !== document.querySelector(".modal_dialog_backdrop")
           ) {
             // If click inside autocomplete dropdown (which is outside the modal) ignore close
-            if ($(ev.target).parents(".aa-Panel").length > 0) {
-              modalStore.showBeforeCancel = false;
-            } else {
-              modalStore.showBeforeCancel = true;
-            }
+            modalStore.showBeforeCancel =
+              $(ev.target).parents(".aa-Panel").length <= 0;
           }
         },
       };

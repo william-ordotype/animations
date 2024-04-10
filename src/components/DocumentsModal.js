@@ -151,7 +151,8 @@ function DocumentsModal() {
       this.modalStore.showInsertUrl = false;
     },
     clearUrlSubmit() {
-      (this.url = ""), (this.urlTitle = "");
+      this.url = "";
+      this.urlTitle = "";
     },
     insertUrlDialog() {
       return {

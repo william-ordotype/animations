@@ -10,7 +10,7 @@ import userStore from "../../store/user.store";
 import {
   PathologiesNoteList,
   PathologiesNoteItem,
-} from "../../components/PathologiesNoteList";
+} from "@components/PathologiesNoteList.js";
 import modalStore from "../../store/modal.store";
 import toasterStore from "../../store/toaster.store";
 import DocumentsDrawer from "../../components/Notes/DocumentsDrawer";
@@ -19,15 +19,15 @@ import {
   DocumentsModal,
   OpenModalByType,
   PathologiesAutocomplete,
-} from "../../components/Notes/DocumentsModal";
+} from "@components/Notes/DocumentsModal.js";
 import {
   DocumentFileInput,
   DocumentFileListItem,
-} from "../../components/DocumentsFiles";
+} from "@components/DocumentsFiles.js";
 import pathologiesStore from "../../store/pathologies.store";
 import myNotesStore from "../../store/myNotes.store";
 import shareStore from "../../store/share.store";
-import { StateStore } from "../../utils/enums";
+import { StateStore } from "@utils/enums.js";
 import DocumentsShareModal from "../../components/Notes/DocumentsShareModal";
 import NProgress from "nprogress";
 import { setLocale } from "yup";
@@ -36,8 +36,8 @@ import {
   navigationToastMsgs,
   noteActionsToastMsgs,
   shareNoteActionsToastMsgs,
-} from "../../utils/toastMessages";
-import { noteFormMsg } from "../../utils/modalMessages";
+} from "@utils/toastMessages.js";
+import { noteFormMsg } from "@utils/modalMessages.js";
 import intersect from "@alpinejs/intersect";
 
 console.log("pathologies");

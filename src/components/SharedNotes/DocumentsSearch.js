@@ -1,5 +1,5 @@
 import Alpine from "alpinejs";
-import { StateStore } from "../../utils/enums";
+import { StateStore } from "@utils/enums.js";
 import { setSharedNotesSearched } from "../../actions/sharedNotesActions";
 import NProgress from "nprogress";
 

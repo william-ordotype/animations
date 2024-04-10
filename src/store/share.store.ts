@@ -1,4 +1,3 @@
-import { boolean } from "yup";
 import { SharedEmailsInNote } from "@interfaces/apiTypes/notesSharesTypes";
 import { NoteItemData } from "@interfaces/apiTypes/notesTypes";
 

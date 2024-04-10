@@ -8,8 +8,8 @@ import axios, {
   ResponseType,
 } from "axios";
 import Alpine from "alpinejs";
-import { StateStore } from "../utils/enums.js";
-import { IToastStore, Status_Type } from "../store/toaster.store.js";
+import { StateStore } from "@utils/enums";
+import { IToastStore, Status_Type } from "@store/toaster.store";
 
 interface RequestOptions<TBody, TParams> {
   method?: string;

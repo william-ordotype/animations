@@ -1,11 +1,11 @@
 import Alpine from "alpinejs";
 import { setLocale } from "yup";
 
-import { DocumentAvailableSpaceGraphWidget } from "../../components/Notes/DocumentAvailableSpaceGraphWidget";
+import { DocumentAvailableSpaceGraphWidget } from "@components/Notes/DocumentAvailableSpaceGraphWidget.js";
 
-import { StateStore } from "../../utils/enums";
-import notesStore from "../../store/myNotes.store";
-import userStore from "../../store/user.store";
+import { StateStore } from "@utils/enums.js";
+import notesStore from "@store/myNotes.store";
+import userStore from "@store/user.store";
 import { errorMessageFr } from "../../validation/errorMessages";
 import { setNotesRuleStatus } from "../../actions/notesActions";
 

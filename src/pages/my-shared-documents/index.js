@@ -2,7 +2,6 @@
 
 import PineconeRouter from "pinecone-router";
 import focus from "@alpinejs/focus";
-// import alpineWebflow from "../../modules/alpine-webflow";
 import Alpine from "alpinejs";
 import NProgress from "nprogress";
 import { setLocale } from "yup";
@@ -13,15 +12,14 @@ import "nprogress/nprogress.css";
 import "../../modules/slideon/slideon";
 import "../../modules/slideon/style.scss";
 import "./navigation/routes";
-import globals from "../../utils/globals";
+import globals from "@utils/globals";
 import "../../styles.scss";
 
-import modalStore from "../../store/modal.store";
-import drawerStore from "../../store/drawer.store";
-import userStore from "../../store/user.store";
-import toasterStore from "../../store/toaster.store";
-import shareStore from "../../store/share.store";
-import notesStore from "../../store/myNotes.store";
+import modalStore from "@store/modal.store";
+import userStore from "@store/user.store";
+import toasterStore from "@store/toaster.store";
+import shareStore from "@store/share.store";
+import notesStore from "@store/myNotes.store";
 
 import {
   DataTablePaginationMenu,
@@ -29,33 +27,33 @@ import {
   DataTableHeader,
   DataTablePerPageDropdown,
   LayoutContainer,
-} from "../../components/Notes/DocumentsDataTable";
-import { DataTableListItemSubmenu } from "../../components/SharedNotes/DocumentsDataTable";
-import DocumentsTypeNavigation from "../../components/Notes/DocumentsTypeNavigation";
-import DocumentsDrawer from "../../components/Notes/DocumentsDrawer";
+} from "@components/Notes/DocumentsDataTable.js";
+import { DataTableListItemSubmenu } from "@components/SharedNotes/DocumentsDataTable.js";
+import DocumentsTypeNavigation from "@components/Notes/DocumentsTypeNavigation";
+import DocumentsDrawer from "@components/Notes/DocumentsDrawer";
 import {
   DeleteSelectedNotes,
   DocumentsModal,
   OpenModalByType,
   PathologiesAutocomplete,
-} from "../../components/Notes/DocumentsModal";
+} from "@components/Notes/DocumentsModal.js";
 import {
   DocumentFileInput,
   DocumentFileListItem,
-} from "../../components/DocumentsFiles";
-import DocumentsSearch from "../../components/SharedNotes/DocumentsSearch";
-import DocumentsShareModal from "../../components/Notes/DocumentsShareModal";
-import { DocumentAvailableSpaceGraphWidget } from "../../components/Notes/DocumentAvailableSpaceGraphWidget";
+} from "@components/DocumentsFiles.js";
+import DocumentsSearch from "@components/SharedNotes/DocumentsSearch";
+import DocumentsShareModal from "@components/Notes/DocumentsShareModal";
+import { DocumentAvailableSpaceGraphWidget } from "@components/Notes/DocumentAvailableSpaceGraphWidget.js";
 
-import { StateStore } from "../../utils/enums";
+import { StateStore } from "@utils/enums.js";
 import { errorMessageFr } from "../../validation/errorMessages";
-import { BeforeRemoveSharedInvitationDialog } from "../../components/SharedNotes/DocumentsModal";
+import { BeforeRemoveSharedInvitationDialog } from "@components/SharedNotes/DocumentsModal.js";
 import {
   navigationToastMsgs,
   noteActionsToastMsgs,
   shareNoteActionsToastMsgs,
-} from "../../utils/toastMessages";
-import { noteFormMsg } from "../../utils/modalMessages";
+} from "@utils/toastMessages";
+import { noteFormMsg } from "@utils/modalMessages";
 
 window.Alpine = Alpine;
 
@@ -77,7 +75,6 @@ async function init() {
 
 Alpine.store("notesStore", notesStore);
 Alpine.store("modalStore", modalStore);
-Alpine.store("drawerStore", drawerStore);
 Alpine.store("toasterStore", toasterStore);
 Alpine.store("shareStore", shareStore);
 

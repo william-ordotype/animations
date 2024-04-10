@@ -3,21 +3,21 @@ import PineconeRouter from "pinecone-router";
 import alpineWebflow from "../../modules/alpine-webflow";
 import SkeletonLoaderEvent from "../../events/SkeletonLoaderEvent";
 import { router } from "./navigation/routes";
-import globals from "../../utils/globals";
-import userStore from "../../store/user.store";
-import { StateStore } from "../../utils/enums";
-import toasterStore from "../../store/toaster.store";
+import globals from "@utils/globals";
+import userStore from "@store/user.store";
+import { StateStore } from "@utils/enums.js";
+import toasterStore from "@store/toaster.store";
 import "nprogress/nprogress.css";
 import NProgress from "nprogress";
-import SharingInvitation from "../../components/SharedNotes/SharingInvitation";
-import shareStore from "../../store/share.store";
-import { DocumentFileListItem } from "../../components/DocumentsFiles";
+import SharingInvitation from "@components/SharedNotes/SharingInvitation";
+import shareStore from "@store/share.store";
+import { DocumentFileListItem } from "@components/DocumentsFiles.js";
 import "../../styles.scss";
 import {
   navigationToastMsgs,
   noteActionsToastMsgs,
   shareNoteActionsToastMsgs,
-} from "../../utils/toastMessages";
+} from "@utils/toastMessages.js";
 
 window.Alpine = Alpine;
 
