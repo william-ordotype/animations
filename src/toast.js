@@ -8,8 +8,6 @@ function injectStyles() {
         position: fixed;
         z-index: 10000;
         top: 20%;
-        left: 50%;
-        transform: translateX(-50%);
       }
       .ordotype-front-utils__show {
         visibility: visible !important;
@@ -31,6 +29,7 @@ function injectStyles() {
 function showToast() {
     const buttons = document.querySelectorAll('[data-show-toast]')
     buttons.forEach(button => {
+        const timeout = button.dataset.showToastTimeout ?? 3000;
         const toast = document.getElementById(button.dataset.showToast);
         toast.className = 'ordotype-front-utils__toast'
 
@@ -41,7 +40,7 @@ function showToast() {
                 element.className = "ordotype-front-utils__toast ordotype-front-utils__show"
                 setTimeout(function () {
                     element.className = element.className.replace("show", "");
-                }, 3000);
+                }, timeout);
             }
         })
     })
