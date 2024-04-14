@@ -1,10 +1,10 @@
 'use strict';
 
 function showElementOnClick() {
-    const buttons = document.querySelectorAll('[data-show-by-id-onclick]')
+    const buttons = document.querySelectorAll('[data-show-element-onclick]')
     buttons.forEach(button => {
         button.addEventListener('click', (_e) => {
-            const elementId = button.dataset.showByIdOnclick;
+            const elementId = button.dataset.showElementOnclick;
             const element = document.getElementById(elementId);
 
             if (element) {

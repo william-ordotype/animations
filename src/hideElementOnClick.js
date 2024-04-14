@@ -1,10 +1,10 @@
 'use strict';
 
 function hideElementOnClick() {
-    const buttons = document.querySelectorAll('[data-hide-by-id-onclick]')
+    const buttons = document.querySelectorAll('[data-hide-element-onclick]')
     buttons.forEach(button => {
         button.addEventListener('click', (_e) => {
-            const elementId = button.dataset.hideByIdOnclick;
+            const elementId = button.dataset.hideElementOnclick;
             const element = document.getElementById(elementId);
 
             if (!element) {
