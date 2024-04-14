@@ -60,25 +60,21 @@ class ShareNotesService extends ApiService {
     emailsToRemove,
     emailsToAdd,
   }: InferType<typeof updateEmailsToNoteSchema>) {
-    try {
-      const validatePayload = await updateEmailsToNoteValidation({
-        noteId,
-        emailsToRemove,
-        emailsToAdd,
-      });
+    const validatePayload = await updateEmailsToNoteValidation({
+      noteId,
+      emailsToRemove,
+      emailsToAdd,
+    });
 
-      return await this.request<
-        InferType<typeof updateEmailsToNoteSchema>,
-        null,
-        UpdateSharedNoteOptions
-      >({
-        routeParams: "emails",
-        data: validatePayload,
-        method: "PATCH",
-      });
-    } catch (err) {
-      throw err;
-    }
+    return await this.request<
+      InferType<typeof updateEmailsToNoteSchema>,
+      null,
+      UpdateSharedNoteOptions
+    >({
+      routeParams: "emails",
+      data: validatePayload,
+      method: "PATCH",
+    });
   }
 
   /**
@@ -132,7 +128,8 @@ class ShareNotesService extends ApiService {
         (Array.isArray(
           validatedPayload[key as keyof typeof validatedPayload]
         ) &&
-          // @ts-ignore
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-expect-error
           validatedPayload[key as keyof typeof validatedPayload].length === 0)
       ) {
         delete validatedPayload[key as keyof typeof validatedPayload];
@@ -185,29 +182,21 @@ class ShareNotesService extends ApiService {
    * Gets info from a particular note id
    */
   async getNoteByType({ type, id }: { type: "email" | "link"; id: string }) {
-    try {
-      const validatePayload = await getNoteByTypeValidation({ type, id });
-      return await this.request<null, null, SharedNoteItem>({
-        routeParams: `me/${validatePayload.type}/${validatePayload.id}`,
-        method: "GET",
-      });
-    } catch (err) {
-      throw err;
-    }
+    const validatePayload = await getNoteByTypeValidation({ type, id });
+    return await this.request<null, null, SharedNoteItem>({
+      routeParams: `me/${validatePayload.type}/${validatePayload.id}`,
+      method: "GET",
+    });
   }
 
   /**
    *  Executes if the user is not logged in and only shows the bare minimum info from the note like author and title
    */
   async getNoteBasicInfo({ id, type }: { type: SharingTypes; id: string }) {
-    try {
-      return await this.request<null, null, NoteFromLinkUnauth>({
-        method: "GET",
-        routeParams: `guest/${type}/${id}`,
-      });
-    } catch (err) {
-      throw err;
-    }
+    return await this.request<null, null, NoteFromLinkUnauth>({
+      method: "GET",
+      routeParams: `guest/${type}/${id}`,
+    });
   }
 
   /**

@@ -62,7 +62,6 @@ async function setShowSharedNote({ inviteType, noteId }: ToDo) {
   });
   shareStore.isInvitationLoading = false;
 
-  debugger;
   if (res.status >= 400) {
     shareStore.isInvitedAllowed = false;
     return;

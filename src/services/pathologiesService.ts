@@ -1,4 +1,3 @@
-// @ts-nocheck
 //
 import ApiService from "./apiService";
 import { searchByTitleAndAliasValidation } from "../validation/pathologiesValidation";
@@ -20,7 +19,7 @@ class PathologiesService extends ApiService {
       direction: "DESC",
     };
     const validatePayload = await searchByTitleAndAliasValidation(searchQuery);
-    return await this.request({
+    return await this.request<null, ToDo, ToDo>({
       method: "GET",
       queryParams: {
         ...reqParams,

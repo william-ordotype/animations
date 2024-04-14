@@ -5,7 +5,7 @@ type SharingTypes = "email" | "link";
 
 interface SharedEmailsInNote {
   email: string;
-  state: ShareStates;
+  state?: ShareStates;
 }
 
 interface ActivateNote {

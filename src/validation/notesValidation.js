@@ -65,21 +65,20 @@ const createOneValidation = async (payload) => {
   return await createOneSchema.validate(payload);
 };
 
+export const updateOneSchema = object({
+  _id: string().required(),
+  title: string().required().max(200),
+  type: string()
+    .required()
+    .oneOf(["notes", "prescriptions", "recommendations"]),
+  prescription_type: string().when("type", {
+    is: "prescriptions",
+    then: (schema) => schema.oneOf(["balance_sheet", "treatment"]),
+  }),
+  pathology: array().of(string()).optional(),
+  rich_text_ordo: string(),
+});
 const updateOneValidation = async (payload) => {
-  const updateOneSchema = object({
-    _id: string().required(),
-    title: string().required().max(200),
-    type: string()
-      .required()
-      .oneOf(["notes", "prescriptions", "recommendations"]),
-    prescription_type: string().when("type", {
-      is: "prescriptions",
-      then: (schema) => schema.oneOf(["balance_sheet", "treatment"]),
-    }),
-    pathology: array().of(string()).optional(),
-    rich_text_ordo: string(),
-  });
-
   return await updateOneSchema.validate(payload);
 };
 
@@ -88,7 +87,7 @@ export const searchByNoteTitleAndPathologyTitleSchema = object({
   limit: number().required().positive().integer().optional(),
   sort: string().oneOf(sortByValues).optional(),
   direction: string().oneOf(["DESC", "ASC"]).optional(),
-  noteTitleAndPathologyTitle: string().required(),
+  noteTitleAndPathologyTitle: string().default(""),
 });
 const searchByNoteTitleAndPathologyTitleValidation = async (payload) => {
   return await searchByNoteTitleAndPathologyTitleSchema.validate(payload);

@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 import Alpine from "alpinejs";
 
 import globals from "../../utils/globals";
@@ -85,7 +87,9 @@ function DocumentsModal() {
       return {
         ["x-show"]: "modalStore.showModal",
         ["x-transition"]: "",
-        ["x-on:click.outside"]: (ev) => {
+        ["x-on:click.outside"]: (
+          /** @type {{ target: Element | null; }} */ ev
+        ) => {
           const modalStore = Alpine.store(StateStore.MODAL);
           // If clicks outside modal, close the modal
           if (
@@ -270,9 +274,13 @@ function PathologiesAutocomplete() {
                   sourceId: "pathologies",
                   getItems() {
                     return (
-                      res.data.filter((pathology) => {
-                        return pathology.is_ok_for_posos === "true";
-                      }) || []
+                      res.data.data.filter(
+                        (
+                          /** @type {{ is_ok_for_posos: string; }} */ pathology
+                        ) => {
+                          return pathology.is_ok_for_posos === "true";
+                        }
+                      ) || []
                     );
                   },
                   getItemInputValue({ item }) {
@@ -348,19 +356,21 @@ function OpenModalByType() {
 }
 
 function DeleteSelectedNotes() {
+  const notesStore = /**
+   * @type {import("@store/myNotes.store").INotesStore}
+   */ (Alpine.store(StateStore.MY_NOTES));
+
   return {
     deleteManyButton: function () {
       return {
         ["x-show"]: "$store.notesStore.areNotesSelected",
-        ["x-on:click.prevent"]: (ev) => {
+        ["x-on:click.prevent"]: () => {
           const modalStore = Alpine.store("modalStore");
-          const selectedNotes = Alpine.store(StateStore.MY_NOTES).noteList.map(
-            (note) => {
-              if (note.checked) {
-                return note._id;
-              }
+          const selectedNotes = notesStore.noteList.map((note) => {
+            if (note.checked) {
+              return note._id;
             }
-          );
+          });
           modalStore.removeShareNoteList = selectedNotes;
           modalStore.deleteList = selectedNotes;
           modalStore.showBeforeRemoveSharedInvitation = true; // this dialog will show on my shared documents

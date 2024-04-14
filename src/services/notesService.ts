@@ -9,6 +9,7 @@ import {
   searchByNoteTitleAndPathologyTitleValidation,
   updateOneValidation,
   searchByNoteTitleAndPathologyTitleSchema,
+  updateOneSchema,
 } from "../validation/notesValidation";
 import { parseFormData } from "./apiUtils";
 import FileNoteService from "./fileNoteService";
@@ -39,15 +40,11 @@ class NotesService extends ApiService {
   async deleteMany(payload: { noteIds: string[] }) {
     const body = { note_ids: payload.noteIds };
 
-    try {
-      const validatePayload = await deleteManyNotesValidation(body);
-      return await this.request<ToDo, ToDo, DeletedResponse>({
-        method: "DELETE",
-        data: validatePayload,
-      });
-    } catch (err) {
-      throw err;
-    }
+    const validatePayload = await deleteManyNotesValidation(body);
+    return await this.request<ToDo, ToDo, DeletedResponse>({
+      method: "DELETE",
+      data: validatePayload,
+    });
   }
 
   /**
@@ -55,15 +52,11 @@ class NotesService extends ApiService {
    * @param id {string}
    */
   async getOne(id: string) {
-    try {
-      const payload = await getOneValidation(id);
-      return await this.request<null, ToDo, NoteItem>({
-        method: "GET",
-        routeParams: payload,
-      });
-    } catch (err) {
-      throw err;
-    }
+    const payload = await getOneValidation(id);
+    return await this.request<null, ToDo, NoteItem>({
+      method: "GET",
+      routeParams: payload,
+    });
   }
 
   async getList({
@@ -95,7 +88,8 @@ class NotesService extends ApiService {
         (Array.isArray(
           validatedPayload[key as keyof typeof validatedPayload]
         ) &&
-          // @ts-ignore
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-expect-error
           validatedPayload[key as keyof typeof validatedPayload].length === 0)
       ) {
         delete validatedPayload[key as keyof typeof validatedPayload];
@@ -139,7 +133,11 @@ class NotesService extends ApiService {
     });
   }
 
-  async updateOne(payload: any, filesToAdd: FileList, filesToDelete: FileList) {
+  async updateOne(
+    payload: ToDo,
+    filesToAdd: FileList,
+    filesToDelete: FileList
+  ) {
     delete payload.files;
     delete payload.documents;
     delete payload.prescription_type;
@@ -155,7 +153,7 @@ class NotesService extends ApiService {
     }
     filesFormData.append("noteId", validatePayload._id.toString());
     const updateFieldsReq = async () =>
-      await this.request({
+      await this.request<InferType<typeof updateOneSchema>, null, NoteItem>({
         routeParams: validatePayload._id,
         method: "PUT",
         data: validatePayload,

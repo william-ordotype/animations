@@ -1,5 +1,5 @@
-import { hashToObject, objectToHash } from "../../../utils/pagination";
-import { StateStore } from "../../../utils/enums";
+import { hashToObject, objectToHash } from "@utils/pagination";
+import { StateStore } from "@utils/enums";
 
 const handlePagination = (routerParams, pageNumber) => {
   const page = pageNumber || routerParams.page;

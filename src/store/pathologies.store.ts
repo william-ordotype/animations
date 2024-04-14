@@ -1,9 +1,7 @@
-// @ts-nocheck
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck ToDo Refactor Loading State custom event
 
-import PathologiesService from "../services/pathologiesService";
 import { setNoteList } from "../actions/notesActions";
-
-const pathologyService = new PathologiesService();
 
 const pathologiesStore = {
   pathologies: [],

@@ -1,11 +1,18 @@
-import { NotesUrls, StateStore, ToasterMsgTypes } from "../../utils/enums";
-import ShareNotesService from "../../services/notesSharesService";
+import { NotesUrls, StateStore } from "@utils/enums";
 import NProgress from "nprogress";
 import { setCloneNote } from "../../actions/sharedNotesActions";
-
-const shareNotesService = new ShareNotesService();
+import Alpine from "alpinejs";
+import { STATUS_TYPES } from "@store/toaster.store";
 
 function SharingInvitation() {
+  const shareStore = /**
+   * @type import('../../store/share.store').IShareStore
+   */ (Alpine.store(StateStore.SHARE));
+
+  const toastStore = /**
+   * @type {import("@store/toaster.store").IToastStore}
+   */ (Alpine.store(StateStore.TOASTER));
+
   return {
     layoutContainer() {
       return {
@@ -62,20 +69,16 @@ function SharingInvitation() {
     // Note modal actions
     cloneNote() {
       return {
-        ["@click.prevent"]: async (ev) => {
+        ["@click.prevent"]: async () => {
           NProgress.start();
           try {
-            const noteId = Alpine.store(StateStore.SHARE).invitationNote.note
-              ?._id;
+            const noteId = shareStore.invitationNote.note?._id;
             await setCloneNote({ noteId });
             setTimeout(() => {
               location.href = `${NotesUrls.MY_NOTES}`;
             }, 2500);
           } catch (err) {
-            Alpine.store(StateStore.TOASTER).toasterMsg(
-              "Error",
-              ToasterMsgTypes.ERROR
-            );
+            toastStore.toasterMsg("Error", STATUS_TYPES.error);
           }
           NProgress.done();
         },

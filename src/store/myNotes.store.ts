@@ -5,12 +5,19 @@ import {
   NoteType,
 } from "@interfaces/apiTypes/notesTypes";
 import Alpine from "alpinejs";
-import { SharedWithMeNoteList } from "@interfaces//apiTypes/notesSharesTypes";
+
+interface StoredNoteList extends NoteList {
+  fileIcons?: ToDo[];
+}
+
+interface StoredSharedWithMeNoteList extends NoteList {
+  fileIcons?: ToDo[];
+}
 
 export interface INotesStore {
   isNotesLoading: boolean;
   isEmpty: boolean;
-  noteList: SharedWithMeNoteList[] | NoteList[] | [];
+  noteList: StoredSharedWithMeNoteList[] | StoredNoteList[];
   noteListMeta: {
     pageNumber: number;
     pageTotal: number;

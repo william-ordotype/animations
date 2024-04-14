@@ -13,8 +13,8 @@ globals.prescriptionTypes = {
   treatment: "Traitement",
 };
 
-globals.printDiv = async (divName) => {
-  // @ts-ignore
+globals.printDiv = async (/** @type {any} */ divName) => {
+  // @ts-expect-error ToDo review module import
   await import("print-this");
 
   $(divName).printThis({

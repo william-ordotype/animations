@@ -2,7 +2,6 @@
 
 import "../../styles.scss";
 import focus from "@alpinejs/focus";
-import alpineWebflow from "../../modules/alpine-webflow";
 import Alpine from "alpinejs";
 
 import globals from "../../utils/globals";
@@ -19,7 +18,7 @@ import {
   DocumentsModal,
   OpenModalByType,
   PathologiesAutocomplete,
-} from "@components/Notes/DocumentsModal.js";
+} from "@components/Notes/DocumentsModal";
 import {
   DocumentFileInput,
   DocumentFileListItem,
@@ -27,7 +26,7 @@ import {
 import pathologiesStore from "../../store/pathologies.store";
 import myNotesStore from "../../store/myNotes.store";
 import shareStore from "../../store/share.store";
-import { StateStore } from "@utils/enums.js";
+import { StateStore } from "@utils/enums";
 import DocumentsShareModal from "../../components/Notes/DocumentsShareModal";
 import NProgress from "nprogress";
 import { setLocale } from "yup";
@@ -36,8 +35,8 @@ import {
   navigationToastMsgs,
   noteActionsToastMsgs,
   shareNoteActionsToastMsgs,
-} from "@utils/toastMessages.js";
-import { noteFormMsg } from "@utils/modalMessages.js";
+} from "@utils/toastMessages";
+import { noteFormMsg } from "@utils/modalMessages";
 import intersect from "@alpinejs/intersect";
 
 console.log("pathologies");

@@ -1,22 +1,41 @@
 import Alpine from "alpinejs";
-import { StateStore, ToasterMsgTypes } from "../../../utils/enums";
+import { StateStore, ToasterMsgTypes } from "@utils/enums";
 import NProgress from "nprogress";
 import {
   setSharedNoteList,
   setSharedNoteOpened,
 } from "../../../actions/sharedNotesActions";
+import { STATUS_TYPES } from "@store/toaster.store";
 
 window.router = () => {
+  const notesStore = /**
+   * @type {import("@store/myNotes.store").INotesStore}
+   */ (Alpine.store(StateStore.MY_NOTES));
+
+  const toastStore = /**
+   * @type {import("@store/toaster.store").IToastStore}
+   */ (Alpine.store(StateStore.TOASTER));
+
   return {
+    /**
+     * @param {import("pinecone-router/dist/types").Context} context
+     */
     redirectToAll(context) {
       if (context.path === "/") {
         context.redirect("/list");
       }
     },
+    /**
+     * @param {import("pinecone-router/dist/types").Context} context
+     */
     async listDocuments(context) {
-      Alpine.store(StateStore.MY_NOTES).noteListType = "shared";
+      // @ts-expect-error ToDo review noteListType.
+      notesStore.noteListType = "shared";
       await handleRouter(context);
     },
+    /**
+     * @param {import("pinecone-router/dist/types").Context} context
+     */
     async viewDocuments(context) {
       const id = context.params.id;
       if (id) {
@@ -24,13 +43,8 @@ window.router = () => {
 
         try {
           await setSharedNoteOpened({ noteId: id });
-          if (Alpine.store(StateStore.MY_NOTES).noteOpened.note?._id) {
-          } else {
-            Alpine.store("toasterStore").toasterMsg(
-              "Document introuvable",
-              "error",
-              4500
-            );
+          if (!notesStore.noteOpened.note?._id) {
+            toastStore.toasterMsg("Document introuvable", "error", 4500);
           }
           NProgress.done();
         } catch (err) {
@@ -39,6 +53,9 @@ window.router = () => {
         }
       }
     },
+    /**
+     * @param {import("pinecone-router/dist/types").Context} context
+     */
     createPrescription(context) {
       context.redirect("/");
 
@@ -55,24 +72,29 @@ window.router = () => {
         localStorage.removeItem("pasteOnEditor");
       }
     },
-    notfound(context) {
+    notfound() {
       console.log("Not found");
-      Alpine.store(StateStore.TOASTER).toasterMsg(
-        "Not found",
-        ToasterMsgTypes.ERROR
-      );
+      toastStore.toasterMsg("Not found", STATUS_TYPES.error);
     },
   };
 };
 
+/**
+ * @param {import("pinecone-router/dist/types").Context} context
+ */
 async function handleRouter(context) {
+  const notesStore = /**
+   * @type {import("@store/myNotes.store").INotesStore}
+   */ (Alpine.store(StateStore.MY_NOTES));
+
+  const userStore = /**
+   * @type {import("@store/user.store").IUserStore}
+   */ (Alpine.store(StateStore.USER));
+
   NProgress.start();
-  Alpine.store(StateStore.MY_NOTES).isRuleStatusLoading = true;
+  notesStore.isRuleStatusLoading = true;
   const { page, perPage, sort, direction } = context.params;
-  if (
-    !Alpine.store("userStore").isAuth ||
-    !Alpine.store("userStore").hasPaidSub
-  ) {
+  if (!userStore.isAuth || !userStore.hasPaidSub) {
     console.log("Not authorized to navigate");
     return;
   }
@@ -84,10 +106,10 @@ async function handleRouter(context) {
   // AKA if when closing the drawer there are not documents loaded
   if (
     !context.hash.split("/").includes("view") ||
-    Alpine.store(StateStore.MY_NOTES).noteList.length === 0
+    notesStore.noteList.length === 0
   ) {
-    Alpine.store(StateStore.MY_NOTES).isSearch = false;
-    Alpine.store(StateStore.MY_NOTES).searchValue = "";
+    notesStore.isSearch = false;
+    notesStore.searchValue = "";
     try {
       const payload = {
         page,

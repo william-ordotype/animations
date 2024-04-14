@@ -52,7 +52,7 @@ async function setNoteOpened(payload: ToDo) {
   const noteStore = Alpine.store(StateStore.MY_NOTES) as INotesStore;
   const toastStore = Alpine.store(StateStore.TOASTER) as IToastStore;
 
-  // @ts-ignore ToDo remove
+  // @ts-expect-error ToDo remove
   Alpine.store("modalStore").showModal = false;
 
   noteStore.isNoteLoading = true;
@@ -67,16 +67,6 @@ async function setNoteOpened(payload: ToDo) {
     toastStore.toasterMsg("Document introuvable", "error", 4500);
     console.error(err);
   }
-}
-
-// @ts-ignore
-async function createNote(payload) {
-  // TODO NewEditor: handle side effects
-}
-
-// @ts-ignore
-async function editNote(payload) {
-  // TODO NewEditor: handle side effects
 }
 
 async function setNotesRuleStatus() {
@@ -145,6 +135,7 @@ async function setDeleteNotes(payload: { noteIds: string[] }) {
   const { noteIds } = payload;
   const noteStore = Alpine.store(StateStore.MY_NOTES) as INotesStore;
   const toastStore = Alpine.store(StateStore.TOASTER) as IToastStore;
+
   // ToDo review delete in List and Drawer
   let body: string[] = [];
   if (noteIds && Array.isArray(noteIds)) {
@@ -157,9 +148,7 @@ async function setDeleteNotes(payload: { noteIds: string[] }) {
     const documentType = noteStore.noteListType;
     const pageNumber = noteStore.noteListMeta?.pageNumber || 1;
     if (res.data.deletedCount > 0) {
-      // @ts-ignore
       if (noteStore.drawerOpened) {
-        // @ts-ignore
         await handleCloseDrawer();
 
         if (location.href.includes(NotesUrls.MY_NOTES)) {

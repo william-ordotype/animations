@@ -1,5 +1,5 @@
 import Alpine from "alpinejs";
-import { StateStore, ToasterMsgTypes } from "@utils/enums.js";
+import { StateStore, ToasterMsgTypes } from "@utils/enums";
 import NProgress from "nprogress";
 import {
   setNoteList,
@@ -8,35 +8,48 @@ import {
 } from "../../../actions/notesActions";
 
 window.router = () => {
+  const notesStore = /**
+   * @type {import("@store/myNotes.store").INotesStore}
+   */ (Alpine.store(StateStore.MY_NOTES));
+
   return {
+    /**
+     * @param {import("pinecone-router/dist/types").Context} context
+     */
     redirectToAll(context) {
       if (context.path === "/") {
         context.redirect("/list");
       }
     },
+    /**
+     * @param {import("pinecone-router/dist/types").Context} context
+     */
     async listDocuments(context) {
       let type;
       let listTitle;
       switch (context.params.type) {
         case "notes":
           type = context.params.type;
-          listTitle = globals.documentTypes["notes"];
+          listTitle = window.globals.documentTypes["notes"];
           break;
         case "recommendations":
           type = context.params.type;
-          listTitle = globals.documentTypes["recommendations"];
+          listTitle = window.globals.documentTypes["recommendations"];
           break;
         case "prescriptions":
           type = context.params.type;
-          listTitle = globals.documentTypes["prescriptions"];
+          listTitle = window.globals.documentTypes["prescriptions"];
           break;
         default:
           type = "";
           listTitle = "Tous mes documents";
       }
-      Alpine.store(StateStore.MY_NOTES).noteListType = listTitle;
+      notesStore.noteListType = listTitle;
       await handleRouter(context, { type });
     },
+    /**
+     * @param {import("pinecone-router/dist/types").Context} context
+     */
     async viewDocuments(context) {
       const id = context.params.id;
       if (id) {
@@ -47,6 +60,9 @@ window.router = () => {
       }
       NProgress.done();
     },
+    /**
+     * @param {import("pinecone-router/dist/types").Context} context
+     */
     createPrescription(context) {
       const type = context.path.split("/")[2];
       const qlEditor = $(".ql-editor");
@@ -72,7 +88,7 @@ window.router = () => {
         localStorage.removeItem("pasteOnEditor");
       }
     },
-    notfound(context) {
+    notfound() {
       console.log("Not found");
       Alpine.store(StateStore.TOASTER).toasterMsg(
         window.toastActionMsg.navigation.notFound,
@@ -82,19 +98,28 @@ window.router = () => {
   };
 };
 
+/**
+ * @param {import("pinecone-router/dist/types").Context} context
+ */
+
 async function handleRouter(context, { type }) {
+  const notesStore = /**
+   * @type {import("@store/myNotes.store").INotesStore}
+   */ (Alpine.store(StateStore.MY_NOTES));
+
+  const userStore = /**
+   * @type {import("@store/user.store").IUserStore}
+   */ (Alpine.store(StateStore.USER));
+
   NProgress.start();
-  Alpine.store(StateStore.MY_NOTES).isRuleStatusLoading = true;
+  notesStore.isRuleStatusLoading = true;
 
   const { page, perPage, sort, direction } = context.params;
-  if (
-    !Alpine.store("userStore").isAuth ||
-    !Alpine.store("userStore").hasPaidSub
-  ) {
+  if (!userStore.isAuth || !userStore.hasPaidSub) {
     console.log("Not authorized to navigate");
     return;
   }
-  Alpine.store(StateStore.MY_NOTES).noteListType = type;
+  notesStore.noteListType = type;
 
   // Shows getList items
   Alpine.store("modalStore").showModal = false;
@@ -103,10 +128,10 @@ async function handleRouter(context, { type }) {
   // AKA if when closing the drawer there are not documents loaded
   if (
     !context.hash.split("/").includes("view") ||
-    Alpine.store(StateStore.MY_NOTES).noteList.length === 0
+    notesStore.noteList.length === 0
   ) {
-    Alpine.store(StateStore.MY_NOTES).isSearch = false;
-    Alpine.store(StateStore.MY_NOTES).searchValue = "";
+    notesStore.isSearch = false;
+    notesStore.searchValue = "";
     try {
       const payload = {
         page,

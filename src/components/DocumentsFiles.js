@@ -58,7 +58,6 @@ function DocumentFileListItem({
   file_url,
   thumbnail_name,
   thumbnail_url,
-  size,
   _id,
 } = {}) {
   const fileName = original_name || file_name;
@@ -84,6 +83,10 @@ function DocumentFileListItem({
     thumbnail_url: thumbnail_url || file_url,
     fileId: _id,
     filesToDelete: [],
+    /**
+     * @param {{ target: any; }} ev
+     * @param {any} id
+     */
     deleteServerFiles(ev, id) {
       Alpine.store("modalStore").filesToDelete.push(id);
 

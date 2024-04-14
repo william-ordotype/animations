@@ -1,5 +1,9 @@
 // Function to convert location.hash to an object
 import purify from "dompurify";
+
+/**
+ * @param {string} hash
+ */
 function hashToObject(hash) {
   let hashObj = {};
 

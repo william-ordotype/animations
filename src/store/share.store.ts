@@ -6,7 +6,7 @@ export interface IShareStore {
   shareSwitch: boolean;
   isShareSwitchLoading: boolean;
   activeNote: NoteItemData | null;
-  activeNoteEmailList: SharedEmailsInNote[] | [];
+  activeNoteEmailList: SharedEmailsInNote[];
   activeNotePublicLink: string;
   showCopySuccessMsg: boolean;
   showSharingOptions: boolean;

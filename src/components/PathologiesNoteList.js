@@ -1,6 +1,6 @@
 import getFileExtByMimeType from "../assets/file_ext";
 import Alpine from "alpinejs";
-import { StateStore } from "../utils/enums";
+import { StateStore } from "@utils/enums";
 import { setNoteOpened } from "../actions/notesActions.js";
 
 // ToDo refactor this component to execute only on tab change

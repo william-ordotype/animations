@@ -5,19 +5,20 @@ import SkeletonLoaderEvent from "../../events/SkeletonLoaderEvent";
 import { router } from "./navigation/routes";
 import globals from "@utils/globals";
 import userStore from "@store/user.store";
-import { StateStore } from "@utils/enums.js";
+import { StateStore } from "@utils/enums";
 import toasterStore from "@store/toaster.store";
 import "nprogress/nprogress.css";
 import NProgress from "nprogress";
 import SharingInvitation from "@components/SharedNotes/SharingInvitation";
 import shareStore from "@store/share.store";
-import { DocumentFileListItem } from "@components/DocumentsFiles.js";
+import { DocumentFileListItem } from "@components/DocumentsFiles";
 import "../../styles.scss";
 import {
   navigationToastMsgs,
   noteActionsToastMsgs,
   shareNoteActionsToastMsgs,
-} from "@utils/toastMessages.js";
+} from "@utils/toastMessages";
+import { getUser } from "@services/UsersService";
 
 window.Alpine = Alpine;
 
@@ -32,8 +33,8 @@ async function init() {
   Alpine.store(StateStore.SHARE).isInvitedAllowed = false;
   Alpine.store(StateStore.SHARE).isInvitationLoading = true;
 
-  const getUser = await $memberstackDom.getCurrentMember();
-  Alpine.store(StateStore.USER, userStore(getUser));
+  const user = await getUser();
+  Alpine.store(StateStore.USER, userStore(user));
 }
 
 Alpine.store(StateStore.TOASTER, toasterStore);
@@ -46,9 +47,6 @@ Alpine.data("DocumentFileListItem", DocumentFileListItem);
 /**
  Runs program
  */
-
-window.memberstack = window.memberstack || {};
-window.memberstack.instance = window.$memberstackDom;
 
 window.toastActionMsgCustom = window.toastActionMsgCustom || {};
 

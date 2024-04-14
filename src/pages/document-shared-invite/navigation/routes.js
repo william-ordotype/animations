@@ -1,36 +1,33 @@
 import Alpine from "alpinejs";
-import { hashToObject } from "../../../utils/pagination";
+import { hashToObject } from "@utils/pagination";
 import ShareNotesService from "../../../services/notesSharesService";
-import { StateStore, ToasterMsgTypes } from "../../../utils/enums";
+import { StateStore } from "@utils/enums";
 import NProgress from "nprogress";
 import {
   setSharedNoteBasicInfo,
   setShowSharedNote,
 } from "../../../actions/sharedNotesActions";
-import { STATUS_TYPES } from "@store/toaster.store.js";
+import { STATUS_TYPES } from "@store/toaster.store";
 
 const shareNoteService = new ShareNotesService();
 
 function router() {
-  /**
-   * @type import('#store').INotesStore
-   */
-  const notesStore = Alpine.store(StateStore.MY_NOTES);
-  /**
-   * @type import('#store').IUserStore
-   */
-  const userStore = Alpine.store(StateStore.USER);
-  /**
-   * @type import('#store').IToastStore
-   */
-  const toastStore = Alpine.store(StateStore.TOASTER);
+  const userStore = /**
+   * @type {import("@store/user.store").IUserStore}
+   */ (Alpine.store(StateStore.USER));
 
-  /**
-   * @type import('#store').IShareStore
-   */
-  const shareStore = Alpine.store(StateStore.SHARE);
+  const toastStore = /**
+   * @type {import("@store/toaster.store").IToastStore}
+   */ (Alpine.store(StateStore.TOASTER));
+
+  const shareStore = /**
+   * @type {import("@store/share.store").IShareStore}
+   */ (Alpine.store(StateStore.SHARE));
 
   return {
+    /**
+     * @param {import("pinecone-router/dist/types").Context} context
+     */
     async home(context) {
       const { query } = context;
       const obj = hashToObject(query);
@@ -88,16 +85,23 @@ function router() {
 
 export { router };
 
+/**
+ * @param {any} acceptId
+ */
 async function acceptInvitation(acceptId) {
+  const toastStore = /**
+   * @type {import("@store/toaster.store").IToastStore}
+   */ (Alpine.store(StateStore.TOASTER));
+
   // ordotype.fr/my-documents-invitation?acceptId=12345
   const res = await shareNoteService.acceptNoteInvitation({ noteId: acceptId });
   NProgress.set(0.5);
 
   const { noteId, alreadyAccepted } = res.data;
   if (!alreadyAccepted) {
-    Alpine.store(StateStore.TOASTER).toasterMsg(
+    toastStore.toasterMsg(
       window.toastActionMsg.shareNotes.acceptedInvitation.success,
-      ToasterMsgTypes.SUCCESS
+      STATUS_TYPES.success
     );
   }
   location.href = `?id=${noteId}&type=email`;

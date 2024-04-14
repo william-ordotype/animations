@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import Alpine from "alpinejs";
 import { StateStore } from "@utils/enums.js";
 import { setNotesRuleStatus } from "../../actions/notesActions";
@@ -10,16 +13,19 @@ import {
 
 const shareNotesService = new ShareNotesService();
 
-function DocumentsDrawer() {
-  /**
-   * @type import('../../store/myNotes.store').INotesStore
-   */
-  const notesStore = Alpine.store(StateStore.MY_NOTES);
+/**
+ * @return {import("alpinejs").AlpineComponent<any>}
+ */
 
-  /**
-   * @type import('../../store/share.store').IShareStore
-   */
-  const shareStore = Alpine.store(StateStore.SHARE);
+function DocumentsDrawer() {
+  const notesStore = /** @type {import("@store/myNotes.store").INotesStore} */ (
+    Alpine.store(StateStore.MY_NOTES)
+  );
+
+  const shareStore =
+    /** @type import('../../store/share.store').IShareStore */ (
+      Alpine.store(StateStore.SHARE)
+    );
 
   return {
     drawerBackdrop() {
@@ -72,8 +78,8 @@ function DocumentsDrawer() {
     drawerShare() {
       return {
         ["@click.prevent"]: async () => {
-          const note = notesStore.noteOpened.note;
-          const isShareActive = !!note["can_share"];
+          const note = notesStore.noteOpened?.note;
+          const isShareActive = note ? !!note["can_share"] : false;
 
           SkeletonLoaderEvent.dispatchCustomEvent(
             document.querySelector(".search_result_wrapper.partage"),
@@ -91,7 +97,7 @@ function DocumentsDrawer() {
           shareStore.showSharingOptions = isShareActive;
           shareStore.activeNote = note;
           try {
-            if (isShareActive) {
+            if (isShareActive && note) {
               const res = await shareNotesService.getSharedInfoFromNote({
                 noteId: note._id,
               });
@@ -122,7 +128,10 @@ function DocumentsDrawer() {
     drawerClone() {
       return {
         ["x-on:click.prevent"]: async () => {
-          const noteId = notesStore.noteOpened?.note._id;
+          const { note } = notesStore.noteOpened;
+          if (!note) throw new Error("No note id found");
+
+          const noteId = note._id;
           await setCloneNote({ noteId });
         },
       };
@@ -130,10 +139,12 @@ function DocumentsDrawer() {
     drawerRemoveAccess: function () {
       return {
         ["x-on:click.prevent"]: async () => {
-          const noteId = notesStore.noteOpened?.note._id;
+          const { note } = notesStore.noteOpened;
+          if (!note) throw new Error("No note id found");
+          const noteId = note._id;
           const res = await setRemoveSharedInvitations({ noteIds: [noteId] });
 
-          if (!res.data.deletedCount > 0) {
+          if (!(res.data.deletedCount > 0)) {
             // dont close modal
             return;
           }
@@ -209,14 +220,14 @@ function DocumentsDrawer() {
 }
 
 export async function handleCloseDrawer() {
-  /**
-   * @type INotesStore
-   */
-  const notesStore = Alpine.store(StateStore.MY_NOTES);
+  const notesStore = /**
+   * @type {import("@store/myNotes.store").INotesStore}
+   */ (Alpine.store(StateStore.MY_NOTES));
 
   if (window.location.pathname.includes("/pathologies")) {
     notesStore.drawerOpened = false;
   } else {
+    notesStore.drawerOpened = false;
     // Reset drawer
     const pageNumber = notesStore.noteListMeta.pageNumber || "";
     const documentType = notesStore.noteListType;

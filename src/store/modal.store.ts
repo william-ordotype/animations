@@ -1,3 +1,4 @@
+/* eslint-disable */
 // @ts-nocheck
 
 import Alpine from "alpinejs";
@@ -59,7 +60,7 @@ const modalStore = {
         pathologies,
         prescription_type,
         rich_text_ordo,
-      } = getNote.note;
+      } = getNote.data.note;
       this.form = {
         _id,
         title,
