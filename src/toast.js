@@ -5,9 +5,6 @@ function injectStyles() {
     style.innerHTML = `
       .ordotype-front-utils__toast {
         visibility: hidden !important;
-        text-align: center;
-        border-radius: 2px;
-        padding: 16px;
         position: fixed;
         z-index: 10000;
         top: 20%;
@@ -36,6 +33,7 @@ function showToast() {
     buttons.forEach(button => {
         const toast = document.getElementById(button.dataset.showToast);
         toast.className = 'ordotype-front-utils__toast'
+
         button.addEventListener('click', (_e) => {
             const elementId = button.dataset.showToast;
             const element = document.getElementById(elementId);
