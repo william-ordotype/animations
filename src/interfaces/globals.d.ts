@@ -1,6 +1,7 @@
 import { default as MsTypes } from "@memberstack/dom/lib/index";
 import PineconeRouter from "pinecone-router";
 import { errorMessageFr } from "../validation/errorMessages.js";
+import { AxiosStatic } from "axios";
 
 /// <reference types="alpinejs" />
 
@@ -14,6 +15,7 @@ declare global {
     mainPlansIds: string[];
     memberToken: string;
     Webflow: any;
+    axios: AxiosStatic;
 
     PineconeRouter: PineconeRouter;
     toastActionMsg: ToDo;

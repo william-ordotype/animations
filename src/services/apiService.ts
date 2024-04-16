@@ -1,5 +1,5 @@
 import { ORDOTYPE_API } from "./apiConfig";
-import axios, {
+import {
   AxiosInstance,
   AxiosRequestConfig,
   AxiosResponse,
@@ -24,15 +24,29 @@ interface RequestOptions<TBody, TParams> {
 class ApiService {
   private readonly API_URL: string;
   private readonly endpoint: string;
-  private instance: AxiosInstance;
+  private instance: AxiosInstance | undefined;
 
   constructor(endpoint: string) {
     this.API_URL = ORDOTYPE_API;
     this.endpoint = endpoint;
 
-    this.instance = axios.create({
-      baseURL: this.API_URL,
-    });
+    if (window.axios) {
+      // Axios is available from the pathology search
+      this.instance = window.axios.create({
+        baseURL: this.API_URL,
+      });
+    } else {
+      // If axios is not available, dynamically import it as fallback
+      import("axios")
+        .then(({ default: axios }) => {
+          this.instance = axios.create({
+            baseURL: this.API_URL,
+          });
+        })
+        .catch((error) => {
+          console.error("Failed to dynamically import axios:", error);
+        });
+    }
   }
 
   /**
@@ -73,7 +87,7 @@ class ApiService {
       responseType,
     };
     try {
-      return await this.instance.request(config);
+      return await this.instance!.request(config);
     } catch (err) {
       const toastStore = Alpine.store(StateStore.TOASTER) as IToastStore;
 
