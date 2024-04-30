@@ -18,7 +18,7 @@ import {
   noteActionsToastMsgs,
   shareNoteActionsToastMsgs,
 } from "@utils/toastMessages";
-import { getUser } from "@services/UsersService";
+import UsersService from "@services/usersService";
 
 window.Alpine = Alpine;
 
@@ -33,8 +33,9 @@ async function init() {
   Alpine.store(StateStore.SHARE).isInvitedAllowed = false;
   Alpine.store(StateStore.SHARE).isInvitationLoading = true;
 
-  const user = await getUser();
-  Alpine.store(StateStore.USER, userStore(user));
+  const currentUser = await UsersService.getUser();
+
+  Alpine.store(StateStore.USER, userStore(currentUser));
 }
 
 Alpine.store(StateStore.TOASTER, toasterStore);

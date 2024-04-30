@@ -9,7 +9,7 @@
     "build:dev": "vite build --base=https://seashell-app-etfao.ondigitalocean.app",
     "build:prod": "vite build --base=https://static.ordotype.fr",
     "start": "vite",
-    "dev": "tsc --build --clean && vite",
+    "dev": "tsc --build --clean && vite dev",
     "jslint": "eslint . --ignore-pattern=src/modules/* --ignore-pattern=dist/*"
   },
   "keywords": [],

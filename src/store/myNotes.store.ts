@@ -53,6 +53,7 @@ export interface INotesStore {
   drawerOpened: boolean;
 
   isEdit: boolean;
+  editorOpened: boolean;
 
   init: () => void;
 }
@@ -94,7 +95,9 @@ const NotesStore: INotesStore = {
   },
   drawerOpened: false,
 
+  // Mutate One
   isEdit: false,
+  editorOpened: false,
 
   // Delete
   removeShareNoteList: [],

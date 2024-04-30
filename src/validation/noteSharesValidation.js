@@ -1,5 +1,5 @@
 import { string, array, object, number } from "yup";
-import { ShareStates } from "../utils/enums";
+import { ShareStates } from "@utils/enums";
 
 const sortByValues = [
   "created_on",
