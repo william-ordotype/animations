@@ -6,12 +6,17 @@ import { INotesStore } from "@store/myNotes.store";
 import { IToastStore } from "@store/toaster.store";
 import { IUserStore } from "@store/user.store";
 import { handleCloseDrawer } from "@components/Notes/DocumentsDrawer.js";
+import toasterActions from "./toasterActions";
+import { InferType } from "yup";
+import { getListSchema } from "../validation/notesValidation";
 
 const noteService = new NotesService();
 
-async function setNoteList(payload: ToDo) {
-  const noteStore = Alpine.store(StateStore.MY_NOTES) as INotesStore;
-  const toastStore = Alpine.store(StateStore.TOASTER) as IToastStore;
+async function setNoteList(
+  payload: InferType<typeof getListSchema>,
+  store: { noteStore: INotesStore }
+) {
+  const { noteStore } = store;
 
   noteStore.isNotesLoading = true;
   try {
@@ -40,11 +45,15 @@ async function setNoteList(payload: ToDo) {
     };
     noteStore.isEmpty = page_total <= 0;
 
-    noteStore.noteListType = payload.type;
+    noteStore.noteListType = payload.type || "";
 
     noteStore.isNotesLoading = false;
+    return noteStore;
   } catch (err) {
-    toastStore.toasterMsg(window.toastActionMsg.notes.list.error, "error");
+    toasterActions.setToastMessage(
+      window.toastActionMsg.notes.list.error,
+      "error"
+    );
   }
 }
 
@@ -164,12 +173,16 @@ async function setDeleteNotes(payload: { noteIds: string[] }) {
         window.toastActionMsg.notes.delete.success,
         "success"
       );
-      await setNoteList({
-        page: pageNumber || 1,
-        type: documentType ? documentType : "",
-        sort: noteStore.noteListMeta.sort,
-        direction: noteStore.noteListMeta.direction,
-      });
+      await setNoteList(
+        {
+          page: pageNumber,
+          type: documentType || "",
+          sort: noteStore.noteListMeta.sort || "created_on",
+          direction: noteStore.noteListMeta.direction || "DESC",
+          limit: noteStore.noteListMeta.itemsPerPage || 10,
+        },
+        { noteStore }
+      );
     } else {
       toastStore.toasterMsg(window.toastActionMsg.notes.delete.error, "error");
       return;

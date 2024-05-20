@@ -7,7 +7,7 @@ export const STATUS_TYPES = {
 
 type ObjectValues<T> = T[keyof T];
 
-type Status_Level = ObjectValues<typeof STATUS_TYPES>;
+export type Status_Level = ObjectValues<typeof STATUS_TYPES>;
 
 export enum Status_Type {
   Success = "success",

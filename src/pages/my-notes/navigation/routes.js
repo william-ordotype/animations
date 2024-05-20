@@ -1,11 +1,13 @@
 import Alpine from "alpinejs";
-import { StateStore, ToasterMsgTypes } from "@utils/enums";
+import { StateStore } from "@utils/enums";
 import NProgress from "nprogress";
 import {
   setNoteList,
   setNoteOpened,
   setNotesRuleStatus,
 } from "../../../actions/notesActions";
+import toasterActions from "../../../actions/toasterActions";
+import { STATUS_TYPES } from "@store/toaster.store";
 
 window.router = () => {
   const notesStore = /**
@@ -90,9 +92,9 @@ window.router = () => {
     },
     notfound() {
       console.log("Not found");
-      Alpine.store(StateStore.TOASTER).toasterMsg(
+      toasterActions.setToastMessage(
         window.toastActionMsg.navigation.notFound,
-        ToasterMsgTypes.ERROR
+        STATUS_TYPES.error
       );
     },
   };
@@ -100,6 +102,8 @@ window.router = () => {
 
 /**
  * @param {import("pinecone-router/dist/types").Context} context
+ * @param {object} options
+ * @param { "" | "recommendations" | "notes" | "prescriptions"} options.type
  */
 
 async function handleRouter(context, { type }) {
@@ -125,7 +129,7 @@ async function handleRouter(context, { type }) {
   Alpine.store("modalStore").showModal = false;
 
   // Do a reload if necessary
-  // AKA if when closing the drawer there are not documents loaded
+  // AKA when closing the drawer there are not documents loaded
   if (
     !context.hash.split("/").includes("view") ||
     notesStore.noteList.length === 0
@@ -140,10 +144,14 @@ async function handleRouter(context, { type }) {
         direction,
         type,
       };
-      await Promise.all([setNoteList(payload), setNotesRuleStatus()]);
+      await Promise.all([
+        setNoteList(payload, { noteStore: notesStore }),
+        setNotesRuleStatus(),
+      ]);
 
       NProgress.done();
     } catch (err) {
+      console.error(err);
       NProgress.done();
     }
   } else {
