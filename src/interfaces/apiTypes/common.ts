@@ -3,6 +3,8 @@ type ApiResponse<TData, TError> = {
   error: TError;
 };
 
+type SortDirection = "ASC" | "DESC";
+
 type PaginatedResponse<TData> = {
   items_per_page: number;
   items_total: number;
@@ -16,4 +18,4 @@ type DeletedResponse = {
   deletedCount: number;
 };
 
-export { ApiResponse, PaginatedResponse, DeletedResponse };
+export { ApiResponse, PaginatedResponse, DeletedResponse, SortDirection };

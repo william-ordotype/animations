@@ -1,5 +1,5 @@
 import { array, number, object, string } from "yup";
-import { NoteTypes } from "../utils/enums";
+import { NoteTypes } from "@utils/enums";
 
 const sortByValues = [
   "created_on",
@@ -27,8 +27,8 @@ const getOneValidation = async (payload) => {
 };
 
 export const getListSchema = object({
-  page: number().required().positive().integer(),
-  limit: number().required().positive().integer(),
+  page: number().required().positive().integer().default(1),
+  limit: number().required().positive().integer().default(10),
   sort: string().oneOf(sortByValues).required(),
   direction: string().oneOf(["DESC", "ASC"]).required(),
   type: string()
@@ -41,6 +41,7 @@ export const getListSchema = object({
   pathology_slug: string().optional(),
   title: string(),
 });
+
 const getListValidation = async (payload) => {
   return await getListSchema.validate(payload);
 };

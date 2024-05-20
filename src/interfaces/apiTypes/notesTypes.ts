@@ -3,6 +3,13 @@ import { PathologyItem } from "./pathologiesTypes.js";
 type NoteType = "notes" | "prescriptions" | "recommendations";
 type PrescriptionType = "balance_sheet" | "treatment" | "";
 type AuthorRole = "client" | "admin";
+type SortNotes =
+  | "created_on"
+  | "pathology"
+  | "title"
+  | "type"
+  | "prescription_type"
+  | "updated_by.full_name";
 
 interface NoteItem {
   note: NoteItemData;
@@ -30,16 +37,17 @@ interface NoteItemMember {
 }
 
 interface NoteList {
-  created_by: { role: AuthorRole; email: string; full_name: string };
-  created_on: string;
-  documents?: { mime_type: string }[];
-  pathologies?: PathologyItem;
+  _id: string;
   member_id: string;
-  prescription_type: PrescriptionType;
   title: string;
   type: NoteType;
+  prescription_type: PrescriptionType;
+  pathologies?: PathologyItem[]; // Optional array
+  documents?: { mime_type: string }[]; // Optional array
+  created_on: string;
   updated_on: string;
-  _id: string;
+  created_by: { role: AuthorRole; email: string; full_name?: string }; // full_name is optional
+  updated_by?: { role: AuthorRole; email: string }; // Optional field
   can_share?: boolean;
   checked?: boolean;
 }
@@ -75,4 +83,5 @@ export {
   PrescriptionType,
   FileData,
   NoteRules,
+  SortNotes,
 };

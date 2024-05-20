@@ -17,14 +17,21 @@ import { InferType } from "yup";
 import {
   DeletedResponse,
   PaginatedResponse,
+  SortDirection,
 } from "@interfaces/apiTypes/common";
-import { NoteItem, NoteList, NoteRules } from "@interfaces/apiTypes/notesTypes";
+import {
+  NoteItem,
+  NoteList,
+  NoteRules,
+  SortNotes,
+} from "@interfaces/apiTypes/notesTypes";
 
-type PaginatedNoteListExtended<TNoteList> = PaginatedResponse<TNoteList> & {
-  direction: string;
-  sort: string;
-  pathology_slug?: string;
-};
+export type PaginatedNoteListExtended<TNoteList> =
+  PaginatedResponse<TNoteList> & {
+    direction: SortDirection;
+    sort: SortNotes;
+    pathology_slug?: string;
+  };
 
 class NotesService extends ApiService {
   private fileNoteService: FileNoteService;
@@ -113,11 +120,6 @@ class NotesService extends ApiService {
     });
   }
 
-  /**
-   *
-   * @param {object} payload
-   * @param {FileList} files
-   */
   async createOne(payload: InferType<typeof createOneSchema>, files: FileList) {
     const validatePayload = await createOneValidation(payload);
     const notesFormData = parseFormData(validatePayload);

@@ -24,7 +24,7 @@ export interface INotesStore {
     itemsTotal: number;
     itemsPerPage: number;
     sort?: string;
-    direction?: string;
+    direction?: "DESC" | "ASC";
     pathology_slug?: string;
   };
   isSearch: boolean;

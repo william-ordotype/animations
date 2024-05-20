@@ -6,10 +6,13 @@ import {
   AxiosResponseTransformer,
   isAxiosError,
   ResponseType,
+  InternalAxiosRequestConfig,
 } from "axios";
-import Alpine from "alpinejs";
-import { StateStore } from "@utils/enums";
-import { IToastStore, Status_Type } from "@store/toaster.store";
+
+function requestInterceptor(config: InternalAxiosRequestConfig) {
+  config.headers.Authorization = `Bearer ${window.memberToken}`;
+  return config;
+}
 
 interface RequestOptions<TBody, TParams> {
   method?: string;
@@ -47,6 +50,10 @@ class ApiService {
           console.error("Failed to dynamically import axios:", error);
         });
     }
+    this.instance?.interceptors.request.use(requestInterceptor, (error) => {
+      // Handle request errors
+      return Promise.reject(error);
+    });
   }
 
   /**
@@ -80,7 +87,8 @@ class ApiService {
       data,
       params: queryParams,
       headers: {
-        Authorization: `Bearer ${window.memberToken}`,
+        // ToDo insert an interceptor
+        // Authorization: `Bearer ${window.memberToken}`,
         "Content-Type": contentType,
       },
       transformResponse: resCallBack,
@@ -89,10 +97,8 @@ class ApiService {
     try {
       return await this.instance!.request(config);
     } catch (err) {
-      const toastStore = Alpine.store(StateStore.TOASTER) as IToastStore;
-
       if (isAxiosError(err)) {
-        toastStore.toasterMsg("Server Error", Status_Type.Error, 2500);
+        console.error("Server Error" + err.message);
       }
       throw err;
     }

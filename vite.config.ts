@@ -1,4 +1,6 @@
-import { defineConfig } from "vite";
+/// <reference types="vitest" />
+
+import { defineConfig, ResolvedConfig } from "vite";
 import { resolve } from "path";
 
 const showPagesUrlPlugin = () => {
@@ -9,7 +11,7 @@ const showPagesUrlPlugin = () => {
     /**
      * @param {import("vite").ResolvedConfig} resolvedConfig
      */
-    configResolved(resolvedConfig) {
+    configResolved(resolvedConfig: ResolvedConfig) {
       // store the resolved config
       config = resolvedConfig;
 
@@ -73,5 +75,9 @@ export default defineConfig({
         chunkFileNames: "assets/[name].js",
       },
     },
+  },
+  test: {
+    // globals: true,
+    environment: "jsdom",
   },
 });
