@@ -1,7 +1,3 @@
-/* eslint-disable */
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
-
 /**
  * Returns queryParams String from an object
  * @param {Object} obj
@@ -12,7 +8,7 @@ function objectToQueryParams(obj: ToDo) {
 
   for (const key in obj) {
     if (
-      obj.hasOwnProperty(key) &&
+      Object.prototype.hasOwnProperty.call(obj, key) &&
       obj[key] !== undefined &&
       obj[key] !== null
     ) {

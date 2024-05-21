@@ -1,5 +1,5 @@
 import Alpine from "alpinejs";
-import { StateStore, ToasterMsgTypes } from "@utils/enums";
+import { StateStore } from "@utils/enums";
 import NProgress from "nprogress";
 import {
   setSharedNoteList,
@@ -49,6 +49,7 @@ window.router = () => {
           NProgress.done();
         } catch (err) {
           // TODO Show warning error notification
+          console.error(err);
           NProgress.done();
         }
       }
