@@ -57,7 +57,10 @@ window.router = () => {
       if (id) {
         // Shows getOne drawer
         // await window.globals.drawer.handleDrawer({ id });
-        await setNoteOpened(id);
+        await setNoteOpened(id, {
+          noteStore: notesStore,
+          modalStore: Alpine.store(StateStore.MODAL),
+        });
         console.log("drawer");
       }
       NProgress.done();
@@ -146,7 +149,7 @@ async function handleRouter(context, { type }) {
       };
       await Promise.all([
         setNoteList(payload, { noteStore: notesStore }),
-        setNotesRuleStatus(),
+        setNotesRuleStatus({ noteStore: notesStore, userStore: userStore }),
       ]);
 
       NProgress.done();

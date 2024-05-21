@@ -1,5 +1,6 @@
 import { array, number, object, string } from "yup";
 import { NoteTypes } from "@utils/enums";
+import { InferType } from "yup";
 
 const sortByValues = [
   "created_on",
@@ -17,20 +18,22 @@ const deleteNotesSchema = object({
     note_ids: array(),
   })
   .noUnknown();
-const deleteManyNotesValidation = async (payload) => {
+const deleteManyNotesValidation = async (
+  payload: InferType<typeof deleteNotesSchema>
+) => {
   return await deleteNotesSchema.validate(payload);
 };
 
-const getOneValidation = async (payload) => {
+const getOneValidation = async (payload: ToDo) => {
   const getOneSchema = string();
   return await getOneSchema.validate(payload);
 };
 
 export const getListSchema = object({
-  page: number().required().positive().integer().default(1),
-  limit: number().required().positive().integer().default(10),
-  sort: string().oneOf(sortByValues).required(),
-  direction: string().oneOf(["DESC", "ASC"]).required(),
+  page: number().positive().integer().default(1),
+  limit: number().positive().integer().default(10),
+  sort: string().oneOf(sortByValues).default("created_by"),
+  direction: string().oneOf(["DESC", "ASC"]).default("DESC"),
   type: string()
     .oneOf(["notes", "prescriptions", "recommendations", ""])
     .optional(),
@@ -42,7 +45,7 @@ export const getListSchema = object({
   title: string(),
 });
 
-const getListValidation = async (payload) => {
+const getListValidation = async (payload: InferType<typeof getListSchema>) => {
   return await getListSchema.validate(payload);
 };
 
@@ -62,7 +65,9 @@ export const createOneSchema = object({
   pathology: array().of(string()).optional(),
   rich_text_ordo: string(),
 });
-const createOneValidation = async (payload) => {
+const createOneValidation = async (
+  payload: InferType<typeof createOneSchema>
+) => {
   return await createOneSchema.validate(payload);
 };
 
@@ -79,7 +84,9 @@ export const updateOneSchema = object({
   pathology: array().of(string()).optional(),
   rich_text_ordo: string(),
 });
-const updateOneValidation = async (payload) => {
+const updateOneValidation = async (
+  payload: InferType<typeof updateOneSchema>
+) => {
   return await updateOneSchema.validate(payload);
 };
 
@@ -90,7 +97,9 @@ export const searchByNoteTitleAndPathologyTitleSchema = object({
   direction: string().oneOf(["DESC", "ASC"]).optional(),
   noteTitleAndPathologyTitle: string().default(""),
 });
-const searchByNoteTitleAndPathologyTitleValidation = async (payload) => {
+const searchByNoteTitleAndPathologyTitleValidation = async (
+  payload: InferType<typeof searchByNoteTitleAndPathologyTitleSchema>
+) => {
   return await searchByNoteTitleAndPathologyTitleSchema.validate(payload);
 };
 

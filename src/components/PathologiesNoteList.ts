@@ -1,11 +1,15 @@
+// @ts-nocheck
+
 import getFileExtByMimeType from "../assets/file_ext";
-import Alpine from "alpinejs";
+import Alpine, { AlpineComponent } from "alpinejs";
 import { StateStore } from "@utils/enums";
 import { setNoteOpened } from "../actions/notesActions.js";
+import { INotesStore } from "@store/myNotes.store";
 
 // ToDo refactor this component to execute only on tab change
 
-function PathologiesNoteList() {
+function PathologiesNoteList(): AlpineComponent<any> {
+  const noteStore = Alpine.store(StateStore.NOTES) as INotesStore;
   return {
     // Binders
     openNotesModal() {
@@ -29,27 +33,39 @@ function PathologiesNoteList() {
     openDrawer() {
       return {
         ["x-on:click.prevent"]: async () =>
-          await setNoteOpened({ id: doc._id }),
+          await setNoteOpened(this.$data.doc._id, {
+            noteStore: noteStore,
+            modalStore: Alpine.store(StateStore.MODAL),
+          }),
       };
     },
     openDrawerBilan() {
       return {
         ["x-on:click.prevent"]: async () => {
-          await setNoteOpened({ id: bilan._id });
+          await setNoteOpened(this.$data.bilan._id, {
+            noteStore: noteStore,
+            modalStore: Alpine.store(StateStore.MODAL),
+          });
         },
       };
     },
     openDrawerTreatment() {
       return {
         ["x-on:click.prevent"]: async () => {
-          await setNoteOpened({ id: treatment._id });
+          await setNoteOpened(this.$data.treatment._id, {
+            noteStore: noteStore,
+            modalStore: Alpine.store(StateStore.MODAL),
+          });
         },
       };
     },
     openDrawerConseil() {
       return {
         ["x-on:click.prevent"]: async () => {
-          await setNoteOpened({ id: conseil._id });
+          await setNoteOpened(this.$data.conseil._id, {
+            noteStore: noteStore,
+            modalStore: Alpine.store(StateStore.MODAL),
+          });
         },
       };
     },

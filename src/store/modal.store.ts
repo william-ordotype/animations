@@ -3,7 +3,7 @@
 
 import Alpine from "alpinejs";
 import NotesService from "../services/notesService";
-import { StateStore } from "../utils/enums";
+import { StateStore } from "@utils/enums";
 import {
   setDeleteNotes,
   setNoteList,
@@ -11,6 +11,7 @@ import {
 } from "../actions/notesActions.js";
 import NProgress from "nprogress";
 import PathologiesService from "../services/pathologiesService";
+import { INotesStore } from "@store/myNotes.store";
 
 const notesService = new NotesService();
 const pathologiesService = new PathologiesService();
@@ -216,13 +217,24 @@ const modalStore = {
         });
 
         if (Alpine.store("drawerStore").showDrawer === true) {
-          await setNoteOpened(form._id);
+          await setNoteOpened(form._id, {
+            noteStore: noteStore,
+            modalStore: Alpine.store(StateStore.MODAL),
+          });
         }
 
-        await setNoteList({
-          pathology_slug: window.pathologies.slug,
-          limit: 50,
-        });
+        const notesStore = Alpine.store(StateStore.NOTES) as INotesStore;
+
+        await setNoteList(
+          {
+            page: 1,
+            direction: "DESC",
+            sort: "created_on",
+            pathology_slug: window.pathologies.slug,
+            limit: 50,
+          },
+          { noteStore: notesStore }
+        );
 
         noteListComponents.forEach((component) => {
           component.dispatchEvent(window.customEvents.loadingCancel);
@@ -234,7 +246,10 @@ const modalStore = {
       // In order to update all the drawer fields
       if (window.location.hash.includes("/view")) {
         Alpine.store("drawerStore").loadDrawer = true;
-        await setNoteOpened(form._id);
+        await setNoteOpened(form._id, {
+          noteStore: noteStore,
+          modalStore: Alpine.store(StateStore.MODAL),
+        });
         Alpine.store("drawerStore").loadDrawer = false;
       } else {
         Alpine.store("toasterStore").toasterMsg(

@@ -54,33 +54,39 @@ async function setNoteList(
       window.toastActionMsg.notes.list.error,
       "error"
     );
-  }
-}
-
-async function setNoteOpened(payload: ToDo) {
-  const noteStore = Alpine.store(StateStore.MY_NOTES) as INotesStore;
-  const toastStore = Alpine.store(StateStore.TOASTER) as IToastStore;
-
-  // @ts-expect-error ToDo remove
-  Alpine.store("modalStore").showModal = false;
-
-  noteStore.isNoteLoading = true;
-  noteStore.drawerOpened = true;
-  try {
-    const getNoteRes = await noteService.getOne(payload);
-    const { member, note } = getNoteRes.data;
-    noteStore.noteOpened = { note, member };
-    noteStore.isNoteLoading = false;
-  } catch (err) {
-    noteStore.drawerOpened = false;
-    toastStore.toasterMsg("Document introuvable", "error", 4500);
     console.error(err);
   }
 }
 
-async function setNotesRuleStatus() {
-  const noteStore = Alpine.store(StateStore.MY_NOTES) as INotesStore;
-  const userStore = Alpine.store(StateStore.USER) as IUserStore;
+async function setNoteOpened(
+  noteId: string,
+  store: { noteStore: INotesStore; modalStore: any }
+) {
+  const { noteStore, modalStore } = store;
+
+  // ToDo remove
+  modalStore.showModal = false;
+
+  noteStore.isNoteLoading = true;
+  noteStore.drawerOpened = true;
+  try {
+    const getNoteRes = await noteService.getOne(noteId);
+    const { member, note } = getNoteRes.data;
+    noteStore.noteOpened = { note, member };
+    noteStore.isNoteLoading = false;
+    return noteStore;
+  } catch (err) {
+    noteStore.drawerOpened = false;
+    toasterActions.setToastMessage("Document introuvable", "error", 4500);
+    console.error(err);
+  }
+}
+
+async function setNotesRuleStatus(store: {
+  noteStore: INotesStore;
+  userStore: IUserStore;
+}) {
+  const { noteStore, userStore } = store;
 
   try {
     noteStore.isRuleStatusLoading = true;
@@ -112,32 +118,42 @@ async function setNotesRuleStatus() {
       ...currentStatus,
     };
     noteStore.isRuleStatusLoading = false;
+    return noteStore;
   } catch (err) {
     console.error(err);
   }
 }
 
-async function setNotesSearched(payload: string) {
-  const noteStore = Alpine.store(StateStore.MY_NOTES) as INotesStore;
+async function setNotesSearched(
+  payload: string,
+  store: { noteStore: INotesStore }
+) {
+  const { noteStore } = store;
+  try {
+    noteStore.isSearch = true;
 
-  noteStore.isSearch = true;
+    const searchedNotesRes =
+      await noteService.searchNotesByTitleAndPathologyTitle({
+        noteTitleAndPathologyTitle: payload,
+      });
+    const { items_per_page, items_total, page_number, page_total } =
+      searchedNotesRes.data;
 
-  const searchedNotesRes =
-    await noteService.searchNotesByTitleAndPathologyTitle({
-      noteTitleAndPathologyTitle: payload,
-    });
-  const { items_per_page, items_total, page_number, page_total } =
-    searchedNotesRes.data;
-
-  noteStore.noteList = searchedNotesRes.data.data;
-  noteStore.noteListMeta = {
-    direction: "DESC",
-    sort: "created_on",
-    pageNumber: page_number,
-    pageTotal: page_total,
-    itemsTotal: items_total,
-    itemsPerPage: items_per_page,
-  };
+    noteStore.noteList = searchedNotesRes.data.data;
+    noteStore.noteListMeta = {
+      direction: "DESC",
+      sort: "created_on",
+      pageNumber: page_number,
+      pageTotal: page_total,
+      itemsTotal: items_total,
+      itemsPerPage: items_per_page,
+    };
+  } catch (error) {
+    if (error instanceof Error) {
+      toasterActions.setToastMessage(error.message, "error");
+    }
+    console.error(error);
+  }
 }
 
 async function setDeleteNotes(payload: { noteIds: string[] }) {
