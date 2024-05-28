@@ -1,18 +1,21 @@
 import { beforeEach, describe, vi, afterEach, test, expect, it } from "vitest";
 
-import { setNoteList, setNoteOpened } from "./notesActions";
+import { setNoteList, setNoteOpened, setNotesRuleStatus } from "./notesActions";
 import NotesService, {
   PaginatedNoteListExtended,
 } from "@services/notesService";
 import { notesInitialStore } from "../tests/static/store/notes.store.initial";
 import getAll from "../tests/static/api/notes.getList.response.filled.json";
 import getOne from "../tests/static/api/notes.getOne.response.json";
+import getRules from "../tests/static/api/note-rules.status.response.json";
 import { axiosSuccessTemplate } from "../tests/static/api/axios.template.response";
 
 import toasterActions from "./toasterActions";
-import { NoteItem, NoteList } from "@interfaces/apiTypes/notesTypes";
+import { NoteItem, NoteList, NoteRules } from "@interfaces/apiTypes/notesTypes";
 import { AxiosResponse } from "axios";
 import { noteActionsToastMsgs } from "@utils/toastMessages";
+import { freeUserStore } from "../tests/static/store/user.store.auth.free";
+import { unAuthUserStore } from "../tests/static/store/user.store.unauth";
 
 vi.mock("@services/notesService");
 vi.stubGlobal("toastActionMsg", {
@@ -247,5 +250,66 @@ describe("SetNoteOpened", () => {
     });
 
     expect(spy).toHaveBeenCalledOnce;
+  });
+});
+
+describe("Note Rules setter", () => {
+  let notesStore: typeof notesInitialStore;
+  let freeUser: typeof freeUserStore;
+  let unAuthUser: typeof unAuthUserStore;
+
+  beforeEach(() => {
+    notesStore = { ...notesInitialStore }; // Ensure a deep copy to prevent shared state between tests
+    freeUser = { ...freeUserStore };
+    unAuthUser = { ...unAuthUserStore };
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  test("correctly populates note rules if user is auth", async () => {
+    vi.mocked(NotesService.prototype.getRulesStatus).mockResolvedValueOnce({
+      ...axiosSuccessTemplate,
+      data: getRules as NoteRules,
+    } as AxiosResponse<NoteRules>);
+
+    const expectedResult = {
+      consumedNotesPercent: 35,
+      consumedMegabytesPercent: 2.666666666666667,
+      consumedNotesNumber: 21,
+      consumedMegabytesNumber: 8,
+      allowedNumberOfNotes: 60,
+      allowedMegabyte: 300,
+    };
+
+    await setNotesRuleStatus({
+      noteStore: notesStore,
+      userStore: freeUser,
+    });
+    expect(notesStore.currentRuleStatus).toEqual(expectedResult);
+  });
+  test("don't render note rules if user is unAuth", async () => {
+    vi.mocked(NotesService.prototype.getRulesStatus).mockResolvedValueOnce({
+      ...axiosSuccessTemplate,
+      data: getRules as NoteRules,
+    } as AxiosResponse<NoteRules>);
+
+    const expectedResult = {
+      consumedNotesPercent: undefined,
+      consumedMegabytesPercent: undefined,
+      consumedNotesNumber: undefined,
+      consumedMegabytesNumber: undefined,
+      allowedNumberOfNotes: undefined,
+      allowedMegabyte: undefined,
+    };
+
+    await setNotesRuleStatus({
+      noteStore: notesStore,
+      userStore: unAuthUser,
+    });
+
+    expect(notesStore.isRuleStatusLoading).toBe(true);
+    expect(notesStore.currentRuleStatus).toEqual(expectedResult);
   });
 });
