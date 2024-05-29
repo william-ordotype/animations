@@ -15,7 +15,7 @@ const userStore = (
   user: Awaited<GetCurrentMemberPayload["data"]> | null
 ): IUserStore => {
   return {
-    user: user,
+    user: null,
     isAuth: false,
     hasPaidSub: false,
     async init() {

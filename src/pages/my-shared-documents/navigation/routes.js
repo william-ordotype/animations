@@ -6,6 +6,7 @@ import {
   setSharedNoteOpened,
 } from "../../../actions/sharedNotesActions";
 import { STATUS_TYPES } from "@store/toaster.store";
+import { setNotesRuleStatus } from "../../../actions/notesActions.js";
 
 window.router = () => {
   const notesStore = /**
@@ -60,6 +61,7 @@ window.router = () => {
     createPrescription(context) {
       context.redirect("/");
 
+      // @ts-ignore
       Alpine.store("modalStore").openModal(null, {
         type: "prescriptions",
       });
@@ -101,6 +103,7 @@ async function handleRouter(context) {
   }
 
   // Shows getList items
+  // @ts-ignore
   Alpine.store("modalStore").showModal = false;
 
   // Do a reload if necessary
@@ -120,6 +123,7 @@ async function handleRouter(context) {
       };
 
       await setSharedNoteList(payload);
+      await setNotesRuleStatus({ noteStore: notesStore, userStore });
       NProgress.done();
     } catch (err) {
       console.error(err);

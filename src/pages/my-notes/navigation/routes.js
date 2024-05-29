@@ -72,6 +72,7 @@ window.router = () => {
       const type = context.path.split("/")[2];
       const qlEditor = $(".ql-editor");
       context.redirect("/");
+      // @ts-ignore
       Alpine.store("modalStore").openModal(null, {
         type,
       });
@@ -129,6 +130,7 @@ async function handleRouter(context, { type }) {
   notesStore.noteListType = type;
 
   // Shows getList items
+  // @ts-ignore
   Alpine.store("modalStore").showModal = false;
 
   // Do a reload if necessary
