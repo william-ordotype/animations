@@ -24,12 +24,14 @@ const showPagesUrlPlugin = () => {
         const notesSharedWithMe = `${baseUrl}/${pageRoot}/my-shared-documents/`;
         const notesSharingInvite = `${baseUrl}/${pageRoot}/document-shared-invite/`;
         const pathologiesUrl = `${baseUrl}/${pageRoot}/pathologies/`;
+        const pathologiesBetaUrl = `${baseUrl}/${pageRoot}/pathologies-beta/`;
 
         console.group("Pages Urls");
         console.log(`- My notes: ${myNotesUrl}`);
         console.log(`- Notes Shared with me: ${notesSharedWithMe}`);
         console.log(`- Shared note invitation: ${notesSharingInvite}`);
         console.log(`- Pathologies: ${pathologiesUrl}`);
+        console.log(`- Pathologies Beta: ${pathologiesBetaUrl}`);
         console.groupEnd();
       }
     },
@@ -59,6 +61,10 @@ export default defineConfig({
     rollupOptions: {
       input: {
         pathologies: resolve(__dirname, "./src/pages/pathologies/index.html"),
+        "pathologies-beta": resolve(
+          __dirname,
+          "./src/pages/pathologies-beta/index.html"
+        ),
         notes: resolve(__dirname, "./src/pages/my-notes/index.html"),
         "shared-notes": resolve(
           __dirname,
