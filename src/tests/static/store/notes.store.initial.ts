@@ -41,6 +41,8 @@ export const notesInitialStore: INotesStore = {
   isEdit: false,
   editorOpened: false,
 
+  pathologyActiveTab: "",
+
   // Delete
   removeShareNoteList: [],
   deleteList: [],

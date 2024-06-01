@@ -11,7 +11,7 @@ function DocumentsSearch(): AlpineComponent<any> {
       return {
         ["x-on:input.debounce.250ms"]: async (ev: ChangeEvent) => {
           NProgress.start();
-          const notesStore = Alpine.store(StateStore.NOTES) as INotesStore;
+          const notesStore = Alpine.store(StateStore.MY_NOTES) as INotesStore;
           const searchValue = ev.target.value;
           await setNotesSearched(searchValue, { noteStore: notesStore });
           NProgress.done();

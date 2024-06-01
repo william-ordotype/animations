@@ -9,7 +9,7 @@ import { INotesStore } from "@store/myNotes.store";
 // ToDo refactor this component to execute only on tab change
 
 function PathologiesNoteList(): AlpineComponent<any> {
-  const noteStore = Alpine.store(StateStore.NOTES) as INotesStore;
+  const noteStore = Alpine.store(StateStore.MY_NOTES) as INotesStore;
   return {
     // Binders
     openNotesModal() {
