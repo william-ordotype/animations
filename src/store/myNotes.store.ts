@@ -15,6 +15,12 @@ interface StoredSharedWithMeNoteList extends NoteList {
   fileIcons?: ToDo[];
 }
 
+export type PathologyTab =
+  | "balance_sheet"
+  | "treatment"
+  | "notes"
+  | "recommendations";
+
 export interface INotesStore {
   isNotesLoading: boolean;
   isEmpty: boolean;
@@ -55,6 +61,8 @@ export interface INotesStore {
 
   isEdit: boolean;
   editorOpened: boolean;
+
+  pathologyActiveTab: PathologyTab | "";
 
   init: () => void;
 }
@@ -103,6 +111,8 @@ const NotesStore: INotesStore = {
   // Delete
   removeShareNoteList: [],
   deleteList: [],
+
+  pathologyActiveTab: "",
 
   async init() {
     console.log("Alpine init store");

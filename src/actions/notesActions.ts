@@ -156,6 +156,18 @@ async function setNotesSearched(
   }
 }
 
+async function setMixedNotesLists(payload, store: { noteStore: INotesStore }) {
+  const { noteStore } = store;
+
+  try {
+  } catch (error) {
+    if (error instanceof Error) {
+      toasterActions.setToastMessage(error.message, "error");
+    }
+    console.error(error);
+  }
+}
+
 async function setDeleteNotes(payload: { noteIds: string[] }) {
   const { noteIds } = payload;
   const noteStore = Alpine.store(StateStore.MY_NOTES) as INotesStore;

@@ -6,7 +6,7 @@ import {
   setSharedNoteOpened,
 } from "../../../actions/sharedNotesActions";
 import { STATUS_TYPES } from "@store/toaster.store";
-import { setNotesRuleStatus } from "../../../actions/notesActions.js";
+import { setNotesRuleStatus } from "../../../actions/notesActions";
 
 window.router = () => {
   const notesStore = /**

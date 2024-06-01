@@ -223,7 +223,7 @@ const modalStore = {
           });
         }
 
-        const notesStore = Alpine.store(StateStore.NOTES) as INotesStore;
+        const notesStore = Alpine.store(StateStore.MY_NOTES) as INotesStore;
 
         await setNoteList(
           {
