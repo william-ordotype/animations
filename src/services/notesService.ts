@@ -11,7 +11,7 @@ import {
   searchByNoteTitleAndPathologyTitleSchema,
   updateOneSchema,
 } from "../validation/notesValidation";
-import { parseFormData } from "./apiUtils";
+import { parseFormData, removeEmptyParams } from "./apiUtils";
 import FileNoteService from "./fileNoteService";
 import { InferType } from "yup";
 import {
@@ -25,6 +25,7 @@ import {
   NoteRules,
   SortNotes,
 } from "@interfaces/apiTypes/notesTypes";
+import { SharedWithMeNoteList } from "@interfaces/apiTypes/notesSharesTypes";
 
 export type PaginatedNoteListExtended<TNoteList> =
   PaginatedResponse<TNoteList> & {
@@ -198,9 +199,47 @@ class NotesService extends ApiService {
   }
 
   async getRulesStatus() {
-    return this.request<null, null, NoteRules>({
+    return await this.request<null, null, NoteRules>({
       method: "GET",
       routeParams: "rules/status",
+    });
+  }
+
+  async getNotesOwnedAndSharedWithMe({
+    page = 1,
+    limit = 10,
+    type,
+    pathology_slug,
+    prescription_type = "",
+  }: {
+    page?: number;
+    limit?: number;
+    type: "" | "notes" | "prescriptions" | "recommendations";
+    prescription_type?: "" | "balance_sheet" | "treatment";
+    pathology_slug: string;
+  }) {
+    const validatedPayload = await getListValidation({
+      page,
+      limit,
+      sort: "created_on",
+      direction: "DESC",
+      type,
+      pathology_slug,
+      prescription_type,
+    });
+    const sanitizedPayload = removeEmptyParams(validatedPayload);
+
+    return await this.request<
+      null,
+      ToDo,
+      PaginatedResponse<NoteList & SharedWithMeNoteList>
+    >({
+      method: "GET",
+      queryParams: {
+        ...sanitizedPayload,
+        withShares: true,
+      },
+      routeParams: "",
     });
   }
 }

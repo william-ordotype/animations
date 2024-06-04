@@ -156,10 +156,53 @@ async function setNotesSearched(
   }
 }
 
-async function setMixedNotesLists(payload, store: { noteStore: INotesStore }) {
+/**
+ * Populates NoteList "shared with" and "created by" the user
+ */
+async function setMixedNotesList(
+  payload: {
+    page?: number;
+    limit?: number;
+    type: "" | "notes" | "prescriptions" | "recommendations";
+    prescription_type?: "" | "balance_sheet" | "treatment";
+    pathology_slug: string;
+  },
+  store: { noteStore: INotesStore }
+) {
   const { noteStore } = store;
 
   try {
+    noteStore.isNotesLoading = true;
+    const res = await noteService.getNotesOwnedAndSharedWithMe(payload);
+    const { items_per_page, items_total, page_number, page_total, data } =
+      res.data;
+
+    data.forEach((noteItem) => {
+      if (noteItem.documents && noteItem.documents.length > 0) {
+        const seen = new Set();
+        noteItem.documents = noteItem.documents.filter((doc) => {
+          if (seen.has(doc.mime_type)) {
+            return false;
+          } else {
+            seen.add(doc.mime_type);
+            return true;
+          }
+        });
+      }
+    });
+
+    noteStore.noteList = data;
+    noteStore.noteListMeta = {
+      pageNumber: page_number,
+      pageTotal: page_total,
+      itemsTotal: items_total,
+      itemsPerPage: items_per_page,
+    };
+
+    noteStore.isEmpty = page_total <= 0;
+    noteStore.isNotesLoading = false;
+
+    return noteStore;
   } catch (error) {
     if (error instanceof Error) {
       toasterActions.setToastMessage(error.message, "error");
@@ -237,4 +280,5 @@ export {
   setNotesRuleStatus,
   setNotesSearched,
   setDeleteNotes,
+  setMixedNotesList,
 };

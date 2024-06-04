@@ -26,4 +26,19 @@ function parseFormData(formFieldValues: ToDo) {
   }, new FormData());
 }
 
-export { objectToQueryParams, parseFormData };
+function removeEmptyParams(formFieldValues: Record<string, any>) {
+  Object.keys(formFieldValues).forEach((key: string) => {
+    if (
+      formFieldValues[key as keyof typeof formFieldValues] === "" ||
+      formFieldValues[key as keyof typeof formFieldValues] === undefined ||
+      (Array.isArray(formFieldValues[key as keyof typeof formFieldValues]) &&
+        formFieldValues[key as keyof typeof formFieldValues].length === 0)
+    ) {
+      delete formFieldValues[key as keyof typeof formFieldValues];
+    }
+  });
+
+  return formFieldValues;
+}
+
+export { objectToQueryParams, parseFormData, removeEmptyParams };
