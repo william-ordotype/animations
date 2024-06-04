@@ -22,3 +22,11 @@ export function showActiveTab(
   const { pathologyActiveTab } = noteStore;
   return currentPathologyTab === pathologyActiveTab;
 }
+
+export function uniqueFileIcons(documents: any[]) {
+  const allDocTypes = documents.map((elem: { mime_type: any }) => {
+    return elem.mime_type;
+  });
+  const uniqueDocTypes = new Set(allDocTypes);
+  return [...uniqueDocTypes];
+}
