@@ -1,0 +1,1 @@
+document.addEventListener("DOMContentLoaded",function(){document.querySelectorAll("[data-hide-element-onclick-out]").forEach(t=>{const e=document.getElementById(t.dataset.hideElementOnclickOut);document.addEventListener("click",function(n){!t.contains(n.target)&&!e.contains(n.target)&&(e.style.display="none")})})});

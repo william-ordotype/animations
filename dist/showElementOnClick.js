@@ -1,0 +1,1 @@
+function l(){document.querySelectorAll("[data-show-element-onclick]").forEach(t=>{t.addEventListener("click",s=>{const n=t.dataset.showElementOnclick,e=document.getElementById(n);e?e.style.display=e.dataset.previousDisplay||"":console.error(`Element ID "${n}" not found`)})})}l();
