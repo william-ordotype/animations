@@ -1,0 +1,15 @@
+{
+  "name": "ordotype-front-utils",
+  "description": "Here's the README for your repository in English:",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "vite": "^5.2.12"
+  }
+}
