@@ -2,8 +2,7 @@ function injectStyles() {
     var style = document.createElement("style");
     style.innerHTML = `
         [x-ordo-utils=slider] {
-                    border-radius: 34px;
-
+         border-radius: 34px;
         }
         
         [x-ordo-utils=slider]:before {
@@ -16,8 +15,7 @@ function injectStyles() {
           background-color: white;
           -webkit-transition: .4s;
           transition: .4s;
-                    border-radius: 50%;
-
+          border-radius: 50%;
         }
         
         input:checked + [x-ordo-utils=slider] {
