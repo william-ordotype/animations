@@ -102,3 +102,23 @@ Copy the Webflow component as it's created with custom components and Webflow cl
    <span x-ordo-utils="slider"></span>
 </label>
 ```
+
+### Tabs
+Assign the custom property  `x-ordo-utils="tabs"` to a Webflow tabs component and will work on any number of tab components on the page
+
+**Code Example**
+```html
+<script src="https://cdn.jsdelivr.net/gh/dndevs/ordotype-front-utils@0.0.1/dist/tabs.js"></script>
+
+<div class="w-tabs" x-ordo-utils="toggleSwitch">
+   <div class="tabs-menu-pr tm_off w-tab-menu" role="tablist" x-ordo-utils="tabs">
+      <a aria-controls="w-tabs-0-data-w-pane-0"></a>
+      <a aria-controls="w-tabs-1-data-w-pane-1"></a>
+      <a aria-controls="w-tabs-3-data-w-pane-3"></a>
+   </div>
+      <div class="tabs-content_main w-tab-content">
+         ...
+      </div>
+
+</div>
+```
