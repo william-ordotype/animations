@@ -1,0 +1,1 @@
+function l(){document.querySelectorAll("[x-od-utils=hide-element-onclick]").forEach(t=>{t.addEventListener("click",s=>{const n=t.dataset.hideElementOnclick,e=document.getElementById(n);if(!e)return console.error(`Element ID "${n}" not found`),null;e.style.display&&(e.dataset.previousDisplay=e.style.display),e.style.display="none"})})}l();

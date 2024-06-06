@@ -1,0 +1,1 @@
+function n(){const e=document.querySelector("[data-show-on-scroll]"),o=e.dataset.scrollOffset??0,l=e.getBoundingClientRect();function t(){(window.scrollY||document.documentElement.scrollTop)<l.top-o?e.style.visibility="hidden":e.style.visibility="visible"}window.addEventListener("scroll",t)}n();
