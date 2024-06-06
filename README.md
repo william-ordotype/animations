@@ -11,10 +11,14 @@ The Ordotype-Front library includes a variety of features and components specifi
 Follow these steps to get started with the Ordotype-Front-Utils Library:
 
 
-1. Add the following script tag to your HTML file to include the library:
+1. Add the following script tag to your HTML file to include the library of the latest version:
 ```html
-
+<!--- unminified --->
 <script src="https://cdn.jsdelivr.net/gh/dndevs/ordotype-front-utils@0.0.1/src/${component}"></script>
+
+<!--- minified --->
+<script src="https://cdn.jsdelivr.net/gh/dndevs/ordotype-front-utils@0.0.1/dist/${component}"></script>
+
 ```
 
 ## Installation (for Development Purposes)
@@ -70,7 +74,7 @@ On the same page, add the `x-ordo-utils` attribute followed by the component nam
 ```
 
 ### Toast
-
+`x-ordo-utils="toast-component`
 `data-show-toast-timeout: milliseconds` Optional parameter. Indicates how long is the alert be displayed on the screen
 
 **Code Example**
@@ -84,4 +88,17 @@ On the same page, add the `x-ordo-utils` attribute followed by the component nam
 <div>
     <a x-ordo-utils="show-toast" data-show-toast-timeout="2000">Click me to show the toast</a>
 </div>
+```
+
+### Toggle Switch
+Copy the Webflow component as it's created with custom components and Webflow classes
+
+**Code Example**
+```html
+<script src="https://cdn.jsdelivr.net/gh/dndevs/ordotype-front-utils@0.0.1/dist/toggleSwitch.js"></script>
+
+<label x-ordo-utils="toggleSwitch">
+   <input type="checkbox">
+   <span x-ordo-utils="slider"></span>
+</label>
 ```
