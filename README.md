@@ -17,6 +17,27 @@ Follow these steps to get started with the Ordotype-Front-Utils Library:
 <script src="https://cdn.jsdelivr.net/gh/dndevs/ordotype-front-utils@0.0.1/src/${component}"></script>
 ```
 
+## Installation (for Development Purposes)
+Prerequisites
+- Node.js
+- pnpm
+
+### Steps
+
+1. Download the Project
+   - Clone the repository or download the project files.
+
+2. Install Dependencies
+   - Navigate to the project directory and run:
+```
+pnpm install
+```
+
+3. Run the Development Server
+    - Navigate to the project directory and run:
+```
+pnpm run dev
+```
 
 ## Usage
 
@@ -33,6 +54,8 @@ On the same page, add the `x-od-utils` attribute followed by the component name 
     <a href="#">I'm a button</a>
 </div>
 ```
+
+
 
 ## Components
 ### Hide Element on click
