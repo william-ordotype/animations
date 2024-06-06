@@ -1,51 +1,25 @@
+/* global $ */
+
 'use strict';
 
-function injectStyles() {
-    var style = document.createElement("style");
-    style.innerHTML = `
-      .ordotype-front-utils__toast {
-        visibility: hidden !important;
-        position: fixed;
-        z-index: 10000;
-        top: 20%;
-      }
-      .ordotype-front-utils__show {
-        visibility: visible !important;
-        -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-        animation: fadein 0.5s, fadeout 0.5s 2.5s;
-      }
-      @keyframes fadein {
-        from {top: 0; opacity: 0;}
-        to {top: 20%; opacity: 1;}
-      }
-      @keyframes fadeout {
-        from {top: 20%; opacity: 1;}
-        to {top: 0; opacity: 0;}
-      }
-    `;
-    document.head.appendChild(style);
-}
-
 function showToast() {
-    const buttons = document.querySelectorAll('[data-show-toast]')
-    buttons.forEach(button => {
+    const buttons = document.querySelectorAll('[x-od-utils*=show-toast]')
+    buttons.forEach((button, index) => {
         const timeout = button.dataset.showToastTimeout ?? 3000;
-        const toast = document.getElementById(button.dataset.showToast);
-        toast.className = 'ordotype-front-utils__toast'
+        $(`[x-od-utils*=toast-component-${index}]`).hide()
 
         button.addEventListener('click', (_e) => {
-            const elementId = button.dataset.showToast;
-            const element = document.getElementById(elementId);
+            _e.preventDefault();
+            const element = document.querySelector(`[x-od-utils=toast-component-${index}]`);
             if (element) {
-                element.className = "ordotype-front-utils__toast ordotype-front-utils__show"
+                $(element).css({ display: 'inline-block', opacity: 0, top: -100 })
+                    .animate({ top: 0, opacity: 1 }, 200);
                 setTimeout(function () {
-                    element.className = element.className.replace("show", "");
+                    $(element).fadeOut(200)
                 }, timeout);
             }
         })
     })
-
-    injectStyles()
 }
 
 

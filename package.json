@@ -1,6 +1,7 @@
 {
   "name": "ordotype-front-utils",
   "description": "Here's the README for your repository in English:",
+  "type": "module",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {

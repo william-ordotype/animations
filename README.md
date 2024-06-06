@@ -1,6 +1,3 @@
-Here's the README for your repository in English:
-
----
 
 # Ordotype-Front-Utils Library
 
@@ -40,12 +37,28 @@ On the same page, add the `x-od-utils` attribute followed by the component name 
 ## Components
 ### Hide Element on click
 
-
 **Code Example**
 ```html
-<script src="https://cdn.jsdelivr.net/gh/dndevs/ordotype-front-utils@0.0.1/src/hideElementOnClick.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/dndevs/ordotype-front-utils@0.0.1/dist/hideElementOnClick.js"></script>
 
 <div >
     <a x-od-utils="hide-element-onclick" href="#">I'm a button</a> 
+</div>
+```
+
+### Toast
+
+`data-show-toast-timeout: milliseconds` Optional parameter. Indicates how long is the alert be displayed on the screen
+
+**Code Example**
+```html
+<script src="https://cdn.jsdelivr.net/gh/dndevs/ordotype-front-utils@0.0.1/dist/toast.js"></script>
+
+<div x-od-utils="toast-component">
+    <span>I'm a toast component and I show whenever they call me</span> 
+</div>
+
+<div>
+    <a x-od-utils="show-toast" data-show-toast-timeout="2000">Click me to show the toast</a>
 </div>
 ```
