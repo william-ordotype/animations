@@ -47,10 +47,10 @@ To use a component from the library, import the relevant script:
 <script src="https://cdn.jsdelivr.net/gh/dndevs/ordotype-front-utils@0.0.1/src/hideElementOnClick.js"></script>
 ```
 
-On the same page, add the `x-od-utils` attribute followed by the component name to apply the desired functionality to a specific element:
+On the same page, add the `x-ordo-utils` attribute followed by the component name to apply the desired functionality to a specific element:
 
 ```html
-<div x-od-utils="hide-element-onclick">
+<div x-ordo-utils="hide-element-onclick">
     <a href="#">I'm a button</a>
 </div>
 ```
@@ -65,7 +65,7 @@ On the same page, add the `x-od-utils` attribute followed by the component name 
 <script src="https://cdn.jsdelivr.net/gh/dndevs/ordotype-front-utils@0.0.1/dist/hideElementOnClick.js"></script>
 
 <div >
-    <a x-od-utils="hide-element-onclick" href="#">I'm a button</a> 
+    <a x-ordo-utils="hide-element-onclick" href="#">I'm a button</a> 
 </div>
 ```
 
@@ -77,11 +77,11 @@ On the same page, add the `x-od-utils` attribute followed by the component name 
 ```html
 <script src="https://cdn.jsdelivr.net/gh/dndevs/ordotype-front-utils@0.0.1/dist/toast.js"></script>
 
-<div x-od-utils="toast-component">
+<div x-ordo-utils="toast-component">
     <span>I'm a toast component and I show whenever they call me</span> 
 </div>
 
 <div>
-    <a x-od-utils="show-toast" data-show-toast-timeout="2000">Click me to show the toast</a>
+    <a x-ordo-utils="show-toast" data-show-toast-timeout="2000">Click me to show the toast</a>
 </div>
 ```
