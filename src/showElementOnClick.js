@@ -1,16 +1,20 @@
 'use strict';
 
 function showElementOnClick() {
-    const buttons = document.querySelectorAll('[data-show-element-onclick]')
+    const buttons = document.querySelectorAll('[x-ordo-utils="showElementOnClick"]')
     buttons.forEach(button => {
         button.addEventListener('click', (_e) => {
-            const elementId = button.dataset.showElementOnclick;
-            const element = document.getElementById(elementId);
+            const elementId = button.getAttribute('data-element-to-show');
+            if(!elementId) {
+                console.error(`Missing data-element-to-show id attribute`);
+                return
+            }
+            const element = $(elementId);
 
             if (element) {
-                element.style.display = element.dataset.previousDisplay || '';
+               element.fadeIn()
             } else {
-                console.error(`Element ID "${elementId}" not found`);
+                console.error(`Element ID "${elementId}" not found on the page`);
             }
         })
     })
