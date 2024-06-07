@@ -11,12 +11,37 @@ The Ordotype-Front library includes a variety of features and components specifi
 Follow these steps to get started with the Ordotype-Front-Utils Library:
 
 
-1. Add the following script tag to your HTML file to include the library:
+1. Add the following script tag to your HTML file to include the library of the latest version:
 ```html
-
+<!--- unminified --->
 <script src="https://cdn.jsdelivr.net/gh/dndevs/ordotype-front-utils@0.0.1/src/${component}"></script>
+
+<!--- minified --->
+<script src="https://cdn.jsdelivr.net/gh/dndevs/ordotype-front-utils@0.0.1/dist/${component}"></script>
+
 ```
 
+## Installation (for Development Purposes)
+Prerequisites
+- Node.js
+- pnpm
+
+### Steps
+
+1. Download the Project
+   - Clone the repository or download the project files.
+
+2. Install Dependencies
+   - Navigate to the project directory and run:
+```
+pnpm install
+```
+
+3. Run the Development Server
+    - Navigate to the project directory and run:
+```
+pnpm run dev
+```
 
 ## Usage
 
@@ -26,13 +51,15 @@ To use a component from the library, import the relevant script:
 <script src="https://cdn.jsdelivr.net/gh/dndevs/ordotype-front-utils@0.0.1/src/hideElementOnClick.js"></script>
 ```
 
-On the same page, add the `x-od-utils` attribute followed by the component name to apply the desired functionality to a specific element:
+On the same page, add the `x-ordo-utils` attribute followed by the component name to apply the desired functionality to a specific element:
 
 ```html
-<div x-od-utils="hide-element-onclick">
+<div x-ordo-utils="hide-element-onclick">
     <a href="#">I'm a button</a>
 </div>
 ```
+
+
 
 ## Components
 ### Hide Element on click
@@ -42,23 +69,56 @@ On the same page, add the `x-od-utils` attribute followed by the component name 
 <script src="https://cdn.jsdelivr.net/gh/dndevs/ordotype-front-utils@0.0.1/dist/hideElementOnClick.js"></script>
 
 <div >
-    <a x-od-utils="hide-element-onclick" href="#">I'm a button</a> 
+    <a x-ordo-utils="hide-element-onclick" href="#">I'm a button</a> 
 </div>
 ```
 
 ### Toast
-
+`x-ordo-utils="toast-component`
 `data-show-toast-timeout: milliseconds` Optional parameter. Indicates how long is the alert be displayed on the screen
 
 **Code Example**
 ```html
 <script src="https://cdn.jsdelivr.net/gh/dndevs/ordotype-front-utils@0.0.1/dist/toast.js"></script>
 
-<div x-od-utils="toast-component">
+<div x-ordo-utils="toast-component">
     <span>I'm a toast component and I show whenever they call me</span> 
 </div>
 
 <div>
-    <a x-od-utils="show-toast" data-show-toast-timeout="2000">Click me to show the toast</a>
+    <a x-ordo-utils="show-toast" data-show-toast-timeout="2000">Click me to show the toast</a>
+</div>
+```
+
+### Toggle Switch
+Copy the Webflow component as it's created with custom components and Webflow classes
+
+**Code Example**
+```html
+<script src="https://cdn.jsdelivr.net/gh/dndevs/ordotype-front-utils@0.0.1/dist/toggleSwitch.js"></script>
+
+<label x-ordo-utils="toggleSwitch">
+   <input type="checkbox">
+   <span x-ordo-utils="slider"></span>
+</label>
+```
+
+### Tabs
+Assign the custom property  `x-ordo-utils="tabs"` to a Webflow tabs component and will work on any number of tab components on the page
+
+**Code Example**
+```html
+<script src="https://cdn.jsdelivr.net/gh/dndevs/ordotype-front-utils@0.0.1/dist/tabs.js"></script>
+
+<div class="w-tabs" x-ordo-utils="toggleSwitch">
+   <div class="tabs-menu-pr tm_off w-tab-menu" role="tablist" x-ordo-utils="tabs">
+      <a aria-controls="w-tabs-0-data-w-pane-0"></a>
+      <a aria-controls="w-tabs-1-data-w-pane-1"></a>
+      <a aria-controls="w-tabs-3-data-w-pane-3"></a>
+   </div>
+      <div class="tabs-content_main w-tab-content">
+         ...
+      </div>
+
 </div>
 ```
