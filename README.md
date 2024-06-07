@@ -64,18 +64,34 @@ On the same page, add the `x-ordo-utils` attribute followed by the component nam
 ## Components
 ### Hide Element on click
 
+**Main Property**
+
+`x-ordo-utils="hide-element-onclick"`
+
+**Secondary Property**
+
+`data-element-to-show="${querySelector}"`
+
+*Required.* Must add a css class or id of an available element as query selector to target which element is going to be shown
+
 **Code Example**
 ```html
 <script src="https://cdn.jsdelivr.net/gh/dndevs/ordotype-front-utils@0.0.1/dist/hideElementOnClick.js"></script>
 
-<div >
+<div>
     <a x-ordo-utils="hide-element-onclick" href="#">I'm a button</a> 
 </div>
 ```
 
 ### Toast
+**Main Property**
+
 `x-ordo-utils="toast-component`
-`data-show-toast-timeout: milliseconds` Optional parameter. Indicates how long is the alert be displayed on the screen
+
+**Secondary Property**
+
+`data-show-toast-timeout: milliseconds` <br /> 
+Optional parameter. Indicates how long is the alert be displayed on the screen
 
 **Code Example**
 ```html
@@ -93,6 +109,10 @@ On the same page, add the `x-ordo-utils` attribute followed by the component nam
 ### Toggle Switch
 Copy the Webflow component as it's created with custom components and Webflow classes
 
+**Main Property**
+
+`x-ordo-utils="toggleSwitch"`
+
 **Code Example**
 ```html
 <script src="https://cdn.jsdelivr.net/gh/dndevs/ordotype-front-utils@0.0.1/dist/toggleSwitch.js"></script>
@@ -105,6 +125,10 @@ Copy the Webflow component as it's created with custom components and Webflow cl
 
 ### Tabs
 Assign the custom property  `x-ordo-utils="tabs"` to a Webflow tabs component and will work on any number of tab components on the page
+
+**Main Property**
+
+`x-ordo-utils="tabs"`
 
 **Code Example**
 ```html
@@ -121,4 +145,24 @@ Assign the custom property  `x-ordo-utils="tabs"` to a Webflow tabs component an
       </div>
 
 </div>
+```
+
+### Show Element On Click
+
+**Main Property**
+
+`x-ordo-utils="showElementOnClick"`
+
+**Secondary Property**
+
+`data-element-to-show="${querySelector}"`
+
+*Required.* Must add a css class or id of an available element as query selector to target which element is going to be shown
+
+**Code Example**
+```html
+<script src="https://cdn.jsdelivr.net/gh/dndevs/ordotype-front-utils@0.0.1/dist/showElementOnClick.js"></script>
+
+<div class="elem hidden">Hi, I am a hidden element</div>
+<a class="w-button" href="#" x-ordo-utils="showElementOnClick" data-element-to-show=".elem.hidden">Click me!</a></div>
 ```

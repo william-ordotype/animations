@@ -232,6 +232,9 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
     <script src="src/toast.js" type=module></script>
     <script src="src/toggleSwitch.js" type=module></script>
     <script src="src/tabs.js" type=module></script>
+    <script src="src/showElementOnClick.js" type=module></script>
+    
+    
     <script
          src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd%2F652d31f3dc22d7b4ee708e44%2F65c4b99013d2be46e4311665%2Fclarity_script-7.2.7.js"
          type="text/javascript"></script>
@@ -315,28 +318,8 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
 </section>
 <section class="inter_showelemonclick">
     <div class="w-layout-vflex flex-block">
-        <div class="toast_container">
-            <div x-od-utils="toast-component">
-                <div class="toast-element" id="toast">
-                    <div class="toast_icon_container">
-                        <div class="toast_icon w-embed">
-                            <svg fill="none" height=" 100%"
-                                 viewBox="0 0 22 23" width=" 100%"
-                                 x-show="$store.toasterStore.type === globals.toaster.statusTypes.success"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                     d="M21 11.08V12C20.9988 14.1564 20.3005 16.2547 19.0093 17.9818C17.7182 19.709 15.9033 20.9725 13.8354 21.5839C11.7674 22.1953 9.55726 22.1219 7.53447 21.3746C5.51168 20.6273 3.78465 19.2461 2.61096 17.4371C1.43727 15.628 0.879791 13.4881 1.02168 11.3363C1.16356 9.18455 1.99721 7.13631 3.39828 5.49706C4.79935 3.85781 6.69279 2.71537 8.79619 2.24013C10.8996 1.7649 13.1003 1.98232 15.07 2.85999M21 4L11 14.01L8 11.01"
-                                     stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                     stroke-width="2"/>
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="padding-left padding-small"><p class="text-weight-semibold no-margin">I&#x27;m a
-                        toast</p></div>
-                </div>
-            </div>
-        </div>
-        <a class="w-button" href="#" x-od-utils="show-toast">Click me!</a></div>
+        <div class="elem hidden">Hi, I was a hidden element</div>
+        <a class="w-button" href="#" x-ordo-utils="showElementOnClick" data-element-to-show=".elem.hidden">Click me!</a></div>
 </section>
 <section class="inter_appearafterscroll">
     <div class="w-layout-vflex flex-block">
@@ -369,17 +352,19 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
         <div class="tabs-menu-pr tm_off w-tab-menu" role="tablist" x-ordo-utils="tabs">
             
             <a aria-controls="w-tabs-0-data-w-pane-0"
-                                                                      aria-selected="true"
-                                                                      class="tab_link_pr small w-inline-block w-tab-link w--current"
-                                                                      data-w-tab="Prat" href="#w-tabs-0-data-w-pane-0"
-                                                                      id="w-tabs-0-data-w-tab-0"
-                                                                      role="tab">
-            <div class="tab_menu_text">Médecin</div>
-        </a><a aria-controls="w-tabs-0-data-w-pane-1" aria-selected="false" class="tab_link_pr small w-inline-block w-tab-link"
-               data-w-tab="Interne" href="#w-tabs-0-data-w-pane-1" id="w-tabs-0-data-w-tab-1" role="tab"
-               tabindex="-1">
+               aria-selected="true"
+               class="tab_link_pr small w-inline-block w-tab-link w--current"
+               data-w-tab="Prat" href="#w-tabs-0-data-w-pane-0"
+               id="w-tabs-0-data-w-tab-0"
+               role="tab">
+                <div class="tab_menu_text">Médecin</div>
+            </a><a aria-controls="w-tabs-0-data-w-pane-1" aria-selected="false"
+                   class="tab_link_pr small w-inline-block w-tab-link"
+                   data-w-tab="Interne" href="#w-tabs-0-data-w-pane-1" id="w-tabs-0-data-w-tab-1" role="tab"
+                   tabindex="-1">
             <div class="tab_menu_text">Interne</div>
-        </a><a aria-controls="w-tabs-0-data-w-pane-2" aria-selected="false" class="tab_link_pr small w-inline-block w-tab-link"
+        </a><a aria-controls="w-tabs-0-data-w-pane-2" aria-selected="false"
+               class="tab_link_pr small w-inline-block w-tab-link"
                data-w-tab="Paramed" href="#w-tabs-0-data-w-pane-2" id="w-tabs-0-data-w-tab-2" role="tab"
                tabindex="-1">
             <div class="tab_menu_text">Paramédical</div>
@@ -396,7 +381,8 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                  class="icon-ordotype-plus"
                                  loading="lazy"
                                  sizes="(max-width: 479px) 127.98611450195312px, (max-width: 767px) 27vw, (max-width: 991px) 11vw, (max-width: 1279px) 10vw, (max-width: 1439px) 9vw, 127.98611450195312px"
-                                 src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png" srcset="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1)-p-500.png 500w, https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png 501w">
+                                 src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png"
+                                 srcset="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1)-p-500.png 500w, https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png 501w">
                                 <h2 class="heading-style-h1">Praticien</h2></div>
                             <div class="w-layout-grid grid-1col-1rem">
                                 <div class="card-row"><h2 class="heading-style-h2">1 mois offert*</h2><h4
@@ -408,7 +394,8 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                         </div>
                         <div class="card-row">
                             <div class="button_wrapper">
-                                <div data-ms-content="members"><a class="button is-gradient w-inline-block" data-ms-content="!compte-praticien"
+                                <div data-ms-content="members"><a class="button is-gradient w-inline-block"
+                                                                  data-ms-content="!compte-praticien"
                                                                   data-ms-coupon="y9oEPETj"
                                                                   data-ms-price:add="prc_compte-praticien-lj8j0xs5"
                                                                   data-planid="pln_compte-praticien-offre-speciale-500-premiers--893z0o60"
@@ -429,7 +416,8 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                  class="icon-ordotype-plus"
                                  loading="lazy"
                                  sizes="(max-width: 479px) 127.98611450195312px, (max-width: 767px) 27vw, (max-width: 991px) 11vw, (max-width: 1279px) 10vw, (max-width: 1439px) 9vw, 127.98611450195312px"
-                                 src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png" srcset="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1)-p-500.png 500w, https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png 501w">
+                                 src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png"
+                                 srcset="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1)-p-500.png 500w, https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png 501w">
                                 <h2 class="heading-style-h1">Remplaçant</h2></div>
                             <div class="w-layout-grid grid-1col-1rem">
                                 <div class="card-row"><h2 class="heading-style-h2">6 mois offert*</h2><h4
@@ -441,7 +429,8 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                         </div>
                         <div class="card-row">
                             <div class="button_wrapper">
-                                <div data-ms-content="members"><a class="button is-gradient w-inline-block" data-ms-content="!compte-praticien"
+                                <div data-ms-content="members"><a class="button is-gradient w-inline-block"
+                                                                  data-ms-content="!compte-praticien"
                                                                   data-ms-coupon="nZVUIfxh"
                                                                   data-ms-price:add="prc_rempla-ant-6-mois-offerts-7gnz0x0q"
                                                                   data-planid="pln_compte-praticien-ov4d0oln"
@@ -462,7 +451,8 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                  class="icon-ordotype-plus"
                                  loading="lazy"
                                  sizes="(max-width: 479px) 127.98611450195312px, (max-width: 767px) 27vw, (max-width: 991px) 11vw, (max-width: 1279px) 10vw, (max-width: 1439px) 9vw, 127.98611450195312px"
-                                 src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png" srcset="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1)-p-500.png 500w, https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png 501w">
+                                 src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png"
+                                 srcset="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1)-p-500.png 500w, https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png 501w">
                                 <h2 class="heading-style-h1">Formation DPC</h2></div>
                             <div class="w-layout-grid grid-1col-1rem">
                                 <div class="card-row"><h2 class="heading-style-h2">6 mois offert*</h2>
@@ -481,7 +471,8 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                     </div>
                 </div>
             </div>
-            <div aria-labelledby="w-tabs-0-data-w-tab-1" class="tab_pane_pr w-tab-pane" data-w-tab="Interne" id="w-tabs-0-data-w-pane-1"
+            <div aria-labelledby="w-tabs-0-data-w-tab-1" class="tab_pane_pr w-tab-pane" data-w-tab="Interne"
+                 id="w-tabs-0-data-w-pane-1"
                  role="tabpanel" style="">
                 <div class="card-items-wrapper">
                     <div class="card_item">
@@ -491,7 +482,8 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                  class="icon-ordotype-plus"
                                  loading="lazy"
                                  sizes="(max-width: 479px) 127.98611450195312px, (max-width: 767px) 27vw, (max-width: 991px) 11vw, (max-width: 1279px) 10vw, (max-width: 1439px) 9vw, 127.98611450195312px"
-                                 src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png" srcset="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1)-p-500.png 500w, https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png 501w">
+                                 src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png"
+                                 srcset="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1)-p-500.png 500w, https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png 501w">
                                 <h2 class="heading-style-h1">Interne</h2></div>
                             <div class="w-layout-grid grid-1col-1rem">
                                 <div class="card-row"><h2 class="heading-style-h2">1 mois offert*</h2><h4
@@ -503,12 +495,13 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                         </div>
                         <div class="card-row">
                             <div class="button_wrapper">
-                                <div class="data-ms-content-boolean" data-ms-content="members"><a class="button is-gradient w-inline-block"
-                                                                                                  data-ms-content="!interne-img-and-ft"
-                                                                                                  data-ms-coupon="y9oEPETj"
-                                                                                                  data-ms-price:add="prc_compte-interne-no-ft-vl2s0ws6"
-                                                                                                  data-planid="pln_compte-interne-sy4j0oft"
-                                                                                                  href="#">
+                                <div class="data-ms-content-boolean" data-ms-content="members"><a
+                                     class="button is-gradient w-inline-block"
+                                     data-ms-content="!interne-img-and-ft"
+                                     data-ms-coupon="y9oEPETj"
+                                     data-ms-price:add="prc_compte-interne-no-ft-vl2s0ws6"
+                                     data-planid="pln_compte-interne-sy4j0oft"
+                                     href="#">
                                     <div class="button-content outer">
                                         <div>Essayer gratuitement</div>
                                     </div>
@@ -524,7 +517,8 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                  class="icon-ordotype-plus"
                                  loading="lazy"
                                  sizes="(max-width: 479px) 127.98611450195312px, (max-width: 767px) 27vw, (max-width: 991px) 11vw, (max-width: 1279px) 10vw, (max-width: 1439px) 9vw, 127.98611450195312px"
-                                 src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png" srcset="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1)-p-500.png 500w, https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png 501w">
+                                 src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png"
+                                 srcset="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1)-p-500.png 500w, https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png 501w">
                                 <h2 class="heading-style-h1">Dernière année</h2></div>
                         </div>
                         <div class="w-layout-grid grid-1col-1rem">
@@ -535,11 +529,12 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                             </div>
                             <div class="card-row">
                                 <div class="button_wrapper">
-                                    <div class="data-ms-content-boolean" data-ms-content="members"><a class="button is-gradient w-inline-block"
-                                                                                                      data-ms-content="!interne-img-and-ft"
-                                                                                                      data-ms-plan:add="pln_compte-interne-derni-re-ann-e-9f4o0oyy"
-                                                                                                      data-planid="pln_compte-interne-derni-re-ann-e-9f4o0oyy"
-                                                                                                      href="#">
+                                    <div class="data-ms-content-boolean" data-ms-content="members"><a
+                                         class="button is-gradient w-inline-block"
+                                         data-ms-content="!interne-img-and-ft"
+                                         data-ms-plan:add="pln_compte-interne-derni-re-ann-e-9f4o0oyy"
+                                         data-planid="pln_compte-interne-derni-re-ann-e-9f4o0oyy"
+                                         href="#">
                                         <div class="button-content outer">
                                             <div>Essayer gratuitement</div>
                                         </div>
@@ -555,7 +550,8 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                  class="icon-ordotype-plus"
                                  loading="lazy"
                                  sizes="(max-width: 479px) 127.98611450195312px, (max-width: 767px) 27vw, (max-width: 991px) 11vw, (max-width: 1279px) 10vw, (max-width: 1439px) 9vw, 127.98611450195312px"
-                                 src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png" srcset="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1)-p-500.png 500w, https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png 501w">
+                                 src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png"
+                                 srcset="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1)-p-500.png 500w, https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png 501w">
                                 <h2 class="heading-style-h1">Adhérent association d’interne</h2></div>
                         </div>
                         <div class="w-layout-grid grid-1col-1rem">
@@ -578,7 +574,8 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                     </div>
                 </div>
             </div>
-            <div aria-labelledby="w-tabs-0-data-w-tab-2" class="tab_pane_pr w-tab-pane" data-w-tab="Paramed" id="w-tabs-0-data-w-pane-2"
+            <div aria-labelledby="w-tabs-0-data-w-tab-2" class="tab_pane_pr w-tab-pane" data-w-tab="Paramed"
+                 id="w-tabs-0-data-w-pane-2"
                  role="tabpanel" style="">
                 <div class="card-items-wrapper">
                     <div class="card_item">
@@ -588,7 +585,8 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                  class="icon-ordotype-plus"
                                  loading="lazy"
                                  sizes="(max-width: 479px) 127.98611450195312px, (max-width: 767px) 27vw, (max-width: 991px) 11vw, (max-width: 1279px) 10vw, (max-width: 1439px) 9vw, 127.98611450195312px"
-                                 src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png" srcset="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1)-p-500.png 500w, https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png 501w">
+                                 src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png"
+                                 srcset="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1)-p-500.png 500w, https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png 501w">
                                 <h2 class="heading-style-h1">Étudiant</h2></div>
                             <div class="w-layout-grid grid-1col-1rem">
                                 <div class="card-row"><h2 class="heading-style-h2">1 mois offert*</h2><h4
@@ -600,10 +598,11 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                         </div>
                         <div class="card-row">
                             <div class="button_wrapper">
-                                <div class="data-ms-content-boolean" data-ms-content="members"><a class="button is-gradient w-inline-block"
-                                                                                                  data-ms-price:add="prc_compte-interne-q88o0x7n"
-                                                                                                  data-planid="pln_compte-interne-sy4j0oft"
-                                                                                                  href="#">
+                                <div class="data-ms-content-boolean" data-ms-content="members"><a
+                                     class="button is-gradient w-inline-block"
+                                     data-ms-price:add="prc_compte-interne-q88o0x7n"
+                                     data-planid="pln_compte-interne-sy4j0oft"
+                                     href="#">
                                     <div class="button-content outer">
                                         <div>Essayer gratuitement</div>
                                     </div>
@@ -619,7 +618,8 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                  class="icon-ordotype-plus"
                                  loading="lazy"
                                  sizes="(max-width: 479px) 127.98611450195312px, (max-width: 767px) 27vw, (max-width: 991px) 11vw, (max-width: 1279px) 10vw, (max-width: 1439px) 9vw, 127.98611450195312px"
-                                 src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png" srcset="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1)-p-500.png 500w, https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png 501w">
+                                 src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png"
+                                 srcset="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1)-p-500.png 500w, https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png 501w">
                                 <h2 class="heading-style-h1">Practicien</h2></div>
                             <div class="w-layout-grid grid-1col-1rem">
                                 <div class="card-row"><h2 class="heading-style-h2">1 mois offert*</h2><h4
@@ -632,7 +632,8 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                         <div class="card-row">
                             <div class="button_wrapper">
                                 <div class="data-ms-content-boolean" data-ms-content="members"><a
-                                     class="button is-gradient w-inline-block" data-ms-content="!btn-ide-only" data-ms-price:add="prc_compte-ide-1-mois-offert--9bb70x0g"
+                                     class="button is-gradient w-inline-block" data-ms-content="!btn-ide-only"
+                                     data-ms-price:add="prc_compte-ide-1-mois-offert--9bb70x0g"
                                      data-planid="pln_compte-ide-1gq10bkx"
                                      href="#" id="downgradeMembership">
                                     <div class="button-content outer">
@@ -659,11 +660,13 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                id="w-tabs-0-data-w-tab-0"
                role="tab">
                 <div class="tab_menu_text">Médecin</div>
-            </a><a aria-controls="w-tabs-0-data-w-pane-1" aria-selected="false" class="tab_link_pr small w-inline-block w-tab-link"
+            </a><a aria-controls="w-tabs-0-data-w-pane-1" aria-selected="false"
+                   class="tab_link_pr small w-inline-block w-tab-link"
                    data-w-tab="Interne" href="#w-tabs-0-data-w-pane-1" id="w-tabs-0-data-w-tab-1" role="tab"
                    tabindex="-1">
             <div class="tab_menu_text">Interne</div>
-        </a><a aria-controls="w-tabs-0-data-w-pane-2" aria-selected="false" class="tab_link_pr small w-inline-block w-tab-link"
+        </a><a aria-controls="w-tabs-0-data-w-pane-2" aria-selected="false"
+               class="tab_link_pr small w-inline-block w-tab-link"
                data-w-tab="Paramed" href="#w-tabs-0-data-w-pane-2" id="w-tabs-0-data-w-tab-2" role="tab"
                tabindex="-1">
             <div class="tab_menu_text">Paramédical</div>
@@ -680,7 +683,8 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                  class="icon-ordotype-plus"
                                  loading="lazy"
                                  sizes="(max-width: 479px) 127.98611450195312px, (max-width: 767px) 27vw, (max-width: 991px) 11vw, (max-width: 1279px) 10vw, (max-width: 1439px) 9vw, 127.98611450195312px"
-                                 src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png" srcset="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1)-p-500.png 500w, https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png 501w">
+                                 src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png"
+                                 srcset="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1)-p-500.png 500w, https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png 501w">
                                 <h2 class="heading-style-h1">Praticien</h2></div>
                             <div class="w-layout-grid grid-1col-1rem">
                                 <div class="card-row"><h2 class="heading-style-h2">1 mois offert*</h2><h4
@@ -692,7 +696,8 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                         </div>
                         <div class="card-row">
                             <div class="button_wrapper">
-                                <div data-ms-content="members"><a class="button is-gradient w-inline-block" data-ms-content="!compte-praticien"
+                                <div data-ms-content="members"><a class="button is-gradient w-inline-block"
+                                                                  data-ms-content="!compte-praticien"
                                                                   data-ms-coupon="y9oEPETj"
                                                                   data-ms-price:add="prc_compte-praticien-lj8j0xs5"
                                                                   data-planid="pln_compte-praticien-offre-speciale-500-premiers--893z0o60"
@@ -713,7 +718,8 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                  class="icon-ordotype-plus"
                                  loading="lazy"
                                  sizes="(max-width: 479px) 127.98611450195312px, (max-width: 767px) 27vw, (max-width: 991px) 11vw, (max-width: 1279px) 10vw, (max-width: 1439px) 9vw, 127.98611450195312px"
-                                 src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png" srcset="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1)-p-500.png 500w, https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png 501w">
+                                 src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png"
+                                 srcset="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1)-p-500.png 500w, https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png 501w">
                                 <h2 class="heading-style-h1">Remplaçant</h2></div>
                             <div class="w-layout-grid grid-1col-1rem">
                                 <div class="card-row"><h2 class="heading-style-h2">6 mois offert*</h2><h4
@@ -725,7 +731,8 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                         </div>
                         <div class="card-row">
                             <div class="button_wrapper">
-                                <div data-ms-content="members"><a class="button is-gradient w-inline-block" data-ms-content="!compte-praticien"
+                                <div data-ms-content="members"><a class="button is-gradient w-inline-block"
+                                                                  data-ms-content="!compte-praticien"
                                                                   data-ms-coupon="nZVUIfxh"
                                                                   data-ms-price:add="prc_rempla-ant-6-mois-offerts-7gnz0x0q"
                                                                   data-planid="pln_compte-praticien-ov4d0oln"
@@ -746,7 +753,8 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                  class="icon-ordotype-plus"
                                  loading="lazy"
                                  sizes="(max-width: 479px) 127.98611450195312px, (max-width: 767px) 27vw, (max-width: 991px) 11vw, (max-width: 1279px) 10vw, (max-width: 1439px) 9vw, 127.98611450195312px"
-                                 src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png" srcset="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1)-p-500.png 500w, https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png 501w">
+                                 src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png"
+                                 srcset="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1)-p-500.png 500w, https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png 501w">
                                 <h2 class="heading-style-h1">Formation DPC</h2></div>
                             <div class="w-layout-grid grid-1col-1rem">
                                 <div class="card-row"><h2 class="heading-style-h2">6 mois offert*</h2>
@@ -765,7 +773,8 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                     </div>
                 </div>
             </div>
-            <div aria-labelledby="w-tabs-0-data-w-tab-1" class="tab_pane_pr w-tab-pane" data-w-tab="Interne" id="w-tabs-0-data-w-pane-1"
+            <div aria-labelledby="w-tabs-0-data-w-tab-1" class="tab_pane_pr w-tab-pane" data-w-tab="Interne"
+                 id="w-tabs-0-data-w-pane-1"
                  role="tabpanel" style="">
                 <div class="card-items-wrapper">
                     <div class="card_item">
@@ -775,7 +784,8 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                  class="icon-ordotype-plus"
                                  loading="lazy"
                                  sizes="(max-width: 479px) 127.98611450195312px, (max-width: 767px) 27vw, (max-width: 991px) 11vw, (max-width: 1279px) 10vw, (max-width: 1439px) 9vw, 127.98611450195312px"
-                                 src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png" srcset="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1)-p-500.png 500w, https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png 501w">
+                                 src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png"
+                                 srcset="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1)-p-500.png 500w, https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png 501w">
                                 <h2 class="heading-style-h1">Interne</h2></div>
                             <div class="w-layout-grid grid-1col-1rem">
                                 <div class="card-row"><h2 class="heading-style-h2">1 mois offert*</h2><h4
@@ -787,12 +797,13 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                         </div>
                         <div class="card-row">
                             <div class="button_wrapper">
-                                <div class="data-ms-content-boolean" data-ms-content="members"><a class="button is-gradient w-inline-block"
-                                                                                                  data-ms-content="!interne-img-and-ft"
-                                                                                                  data-ms-coupon="y9oEPETj"
-                                                                                                  data-ms-price:add="prc_compte-interne-no-ft-vl2s0ws6"
-                                                                                                  data-planid="pln_compte-interne-sy4j0oft"
-                                                                                                  href="#">
+                                <div class="data-ms-content-boolean" data-ms-content="members"><a
+                                     class="button is-gradient w-inline-block"
+                                     data-ms-content="!interne-img-and-ft"
+                                     data-ms-coupon="y9oEPETj"
+                                     data-ms-price:add="prc_compte-interne-no-ft-vl2s0ws6"
+                                     data-planid="pln_compte-interne-sy4j0oft"
+                                     href="#">
                                     <div class="button-content outer">
                                         <div>Essayer gratuitement</div>
                                     </div>
@@ -808,7 +819,8 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                  class="icon-ordotype-plus"
                                  loading="lazy"
                                  sizes="(max-width: 479px) 127.98611450195312px, (max-width: 767px) 27vw, (max-width: 991px) 11vw, (max-width: 1279px) 10vw, (max-width: 1439px) 9vw, 127.98611450195312px"
-                                 src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png" srcset="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1)-p-500.png 500w, https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png 501w">
+                                 src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png"
+                                 srcset="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1)-p-500.png 500w, https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png 501w">
                                 <h2 class="heading-style-h1">Dernière année</h2></div>
                         </div>
                         <div class="w-layout-grid grid-1col-1rem">
@@ -819,11 +831,12 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                             </div>
                             <div class="card-row">
                                 <div class="button_wrapper">
-                                    <div class="data-ms-content-boolean" data-ms-content="members"><a class="button is-gradient w-inline-block"
-                                                                                                      data-ms-content="!interne-img-and-ft"
-                                                                                                      data-ms-plan:add="pln_compte-interne-derni-re-ann-e-9f4o0oyy"
-                                                                                                      data-planid="pln_compte-interne-derni-re-ann-e-9f4o0oyy"
-                                                                                                      href="#">
+                                    <div class="data-ms-content-boolean" data-ms-content="members"><a
+                                         class="button is-gradient w-inline-block"
+                                         data-ms-content="!interne-img-and-ft"
+                                         data-ms-plan:add="pln_compte-interne-derni-re-ann-e-9f4o0oyy"
+                                         data-planid="pln_compte-interne-derni-re-ann-e-9f4o0oyy"
+                                         href="#">
                                         <div class="button-content outer">
                                             <div>Essayer gratuitement</div>
                                         </div>
@@ -839,7 +852,8 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                  class="icon-ordotype-plus"
                                  loading="lazy"
                                  sizes="(max-width: 479px) 127.98611450195312px, (max-width: 767px) 27vw, (max-width: 991px) 11vw, (max-width: 1279px) 10vw, (max-width: 1439px) 9vw, 127.98611450195312px"
-                                 src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png" srcset="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1)-p-500.png 500w, https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png 501w">
+                                 src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png"
+                                 srcset="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1)-p-500.png 500w, https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png 501w">
                                 <h2 class="heading-style-h1">Adhérent association d’interne</h2></div>
                         </div>
                         <div class="w-layout-grid grid-1col-1rem">
@@ -862,7 +876,8 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                     </div>
                 </div>
             </div>
-            <div aria-labelledby="w-tabs-0-data-w-tab-2" class="tab_pane_pr w-tab-pane" data-w-tab="Paramed" id="w-tabs-0-data-w-pane-2"
+            <div aria-labelledby="w-tabs-0-data-w-tab-2" class="tab_pane_pr w-tab-pane" data-w-tab="Paramed"
+                 id="w-tabs-0-data-w-pane-2"
                  role="tabpanel" style="">
                 <div class="card-items-wrapper">
                     <div class="card_item">
@@ -872,7 +887,8 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                  class="icon-ordotype-plus"
                                  loading="lazy"
                                  sizes="(max-width: 479px) 127.98611450195312px, (max-width: 767px) 27vw, (max-width: 991px) 11vw, (max-width: 1279px) 10vw, (max-width: 1439px) 9vw, 127.98611450195312px"
-                                 src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png" srcset="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1)-p-500.png 500w, https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png 501w">
+                                 src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png"
+                                 srcset="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1)-p-500.png 500w, https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png 501w">
                                 <h2 class="heading-style-h1">Étudiant</h2></div>
                             <div class="w-layout-grid grid-1col-1rem">
                                 <div class="card-row"><h2 class="heading-style-h2">1 mois offert*</h2><h4
@@ -884,10 +900,11 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                         </div>
                         <div class="card-row">
                             <div class="button_wrapper">
-                                <div class="data-ms-content-boolean" data-ms-content="members"><a class="button is-gradient w-inline-block"
-                                                                                                  data-ms-price:add="prc_compte-interne-q88o0x7n"
-                                                                                                  data-planid="pln_compte-interne-sy4j0oft"
-                                                                                                  href="#">
+                                <div class="data-ms-content-boolean" data-ms-content="members"><a
+                                     class="button is-gradient w-inline-block"
+                                     data-ms-price:add="prc_compte-interne-q88o0x7n"
+                                     data-planid="pln_compte-interne-sy4j0oft"
+                                     href="#">
                                     <div class="button-content outer">
                                         <div>Essayer gratuitement</div>
                                     </div>
@@ -903,7 +920,8 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                  class="icon-ordotype-plus"
                                  loading="lazy"
                                  sizes="(max-width: 479px) 127.98611450195312px, (max-width: 767px) 27vw, (max-width: 991px) 11vw, (max-width: 1279px) 10vw, (max-width: 1439px) 9vw, 127.98611450195312px"
-                                 src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png" srcset="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1)-p-500.png 500w, https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png 501w">
+                                 src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png"
+                                 srcset="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1)-p-500.png 500w, https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6576cdadb89a7f7c0fdde444_Ordotype%20UI%20Kit%20Logo%20(1).png 501w">
                                 <h2 class="heading-style-h1">Practicien</h2></div>
                             <div class="w-layout-grid grid-1col-1rem">
                                 <div class="card-row"><h2 class="heading-style-h2">1 mois offert*</h2><h4
@@ -916,7 +934,8 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                         <div class="card-row">
                             <div class="button_wrapper">
                                 <div class="data-ms-content-boolean" data-ms-content="members"><a
-                                     class="button is-gradient w-inline-block" data-ms-content="!btn-ide-only" data-ms-price:add="prc_compte-ide-1-mois-offert--9bb70x0g"
+                                     class="button is-gradient w-inline-block" data-ms-content="!btn-ide-only"
+                                     data-ms-price:add="prc_compte-ide-1-mois-offert--9bb70x0g"
                                      data-planid="pln_compte-ide-1gq10bkx"
                                      href="#" id="downgradeMembership">
                                     <div class="button-content outer">
