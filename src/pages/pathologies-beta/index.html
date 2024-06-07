@@ -346,19 +346,28 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
         <div class="w-tab-content">
             <div data-w-tab="Rappels cliniques" class="w-tab-pane"></div>
             <div data-w-tab="Notes" class="w-tab-pane" x-data="PathologyPaneList('notes')">
-                <template x-bind="tabPane('notes')">
-                    <template x-bind="noteList('notes')">
-                    <span>
-                        title
-                    </span>
-                    </template>
+                <template x-bind="noteListIterator">
+                    <div x-bind="noteElement">
+                         <span x-bind="noteTitle">
+                            title
+                        </span>
+                        <template x-bind="fileIconIterator">
+                                <span x-bind="fileIconElement">
+                                icon
+                            </span>
+                        </template>
+                    
+                    </div>
                 </template>
             </div>
             <div data-w-tab="Bilans" class="w-tab-pane w--tab-active" x-data="PathologyPaneList('balance_sheet')">
-                <template x-bind="noteList('balance_sheet')">
-                    <span>
+                <template x-bind="noteListIterator">
+                    <div x-bind="noteElement">
+                         <span x-bind="noteTitle">
                         title
                     </span>
+                    </div>
+                
                 </template>
             </div>
             <div data-w-tab="Traitements" class="w-tab-pane" x-data="PathologyPaneList('treatment')"></div>

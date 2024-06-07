@@ -61,7 +61,7 @@ type PathologyPaneListOptions = {
   noteItem?: (NoteList | SharedWithMeNoteList) | number;
   fileIcon?: { mime_type: keyof typeof getFileExtByMimeType };
   /**
-   * Date parsed to fr format
+   * Date parsed to fr-FR format
    */
   noteCreatedDate: () => object;
   fileIconIterator: () => object;
