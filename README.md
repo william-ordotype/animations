@@ -215,4 +215,43 @@ hidden
     me!</a>
 ```
 
+### Accordion
+
+**Main Property**
+
+`x-ordo-utils="accordion"`
+
+
+
+**Secondary Properties**
+
+`data-accordion-elem="question"`
+*Required.* Should be a direct child for the main property and sibling to the answer
+
+`data-accordion-elem="answer"`
+*Required.* Should be a direct child for the main property and sibling to the question
+
+`data-accordion-elem="icon"` *Optional.*
+
+**Code Example**
+
+```html
+
+<script src="https://cdn.jsdelivr.net/gh/dndevs/ordotype-front-utils@latest/dist/hideElementOnClick.js"></script>
+...
+<div x-ordo-utils="accordion" class="accordion">
+   <div data-accordion-elem="question" class="faq_question">
+      <div>Question 1</div> <i data-accordion-elem="icon">+</i>
+   </div>
+   <div data-accordion-elem="answer" class="faq_answer">
+      <div>This is some text inside of a div block.</div>
+   </div>
+   <div data-accordion-elem="question" class="faq_question">
+      <div>Question 2</div> <i data-accordion-elem="icon">+</i>
+   </div>
+   <div data-accordion-elem="answer" class="faq_answer">
+      <div>This is some more text inside of another div block.</div>
+   </div>
+</div>
+```
 
