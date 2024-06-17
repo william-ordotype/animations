@@ -237,7 +237,7 @@ hidden
 
 ```html
 
-<script src="https://cdn.jsdelivr.net/gh/dndevs/ordotype-front-utils@latest/dist/hideElementOnClick.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/dndevs/ordotype-front-utils@latest/dist/accordion.js"></script>
 ...
 <div x-ordo-utils="accordion" class="accordion">
    <div data-accordion-elem="question" class="faq_question">
