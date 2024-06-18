@@ -51,4 +51,6 @@ function tabs() {
     });
 }
 
-tabs()
+window.addEventListener("load", (event) => {
+    tabs()
+});
