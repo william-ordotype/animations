@@ -3,6 +3,7 @@ function initializeTabBg(tabMenu) {
     // Append the tab-bg element
     $(tabMenu).append('<div class="tab-bg"></div>');
     const defaultWidth = $(tabMenu).attr("data-default-width")
+    const defaultLeft = $(tabMenu).attr("data-default-left")
 
     // Style the tab-bg element
     $(tabMenu).find('.tab-bg').css({
@@ -19,7 +20,7 @@ function initializeTabBg(tabMenu) {
     // Function to update the position and width of tab-bg
     function updateTabBg(target) {
         var $target = $(target);
-        var leftPos = $target.position().left;
+        var leftPos = $target.position().left || defaultLeft;
         var width = $target.outerWidth() || defaultWidth;
 
         $target.closest('.w-tab-menu').find('.tab-bg').css({
