@@ -21,7 +21,7 @@ function initializeTabBg(tabMenu) {
         var leftPos = $target.position().left;
         var width = $target.outerWidth();
 
-        $target.closest('.tabs-menu-pr').find('.tab-bg').css({
+        $target.closest('.w-tab-menu').find('.tab-bg').css({
             'left': leftPos,
             'width': width
         });
