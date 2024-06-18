@@ -37,6 +37,10 @@ function initializeTabBg(tabMenu) {
         $(this).addClass('w--current');
         updateTabBg(this);
     });
+
+    $(window).resize(function() {
+        updateTabBg($(tabMenu).find('.w-tab-link.w--current'));
+    });
 }
 
 

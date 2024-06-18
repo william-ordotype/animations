@@ -154,7 +154,7 @@ components on the page
 
 <script src="https://cdn.jsdelivr.net/gh/dndevs/ordotype-front-utils@0.0.1/dist/tabs.js"></script>
 ...
-<div class="w-tabs" x-ordo-utils="toggleSwitch">
+<div class="w-tabs">
     <div class="tabs-menu-pr tm_off w-tab-menu" role="tablist" x-ordo-utils="tabs">
         <a aria-controls="w-tabs-0-data-w-pane-0"></a>
         <a aria-controls="w-tabs-1-data-w-pane-1"></a>
