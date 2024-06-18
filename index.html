@@ -1,4 +1,4 @@
-<!DOCTYPE html><!-- Last Published: Fri Jun 14 2024 14:48:59 GMT+0000 (Coordinated Universal Time) -->
+<!DOCTYPE html><!-- Last Published: Mon Jun 17 2024 17:49:13 GMT+0000 (Coordinated Universal Time) -->
 <html data-wf-domain="ordotype.webflow.io" data-wf-page="661c9ae7dcc14c7544187980"
       data-wf-site="604b9ac88b080efc7ce802bd" lang="fr">
 <head>
@@ -8,7 +8,7 @@
     <meta content="Custom interactions" property="twitter:title"/>
     <meta content="width=device-width, initial-scale=1" name="viewport"/>
     <meta content="Sq3ZH7V9LReszDsgNbInbEJ_BR1M7e5yAukJv3MO7LA" name="google-site-verification"/>
-    <link href="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.969bd4c1a.min.css"
+    <link href="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.f0bf612f2.min.css"
           rel="stylesheet" type="text/css"/>
     <link href="https://fonts.googleapis.com" rel="preconnect"/>
     <link crossorigin="anonymous" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -227,15 +227,14 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
     
     <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
     
-    <!-- [Attributes by Finsweet] CMS Load -->
-    <script async src="https://cdn.jsdelivr.net/npm/@finsweet/attributes-cmsload@1/cmsload.js"></script>
     <script src="src/toast.js" type=module></script>
     <script src="src/tabs.js" type=module></script>
     <script src="src/hideElementOnClick.js" type=module></script>
     <script src="src/showElementOnClick.js" type=module></script>
-    <script src="src/accordeon.js" type=module></script>
-    <script src="src/toggleSwitch.js"
-            type=module></script>
+    <script src="src/accordion.js" type=module></script>
+    <script src="src/toggleSwitch.js"></script>
+    
+    <!-- [Attributes by Finsweet] CMS Load -->
     <script
          src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd%2F652d31f3dc22d7b4ee708e44%2F65c4b99013d2be46e4311665%2Fclarity_script-7.2.7.js"
          type="text/javascript"></script>
@@ -982,23 +981,32 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
         </div>
         <a class="w-button" href="#" x-od-utils="show-toast">Click me!</a></div>
 </section>
-<section class="inter_accordion"><h2 class="heading-34">Accordion</h2>
+<section class="inter_accordion"><h2 class="heading-34">Accordeon</h2>
     <div class="w-layout-vflex flex-block">
-        <div x-ordo-utils="accordion" class="accordion">
-            <div data-accordion-elem="question" class="faq_question">
-                <div>Question 1</div> <i data-accordion-elem="icon">+</i>
+        <div class="accordion">
+            <div class="faq_question">
+                <div>Question</div>
             </div>
-            <div data-accordion-elem="answer" class="faq_answer">
+            <div class="faq_answer">
                 <div>This is some text inside of a div block.</div>
             </div>
-            <div data-accordion-elem="question" class="faq_question">
-                <div>Question 2</div> <i data-accordion-elem="icon">+</i>
+        </div>
+        <div class="accordion">
+            <div class="faq_question">
+                <div>Question</div>
             </div>
-            <div data-accordion-elem="answer" class="faq_answer">
-                <div>This is some more text inside of another div block.</div>
+            <div class="faq_answer">
+                <div>This is some text inside of a div block.</div>
             </div>
         </div>
-    
+        <div class="accordion">
+            <div class="faq_question">
+                <div>Question</div>
+            </div>
+            <div class="faq_answer">
+                <div>This is some text inside of a div block.</div>
+            </div>
+        </div>
     </div>
 </section>
 <section class="inter_showcompafterxms"><h2 class="heading-34">Show element after x seconds</h2>
@@ -1026,7 +1034,7 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
 </section>
 <section class="inter_cookiesmanager"><h2 class="heading-34">Cookies Manager</h2>
     <div class="fs-cookie-consent-wrapper">
-        <div class="fs-cc-banner_component" fs-cc="banner">
+        <div class="fs-cc-banner_component">
             <div class="fs-cc-banner_container">
                 <div class="fs-cc-banner_text">En cliquant sur « <strong
                      class="fs-cc-banner_text bold">Accepter</strong> », vous acceptez le stockage de cookies sur votre
@@ -1048,7 +1056,7 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                     </div>
                 </div>
             </div>
-            <div class="fs-cc-banner_trigger" fs-cc="interaction"></div>
+            <div class="fs-cc-banner_trigger"></div>
         </div>
         <div class="fs-cc-manager_component" fs-cc="manager">
             <div class="fs-cc-manager_button" fs-cc="open-preferences">
@@ -1132,7 +1140,7 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
             </div>
             <div class="fs-cc-manager_trigger" fs-cc="interaction"></div>
         </div>
-        <div class="fs-cc-prefs_component w-form" fs-cc="preferences" fs-cc-scroll="disable">
+        <div class="fs-cc-prefs_component w-form">
             <form class="fs-cc-prefs_form" data-name="Cookie Preferences" data-wf-element-id="bc87fe2d-afe8-1134-c5c2-04c7f06c2c8e" data-wf-page-id="661c9ae7dcc14c7544187980"
                   id="cookie-preferences" method="get"
                   name="wf-form-Cookie-Preferences">
@@ -1364,10 +1372,9 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
 
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<!--<script src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@936d148119203b67d5136cdec5b498f54a718f87/ordotype-index-2024-06-04.js"></script>-->
-
 <script
-     src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@f65ae708176b547cbef1fd96257159dcfbadb714/ordotype-index-2024-06-04.js"></script>
+     src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@7fad5463975578c62baf863fc2ada00db43f69a9/ordotype-index-2024-06-04.js"></script>
+<!--<script src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@f65ae708176b547cbef1fd96257159dcfbadb714/ordotype-index-2024-06-04.js"></script>-->
 
 
 <script>
