@@ -1,5 +1,6 @@
 import Alpine, { AlpineComponent } from "alpinejs";
 import {
+  isNoteShared,
   showActiveTab,
   switchActiveTab,
 } from "@components/view/pathology-tabs/pathologyTab.controller";
@@ -9,6 +10,7 @@ import { setMixedNotesList } from "../../../actions/notesActions";
 import { NoteList } from "@interfaces/apiTypes/notesTypes";
 import { SharedWithMeNoteList } from "@interfaces/apiTypes/notesSharesTypes";
 import getFileExtByMimeType from "@assets/file_ext";
+import { IUserStore } from "@store/user.store";
 
 export type PathologyTabListOptions = {
   tab: (pathologyTab: PathologyTab) => void;
@@ -24,57 +26,57 @@ export function PathologyTabList(): AlpineComponent<PathologyTabListOptions> {
         },
       };
     },
-    init() {
-      const currentElem = this.$el;
-      if (currentElem.getAttribute("aria-selected") === "true") {
-        /* empty */
-      }
-    },
   };
 }
 
 type PathologyPaneListOptions = {
   /**
-   * Direct child for tabPane component.
+   *  TabPane should be the parent binder for each `w-tab-pane`
+   * - only allows the active pane to render from the store
+   *   preventing unnecessary undefined from inactive pane instances.
+   */
+  tabPane: () => object;
+  /**
+   * Direct child for `PathologyPaneList` component.
    * If noteList is loading it iterates over a static value (10) to show skeleton loading
    */
   noteListIterator: () => object;
   /**
-   * TabPane should be the parent binder for each pane
-   * - only allows the active pane to render from the store
-   *   preventing unnecessary undefined from inactive pane instances.
-   */
-
-  tabPane: () => object;
-  /**
-   * Direct child for noteList component
-   * Handles loading state when notes are loading
+   * Direct child for `noteListIterator` component
+   * Handles skeleton loading class state when notes are loading
    */
   noteElement: () => object;
   /**
    * Direct child of noteElement
    */
   noteTitle: () => object;
+  fileIconIterator: () => object;
+  fileIconElement: () => object;
+
+  isNoteSharedIcon: () => object;
+
+  actions: {
+    openNote: () => object;
+  };
+
+  // -------- Internal Objects
+
   /**
    * Available in $data. Object iteration inside the NoteList component.
    */
   noteItem?: (NoteList | SharedWithMeNoteList) | number;
-  fileIcon?: { mime_type: keyof typeof getFileExtByMimeType };
+
   /**
-   * Date parsed to fr-FR format
+   * Available in $data. Object iteration from noteItem documents array.
    */
-  noteCreatedDate: () => object;
-  fileIconIterator: () => object;
-  fileIconElement: () => object;
-  // actions: {
-  //   something: () => object;
-  // };
+  fileIcon?: { mime_type: keyof typeof getFileExtByMimeType };
 };
 
 export function PathologyPaneList(
   pathologyTab: PathologyTab
 ): AlpineComponent<PathologyPaneListOptions> {
   const notesStore = Alpine.store(StateStore.MY_NOTES) as INotesStore;
+  const userStore = Alpine.store(StateStore.USER) as IUserStore;
 
   return {
     init() {
@@ -154,52 +156,50 @@ export function PathologyPaneList(
           if (typeof this.$data.noteItem === "number") {
             return;
           }
-          this.$data["noteItem"]?.title;
-        },
-      };
-    },
-    noteCreatedDate() {
-      return {
-        ["x-text"]: () => {
-          if (typeof this.$data.noteItem === "number") {
-            return;
-          }
-          const date = new Date(this.$data!.noteItem!.created_on);
-          return date.toLocaleDateString("fr-FR");
+          return this.$data["noteItem"]?.title;
         },
       };
     },
     fileIconIterator() {
       return {
-        ["x-if"]: () => {
-          if (typeof this.$data.noteItem !== "number") {
-            return (
-              this.$data?.noteItem &&
-              this.$data?.noteItem.documents &&
-              this.$data?.noteItem.documents?.length > 0
-            );
-          }
-        },
         ["x-for"]: "fileIcon in noteItem.documents",
       };
     },
     fileIconElement() {
       return {
         ["x-bind:class"]: () => {
-          const mimeType = this.fileIcon?.mime_type;
+          const mimeType = this.$data.fileIcon?.mime_type;
           if (mimeType) {
-            console.log(mimeType);
             return getFileExtByMimeType[mimeType];
           }
         },
         ["x-text"]: () => {
-          const mimeType = this.fileIcon?.mime_type;
+          const mimeType = this.$data.fileIcon?.mime_type;
           if (mimeType) {
-            console.log(mimeType);
             return getFileExtByMimeType[mimeType];
           }
         },
       };
+    },
+    isNoteSharedIcon() {
+      return {
+        ["x-show"]: () =>
+          isNoteShared(
+            this.$data.noteItem as NoteList | SharedWithMeNoteList,
+            userStore
+          ),
+      };
+    },
+    actions: {
+      openNote() {
+        return {
+          ["x-on:click"]: () => {
+            console.log(
+              `Opened note id ${(this.$data.noteItem as NoteList)._id}`
+            );
+          },
+        };
+      },
     },
   };
 }

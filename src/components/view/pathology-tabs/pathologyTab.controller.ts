@@ -1,4 +1,7 @@
 import { INotesStore, PathologyTab } from "@store/myNotes.store.js";
+import { NoteList } from "@interfaces/apiTypes/notesTypes";
+import { SharedWithMeNoteList } from "@interfaces/apiTypes/notesSharesTypes";
+import { IUserStore } from "@store/user.store";
 
 /**
  * Use inside a click event to switch active tab
@@ -23,10 +26,9 @@ export function showActiveTab(
   return currentPathologyTab === pathologyActiveTab;
 }
 
-export function uniqueFileIcons(documents: any[]) {
-  const allDocTypes = documents.map((elem: { mime_type: any }) => {
-    return elem.mime_type;
-  });
-  const uniqueDocTypes = new Set(allDocTypes);
-  return [...uniqueDocTypes];
+export function isNoteShared(
+  note: NoteList | SharedWithMeNoteList,
+  userStore: IUserStore
+) {
+  return note.member_id !== userStore.user?.id;
 }

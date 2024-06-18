@@ -12,9 +12,7 @@ import notesStore from "@store/myNotes.store";
 import toasterStore from "@store/toaster.store";
 import {
   PathologyPaneList,
-  PathologyPaneView,
   PathologyTabList,
-  PathologyTabView,
 } from "@components/view/pathology-tabs/pathologyTab.view";
 import {
   navigationToastMsgs,

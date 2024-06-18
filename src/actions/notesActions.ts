@@ -177,6 +177,7 @@ async function setMixedNotesList(
     const { items_per_page, items_total, page_number, page_total, data } =
       res.data;
 
+    // intercepts network response and return to the NoteList store unique documents mime_types
     data.forEach((noteItem) => {
       if (noteItem.documents && noteItem.documents.length > 0) {
         const seen = new Set();
