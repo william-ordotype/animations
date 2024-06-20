@@ -12,6 +12,9 @@ import { getListSchema } from "../validation/notesValidation";
 
 const noteService = new NotesService();
 
+/**
+ * Populates noteList and noteMeta
+ */
 async function setNoteList(
   payload: InferType<typeof getListSchema>,
   store: { noteStore: INotesStore }
@@ -58,6 +61,10 @@ async function setNoteList(
   }
 }
 
+/**
+ * Deprecated. Populates noteOpened and also modal store
+ */
+
 async function setNoteOpened(
   noteId: string,
   store: { noteStore: INotesStore; modalStore: any }
@@ -72,6 +79,29 @@ async function setNoteOpened(
   try {
     const getNoteRes = await noteService.getOne(noteId);
     const { member, note } = getNoteRes.data;
+    noteStore.noteOpened = { note, member };
+    noteStore.isNoteLoading = false;
+    return noteStore;
+  } catch (err) {
+    noteStore.drawerOpened = false;
+    toasterActions.setToastMessage("Document introuvable", "error", 4500);
+    console.error(err);
+  }
+}
+
+/**
+ * Populates noteOpened
+ */
+
+async function setNoteItemOpen(
+  noteId: string,
+  store: { noteStore: INotesStore }
+) {
+  const { noteStore } = store;
+  noteStore.isNoteLoading = true;
+  try {
+    const res = await noteService.getOne(noteId);
+    const { member, note } = res.data;
     noteStore.noteOpened = { note, member };
     noteStore.isNoteLoading = false;
     return noteStore;
@@ -212,6 +242,9 @@ async function setMixedNotesList(
   }
 }
 
+/**
+ * Deprecated. Removes notes from store and server
+ */
 async function setDeleteNotes(payload: { noteIds: string[] }) {
   const { noteIds } = payload;
   const noteStore = Alpine.store(StateStore.MY_NOTES) as INotesStore;
@@ -278,6 +311,7 @@ async function setDeleteNotes(payload: { noteIds: string[] }) {
 export {
   setNoteList,
   setNoteOpened,
+  setNoteItemOpen,
   setNotesRuleStatus,
   setNotesSearched,
   setDeleteNotes,

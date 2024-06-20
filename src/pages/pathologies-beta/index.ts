@@ -12,6 +12,7 @@ import notesStore from "@store/myNotes.store";
 import toasterStore from "@store/toaster.store";
 import {
   PathologyPaneList,
+  PathologyPaneNoteItem,
   PathologyTabList,
 } from "@components/view/pathology-tabs/pathologyTab.view";
 import {
@@ -20,6 +21,7 @@ import {
   shareNoteActionsToastMsgs,
 } from "@utils/toastMessages";
 import { noteFormMsg } from "@utils/modalMessages";
+import modalStore from "@store/modal.store";
 
 window.Alpine = Alpine;
 
@@ -33,9 +35,11 @@ async function init() {
 
 Alpine.store("notesStore", notesStore);
 Alpine.store("toasterStore", toasterStore);
+Alpine.store("modalStore", modalStore);
 
 Alpine.data("PathologyTabList", PathologyTabList);
 Alpine.data("PathologyPaneList", PathologyPaneList);
+Alpine.data("PathologyPaneNoteItem", PathologyPaneNoteItem);
 
 window.toastActionMsgCustom = window.toastActionMsgCustom || {};
 window.modalMsgCustom = window.modalMsgCustom || {};

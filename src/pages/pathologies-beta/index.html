@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Last Published: Wed May 29 2024 00:32:37 GMT+0000 (Coordinated Universal Time) -->
+<!-- Last Published: Tue Jun 18 2024 18:10:58 GMT+0000 (Coordinated Universal Time) -->
 <html
      data-wf-domain="ordotype.webflow.io"
      data-wf-page="661c950b63939fbbd39db01a"
@@ -17,7 +17,7 @@
          name="google-site-verification"
     />
     <link
-         href="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.7ee1ac2d2.min.css"
+         href="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.00b7f0f70.min.css"
          rel="stylesheet"
          type="text/css"
     />
@@ -49,12 +49,12 @@
         })(window, document);
     </script>
     <link
-         href="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/646489f6ff1b9504a8e033be_My%20project.png"
+         href="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/646489f6ff1b9504a8e033be_My%20project.png"
          rel="shortcut icon"
          type="image/x-icon"
     />
     <link
-         href="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/63e9f1ba593572dd6555b38a_logo_256_good-removebg-preview.png"
+         href="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/63e9f1ba593572dd6555b38a_logo_256_good-removebg-preview.png"
          rel="apple-touch-icon"
     />
     <link
@@ -96,13 +96,14 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
     }
   }, 500);
 });
+
 </script> -->
-    
+
     <!--<script data-memberstack-app="app_cl2r62rnv000w0uhy1nstfc3r" src="https://static.memberstack.com/scripts/v1/memberstack.js" type="text/javascript"></script>
     
     
     Memberstack webflow package -->
-    
+
     <script
          data-memberstack-domain="https://memberstack-client.ordotype.fr"
          data-memberstack-app="app_cl2r62rnv000w0uhy1nstfc3r"
@@ -115,12 +116,11 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
     
     <link
          rel="preconnect"
-         href="https://assets-global.website-files.com/"
+         href="https://cdn.prod.website-files.com/"
          crossorigin
     />
-    <link rel="dns-prefetch" href="https://assets-global.website-files.com/"/>
+    <link rel="dns-prefetch" href="https://cdn.prod.website-files.com/"/>
     
-    <script src="index.ts" type="module"></script>
     <script defer>
         window.mainPlansIds = [
             "pln_essai-gratuit-5e4s0o0r",
@@ -167,7 +167,7 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
             }
         });
     </script>
-    
+
     <!-- Google Tag Manager -->
     <script>
         (function (w, d, s, l, i) {
@@ -182,7 +182,7 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
         })(window, document, "script", "dataLayer", "GTM-MPMWHVV");
     </script>
     <!-- End Google Tag Manager -->
-    
+
     <style type="text/css">
         /* Skeleton Loader styles */
         .skeleton-loader {
@@ -270,24 +270,25 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
             display: none;
         }
     </style>
-    
+
     <meta
          name="google-site-verification"
          content="Sq3ZH7V9LReszDsgNbInbEJ_BR1M7e5yAukJv3MO7LA"
     />
-    
+
     <meta
          name="viewport"
          content="width=device-width, initial-scale=1, maximum-scale=1"
     />
     
+    <script type="module" src="index.ts"></script>
     <!-- [Attributes by Finsweet] CMS Load -->
     <script
          async
          src="https://cdn.jsdelivr.net/npm/@finsweet/attributes-cmsload@1/cmsload.js"
     ></script>
     <script
-         src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd%2F652d31f3dc22d7b4ee708e44%2F65c4b99013d2be46e4311665%2Fclarity_script-7.2.7.js"
+         src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd%2F652d31f3dc22d7b4ee708e44%2F65c4b99013d2be46e4311665%2Fclarity_script-7.2.7.js"
          type="text/javascript"
     ></script>
 </head>
@@ -295,7 +296,7 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
 <div class="w-layout-blockcontainer w-container">
     <div class="main_tab_wrapper"></div>
     <div
-         data-current="Bilans"
+         data-current="Notes"
          data-easing="ease"
          data-duration-in="300"
          data-duration-out="100"
@@ -309,9 +310,9 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                 <div class="text-weight-semibold">Rappels cliniques</div>
             </a
             ><a
-             data-w-tab="Notes"
              x-bind="tab('notes')"
-             class="career_tab-link is-btn w-inline-block w-tab-link"
+             data-w-tab="Notes"
+             class="career_tab-link is-btn w-inline-block w-tab-link w--current"
         >
             <div class="text-weight-semibold">Notes</div>
             <div
@@ -321,21 +322,19 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                 <div>Nouveau</div>
             </div>
         </a
-        ><a x-bind="tab('balance_sheet')"
+        ><a
              data-w-tab="Bilans"
-             class="career_tab-link is-btn w-inline-block w-tab-link w--current"
+             class="career_tab-link is-btn w-inline-block w-tab-link"
         >
             <div class="text-weight-semibold">Bilans</div>
         </a
         ><a
-             x-bind="tab('treatments')"
              data-w-tab="Traitements"
              class="career_tab-link is-btn w-inline-block w-tab-link"
         >
             <div class="text-weight-semibold">Traitements</div>
         </a
         ><a
-             x-bind="tab('recommendations')"
              data-w-tab="Conseils patient"
              class="career_tab-link is-btn w-inline-block w-tab-link"
         >
@@ -345,33 +344,993 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
         </div>
         <div class="w-tab-content">
             <div data-w-tab="Rappels cliniques" class="w-tab-pane"></div>
-            <div data-w-tab="Notes" class="w-tab-pane" x-data="PathologyPaneList('notes')">
-                <template x-bind="noteListIterator">
-                    <div x-bind="noteElement">
-                         <span x-bind="noteTitle">
-                            title
-                        </span>
-                        <span x-bind="isNoteSharedIcon"> shared icon</span>
-                        <template x-bind="fileIconIterator">
-                                <span x-bind="fileIconElement">
-                                icon
-                            </span>
-                        </template>
-                    
+            <div
+                 data-w-tab="Notes"
+                 class="w-tab-pane w--tab-active"
+                 x-data="PathologyPaneList('notes')"
+            >
+                <div x-bind="layout.isEmpty" class="notes-first_step">
+                    <div class="padding-medium padding-bottom">
+                        <img
+                             loading="lazy"
+                             src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/65de008ef19abaf568926703_3D%20Illustration.png"
+                             alt="Ordonnance"
+                             class="image-75"
+                        />
                     </div>
-                </template>
-            </div>
-            <div data-w-tab="Bilans" class="w-tab-pane w--tab-active" x-data="PathologyPaneList('balance_sheet')">
-                <template x-bind="noteListIterator">
-                    <div x-bind="noteElement">
-                         <span x-bind="noteTitle">
-                        title
-                    </span>
+                    <div class="padding-xlarge padding-bottom">
+                        <h2 class="heading-style-h3">
+                            Vous n’avez pas encore de notes personnelles
+                        </h2>
+                        <div class="text-size-regular">
+                            Ordotype vous permet de créer et stocker vos notes
+                            personnelles en quelques clics.
+                        </div>
                     </div>
-                
-                </template>
+                    <a href="#" class="button is-gradient w-inline-block"
+                    >
+                        <div class="button_text">Ajouter une note</div>
+                    </a
+                    >
+                </div>
+                <div x-bind="layout.isNotEmpty" class="notes-cre">
+                    <div class="w-layout-grid notes-view">
+                        <div
+                             id="w-node-a15ee318-ed48-4598-b1e4-18349ab317a6-d39db01a"
+                             class="submenu"
+                        >
+                            <div class="button-wrapper is-left _1">
+                                <a href="#" class="button is-gradient w-inline-block"
+                                >
+                                    <div class="button_text">Ajouter une note</div>
+                                </a
+                                >
+                            </div>
+                            
+                            <div class="explorer_wrapper">
+                                <template x-bind="noteListIterator">
+                                    <a
+                                         x-bind="noteElement"
+                                         href="#"
+                                         class="notes_link w-inline-block"
+                                    >
+                                        <div class="wrapper">
+                                            <div x-bind="noteTitle" class="inline">Notes</div>
+                                        </div>
+                                        <img
+                                             loading="lazy"
+                                             src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/65de29cb76a417bfe030b43e_arrow-right.svg"
+                                             alt="Flèche droite"
+                                             class="arrow-ww"
+                                        /></a>
+                                </template>
+                            </div>
+                        </div>
+                        <div
+                             id="w-node-a15ee318-ed48-4598-b1e4-18349ab317b3-d39db01a"
+                             class="viewre"
+                             x-data="PathologyPaneNoteItem"
+                        >
+                            <template x-bind="layout.isNoteOpened">
+                                
+                                <div class="w-layout-grid view_pre">
+                                    <h2
+                                         id="w-node-a15ee318-ed48-4598-b1e4-18349ab317b5-d39db01a"
+                                         class="view_heading is-note"
+                                         x-bind="noteTitle"
+                                    >
+                                        {{Nom de la note}}
+                                    </h2>
+                                    <div
+                                         id="w-node-a15ee318-ed48-4598-b1e4-18349ab317b7-d39db01a"
+                                         class="tags_wrapper"
+                                    >
+                                        <template x-bind="notePathologiesIterator">
+                                            
+                                            <div class="view_tag">
+                                                <div x-bind="notePathologyTitle">{{Pathologie associée}}</div>
+                                            </div>
+                                        </template>
+                                    </div>
+                                    <div
+                                         id="w-node-a15ee318-ed48-4598-b1e4-18349ab317bc-d39db01a"
+                                         class="flex--m"
+                                    >
+                                        <div
+                                             id="w-node-a15ee318-ed48-4598-b1e4-18349ab317bd-d39db01a"
+                                             class="view_date"
+                                        >
+                                            <div class="display-inlineflex">Créé le</div>
+                                            <div class="view_date_holder">
+                                                <div x-bind="noteCreatedOn" class="text-weight-semibold">
+                                                    {{08/11/2022}}
+                                                </div>
+                                            </div>
+                                            <div class="view_author"></div>
+                                        </div>
+                                        <div class="action_view">
+                                            <div class="sub_menu action_menu">
+                                                <div
+                                                     data-delay="0"
+                                                     data-hover="false"
+                                                     class="sub_menu_dropdown show-mobile-lanscape w-dropdown"
+                                                >
+                                                    <div class="sub_toggle action w-dropdown-toggle">
+                                                        <img
+                                                             loading="lazy"
+                                                             src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6408f49fe058903e30fd205f_drop-dots.svg"
+                                                             alt="burger menu"
+                                                             class="dero_icon ac"
+                                                        />
+                                                    </div>
+                                                    <nav class="sub_list_action w-dropdown-list">
+                                                        <a href="#" class="sub_link w-inline-block"
+                                                        >
+                                                            <div class="w-layout-grid grid_gap_8">
+                                                                <div class="tab_icon w-embed">
+                                                                    <svg
+                                                                         width="1.25rem"
+                                                                         height="1.25rem"
+                                                                         viewBox="0 0 20 20"
+                                                                         fill="none"
+                                                                         xmlns="http://www.w3.org/2000/svg"
+                                                                    >
+                                                                        <path
+                                                                             d="M9.16602 3.33333H3.33268C2.89065 3.33333 2.46673 3.50893 2.15417 3.82149C1.84161 4.13405 1.66602 4.55797 1.66602 5V16.6667C1.66602 17.1087 1.84161 17.5326 2.15417 17.8452C2.46673 18.1577 2.89065 18.3333 3.33268 18.3333H14.9993C15.4414 18.3333 15.8653 18.1577 16.1779 17.8452C16.4904 17.5326 16.666 17.1087 16.666 16.6667V10.8333M15.416 2.08332C15.7475 1.7518 16.1972 1.56555 16.666 1.56555C17.1349 1.56555 17.5845 1.7518 17.916 2.08332C18.2475 2.41484 18.4338 2.86448 18.4338 3.33332C18.4338 3.80216 18.2475 4.2518 17.916 4.58332L9.99935 12.5L6.66602 13.3333L7.49935 9.99999L15.416 2.08332Z"
+                                                                             stroke="currentColor"
+                                                                             stroke-width="2"
+                                                                             stroke-linecap="round"
+                                                                             stroke-linejoin="round"
+                                                                        />
+                                                                    </svg>
+                                                                </div>
+                                                                <div class="display-inlineflex">Modifier</div>
+                                                            </div>
+                                                        </a
+                                                        ><a
+                                                         href="#"
+                                                         class="sub_link borders top w-inline-block"
+                                                    >
+                                                        <div class="w-layout-grid grid_gap_8">
+                                                            <div class="tab_icon w-embed">
+                                                                <svg
+                                                                     width="1.25rem"
+                                                                     height="1.25rem"
+                                                                     viewBox="0 0 16 16"
+                                                                     fill="none"
+                                                                     xmlns="http://www.w3.org/2000/svg"
+                                                                >
+                                                                    <path
+                                                                         d="M3.99992 5.99998V1.33331H11.9999V5.99998M3.99992 12H2.66659C2.31296 12 1.97382 11.8595 1.72378 11.6095C1.47373 11.3594 1.33325 11.0203 1.33325 10.6666V7.33331C1.33325 6.97969 1.47373 6.64055 1.72378 6.3905C1.97382 6.14046 2.31296 5.99998 2.66659 5.99998H13.3333C13.6869 5.99998 14.026 6.14046 14.2761 6.3905C14.5261 6.64055 14.6666 6.97969 14.6666 7.33331V10.6666C14.6666 11.0203 14.5261 11.3594 14.2761 11.6095C14.026 11.8595 13.6869 12 13.3333 12H11.9999M3.99992 9.33331H11.9999V14.6666H3.99992V9.33331Z"
+                                                                         stroke="currentColor"
+                                                                         stroke-width="1.5"
+                                                                         stroke-linecap="round"
+                                                                         stroke-linejoin="round"
+                                                                    />
+                                                                </svg>
+                                                            </div>
+                                                            <div class="display-inlineflex">Imprimer</div>
+                                                        </div>
+                                                    </a
+                                                    ><a
+                                                         href="#"
+                                                         class="sub_link borders w-inline-block"
+                                                    >
+                                                        <div class="w-layout-grid grid_gap_8">
+                                                            <div
+                                                                 class="tab_icon display-inlineflex w-embed"
+                                                            >
+                                                                <svg
+                                                                     width="1.25rem"
+                                                                     height="1.25rem"
+                                                                     viewBox="0 0 20 20"
+                                                                     fill="none"
+                                                                     xmlns="http://www.w3.org/2000/svg"
+                                                                >
+                                                                    <path
+                                                                         d="M1.33398 9.99999V16.6667C1.33398 17.1087 1.50958 17.5326 1.82214 17.8452C2.1347 18.1577 2.55862 18.3333 3.00065 18.3333H13.0007C13.4427 18.3333 13.8666 18.1577 14.1792 17.8452C14.4917 17.5326 14.6673 17.1087 14.6673 16.6667V9.99999M11.334 4.99999L8.00065 1.66666M8.00065 1.66666L4.66732 4.99999M8.00065 1.66666V12.5"
+                                                                         stroke="currentColor"
+                                                                         stroke-width="2"
+                                                                         stroke-linecap="round"
+                                                                         stroke-linejoin="round"
+                                                                    />
+                                                                </svg>
+                                                            </div>
+                                                            <div class="display-inlineflex">Partager</div>
+                                                        </div>
+                                                    </a
+                                                    ><a
+                                                         href="#"
+                                                         class="sub_link color_red w-inline-block"
+                                                    >
+                                                        <div class="w-layout-grid grid_gap_8">
+                                                            <div class="tab_icon color_red w-embed">
+                                                                <svg
+                                                                     width="1.25rem"
+                                                                     height="1.25rem"
+                                                                     viewBox="0 0 20 20"
+                                                                     fill="none"
+                                                                     xmlns="http://www.w3.org/2000/svg"
+                                                                >
+                                                                    <path
+                                                                         d="M1.5 5.00002H3.16667M3.16667 5.00002H16.5M3.16667 5.00002V16.6667C3.16667 17.1087 3.34226 17.5326 3.65482 17.8452C3.96738 18.1578 4.39131 18.3334 4.83333 18.3334H13.1667C13.6087 18.3334 14.0326 18.1578 14.3452 17.8452C14.6577 17.5326 14.8333 17.1087 14.8333 16.6667V5.00002H3.16667ZM5.66667 5.00002V3.33335C5.66667 2.89133 5.84226 2.4674 6.15482 2.15484C6.46738 1.84228 6.89131 1.66669 7.33333 1.66669H10.6667C11.1087 1.66669 11.5326 1.84228 11.8452 2.15484C12.1577 2.4674 12.3333 2.89133 12.3333 3.33335V5.00002"
+                                                                         stroke="currentColor"
+                                                                         stroke-width="2"
+                                                                         stroke-linecap="round"
+                                                                         stroke-linejoin="round"
+                                                                    />
+                                                                </svg>
+                                                            </div>
+                                                            <div class="display-inlineflex">
+                                                                Supprimer
+                                                            </div>
+                                                        </div>
+                                                    </a
+                                                    >
+                                                    </nav>
+                                                </div>
+                                                <a href="#" class="sub_link is-vew w-inline-block"
+                                                >
+                                                    <div class="w-layout-grid grid_gap_8">
+                                                        <div class="tab_icon w-embed">
+                                                            <svg
+                                                                 width="1.25rem"
+                                                                 height="1.25rem"
+                                                                 viewBox="0 0 20 20"
+                                                                 fill="none"
+                                                                 xmlns="http://www.w3.org/2000/svg"
+                                                            >
+                                                                <path
+                                                                     d="M9.16602 3.33333H3.33268C2.89065 3.33333 2.46673 3.50893 2.15417 3.82149C1.84161 4.13405 1.66602 4.55797 1.66602 5V16.6667C1.66602 17.1087 1.84161 17.5326 2.15417 17.8452C2.46673 18.1577 2.89065 18.3333 3.33268 18.3333H14.9993C15.4414 18.3333 15.8653 18.1577 16.1779 17.8452C16.4904 17.5326 16.666 17.1087 16.666 16.6667V10.8333M15.416 2.08332C15.7475 1.7518 16.1972 1.56555 16.666 1.56555C17.1349 1.56555 17.5845 1.7518 17.916 2.08332C18.2475 2.41484 18.4338 2.86448 18.4338 3.33332C18.4338 3.80216 18.2475 4.2518 17.916 4.58332L9.99935 12.5L6.66602 13.3333L7.49935 9.99999L15.416 2.08332Z"
+                                                                     stroke="currentColor"
+                                                                     stroke-width="2"
+                                                                     stroke-linecap="round"
+                                                                     stroke-linejoin="round"
+                                                                />
+                                                            </svg>
+                                                        </div>
+                                                        <div class="display-inlineflex">Modifier</div>
+                                                    </div>
+                                                </a
+                                                ><a href="#" class="sub_link is-vew w-inline-block"
+                                            >
+                                                <div class="w-layout-grid grid_gap_8">
+                                                    <div class="tab_icon w-embed">
+                                                        <svg
+                                                             width="1.25rem"
+                                                             height="1.25rem"
+                                                             viewBox="0 0 16 16"
+                                                             fill="none"
+                                                             xmlns="http://www.w3.org/2000/svg"
+                                                        >
+                                                            <path
+                                                                 d="M3.99992 5.99998V1.33331H11.9999V5.99998M3.99992 12H2.66659C2.31296 12 1.97382 11.8595 1.72378 11.6095C1.47373 11.3594 1.33325 11.0203 1.33325 10.6666V7.33331C1.33325 6.97969 1.47373 6.64055 1.72378 6.3905C1.97382 6.14046 2.31296 5.99998 2.66659 5.99998H13.3333C13.6869 5.99998 14.026 6.14046 14.2761 6.3905C14.5261 6.64055 14.6666 6.97969 14.6666 7.33331V10.6666C14.6666 11.0203 14.5261 11.3594 14.2761 11.6095C14.026 11.8595 13.6869 12 13.3333 12H11.9999M3.99992 9.33331H11.9999V14.6666H3.99992V9.33331Z"
+                                                                 stroke="currentColor"
+                                                                 stroke-width="1.5"
+                                                                 stroke-linecap="round"
+                                                                 stroke-linejoin="round"
+                                                            />
+                                                        </svg>
+                                                    </div>
+                                                    <div class="display-inlineflex">Imprimer</div>
+                                                </div>
+                                            </a
+                                            ><a href="#" class="sub_link is-vew w-inline-block"
+                                            >
+                                                <div class="w-layout-grid grid_gap_8">
+                                                    <div class="tab_icon display-inlineflex w-embed">
+                                                        <svg
+                                                             width="1.25rem"
+                                                             height="1.25rem"
+                                                             viewBox="0 0 20 20"
+                                                             fill="none"
+                                                             xmlns="http://www.w3.org/2000/svg"
+                                                        >
+                                                            <path
+                                                                 d="M1.33398 9.99999V16.6667C1.33398 17.1087 1.50958 17.5326 1.82214 17.8452C2.1347 18.1577 2.55862 18.3333 3.00065 18.3333H13.0007C13.4427 18.3333 13.8666 18.1577 14.1792 17.8452C14.4917 17.5326 14.6673 17.1087 14.6673 16.6667V9.99999M11.334 4.99999L8.00065 1.66666M8.00065 1.66666L4.66732 4.99999M8.00065 1.66666V12.5"
+                                                                 stroke="currentColor"
+                                                                 stroke-width="2"
+                                                                 stroke-linecap="round"
+                                                                 stroke-linejoin="round"
+                                                            />
+                                                        </svg>
+                                                    </div>
+                                                    <div class="display-inlineflex">Partager</div>
+                                                </div>
+                                            </a
+                                            ><a
+                                                 href="#"
+                                                 class="sub_link is-vew color-red w-inline-block"
+                                            >
+                                                <div class="w-layout-grid grid_gap_8">
+                                                    <div class="tab_icon color_red w-embed">
+                                                        <svg
+                                                             width="1.25rem"
+                                                             height="1.25rem"
+                                                             viewBox="0 0 20 20"
+                                                             fill="none"
+                                                             xmlns="http://www.w3.org/2000/svg"
+                                                        >
+                                                            <path
+                                                                 d="M1.5 5.00002H3.16667M3.16667 5.00002H16.5M3.16667 5.00002V16.6667C3.16667 17.1087 3.34226 17.5326 3.65482 17.8452C3.96738 18.1578 4.39131 18.3334 4.83333 18.3334H13.1667C13.6087 18.3334 14.0326 18.1578 14.3452 17.8452C14.6577 17.5326 14.8333 17.1087 14.8333 16.6667V5.00002H3.16667ZM5.66667 5.00002V3.33335C5.66667 2.89133 5.84226 2.4674 6.15482 2.15484C6.46738 1.84228 6.89131 1.66669 7.33333 1.66669H10.6667C11.1087 1.66669 11.5326 1.84228 11.8452 2.15484C12.1577 2.4674 12.3333 2.89133 12.3333 3.33335V5.00002"
+                                                                 stroke="currentColor"
+                                                                 stroke-width="2"
+                                                                 stroke-linecap="round"
+                                                                 stroke-linejoin="round"
+                                                            />
+                                                        </svg>
+                                                    </div>
+                                                    <div class="display-inlineflex">Supprimer</div>
+                                                </div>
+                                            </a
+                                            >
+                                            </div>
+                                            <img
+                                                 id="w-node-a15ee318-ed48-4598-b1e4-18349ab317f2-d39db01a"
+                                                 alt="X"
+                                                 src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/65de263de590d94d2640880c_x.svg"
+                                                 loading="lazy"
+                                                 class="close_icon-v show-mobile-lanscape"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div
+                                         id="w-node-a15ee318-ed48-4598-b1e4-18349ab317f3-d39db01a"
+                                         class="align-right hide"
+                                    >
+                                        <a href="#" class="button is-copy w-inline-block"
+                                        >
+                                            <div class="button_text">Copier</div>
+                                            <img
+                                                 loading="lazy"
+                                                 src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6408f49dd8cc0c80bdf6c081_copi.svg"
+                                                 alt="copy button"
+                                                 class="icon_copy"
+                                            /></a>
+                                    </div>
+                                    <div
+                                         id="w-node-a15ee318-ed48-4598-b1e4-18349ab317f8-d39db01a"
+                                         class="text_wrapper is-demo"
+                                         x-bind="noteRichText"
+                                    >
+                                        <p class="text-size-regular text-color-base-600">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                            Suspendisse varius enim in eros elementum tristique.
+                                            Duis cursus, mi quis viverra ornare, eros dolor interdum
+                                            nulla, ut commodo diam libero vitae erat. Aenean
+                                            faucibus nibh et justo cursus id rutrum lorem imperdiet.
+                                            Nunc ut sem vitae risus tristique posuere.
+                                        </p>
+                                    </div>
+                                    <div x-data="" class="files-container">
+                                        <div class="files_holder">
+                                            <template x-bind="noteFilesIterator" class="template"
+                                            ><a href="#" class="file_upl w-inline-block"
+                                            >
+                                                <div class="w-layout-grid file_grid">
+                                                    <div
+                                                         id="w-node-a15ee318-ed48-4598-b1e4-18349ab31800-d39db01a"
+                                                         class="file_descr"
+                                                    >
+                                                        <div class="flex_horizontal">
+                                                            <div class="file_type_holder action">
+                                                                <div x-bind="noteFilesIcon" class="file_type_icon pdf">
+                                                                    <div>pdf</div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="file_title">
+                                                                <div class="display-inlineflex">
+                                                                    FileName
+                                                                </div>
+                                                                <div class="display-inlineflex extention">
+                                                                    .ext
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <img
+                                                             loading="lazy"
+                                                             src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/640b498538ea4d0ffac77e07_Butt-cross.svg"
+                                                             alt="croix"
+                                                             class="close_file"
+                                                        />
+                                                    </div>
+                                                    <div
+                                                         id="w-node-a15ee318-ed48-4598-b1e4-18349ab3180c-d39db01a"
+                                                         class="upl_progress_bar"
+                                                    >
+                                                        <div class="upl_progress_fill move-100"></div>
+                                                    </div>
+                                                </div>
+                                            </a
+                                            ></template>
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div data-w-tab="Traitements" class="w-tab-pane" x-data="PathologyPaneList('treatment')"></div>
+            <div data-w-tab="Bilans" class="w-tab-pane">
+                <div
+                     data-current="test - My bilans"
+                     data-easing="ease"
+                     data-duration-in="300"
+                     data-duration-out="100"
+                     class="tabs-side w-tabs"
+                >
+                    <div class="tabs-menu-side w-tab-menu">
+                        <a
+                             data-w-tab="test - Bilans"
+                             data-w-id="6ac5b04d-6b13-8aad-ac52-e19efb0d064c"
+                             class="tab_link_pr w-inline-block w-tab-link"
+                        >
+                            <div class="tab_menu_overlay"></div>
+                            <div class="tab_menu_text">Bilans</div>
+                        </a
+                        ><a
+                         data-w-tab="test - My bilans"
+                         data-w-id="6ac5b04d-6b13-8aad-ac52-e19efb0d0650"
+                         class="tab_link_pr w-inline-block w-tab-link w--current"
+                    >
+                        <div class="tab_menu_text">Mes bilans</div>
+                    </a
+                    >
+                    </div>
+                    <div class="tabs-content-side w-tab-content">
+                        <div
+                             data-w-tab="test - Bilans"
+                             class="tab_pane_side w-tab-pane"
+                        >
+                            <div class="pathologies_tab_row">
+                                <div class="pathologies_tab_col-left"></div>
+                                <div class="pathologies_tab_col-right">
+                                    <iframe class="pathology_tab-view-iframe"></iframe>
+                                </div>
+                            </div>
+                            <div
+                                 data-delay="0"
+                                 data-hover="false"
+                                 class="drop_mobile w-dropdown"
+                            >
+                                <div class="side_toggle w-dropdown-toggle">
+                                    <div class="icon-7 w-icon-dropdown-toggle"></div>
+                                    <div>Selectionnez un bilan</div>
+                                </div>
+                                <nav class="side_list w-dropdown-list">
+                                    <a href="#" class="side_link active w-inline-block"
+                                    >
+                                        <div class="w-layout-grid grid_context">
+                                            <div class="display-inlineflex">
+                                                Diagnostic des angines virales et à SGA
+                                            </div>
+                                            <div class="tab_a w-embed">
+                                                <svg
+                                                     width="0.5rem"
+                                                     height="0.875rem"
+                                                     viewBox="0 0 8 14"
+                                                     fill="none"
+                                                     xmlns="http://www.w3.org/2000/svg"
+                                                >
+                                                    <path
+                                                         d="M1 13L7 7L1 1"
+                                                         stroke="currentColor"
+                                                         stroke-width="2"
+                                                         stroke-linecap="round"
+                                                         stroke-linejoin="round"
+                                                    />
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </a
+                                    ><a href="#" class="side_link w-inline-block"
+                                >
+                                    <div class="w-layout-grid grid_context">
+                                        <div class="display-inlineflex">Prise en charge</div>
+                                        <div class="tab_a w-embed">
+                                            <svg
+                                                 width="0.5rem"
+                                                 height="0.875rem"
+                                                 viewBox="0 0 8 14"
+                                                 fill="none"
+                                                 xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                                <path
+                                                     d="M1 13L7 7L1 1"
+                                                     stroke="currentColor"
+                                                     stroke-width="2"
+                                                     stroke-linecap="round"
+                                                     stroke-linejoin="round"
+                                                />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </a
+                                ><a href="#" class="side_link w-inline-block"
+                                >
+                                    <div class="w-layout-grid grid_context">
+                                        <div class="display-inlineflex">Complications</div>
+                                        <div class="tab_a w-embed">
+                                            <svg
+                                                 width="0.5rem"
+                                                 height="0.875rem"
+                                                 viewBox="0 0 8 14"
+                                                 fill="none"
+                                                 xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                                <path
+                                                     d="M1 13L7 7L1 1"
+                                                     stroke="currentColor"
+                                                     stroke-width="2"
+                                                     stroke-linecap="round"
+                                                     stroke-linejoin="round"
+                                                />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </a
+                                ><a href="#" class="side_link w-inline-block"
+                                >
+                                    <div class="w-layout-grid grid_context">
+                                        <div class="display-inlineflex">
+                                            Diagnostics différentiels
+                                        </div>
+                                        <div class="tab_a w-embed">
+                                            <svg
+                                                 width="0.5rem"
+                                                 height="0.875rem"
+                                                 viewBox="0 0 8 14"
+                                                 fill="none"
+                                                 xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                                <path
+                                                     d="M1 13L7 7L1 1"
+                                                     stroke="currentColor"
+                                                     stroke-width="2"
+                                                     stroke-linecap="round"
+                                                     stroke-linejoin="round"
+                                                />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </a
+                                ><a href="#" class="side_link w-inline-block"
+                                >
+                                    <div class="w-layout-grid grid_context">
+                                        <div class="display-inlineflex">Sources</div>
+                                        <div class="tab_a w-embed">
+                                            <svg
+                                                 width="0.5rem"
+                                                 height="0.875rem"
+                                                 viewBox="0 0 8 14"
+                                                 fill="none"
+                                                 xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                                <path
+                                                     d="M1 13L7 7L1 1"
+                                                     stroke="currentColor"
+                                                     stroke-width="2"
+                                                     stroke-linecap="round"
+                                                     stroke-linejoin="round"
+                                                />
+                                            </svg>
+                                        </div>
+                                    </div
+                                    >
+                                </a>
+                                </nav>
+                            </div>
+                            <a href="#" class="button is-tabs w-inline-block"
+                            >
+                                <div class="button_text">Voir mes ordonnances</div>
+                            </a
+                            >
+                        </div>
+                        <div
+                             data-w-tab="test - My bilans"
+                             class="tab_pane_side sec w-tab-pane w--tab-active"
+                        >
+                            <div class="notes-cre">
+                                <div class="w-layout-grid notes-view">
+                                    <div
+                                         id="w-node-_46db956d-f668-74f8-c686-ed93682b555d-d39db01a"
+                                         class="submenu"
+                                    >
+                                        <div class="button-wrapper is-left _1">
+                                            <a href="#" class="button is-gradient w-inline-block"
+                                            >
+                                                <div class="button_text">Ajouter une note</div>
+                                            </a
+                                            >
+                                        </div>
+                                        <div class="explorer_wrapper">
+                                            <a href="#" class="notes_link w-inline-block"
+                                            >
+                                                <div class="wrapper">
+                                                    <div class="inline">Notes</div>
+                                                    <div class="inline">Angine</div>
+                                                </div>
+                                                <img
+                                                     loading="lazy"
+                                                     src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/65de29cb76a417bfe030b43e_arrow-right.svg"
+                                                     alt="Flèche droite"
+                                                     class="arrow-ww"
+                                                /></a>
+                                        </div>
+                                    </div>
+                                    <div
+                                         id="w-node-_46db956d-f668-74f8-c686-ed93682b556a-d39db01a"
+                                         class="viewre"
+                                    >
+                                        <div class="w-layout-grid view_pre">
+                                            <h2
+                                                 id="w-node-_46db956d-f668-74f8-c686-ed93682b556c-d39db01a"
+                                                 class="view_heading is-note"
+                                            >
+                                                {{Nom de la note}}
+                                            </h2>
+                                            <div
+                                                 id="w-node-_46db956d-f668-74f8-c686-ed93682b556e-d39db01a"
+                                                 class="tags_wrapper"
+                                            >
+                                                <template class="template"
+                                                >
+                                                    <div class="view_tag">
+                                                        <div>{{Pathologie associée}}</div>
+                                                    </div>
+                                                </template
+                                                >
+                                            </div>
+                                            <div
+                                                 id="w-node-_46db956d-f668-74f8-c686-ed93682b5573-d39db01a"
+                                                 class="flex--m"
+                                            >
+                                                <div
+                                                     id="w-node-_46db956d-f668-74f8-c686-ed93682b5574-d39db01a"
+                                                     class="view_date"
+                                                >
+                                                    <div class="display-inlineflex">Créé le</div>
+                                                    <div class="view_date_holder">
+                                                        <div class="text-weight-semibold">
+                                                            {{08/11/2022}}
+                                                        </div>
+                                                    </div>
+                                                    <div class="view_author"></div>
+                                                </div>
+                                                <div class="action_view">
+                                                    <div class="sub_menu action_menu">
+                                                        <div
+                                                             data-delay="0"
+                                                             data-hover="false"
+                                                             class="sub_menu_dropdown show-mobile-lanscape w-dropdown"
+                                                        >
+                                                            <div
+                                                                 class="sub_toggle action w-dropdown-toggle"
+                                                            >
+                                                                <img
+                                                                     loading="lazy"
+                                                                     src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6408f49fe058903e30fd205f_drop-dots.svg"
+                                                                     alt="burger menu"
+                                                                     class="dero_icon ac"
+                                                                />
+                                                            </div>
+                                                            <nav class="sub_list_action w-dropdown-list">
+                                                                <a href="#" class="sub_link w-inline-block"
+                                                                >
+                                                                    <div class="w-layout-grid grid_gap_8">
+                                                                        <div class="tab_icon w-embed">
+                                                                            <svg
+                                                                                 width="1.25rem"
+                                                                                 height="1.25rem"
+                                                                                 viewBox="0 0 20 20"
+                                                                                 fill="none"
+                                                                                 xmlns="http://www.w3.org/2000/svg"
+                                                                            >
+                                                                                <path
+                                                                                     d="M9.16602 3.33333H3.33268C2.89065 3.33333 2.46673 3.50893 2.15417 3.82149C1.84161 4.13405 1.66602 4.55797 1.66602 5V16.6667C1.66602 17.1087 1.84161 17.5326 2.15417 17.8452C2.46673 18.1577 2.89065 18.3333 3.33268 18.3333H14.9993C15.4414 18.3333 15.8653 18.1577 16.1779 17.8452C16.4904 17.5326 16.666 17.1087 16.666 16.6667V10.8333M15.416 2.08332C15.7475 1.7518 16.1972 1.56555 16.666 1.56555C17.1349 1.56555 17.5845 1.7518 17.916 2.08332C18.2475 2.41484 18.4338 2.86448 18.4338 3.33332C18.4338 3.80216 18.2475 4.2518 17.916 4.58332L9.99935 12.5L6.66602 13.3333L7.49935 9.99999L15.416 2.08332Z"
+                                                                                     stroke="currentColor"
+                                                                                     stroke-width="2"
+                                                                                     stroke-linecap="round"
+                                                                                     stroke-linejoin="round"
+                                                                                />
+                                                                            </svg>
+                                                                        </div>
+                                                                        <div class="display-inlineflex">
+                                                                            Modifier
+                                                                        </div>
+                                                                    </div>
+                                                                </a
+                                                                ><a
+                                                                 href="#"
+                                                                 class="sub_link borders top w-inline-block"
+                                                            >
+                                                                <div class="w-layout-grid grid_gap_8">
+                                                                    <div class="tab_icon w-embed">
+                                                                        <svg
+                                                                             width="1.25rem"
+                                                                             height="1.25rem"
+                                                                             viewBox="0 0 16 16"
+                                                                             fill="none"
+                                                                             xmlns="http://www.w3.org/2000/svg"
+                                                                        >
+                                                                            <path
+                                                                                 d="M3.99992 5.99998V1.33331H11.9999V5.99998M3.99992 12H2.66659C2.31296 12 1.97382 11.8595 1.72378 11.6095C1.47373 11.3594 1.33325 11.0203 1.33325 10.6666V7.33331C1.33325 6.97969 1.47373 6.64055 1.72378 6.3905C1.97382 6.14046 2.31296 5.99998 2.66659 5.99998H13.3333C13.6869 5.99998 14.026 6.14046 14.2761 6.3905C14.5261 6.64055 14.6666 6.97969 14.6666 7.33331V10.6666C14.6666 11.0203 14.5261 11.3594 14.2761 11.6095C14.026 11.8595 13.6869 12 13.3333 12H11.9999M3.99992 9.33331H11.9999V14.6666H3.99992V9.33331Z"
+                                                                                 stroke="currentColor"
+                                                                                 stroke-width="1.5"
+                                                                                 stroke-linecap="round"
+                                                                                 stroke-linejoin="round"
+                                                                            />
+                                                                        </svg>
+                                                                    </div>
+                                                                    <div class="display-inlineflex">
+                                                                        Imprimer
+                                                                    </div>
+                                                                </div>
+                                                            </a
+                                                            ><a
+                                                                 href="#"
+                                                                 class="sub_link borders w-inline-block"
+                                                            >
+                                                                <div class="w-layout-grid grid_gap_8">
+                                                                    <div
+                                                                         class="tab_icon display-inlineflex w-embed"
+                                                                    >
+                                                                        <svg
+                                                                             width="1.25rem"
+                                                                             height="1.25rem"
+                                                                             viewBox="0 0 20 20"
+                                                                             fill="none"
+                                                                             xmlns="http://www.w3.org/2000/svg"
+                                                                        >
+                                                                            <path
+                                                                                 d="M1.33398 9.99999V16.6667C1.33398 17.1087 1.50958 17.5326 1.82214 17.8452C2.1347 18.1577 2.55862 18.3333 3.00065 18.3333H13.0007C13.4427 18.3333 13.8666 18.1577 14.1792 17.8452C14.4917 17.5326 14.6673 17.1087 14.6673 16.6667V9.99999M11.334 4.99999L8.00065 1.66666M8.00065 1.66666L4.66732 4.99999M8.00065 1.66666V12.5"
+                                                                                 stroke="currentColor"
+                                                                                 stroke-width="2"
+                                                                                 stroke-linecap="round"
+                                                                                 stroke-linejoin="round"
+                                                                            />
+                                                                        </svg>
+                                                                    </div>
+                                                                    <div class="display-inlineflex">
+                                                                        Partager
+                                                                    </div>
+                                                                </div>
+                                                            </a
+                                                            ><a
+                                                                 href="#"
+                                                                 class="sub_link color_red w-inline-block"
+                                                            >
+                                                                <div class="w-layout-grid grid_gap_8">
+                                                                    <div class="tab_icon color_red w-embed">
+                                                                        <svg
+                                                                             width="1.25rem"
+                                                                             height="1.25rem"
+                                                                             viewBox="0 0 20 20"
+                                                                             fill="none"
+                                                                             xmlns="http://www.w3.org/2000/svg"
+                                                                        >
+                                                                            <path
+                                                                                 d="M1.5 5.00002H3.16667M3.16667 5.00002H16.5M3.16667 5.00002V16.6667C3.16667 17.1087 3.34226 17.5326 3.65482 17.8452C3.96738 18.1578 4.39131 18.3334 4.83333 18.3334H13.1667C13.6087 18.3334 14.0326 18.1578 14.3452 17.8452C14.6577 17.5326 14.8333 17.1087 14.8333 16.6667V5.00002H3.16667ZM5.66667 5.00002V3.33335C5.66667 2.89133 5.84226 2.4674 6.15482 2.15484C6.46738 1.84228 6.89131 1.66669 7.33333 1.66669H10.6667C11.1087 1.66669 11.5326 1.84228 11.8452 2.15484C12.1577 2.4674 12.3333 2.89133 12.3333 3.33335V5.00002"
+                                                                                 stroke="currentColor"
+                                                                                 stroke-width="2"
+                                                                                 stroke-linecap="round"
+                                                                                 stroke-linejoin="round"
+                                                                            />
+                                                                        </svg>
+                                                                    </div>
+                                                                    <div class="display-inlineflex">
+                                                                        Supprimer
+                                                                    </div>
+                                                                </div>
+                                                            </a
+                                                            >
+                                                            </nav>
+                                                        </div>
+                                                        <a
+                                                             href="#"
+                                                             class="sub_link is-vew w-inline-block"
+                                                        >
+                                                            <div class="w-layout-grid grid_gap_8">
+                                                                <div class="tab_icon w-embed">
+                                                                    <svg
+                                                                         width="1.25rem"
+                                                                         height="1.25rem"
+                                                                         viewBox="0 0 20 20"
+                                                                         fill="none"
+                                                                         xmlns="http://www.w3.org/2000/svg"
+                                                                    >
+                                                                        <path
+                                                                             d="M9.16602 3.33333H3.33268C2.89065 3.33333 2.46673 3.50893 2.15417 3.82149C1.84161 4.13405 1.66602 4.55797 1.66602 5V16.6667C1.66602 17.1087 1.84161 17.5326 2.15417 17.8452C2.46673 18.1577 2.89065 18.3333 3.33268 18.3333H14.9993C15.4414 18.3333 15.8653 18.1577 16.1779 17.8452C16.4904 17.5326 16.666 17.1087 16.666 16.6667V10.8333M15.416 2.08332C15.7475 1.7518 16.1972 1.56555 16.666 1.56555C17.1349 1.56555 17.5845 1.7518 17.916 2.08332C18.2475 2.41484 18.4338 2.86448 18.4338 3.33332C18.4338 3.80216 18.2475 4.2518 17.916 4.58332L9.99935 12.5L6.66602 13.3333L7.49935 9.99999L15.416 2.08332Z"
+                                                                             stroke="currentColor"
+                                                                             stroke-width="2"
+                                                                             stroke-linecap="round"
+                                                                             stroke-linejoin="round"
+                                                                        />
+                                                                    </svg>
+                                                                </div>
+                                                                <div class="display-inlineflex">
+                                                                    Modifier
+                                                                </div>
+                                                            </div>
+                                                        </a
+                                                        ><a
+                                                         href="#"
+                                                         class="sub_link is-vew w-inline-block"
+                                                    >
+                                                        <div class="w-layout-grid grid_gap_8">
+                                                            <div class="tab_icon w-embed">
+                                                                <svg
+                                                                     width="1.25rem"
+                                                                     height="1.25rem"
+                                                                     viewBox="0 0 16 16"
+                                                                     fill="none"
+                                                                     xmlns="http://www.w3.org/2000/svg"
+                                                                >
+                                                                    <path
+                                                                         d="M3.99992 5.99998V1.33331H11.9999V5.99998M3.99992 12H2.66659C2.31296 12 1.97382 11.8595 1.72378 11.6095C1.47373 11.3594 1.33325 11.0203 1.33325 10.6666V7.33331C1.33325 6.97969 1.47373 6.64055 1.72378 6.3905C1.97382 6.14046 2.31296 5.99998 2.66659 5.99998H13.3333C13.6869 5.99998 14.026 6.14046 14.2761 6.3905C14.5261 6.64055 14.6666 6.97969 14.6666 7.33331V10.6666C14.6666 11.0203 14.5261 11.3594 14.2761 11.6095C14.026 11.8595 13.6869 12 13.3333 12H11.9999M3.99992 9.33331H11.9999V14.6666H3.99992V9.33331Z"
+                                                                         stroke="currentColor"
+                                                                         stroke-width="1.5"
+                                                                         stroke-linecap="round"
+                                                                         stroke-linejoin="round"
+                                                                    />
+                                                                </svg>
+                                                            </div>
+                                                            <div class="display-inlineflex">
+                                                                Imprimer
+                                                            </div>
+                                                        </div>
+                                                    </a
+                                                    ><a
+                                                         href="#"
+                                                         class="sub_link is-vew w-inline-block"
+                                                    >
+                                                        <div class="w-layout-grid grid_gap_8">
+                                                            <div
+                                                                 class="tab_icon display-inlineflex w-embed"
+                                                            >
+                                                                <svg
+                                                                     width="1.25rem"
+                                                                     height="1.25rem"
+                                                                     viewBox="0 0 20 20"
+                                                                     fill="none"
+                                                                     xmlns="http://www.w3.org/2000/svg"
+                                                                >
+                                                                    <path
+                                                                         d="M1.33398 9.99999V16.6667C1.33398 17.1087 1.50958 17.5326 1.82214 17.8452C2.1347 18.1577 2.55862 18.3333 3.00065 18.3333H13.0007C13.4427 18.3333 13.8666 18.1577 14.1792 17.8452C14.4917 17.5326 14.6673 17.1087 14.6673 16.6667V9.99999M11.334 4.99999L8.00065 1.66666M8.00065 1.66666L4.66732 4.99999M8.00065 1.66666V12.5"
+                                                                         stroke="currentColor"
+                                                                         stroke-width="2"
+                                                                         stroke-linecap="round"
+                                                                         stroke-linejoin="round"
+                                                                    />
+                                                                </svg>
+                                                            </div>
+                                                            <div class="display-inlineflex">
+                                                                Partager
+                                                            </div>
+                                                        </div>
+                                                    </a
+                                                    ><a
+                                                         href="#"
+                                                         class="sub_link is-vew color-red w-inline-block"
+                                                    >
+                                                        <div class="w-layout-grid grid_gap_8">
+                                                            <div class="tab_icon color_red w-embed">
+                                                                <svg
+                                                                     width="1.25rem"
+                                                                     height="1.25rem"
+                                                                     viewBox="0 0 20 20"
+                                                                     fill="none"
+                                                                     xmlns="http://www.w3.org/2000/svg"
+                                                                >
+                                                                    <path
+                                                                         d="M1.5 5.00002H3.16667M3.16667 5.00002H16.5M3.16667 5.00002V16.6667C3.16667 17.1087 3.34226 17.5326 3.65482 17.8452C3.96738 18.1578 4.39131 18.3334 4.83333 18.3334H13.1667C13.6087 18.3334 14.0326 18.1578 14.3452 17.8452C14.6577 17.5326 14.8333 17.1087 14.8333 16.6667V5.00002H3.16667ZM5.66667 5.00002V3.33335C5.66667 2.89133 5.84226 2.4674 6.15482 2.15484C6.46738 1.84228 6.89131 1.66669 7.33333 1.66669H10.6667C11.1087 1.66669 11.5326 1.84228 11.8452 2.15484C12.1577 2.4674 12.3333 2.89133 12.3333 3.33335V5.00002"
+                                                                         stroke="currentColor"
+                                                                         stroke-width="2"
+                                                                         stroke-linecap="round"
+                                                                         stroke-linejoin="round"
+                                                                    />
+                                                                </svg>
+                                                            </div>
+                                                            <div class="display-inlineflex">
+                                                                Supprimer
+                                                            </div>
+                                                        </div>
+                                                    </a
+                                                    >
+                                                    </div>
+                                                    <img
+                                                         id="w-node-_46db956d-f668-74f8-c686-ed93682b55a9-d39db01a"
+                                                         alt="X"
+                                                         src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/65de263de590d94d2640880c_x.svg"
+                                                         loading="lazy"
+                                                         class="close_icon-v show-mobile-lanscape"
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div
+                                                 id="w-node-_46db956d-f668-74f8-c686-ed93682b55aa-d39db01a"
+                                                 class="align-right hide"
+                                            >
+                                                <a href="#" class="button is-copy w-inline-block"
+                                                >
+                                                    <div class="button_text">Copier</div>
+                                                    <img
+                                                         loading="lazy"
+                                                         src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6408f49dd8cc0c80bdf6c081_copi.svg"
+                                                         alt="copy button"
+                                                         class="icon_copy"
+                                                    /></a>
+                                            </div>
+                                            <div
+                                                 id="w-node-_46db956d-f668-74f8-c686-ed93682b55af-d39db01a"
+                                                 class="text_wrapper is-demo"
+                                            >
+                                                <p class="text-size-regular text-color-base-600">
+                                                    Lorem ipsum dolor sit amet, consectetur adipiscing
+                                                    elit. Suspendisse varius enim in eros elementum
+                                                    tristique. Duis cursus, mi quis viverra ornare,
+                                                    eros dolor interdum nulla, ut commodo diam libero
+                                                    vitae erat. Aenean faucibus nibh et justo cursus
+                                                    id rutrum lorem imperdiet. Nunc ut sem vitae risus
+                                                    tristique posuere.
+                                                </p>
+                                            </div>
+                                            <div x-data="" class="files-container">
+                                                <div class="files_holder">
+                                                    <template class="template"
+                                                    ><a href="#" class="file_upl w-inline-block"
+                                                    >
+                                                        <div class="w-layout-grid file_grid">
+                                                            <div
+                                                                 id="w-node-_46db956d-f668-74f8-c686-ed93682b55b7-d39db01a"
+                                                                 class="file_descr"
+                                                            >
+                                                                <div class="flex_horizontal">
+                                                                    <div class="file_type_holder action">
+                                                                        <div class="file_type_icon pdf">
+                                                                            <div>pdf</div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="file_title">
+                                                                        <div class="display-inlineflex">
+                                                                            FileName
+                                                                        </div>
+                                                                        <div
+                                                                             class="display-inlineflex extention"
+                                                                        >
+                                                                            .ext
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <img
+                                                                     loading="lazy"
+                                                                     src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/640b498538ea4d0ffac77e07_Butt-cross.svg"
+                                                                     alt="croix"
+                                                                     class="close_file"
+                                                                />
+                                                            </div>
+                                                            <div
+                                                                 id="w-node-_46db956d-f668-74f8-c686-ed93682b55c3-d39db01a"
+                                                                 class="upl_progress_bar"
+                                                            >
+                                                                <div
+                                                                     class="upl_progress_fill move-100"
+                                                                ></div>
+                                                            </div>
+                                                        </div>
+                                                    </a
+                                                    ></template>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div data-w-tab="Traitements" class="w-tab-pane"></div>
             <div data-w-tab="Conseils patient" class="w-tab-pane"></div>
         </div>
     </div>
@@ -383,7 +1342,7 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
      crossorigin="anonymous"
 ></script>
 <script
-     src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/js/webflow.f9e778101.js"
+     src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/js/webflow.c2fbf0359.js"
      type="text/javascript"
 ></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -403,16 +1362,15 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
 <!-- End Google Tag Manager (noscript) -->
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<!--<script src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@27c18caa4ddc53890151d6f6f2e09d16b3005c1c/ordotype-index-2024-05-27.js"></script>-->
-
 <script
-     src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@3637c84ef398ce8952e9c09c37e3dd1304f52f9a/ordotype-index-2024-05-27.js"></script>
+     src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@7fad5463975578c62baf863fc2ada00db43f69a9/ordotype-index-2024-06-04.js"></script>
+<!--<script src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@f65ae708176b547cbef1fd96257159dcfbadb714/ordotype-index-2024-06-04.js"></script>-->
 
 <script>
     window.addEventListener("DOMContentLoaded", (event) => {
         const skeletonElements =
              document.querySelectorAll("[ms-code-skeleton]");
-        
+
         skeletonElements.forEach((element, index) => {
             // Create a skeleton div
             const skeletonDiv = document.createElement("div");

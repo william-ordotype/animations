@@ -1,3 +1,4 @@
+import getFileExtByMimeType from "@assets/file_ext";
 import { PathologyItem } from "./pathologiesTypes.js";
 
 type NoteType = "notes" | "prescriptions" | "recommendations";
@@ -17,6 +18,7 @@ interface NoteItem {
 }
 
 interface NoteItemData {
+  rich_text_ordo: string;
   created_by: { role: AuthorRole; email: string; full_name?: string };
   created_on: string;
   documents?: FileData[];
@@ -57,7 +59,7 @@ interface FileData {
   file_name: string;
   file_url: string;
   member_id: string;
-  mime_type: string;
+  mime_type: keyof typeof getFileExtByMimeType;
   note_id: string;
   original_name?: string;
   size: number;
