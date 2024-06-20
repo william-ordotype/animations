@@ -80,6 +80,22 @@ const modalStore = {
         pathologyName: pathologies?.length > 0 ? pathologies[0].title : "",
         prescription_type: prescription_type,
       };
+
+      window.globals.createRTE = new Quill(".modal_text_editor_wrapper", {
+        theme: "snow",
+        modules: {
+          toolbar: [
+            [{ header: [1, 2, 3, 4, 5, 6, false] }],
+            ["bold", "italic", "underline", "strike"], // toggled buttons
+            [{ list: "ordered" }, { list: "bullet" }],
+            [{ align: [] }],
+            ["link", "image"],
+            ["blockquote", "code-block"],
+            [{ script: "sub" }, { script: "super" }], // superscript/subscript
+            [{ color: [] }, { background: [] }], // outdent/indent
+          ],
+        },
+      });
       window.globals.createRTE.clipboard.dangerouslyPasteHTML(rich_text_ordo);
       this.showModal = true;
       NProgress.done();

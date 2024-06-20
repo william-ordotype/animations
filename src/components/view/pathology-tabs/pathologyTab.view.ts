@@ -295,6 +295,12 @@ export function PathologyPaneNoteItem(): AlpineComponent<PathologyPaneNoteItemOp
         ["x-for"]: "noteFile in $store.notesStore.noteOpened.note.documents",
       };
     },
+    noteFileDownload() {
+      return {
+        ["x-bind:href"]: () => this.$data.noteFile?.file_url,
+        ["x-bind:title"]: () => this.$data.noteFile?.file_name,
+      };
+    },
     noteFilesIcon() {
       return {
         ["x-bind:class"]: () => {
@@ -304,6 +310,28 @@ export function PathologyPaneNoteItem(): AlpineComponent<PathologyPaneNoteItemOp
         ["x-text"]: () => {
           const mimeType = this.$data.noteFile?.mime_type;
           return mimeType && getMimeType(mimeType);
+        },
+      };
+    },
+    noteFileTitle() {
+      return {
+        ["x-text"]: () => this.$data.noteFile?.file_name.split(".")[0],
+      };
+    },
+    noteFileExt() {
+      return {
+        ["x-text"]: () => {
+          const mimeType = this.$data.noteFile?.mime_type;
+          return mimeType && `.${getMimeType(mimeType)}`;
+        },
+      };
+    },
+    noteEdit() {
+      return {
+        ["x-on:click"]: () => {
+          console.log("ho");
+          // @ts-expect-error
+          Alpine.store("modalStore").openModal(notesStore.noteOpened.note);
         },
       };
     },

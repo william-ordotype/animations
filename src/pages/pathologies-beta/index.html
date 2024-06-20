@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Last Published: Tue Jun 18 2024 18:10:58 GMT+0000 (Coordinated Universal Time) -->
+<!-- Last Published: Thu Jun 20 2024 17:41:09 GMT+0000 (Coordinated Universal Time) -->
 <html
      data-wf-domain="ordotype.webflow.io"
      data-wf-page="661c950b63939fbbd39db01a"
@@ -17,7 +17,7 @@
          name="google-site-verification"
     />
     <link
-         href="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.00b7f0f70.min.css"
+         href="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.357d07441.min.css"
          rel="stylesheet"
          type="text/css"
     />
@@ -280,13 +280,16 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
          name="viewport"
          content="width=device-width, initial-scale=1, maximum-scale=1"
     />
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet"/>
+    <script async src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
     
-    <script type="module" src="index.ts"></script>
+    
     <!-- [Attributes by Finsweet] CMS Load -->
     <script
          async
          src="https://cdn.jsdelivr.net/npm/@finsweet/attributes-cmsload@1/cmsload.js"
     ></script>
+    <script src="index.ts" type="module"></script>
     <script
          src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd%2F652d31f3dc22d7b4ee708e44%2F65c4b99013d2be46e4311665%2Fclarity_script-7.2.7.js"
          type="text/javascript"
@@ -302,7 +305,7 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
          data-duration-out="100"
          class="w-tabs"
     >
-        <div class="career_tabs-menu v2 w-tab-menu" x-data="PathologyTabList">
+        <div x-data="PathologyTabList" class="career_tabs-menu v2 w-tab-menu">
             <a
                  data-w-tab="Rappels cliniques"
                  class="career_tab-link is-btn w-inline-block w-tab-link"
@@ -310,8 +313,8 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                 <div class="text-weight-semibold">Rappels cliniques</div>
             </a
             ><a
-             x-bind="tab('notes')"
              data-w-tab="Notes"
+             x-bind="tab(&#x27;notes&#x27;)"
              class="career_tab-link is-btn w-inline-block w-tab-link w--current"
         >
             <div class="text-weight-semibold">Notes</div>
@@ -346,8 +349,8 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
             <div data-w-tab="Rappels cliniques" class="w-tab-pane"></div>
             <div
                  data-w-tab="Notes"
+                 x-data="PathologyPaneList(&#x27;notes&#x27;)"
                  class="w-tab-pane w--tab-active"
-                 x-data="PathologyPaneList('notes')"
             >
                 <div x-bind="layout.isEmpty" class="notes-first_step">
                     <div class="padding-medium padding-bottom">
@@ -386,38 +389,57 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                 </a
                                 >
                             </div>
-                            
                             <div class="explorer_wrapper">
-                                <template x-bind="noteListIterator">
-                                    <a
-                                         x-bind="noteElement"
-                                         href="#"
-                                         class="notes_link w-inline-block"
-                                    >
-                                        <div class="wrapper">
-                                            <div x-bind="noteTitle" class="inline">Notes</div>
+                                <template x-bind="noteListIterator" class="template"
+                                ><a
+                                     x-bind="noteElement"
+                                     href="#"
+                                     class="notes_link w-inline-block"
+                                >
+                                    <div class="wrapper">
+                                        <div x-bind="noteTitle" class="inline">
+                                            {{note title}}
                                         </div>
                                         <img
+                                             x-bind="isNoteSharedIcon"
                                              loading="lazy"
-                                             src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/65de29cb76a417bfe030b43e_arrow-right.svg"
-                                             alt="Flèche droite"
-                                             class="arrow-ww"
-                                        /></a>
-                                </template>
+                                             alt=""
+                                             src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/634971b76e9ed51a4de140fb_users.svg"
+                                             class="shared-icon"
+                                        />
+                                        <div class="file_type_icon_list">
+                                            <template x-bind="fileIconIterator" class="template"
+                                            >
+                                                <div
+                                                     x-bind="fileIconElement"
+                                                     class="file_type_icon pdf"
+                                                >
+                                                    <div>{{pdf}}</div>
+                                                </div>
+                                            </template
+                                            >
+                                        </div>
+                                    </div>
+                                    <img
+                                         loading="lazy"
+                                         src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/65de29cb76a417bfe030b43e_arrow-right.svg"
+                                         alt="Flèche droite"
+                                         class="arrow-ww"/></a
+                                ></template>
                             </div>
                         </div>
                         <div
+                             x-data="PathologyPaneNoteItem"
                              id="w-node-a15ee318-ed48-4598-b1e4-18349ab317b3-d39db01a"
                              class="viewre"
-                             x-data="PathologyPaneNoteItem"
                         >
-                            <template x-bind="layout.isNoteOpened">
-                                
+                            <template x-bind="layout.isNoteOpened" class="template"
+                            >
                                 <div class="w-layout-grid view_pre">
                                     <h2
+                                         x-bind="noteTitle"
                                          id="w-node-a15ee318-ed48-4598-b1e4-18349ab317b5-d39db01a"
                                          class="view_heading is-note"
-                                         x-bind="noteTitle"
                                     >
                                         {{Nom de la note}}
                                     </h2>
@@ -425,12 +447,17 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                          id="w-node-a15ee318-ed48-4598-b1e4-18349ab317b7-d39db01a"
                                          class="tags_wrapper"
                                     >
-                                        <template x-bind="notePathologiesIterator">
-                                            
+                                        <template
+                                             x-bind="notePathologiesIterator"
+                                             class="template"
+                                        >
                                             <div class="view_tag">
-                                                <div x-bind="notePathologyTitle">{{Pathologie associée}}</div>
+                                                <div x-bind="notePathologyTitle">
+                                                    {{Pathologie associée}}
+                                                </div>
                                             </div>
-                                        </template>
+                                        </template
+                                        >
                                     </div>
                                     <div
                                          id="w-node-a15ee318-ed48-4598-b1e4-18349ab317bc-d39db01a"
@@ -442,7 +469,10 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                         >
                                             <div class="display-inlineflex">Créé le</div>
                                             <div class="view_date_holder">
-                                                <div x-bind="noteCreatedOn" class="text-weight-semibold">
+                                                <div
+                                                     x-bind="noteCreatedOn"
+                                                     class="text-weight-semibold"
+                                                >
                                                     {{08/11/2022}}
                                                 </div>
                                             </div>
@@ -484,7 +514,9 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                                                         />
                                                                     </svg>
                                                                 </div>
-                                                                <div class="display-inlineflex">Modifier</div>
+                                                                <div class="display-inlineflex">
+                                                                    Modifier
+                                                                </div>
                                                             </div>
                                                         </a
                                                         ><a
@@ -509,7 +541,9 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                                                     />
                                                                 </svg>
                                                             </div>
-                                                            <div class="display-inlineflex">Imprimer</div>
+                                                            <div class="display-inlineflex">
+                                                                Imprimer
+                                                            </div>
                                                         </div>
                                                     </a
                                                     ><a
@@ -536,7 +570,9 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                                                     />
                                                                 </svg>
                                                             </div>
-                                                            <div class="display-inlineflex">Partager</div>
+                                                            <div class="display-inlineflex">
+                                                                Partager
+                                                            </div>
                                                         </div>
                                                     </a
                                                     ><a
@@ -569,7 +605,10 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                                     >
                                                     </nav>
                                                 </div>
-                                                <a href="#" class="sub_link is-vew w-inline-block"
+                                                <a
+                                                     x-bind="noteEdit"
+                                                     href="#"
+                                                     class="sub_link is-vew w-inline-block"
                                                 >
                                                     <div class="w-layout-grid grid_gap_8">
                                                         <div class="tab_icon w-embed">
@@ -618,7 +657,9 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                             ><a href="#" class="sub_link is-vew w-inline-block"
                                             >
                                                 <div class="w-layout-grid grid_gap_8">
-                                                    <div class="tab_icon display-inlineflex w-embed">
+                                                    <div
+                                                         class="tab_icon display-inlineflex w-embed"
+                                                    >
                                                         <svg
                                                              width="1.25rem"
                                                              height="1.25rem"
@@ -667,9 +708,9 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                             </div>
                                             <img
                                                  id="w-node-a15ee318-ed48-4598-b1e4-18349ab317f2-d39db01a"
+                                                 loading="lazy"
                                                  alt="X"
                                                  src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/65de263de590d94d2640880c_x.svg"
-                                                 loading="lazy"
                                                  class="close_icon-v show-mobile-lanscape"
                                             />
                                         </div>
@@ -689,32 +730,36 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                             /></a>
                                     </div>
                                     <div
+                                         x-bind="noteRichText"
                                          id="w-node-a15ee318-ed48-4598-b1e4-18349ab317f8-d39db01a"
                                          class="text_wrapper is-demo"
-                                         x-bind="noteRichText"
                                     >
                                         <p class="text-size-regular text-color-base-600">
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                            Suspendisse varius enim in eros elementum tristique.
-                                            Duis cursus, mi quis viverra ornare, eros dolor interdum
-                                            nulla, ut commodo diam libero vitae erat. Aenean
-                                            faucibus nibh et justo cursus id rutrum lorem imperdiet.
-                                            Nunc ut sem vitae risus tristique posuere.
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing
+                                            elit. Suspendisse varius enim in eros elementum
+                                            tristique. Duis cursus, mi quis viverra ornare, eros
+                                            dolor interdum nulla, ut commodo diam libero vitae
+                                            erat. Aenean faucibus nibh et justo cursus id rutrum
+                                            lorem imperdiet. Nunc ut sem vitae risus tristique
+                                            posuere.
                                         </p>
                                     </div>
-                                    <div x-data="" class="files-container">
+                                    <div class="files-container">
                                         <div class="files_holder">
                                             <template x-bind="noteFilesIterator" class="template"
                                             ><a href="#" class="file_upl w-inline-block"
                                             >
                                                 <div class="w-layout-grid file_grid">
                                                     <div
-                                                         id="w-node-a15ee318-ed48-4598-b1e4-18349ab31800-d39db01a"
+                                                         id="w-node-b6f1939c-b3d3-1e05-8f84-9d517db41cae-d39db01a"
                                                          class="file_descr"
                                                     >
                                                         <div class="flex_horizontal">
                                                             <div class="file_type_holder action">
-                                                                <div x-bind="noteFilesIcon" class="file_type_icon pdf">
+                                                                <div
+                                                                     x-bind="noteFilesIcon"
+                                                                     class="file_type_icon pdf"
+                                                                >
                                                                     <div>pdf</div>
                                                                 </div>
                                                             </div>
@@ -727,15 +772,9 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <img
-                                                             loading="lazy"
-                                                             src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/640b498538ea4d0ffac77e07_Butt-cross.svg"
-                                                             alt="croix"
-                                                             class="close_file"
-                                                        />
                                                     </div>
                                                     <div
-                                                         id="w-node-a15ee318-ed48-4598-b1e4-18349ab3180c-d39db01a"
+                                                         id="w-node-b6f1939c-b3d3-1e05-8f84-9d517db41cba-d39db01a"
                                                          class="upl_progress_bar"
                                                     >
                                                         <div class="upl_progress_fill move-100"></div>
@@ -745,596 +784,824 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                             ></template>
                                         </div>
                                     </div>
-                                </div>
+                                </div
+                                >
                             </template>
                         </div>
                     </div>
                 </div>
             </div>
-            <div data-w-tab="Bilans" class="w-tab-pane">
-                <div
-                     data-current="test - My bilans"
-                     data-easing="ease"
-                     data-duration-in="300"
-                     data-duration-out="100"
-                     class="tabs-side w-tabs"
-                >
-                    <div class="tabs-menu-side w-tab-menu">
-                        <a
-                             data-w-tab="test - Bilans"
-                             data-w-id="6ac5b04d-6b13-8aad-ac52-e19efb0d064c"
-                             class="tab_link_pr w-inline-block w-tab-link"
-                        >
-                            <div class="tab_menu_overlay"></div>
-                            <div class="tab_menu_text">Bilans</div>
-                        </a
-                        ><a
-                         data-w-tab="test - My bilans"
-                         data-w-id="6ac5b04d-6b13-8aad-ac52-e19efb0d0650"
-                         class="tab_link_pr w-inline-block w-tab-link w--current"
-                    >
-                        <div class="tab_menu_text">Mes bilans</div>
-                    </a
-                    >
-                    </div>
-                    <div class="tabs-content-side w-tab-content">
-                        <div
-                             data-w-tab="test - Bilans"
-                             class="tab_pane_side w-tab-pane"
-                        >
-                            <div class="pathologies_tab_row">
-                                <div class="pathologies_tab_col-left"></div>
-                                <div class="pathologies_tab_col-right">
-                                    <iframe class="pathology_tab-view-iframe"></iframe>
-                                </div>
-                            </div>
-                            <div
-                                 data-delay="0"
-                                 data-hover="false"
-                                 class="drop_mobile w-dropdown"
-                            >
-                                <div class="side_toggle w-dropdown-toggle">
-                                    <div class="icon-7 w-icon-dropdown-toggle"></div>
-                                    <div>Selectionnez un bilan</div>
-                                </div>
-                                <nav class="side_list w-dropdown-list">
-                                    <a href="#" class="side_link active w-inline-block"
-                                    >
-                                        <div class="w-layout-grid grid_context">
-                                            <div class="display-inlineflex">
-                                                Diagnostic des angines virales et à SGA
-                                            </div>
-                                            <div class="tab_a w-embed">
-                                                <svg
-                                                     width="0.5rem"
-                                                     height="0.875rem"
-                                                     viewBox="0 0 8 14"
-                                                     fill="none"
-                                                     xmlns="http://www.w3.org/2000/svg"
-                                                >
-                                                    <path
-                                                         d="M1 13L7 7L1 1"
-                                                         stroke="currentColor"
-                                                         stroke-width="2"
-                                                         stroke-linecap="round"
-                                                         stroke-linejoin="round"
-                                                    />
-                                                </svg>
-                                            </div>
-                                        </div>
-                                    </a
-                                    ><a href="#" class="side_link w-inline-block"
-                                >
-                                    <div class="w-layout-grid grid_context">
-                                        <div class="display-inlineflex">Prise en charge</div>
-                                        <div class="tab_a w-embed">
-                                            <svg
-                                                 width="0.5rem"
-                                                 height="0.875rem"
-                                                 viewBox="0 0 8 14"
-                                                 fill="none"
-                                                 xmlns="http://www.w3.org/2000/svg"
-                                            >
-                                                <path
-                                                     d="M1 13L7 7L1 1"
-                                                     stroke="currentColor"
-                                                     stroke-width="2"
-                                                     stroke-linecap="round"
-                                                     stroke-linejoin="round"
-                                                />
-                                            </svg>
-                                        </div>
-                                    </div>
-                                </a
-                                ><a href="#" class="side_link w-inline-block"
-                                >
-                                    <div class="w-layout-grid grid_context">
-                                        <div class="display-inlineflex">Complications</div>
-                                        <div class="tab_a w-embed">
-                                            <svg
-                                                 width="0.5rem"
-                                                 height="0.875rem"
-                                                 viewBox="0 0 8 14"
-                                                 fill="none"
-                                                 xmlns="http://www.w3.org/2000/svg"
-                                            >
-                                                <path
-                                                     d="M1 13L7 7L1 1"
-                                                     stroke="currentColor"
-                                                     stroke-width="2"
-                                                     stroke-linecap="round"
-                                                     stroke-linejoin="round"
-                                                />
-                                            </svg>
-                                        </div>
-                                    </div>
-                                </a
-                                ><a href="#" class="side_link w-inline-block"
-                                >
-                                    <div class="w-layout-grid grid_context">
-                                        <div class="display-inlineflex">
-                                            Diagnostics différentiels
-                                        </div>
-                                        <div class="tab_a w-embed">
-                                            <svg
-                                                 width="0.5rem"
-                                                 height="0.875rem"
-                                                 viewBox="0 0 8 14"
-                                                 fill="none"
-                                                 xmlns="http://www.w3.org/2000/svg"
-                                            >
-                                                <path
-                                                     d="M1 13L7 7L1 1"
-                                                     stroke="currentColor"
-                                                     stroke-width="2"
-                                                     stroke-linecap="round"
-                                                     stroke-linejoin="round"
-                                                />
-                                            </svg>
-                                        </div>
-                                    </div>
-                                </a
-                                ><a href="#" class="side_link w-inline-block"
-                                >
-                                    <div class="w-layout-grid grid_context">
-                                        <div class="display-inlineflex">Sources</div>
-                                        <div class="tab_a w-embed">
-                                            <svg
-                                                 width="0.5rem"
-                                                 height="0.875rem"
-                                                 viewBox="0 0 8 14"
-                                                 fill="none"
-                                                 xmlns="http://www.w3.org/2000/svg"
-                                            >
-                                                <path
-                                                     d="M1 13L7 7L1 1"
-                                                     stroke="currentColor"
-                                                     stroke-width="2"
-                                                     stroke-linecap="round"
-                                                     stroke-linejoin="round"
-                                                />
-                                            </svg>
-                                        </div>
-                                    </div
-                                    >
-                                </a>
-                                </nav>
-                            </div>
-                            <a href="#" class="button is-tabs w-inline-block"
-                            >
-                                <div class="button_text">Voir mes ordonnances</div>
-                            </a
-                            >
-                        </div>
-                        <div
-                             data-w-tab="test - My bilans"
-                             class="tab_pane_side sec w-tab-pane w--tab-active"
-                        >
-                            <div class="notes-cre">
-                                <div class="w-layout-grid notes-view">
-                                    <div
-                                         id="w-node-_46db956d-f668-74f8-c686-ed93682b555d-d39db01a"
-                                         class="submenu"
-                                    >
-                                        <div class="button-wrapper is-left _1">
-                                            <a href="#" class="button is-gradient w-inline-block"
-                                            >
-                                                <div class="button_text">Ajouter une note</div>
-                                            </a
-                                            >
-                                        </div>
-                                        <div class="explorer_wrapper">
-                                            <a href="#" class="notes_link w-inline-block"
-                                            >
-                                                <div class="wrapper">
-                                                    <div class="inline">Notes</div>
-                                                    <div class="inline">Angine</div>
-                                                </div>
-                                                <img
-                                                     loading="lazy"
-                                                     src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/65de29cb76a417bfe030b43e_arrow-right.svg"
-                                                     alt="Flèche droite"
-                                                     class="arrow-ww"
-                                                /></a>
-                                        </div>
-                                    </div>
-                                    <div
-                                         id="w-node-_46db956d-f668-74f8-c686-ed93682b556a-d39db01a"
-                                         class="viewre"
-                                    >
-                                        <div class="w-layout-grid view_pre">
-                                            <h2
-                                                 id="w-node-_46db956d-f668-74f8-c686-ed93682b556c-d39db01a"
-                                                 class="view_heading is-note"
-                                            >
-                                                {{Nom de la note}}
-                                            </h2>
-                                            <div
-                                                 id="w-node-_46db956d-f668-74f8-c686-ed93682b556e-d39db01a"
-                                                 class="tags_wrapper"
-                                            >
-                                                <template class="template"
-                                                >
-                                                    <div class="view_tag">
-                                                        <div>{{Pathologie associée}}</div>
-                                                    </div>
-                                                </template
-                                                >
-                                            </div>
-                                            <div
-                                                 id="w-node-_46db956d-f668-74f8-c686-ed93682b5573-d39db01a"
-                                                 class="flex--m"
-                                            >
-                                                <div
-                                                     id="w-node-_46db956d-f668-74f8-c686-ed93682b5574-d39db01a"
-                                                     class="view_date"
-                                                >
-                                                    <div class="display-inlineflex">Créé le</div>
-                                                    <div class="view_date_holder">
-                                                        <div class="text-weight-semibold">
-                                                            {{08/11/2022}}
-                                                        </div>
-                                                    </div>
-                                                    <div class="view_author"></div>
-                                                </div>
-                                                <div class="action_view">
-                                                    <div class="sub_menu action_menu">
-                                                        <div
-                                                             data-delay="0"
-                                                             data-hover="false"
-                                                             class="sub_menu_dropdown show-mobile-lanscape w-dropdown"
-                                                        >
-                                                            <div
-                                                                 class="sub_toggle action w-dropdown-toggle"
-                                                            >
-                                                                <img
-                                                                     loading="lazy"
-                                                                     src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6408f49fe058903e30fd205f_drop-dots.svg"
-                                                                     alt="burger menu"
-                                                                     class="dero_icon ac"
-                                                                />
-                                                            </div>
-                                                            <nav class="sub_list_action w-dropdown-list">
-                                                                <a href="#" class="sub_link w-inline-block"
-                                                                >
-                                                                    <div class="w-layout-grid grid_gap_8">
-                                                                        <div class="tab_icon w-embed">
-                                                                            <svg
-                                                                                 width="1.25rem"
-                                                                                 height="1.25rem"
-                                                                                 viewBox="0 0 20 20"
-                                                                                 fill="none"
-                                                                                 xmlns="http://www.w3.org/2000/svg"
-                                                                            >
-                                                                                <path
-                                                                                     d="M9.16602 3.33333H3.33268C2.89065 3.33333 2.46673 3.50893 2.15417 3.82149C1.84161 4.13405 1.66602 4.55797 1.66602 5V16.6667C1.66602 17.1087 1.84161 17.5326 2.15417 17.8452C2.46673 18.1577 2.89065 18.3333 3.33268 18.3333H14.9993C15.4414 18.3333 15.8653 18.1577 16.1779 17.8452C16.4904 17.5326 16.666 17.1087 16.666 16.6667V10.8333M15.416 2.08332C15.7475 1.7518 16.1972 1.56555 16.666 1.56555C17.1349 1.56555 17.5845 1.7518 17.916 2.08332C18.2475 2.41484 18.4338 2.86448 18.4338 3.33332C18.4338 3.80216 18.2475 4.2518 17.916 4.58332L9.99935 12.5L6.66602 13.3333L7.49935 9.99999L15.416 2.08332Z"
-                                                                                     stroke="currentColor"
-                                                                                     stroke-width="2"
-                                                                                     stroke-linecap="round"
-                                                                                     stroke-linejoin="round"
-                                                                                />
-                                                                            </svg>
-                                                                        </div>
-                                                                        <div class="display-inlineflex">
-                                                                            Modifier
-                                                                        </div>
-                                                                    </div>
-                                                                </a
-                                                                ><a
-                                                                 href="#"
-                                                                 class="sub_link borders top w-inline-block"
-                                                            >
-                                                                <div class="w-layout-grid grid_gap_8">
-                                                                    <div class="tab_icon w-embed">
-                                                                        <svg
-                                                                             width="1.25rem"
-                                                                             height="1.25rem"
-                                                                             viewBox="0 0 16 16"
-                                                                             fill="none"
-                                                                             xmlns="http://www.w3.org/2000/svg"
-                                                                        >
-                                                                            <path
-                                                                                 d="M3.99992 5.99998V1.33331H11.9999V5.99998M3.99992 12H2.66659C2.31296 12 1.97382 11.8595 1.72378 11.6095C1.47373 11.3594 1.33325 11.0203 1.33325 10.6666V7.33331C1.33325 6.97969 1.47373 6.64055 1.72378 6.3905C1.97382 6.14046 2.31296 5.99998 2.66659 5.99998H13.3333C13.6869 5.99998 14.026 6.14046 14.2761 6.3905C14.5261 6.64055 14.6666 6.97969 14.6666 7.33331V10.6666C14.6666 11.0203 14.5261 11.3594 14.2761 11.6095C14.026 11.8595 13.6869 12 13.3333 12H11.9999M3.99992 9.33331H11.9999V14.6666H3.99992V9.33331Z"
-                                                                                 stroke="currentColor"
-                                                                                 stroke-width="1.5"
-                                                                                 stroke-linecap="round"
-                                                                                 stroke-linejoin="round"
-                                                                            />
-                                                                        </svg>
-                                                                    </div>
-                                                                    <div class="display-inlineflex">
-                                                                        Imprimer
-                                                                    </div>
-                                                                </div>
-                                                            </a
-                                                            ><a
-                                                                 href="#"
-                                                                 class="sub_link borders w-inline-block"
-                                                            >
-                                                                <div class="w-layout-grid grid_gap_8">
-                                                                    <div
-                                                                         class="tab_icon display-inlineflex w-embed"
-                                                                    >
-                                                                        <svg
-                                                                             width="1.25rem"
-                                                                             height="1.25rem"
-                                                                             viewBox="0 0 20 20"
-                                                                             fill="none"
-                                                                             xmlns="http://www.w3.org/2000/svg"
-                                                                        >
-                                                                            <path
-                                                                                 d="M1.33398 9.99999V16.6667C1.33398 17.1087 1.50958 17.5326 1.82214 17.8452C2.1347 18.1577 2.55862 18.3333 3.00065 18.3333H13.0007C13.4427 18.3333 13.8666 18.1577 14.1792 17.8452C14.4917 17.5326 14.6673 17.1087 14.6673 16.6667V9.99999M11.334 4.99999L8.00065 1.66666M8.00065 1.66666L4.66732 4.99999M8.00065 1.66666V12.5"
-                                                                                 stroke="currentColor"
-                                                                                 stroke-width="2"
-                                                                                 stroke-linecap="round"
-                                                                                 stroke-linejoin="round"
-                                                                            />
-                                                                        </svg>
-                                                                    </div>
-                                                                    <div class="display-inlineflex">
-                                                                        Partager
-                                                                    </div>
-                                                                </div>
-                                                            </a
-                                                            ><a
-                                                                 href="#"
-                                                                 class="sub_link color_red w-inline-block"
-                                                            >
-                                                                <div class="w-layout-grid grid_gap_8">
-                                                                    <div class="tab_icon color_red w-embed">
-                                                                        <svg
-                                                                             width="1.25rem"
-                                                                             height="1.25rem"
-                                                                             viewBox="0 0 20 20"
-                                                                             fill="none"
-                                                                             xmlns="http://www.w3.org/2000/svg"
-                                                                        >
-                                                                            <path
-                                                                                 d="M1.5 5.00002H3.16667M3.16667 5.00002H16.5M3.16667 5.00002V16.6667C3.16667 17.1087 3.34226 17.5326 3.65482 17.8452C3.96738 18.1578 4.39131 18.3334 4.83333 18.3334H13.1667C13.6087 18.3334 14.0326 18.1578 14.3452 17.8452C14.6577 17.5326 14.8333 17.1087 14.8333 16.6667V5.00002H3.16667ZM5.66667 5.00002V3.33335C5.66667 2.89133 5.84226 2.4674 6.15482 2.15484C6.46738 1.84228 6.89131 1.66669 7.33333 1.66669H10.6667C11.1087 1.66669 11.5326 1.84228 11.8452 2.15484C12.1577 2.4674 12.3333 2.89133 12.3333 3.33335V5.00002"
-                                                                                 stroke="currentColor"
-                                                                                 stroke-width="2"
-                                                                                 stroke-linecap="round"
-                                                                                 stroke-linejoin="round"
-                                                                            />
-                                                                        </svg>
-                                                                    </div>
-                                                                    <div class="display-inlineflex">
-                                                                        Supprimer
-                                                                    </div>
-                                                                </div>
-                                                            </a
-                                                            >
-                                                            </nav>
-                                                        </div>
-                                                        <a
-                                                             href="#"
-                                                             class="sub_link is-vew w-inline-block"
-                                                        >
-                                                            <div class="w-layout-grid grid_gap_8">
-                                                                <div class="tab_icon w-embed">
-                                                                    <svg
-                                                                         width="1.25rem"
-                                                                         height="1.25rem"
-                                                                         viewBox="0 0 20 20"
-                                                                         fill="none"
-                                                                         xmlns="http://www.w3.org/2000/svg"
-                                                                    >
-                                                                        <path
-                                                                             d="M9.16602 3.33333H3.33268C2.89065 3.33333 2.46673 3.50893 2.15417 3.82149C1.84161 4.13405 1.66602 4.55797 1.66602 5V16.6667C1.66602 17.1087 1.84161 17.5326 2.15417 17.8452C2.46673 18.1577 2.89065 18.3333 3.33268 18.3333H14.9993C15.4414 18.3333 15.8653 18.1577 16.1779 17.8452C16.4904 17.5326 16.666 17.1087 16.666 16.6667V10.8333M15.416 2.08332C15.7475 1.7518 16.1972 1.56555 16.666 1.56555C17.1349 1.56555 17.5845 1.7518 17.916 2.08332C18.2475 2.41484 18.4338 2.86448 18.4338 3.33332C18.4338 3.80216 18.2475 4.2518 17.916 4.58332L9.99935 12.5L6.66602 13.3333L7.49935 9.99999L15.416 2.08332Z"
-                                                                             stroke="currentColor"
-                                                                             stroke-width="2"
-                                                                             stroke-linecap="round"
-                                                                             stroke-linejoin="round"
-                                                                        />
-                                                                    </svg>
-                                                                </div>
-                                                                <div class="display-inlineflex">
-                                                                    Modifier
-                                                                </div>
-                                                            </div>
-                                                        </a
-                                                        ><a
-                                                         href="#"
-                                                         class="sub_link is-vew w-inline-block"
-                                                    >
-                                                        <div class="w-layout-grid grid_gap_8">
-                                                            <div class="tab_icon w-embed">
-                                                                <svg
-                                                                     width="1.25rem"
-                                                                     height="1.25rem"
-                                                                     viewBox="0 0 16 16"
-                                                                     fill="none"
-                                                                     xmlns="http://www.w3.org/2000/svg"
-                                                                >
-                                                                    <path
-                                                                         d="M3.99992 5.99998V1.33331H11.9999V5.99998M3.99992 12H2.66659C2.31296 12 1.97382 11.8595 1.72378 11.6095C1.47373 11.3594 1.33325 11.0203 1.33325 10.6666V7.33331C1.33325 6.97969 1.47373 6.64055 1.72378 6.3905C1.97382 6.14046 2.31296 5.99998 2.66659 5.99998H13.3333C13.6869 5.99998 14.026 6.14046 14.2761 6.3905C14.5261 6.64055 14.6666 6.97969 14.6666 7.33331V10.6666C14.6666 11.0203 14.5261 11.3594 14.2761 11.6095C14.026 11.8595 13.6869 12 13.3333 12H11.9999M3.99992 9.33331H11.9999V14.6666H3.99992V9.33331Z"
-                                                                         stroke="currentColor"
-                                                                         stroke-width="1.5"
-                                                                         stroke-linecap="round"
-                                                                         stroke-linejoin="round"
-                                                                    />
-                                                                </svg>
-                                                            </div>
-                                                            <div class="display-inlineflex">
-                                                                Imprimer
-                                                            </div>
-                                                        </div>
-                                                    </a
-                                                    ><a
-                                                         href="#"
-                                                         class="sub_link is-vew w-inline-block"
-                                                    >
-                                                        <div class="w-layout-grid grid_gap_8">
-                                                            <div
-                                                                 class="tab_icon display-inlineflex w-embed"
-                                                            >
-                                                                <svg
-                                                                     width="1.25rem"
-                                                                     height="1.25rem"
-                                                                     viewBox="0 0 20 20"
-                                                                     fill="none"
-                                                                     xmlns="http://www.w3.org/2000/svg"
-                                                                >
-                                                                    <path
-                                                                         d="M1.33398 9.99999V16.6667C1.33398 17.1087 1.50958 17.5326 1.82214 17.8452C2.1347 18.1577 2.55862 18.3333 3.00065 18.3333H13.0007C13.4427 18.3333 13.8666 18.1577 14.1792 17.8452C14.4917 17.5326 14.6673 17.1087 14.6673 16.6667V9.99999M11.334 4.99999L8.00065 1.66666M8.00065 1.66666L4.66732 4.99999M8.00065 1.66666V12.5"
-                                                                         stroke="currentColor"
-                                                                         stroke-width="2"
-                                                                         stroke-linecap="round"
-                                                                         stroke-linejoin="round"
-                                                                    />
-                                                                </svg>
-                                                            </div>
-                                                            <div class="display-inlineflex">
-                                                                Partager
-                                                            </div>
-                                                        </div>
-                                                    </a
-                                                    ><a
-                                                         href="#"
-                                                         class="sub_link is-vew color-red w-inline-block"
-                                                    >
-                                                        <div class="w-layout-grid grid_gap_8">
-                                                            <div class="tab_icon color_red w-embed">
-                                                                <svg
-                                                                     width="1.25rem"
-                                                                     height="1.25rem"
-                                                                     viewBox="0 0 20 20"
-                                                                     fill="none"
-                                                                     xmlns="http://www.w3.org/2000/svg"
-                                                                >
-                                                                    <path
-                                                                         d="M1.5 5.00002H3.16667M3.16667 5.00002H16.5M3.16667 5.00002V16.6667C3.16667 17.1087 3.34226 17.5326 3.65482 17.8452C3.96738 18.1578 4.39131 18.3334 4.83333 18.3334H13.1667C13.6087 18.3334 14.0326 18.1578 14.3452 17.8452C14.6577 17.5326 14.8333 17.1087 14.8333 16.6667V5.00002H3.16667ZM5.66667 5.00002V3.33335C5.66667 2.89133 5.84226 2.4674 6.15482 2.15484C6.46738 1.84228 6.89131 1.66669 7.33333 1.66669H10.6667C11.1087 1.66669 11.5326 1.84228 11.8452 2.15484C12.1577 2.4674 12.3333 2.89133 12.3333 3.33335V5.00002"
-                                                                         stroke="currentColor"
-                                                                         stroke-width="2"
-                                                                         stroke-linecap="round"
-                                                                         stroke-linejoin="round"
-                                                                    />
-                                                                </svg>
-                                                            </div>
-                                                            <div class="display-inlineflex">
-                                                                Supprimer
-                                                            </div>
-                                                        </div>
-                                                    </a
-                                                    >
-                                                    </div>
-                                                    <img
-                                                         id="w-node-_46db956d-f668-74f8-c686-ed93682b55a9-d39db01a"
-                                                         alt="X"
-                                                         src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/65de263de590d94d2640880c_x.svg"
-                                                         loading="lazy"
-                                                         class="close_icon-v show-mobile-lanscape"
-                                                    />
-                                                </div>
-                                            </div>
-                                            <div
-                                                 id="w-node-_46db956d-f668-74f8-c686-ed93682b55aa-d39db01a"
-                                                 class="align-right hide"
-                                            >
-                                                <a href="#" class="button is-copy w-inline-block"
-                                                >
-                                                    <div class="button_text">Copier</div>
-                                                    <img
-                                                         loading="lazy"
-                                                         src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6408f49dd8cc0c80bdf6c081_copi.svg"
-                                                         alt="copy button"
-                                                         class="icon_copy"
-                                                    /></a>
-                                            </div>
-                                            <div
-                                                 id="w-node-_46db956d-f668-74f8-c686-ed93682b55af-d39db01a"
-                                                 class="text_wrapper is-demo"
-                                            >
-                                                <p class="text-size-regular text-color-base-600">
-                                                    Lorem ipsum dolor sit amet, consectetur adipiscing
-                                                    elit. Suspendisse varius enim in eros elementum
-                                                    tristique. Duis cursus, mi quis viverra ornare,
-                                                    eros dolor interdum nulla, ut commodo diam libero
-                                                    vitae erat. Aenean faucibus nibh et justo cursus
-                                                    id rutrum lorem imperdiet. Nunc ut sem vitae risus
-                                                    tristique posuere.
-                                                </p>
-                                            </div>
-                                            <div x-data="" class="files-container">
-                                                <div class="files_holder">
-                                                    <template class="template"
-                                                    ><a href="#" class="file_upl w-inline-block"
-                                                    >
-                                                        <div class="w-layout-grid file_grid">
-                                                            <div
-                                                                 id="w-node-_46db956d-f668-74f8-c686-ed93682b55b7-d39db01a"
-                                                                 class="file_descr"
-                                                            >
-                                                                <div class="flex_horizontal">
-                                                                    <div class="file_type_holder action">
-                                                                        <div class="file_type_icon pdf">
-                                                                            <div>pdf</div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="file_title">
-                                                                        <div class="display-inlineflex">
-                                                                            FileName
-                                                                        </div>
-                                                                        <div
-                                                                             class="display-inlineflex extention"
-                                                                        >
-                                                                            .ext
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <img
-                                                                     loading="lazy"
-                                                                     src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/640b498538ea4d0ffac77e07_Butt-cross.svg"
-                                                                     alt="croix"
-                                                                     class="close_file"
-                                                                />
-                                                            </div>
-                                                            <div
-                                                                 id="w-node-_46db956d-f668-74f8-c686-ed93682b55c3-d39db01a"
-                                                                 class="upl_progress_bar"
-                                                            >
-                                                                <div
-                                                                     class="upl_progress_fill move-100"
-                                                                ></div>
-                                                            </div>
-                                                        </div>
-                                                    </a
-                                                    ></template>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div data-w-tab="Bilans" class="w-tab-pane"></div>
             <div data-w-tab="Traitements" class="w-tab-pane"></div>
             <div data-w-tab="Conseils patient" class="w-tab-pane"></div>
         </div>
     </div>
 </div>
+<main class="main-wrapper doc-wrapper-copy">
+    <div
+         x-bind="modalBackdrop"
+         x-data="DocumentsModal"
+         x-cloak=""
+         class="modal_view"
+    >
+        <div class="create_document_form w-form">
+            <form
+                 id="wf-form-mutateDocument"
+                 name="wf-form-mutateDocument"
+                 data-name="mutateDocument"
+                 method="get"
+                 class="create_document_content"
+                 data-wf-page-id="661c950b63939fbbd39db01a"
+                 data-wf-element-id="6d5d6422-2698-7006-c052-872c53c1f961"
+            >
+                <div x-bind="modalElem" class="view_wrapper edit_document">
+                    <div class="action_navigation">
+                        <div class="action_header">
+                            <h2
+                                 x-text="$store.modalStore.content(&#x27;modal&#x27;,&#x27;title&#x27;)"
+                                 class="view_heading"
+                            >
+                                Nom de {{<span>l’ordonnance}}</span>
+                            </h2>
+                        </div>
+                        <div class="w-layout-grid action_btns">
+                            <a
+                                 x-bind="showBeforeCancel(true)"
+                                 href="#"
+                                 class="button is-annuler w-inline-block"
+                            >
+                                <div class="button_text">Annuler</div>
+                            </a
+                            ><a
+                             x-bind="showBeforeSave(true)"
+                             href="#"
+                             class="button is-docs w-inline-block"
+                        >
+                            <div class="button_text">Sauvegarder</div>
+                        </a
+                        >
+                        </div>
+                    </div>
+                    <div
+                         id="docs-rich-text"
+                         x-bind="createOneRichText"
+                         class="modal_text_editor_wrapper"
+                    >
+                        <div id="editor-container" class="editor-container"></div>
+                    </div>
+                    <div class="modal_footer">
+                        <a
+                             x-bind="showInsertUrlDialog(true)"
+                             x-show="$store.modalStore.form.type !== &#x27;notes&#x27;"
+                             href="#"
+                             class="button is-url-copy w-inline-block"
+                        >
+                            <div class="button_text">Générer un QR code</div>
+                        </a
+                        >
+                        <div x-data="DocumentFileInput" class="files_container">
+                            <div class="files_modal_columns">
+                                <div
+                                     id="files-server"
+                                     x-data=""
+                                     class="files_wrapper_modal"
+                                >
+                                    <div class="files_holder">
+                                        <template x-bind="listFilesFromServer" class="template"
+                                        >
+                                            <div class="file_block">
+                                                <div
+                                                     x-data="DocumentFileListItem(file)"
+                                                     class="w-layout-grid file_grid"
+                                                >
+                                                    <template
+                                                         id="w-node-_6d5d6422-2698-7006-c052-872c53c1f97d-d39db01a"
+                                                         x-if="isImg"
+                                                         class="template"
+                                                    >
+                                                        <div
+                                                             id="w-node-_6d5d6422-2698-7006-c052-872c53c1f97e-d39db01a"
+                                                             class="file_img_wrapper"
+                                                        >
+                                                            <img
+                                                                 x-bind:src="isImg &amp;&amp; thumbnail_url"
+                                                                 src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/649a52cf2ee9756547f93e3a_SCR-20230626-tzag.png"
+                                                                 class="file_img"
+                                                            /></div
+                                                        >
+                                                    </template>
+                                                    <div
+                                                         id="w-node-_6d5d6422-2698-7006-c052-872c53c1f980-d39db01a"
+                                                         class="file_description"
+                                                    >
+                                                        <div class="flex_horizontal">
+                                                            <div class="file_type_holder action">
+                                                                <div
+                                                                     x-bind:class="fileExt"
+                                                                     class="file_type_icon pdf"
+                                                                >
+                                                                    <div x-text="fileExt">pdf</div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="file_title">
+                                                                <div
+                                                                     x-bind:title="fileName"
+                                                                     x-text="fileName"
+                                                                     class="file-label"
+                                                                >
+                                                                    {{FileName}}
+                                                                </div>
+                                                                <div
+                                                                     x-text="&#x27;.&#x27;+ fileExt"
+                                                                     class="ext-label"
+                                                                >
+                                                                    .{{ext}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="w-embed">
+                                                            <img
+                                                                 src="https://global-uploads.webflow.com/604b9ac88b080efc7ce802bd/640b498538ea4d0ffac77e07_Butt-cross.svg"
+                                                                 loading="lazy"
+                                                                 alt=""
+                                                                 class="close_file"
+                                                                 x-on:click.once="deleteServerFiles($event, fileId)"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div
+                                            >
+                                        </template>
+                                    </div>
+                                </div>
+                                <template x-if="filesAttached !== null"
+                                >
+                                    <address id="files-local" class="files_wrapper_modal">
+                                        <div class="files_holder">
+                                            <template x-bind="listFilesFromInput" class="template"
+                                            >
+                                                <div class="file_block">
+                                                    <div class="w-layout-grid file_grid">
+                                                        <div
+                                                             id="w-node-_6d5d6422-2698-7006-c052-872c53c1f992-d39db01a"
+                                                             class="file_description"
+                                >
+                                                            <div class="flex_horizontal">
+                                                                <div class="file_type_holder action">
+                                                                    <div
+                                                                         x-bind:class="getFileExtension(fileItem.name)"
+                                                                         class="file_type_icon pdf"
+                                                                    >
+                                                                        <div
+                                                                             x-text="getFileExtension(fileItem.name)"
+                                                                        >
+                                                                            pdf
+                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="file_title">
+                                                                    <div
+                                                                         x-text="removeFileExtension(fileItem.name)"
+                                                                         class="file-label"
+                                                                    >
+                                                                        {{FileName}}
+                                                                    </div>
+                                                                    <div
+                                                                         x-text="&#x27;.&#x27; + getFileExtension(fileItem.name)"
+                                                                         class="ext-label"
+                                                                    >
+                                                                        .{{ext}}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <img
+                                                                 x-on:click="handleDeleteFile(fileItem, index)"
+                                                                 loading="lazy"
+                                                                 alt="croix"
+                                                                 src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/640b498538ea4d0ffac77e07_Butt-cross.svg"
+                                                                 class="close_file"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </div
+                                                >
+                                            </template>
+                                        </div>
+                                    </address
+                                    >
+                                </template>
+                            </div>
+                            <div class="w-embed">
+                                <div id="FileUpload" class="file-upload__bg">
+                                    <div class="input_container">
+                                        <input
+                                             type="file"
+                                             multiple
+                                             class="file-upload__input"
+                                             x-on:change="handleFileChange($event)"
+                                             x-on:dragover="$el.parentElement.classList.add('active')"
+                                             x-on:dragleave="$el.parentElement.classList.remove('active')"
+                                             x-on:drop="$el.parentElement.classList.remove('active')"
+                                             accept=".jpg, .jpeg, .png, .webp, .gif, .bmp, .mp4, .avi, .wmv, .mov, .doc, .docx, .ppt, .pptx, .xls, .xlsx, .pdf, .zip, .txt, .odp, .key"
+                                        />
+                                        <div class="empty-cols">
+                                            <img
+                                                 alt=""
+                                                 src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/634971b94a6db345b0103192_upload-cloud.svg"
+                                                 class="upload-file-icon mobile-image"
+                                            />
+                                            <p class="text-gray-700">
+                                                Faites glisser vos fichiers ici ou cliquez dans
+                                                cette zone.
+                                            </p>
+                                            <button class="w-button button upload-file-btn">
+                                                Importer des fichiers
+                                            </button>
+                                            <!-- <a href="javascript:void(0)" class="file-select__btn"
+                                >Select a file</a> -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <style>
+                                    .input_container {
+                                        text-align: center;
+                                    }
+                                    
+                                    .upload-file-btn {
+                                        display: inline-block;
+                                        width: auto;
+                                        padding: 9px 15px;
+                                    }
+                                    
+                                    .upload-file-icon {
+                                        width: 40px;
+                                        opacity: 0.5;
+                                    }
+                                    
+                                    .input_container input {
+                                        cursor: hover;
+                                    }
+                                    
+                                    /* This will hide the image for mobile devices */
+                                    @media (max-width: 768px) {
+                                        .mobile-image {
+                                            display: none;
+                                        }
+                                        
+                                        /* This will show a background image in the place of the original image */
+                                        .empty-cols::before {
+                                            content: "";
+                                            display: block;
+                                            width: 40px;
+                                            height: 40px;
+                                            background-image: url("https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/64fecc58880af21199b19460_camera%20(1).jpg");
+                                            background-size: cover;
+                                            background-repeat: no-repeat;
+                                            margin: 0 auto; /* This centers the background image */
+                                            opacity: 0.5;
+                                        }
+                                    }
+                                </style>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div x-bind="modalDialogBackdrop" class="modal_dialog_backdrop">
+                    <div
+                         x-bind="insertUrlDialog"
+                         class="view_wrapper insert_url_dialog"
+                    >
+                        <div class="header_holder context_comment">
+                            <div class="inner_header">
+                                <div class="display-inlineflex text_space">
+                                    Ajouter un QR code
+                                </div>
+                                <img
+                                     x-bind="showInsertUrlDialog(false)"
+                                     loading="lazy"
+                                     alt="exit croix"
+                                     src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6409a60abee24b0929f62f72_cross.svg"
+                                     class="close_icon is_corner"
+                                />
+                            </div>
+                        </div>
+                        <div class="inputs_wrapper">
+                            <div
+                                 id="w-node-_6d5d6422-2698-7006-c052-872c53c1f9a7-d39db01a"
+                                 class="action_input_wrapper"
+                            >
+                                <label for="recommendation-url-2" class="action_field_label"
+                                >URL du site</label
+                                ><input
+                                 class="action_text_field w-input"
+                                 maxlength="256"
+                                 name="recommendation-url-2"
+                                 data-name="Recommendation Url 2"
+                                 placeholder="https://example.com"
+                                 x-model="url"
+                                 type="text"
+                                 id="recommendation-url-2"
+                            />
+                            </div>
+                            <div class="action_input_wrapper">
+                                <label
+                                     for="recommendation-url-qr-2"
+                                     class="action_field_label"
+                                >Titre</label
+                                ><input
+                                 class="action_text_field w-input"
+                                 maxlength="256"
+                                 name="recommendation-url-qr-2"
+                                 data-name="Recommendation Url Qr 2"
+                                 placeholder="Titre du QR code"
+                                 x-model="urlTitle"
+                                 type="text"
+                                 id="recommendation-url-qr-2"
+                            />
+                            </div>
+                            <div class="w-layout-grid action_btns_form">
+                                <a
+                                     x-bind="showInsertUrlDialog(false)"
+                                     href="#"
+                                     class="button is-annuler w-inline-block"
+                                >
+                                    <div class="button_text">Annuler</div>
+                                </a
+                                ><input
+                                 type="submit"
+                                 data-wait="Please wait..."
+                                 x-on:click="insertUrlSubmit"
+                                 class="button is-docs w-button"
+                                 value="Sauvegarder"
+                            />
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                         x-bind="beforeCancelDialog"
+                         x-cloak=""
+                         class="view_wrapper confirm_cancel_dialog"
+                    >
+                        <div class="header_holder context_comment">
+                            <div class="inner_header">
+                                <div class="display-inlineflex text_space">Annuler</div>
+                                <img
+                                     x-bind="showBeforeCancel(false)"
+                                     loading="lazy"
+                                     alt="exit croix"
+                                     src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6409a60abee24b0929f62f72_cross.svg"
+                                     class="close_icon is_corner"
+                                />
+                                <div
+                                     x-text="$store.modalStore.content(&#x27;beforeCancel&#x27;,&#x27;title&#x27;)"
+                                     class="display-inlineflex hide-mobile-landscape"
+                                >
+                                    {{la modification d’une ordonnance}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comment_wrapper">
+                            <p
+                                 x-text="$store.modalStore.content(&#x27;beforeCancel&#x27;, &#x27;description&#x27;)"
+                                 class="context_comment text-weight-light"
+                            >
+                                {{Vous êtes sur le point d’annuler la modification d’une
+                                ordonnance. Si vous confirmer, alors les changements seront
+                                définitivement supprimés.}}
+                            </p>
+                        </div>
+                        <div class="w-layout-grid action_btns_form ann">
+                            <a
+                                 x-bind="showBeforeCancel(false)"
+                                 href="#"
+                                 class="button is-annuler w-inline-block"
+                            >
+                                <div class="button_text">Revenir au document</div>
+                            </a
+                            ><a
+                             x-bind="confirmCancel"
+                             href="#"
+                             class="button red w-inline-block"
+                        >
+                            <div
+                                 class="lottie-anim-buttom"
+                                 data-w-id="6d5d6422-2698-7006-c052-872c53c1f9c4"
+                                 data-animation-type="lottie"
+                                 data-src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/61f2cf4b2c288f34818ada35_52601-waiting.json"
+                                 data-loop="1"
+                                 data-direction="1"
+                                 data-autoplay="1"
+                                 data-is-ix2-target="0"
+                                 data-renderer="svg"
+                                 data-default-duration="3.0030028806881908"
+                                 data-duration="0"
+                            ></div>
+                            <div class="button_text">Supprimer la modification</div>
+                        </a
+                        >
+                        </div>
+                    </div>
+                    <div
+                         x-bind="beforeSaveDialog"
+                         x-cloak=""
+                         class="view_wrapper before_cancel_dialog"
+                    >
+                        <div class="header_holder context_comment">
+                            <div class="inner_header">
+                                <div class="display-inlineflex text_space">Sauvegarder</div>
+                                <div
+                                     x-text="$store.modalStore.content(&#x27;beforeSave&#x27;, &#x27;title&#x27;)"
+                                     class="display-inlineflex hide-mobile-landscape"
+                                >
+                                    {{une nouvelle fiche conseil}}
+                                </div>
+                                <img
+                                     x-bind="showBeforeSave(false)"
+                                     loading="lazy"
+                                     alt="exit croix"
+                                     src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6409a60abee24b0929f62f72_cross.svg"
+                                     class="close_icon is_corner"
+                                />
+                            </div>
+                        </div>
+                        <div class="inputs_wrapper">
+                            <div class="action_input_wrapper">
+                                <label
+                                     for="docs-title-2"
+                                     x-text="$store.modalStore.content(&#x27;beforeSave&#x27;, &#x27;inputTitle&#x27;)"
+                                     class="action_field_label"
+                                >{{Nom de l’ordonnance}}</label
+                                ><input
+                                 class="action_text_field w-input"
+                                 maxlength="256"
+                                 x-bind:placeholder="$store.modalStore.content(&#x27;beforeSave&#x27;,&#x27;phInputTitle&#x27;)"
+                                 name="title"
+                                 data-name="title"
+                                 placeholder="{{Ma nouvelle ordonnance}}"
+                                 x-model="modalStore.form.title"
+                                 type="text"
+                                 id="docs-title"
+                                 required=""
+                            />
+                            </div>
+                            <div
+                                 x-show="modalStore.form.type === &#x27;prescriptions&#x27;"
+                                 class="action_input_wrapper"
+                            >
+                                <label
+                                     for="prescription_type-2"
+                                     x-text="$store.modalStore.content(&#x27;beforeSave&#x27;, &#x27;inputTypePrescription&#x27;)"
+                                     class="action_field_label"
+                                >Sélectionner le type d’ordonnance</label
+                                ><select
+                                 id="prescription_type-2"
+                                 name="prescription_type-2"
+                                 data-name="Prescription Type 2"
+                                 x-model="modalStore.form.prescription_type"
+                                 x-bind:disabled="modalStore.form.type !== &#x27;prescriptions&#x27;"
+                                 class="action_text_field select_action w-select"
+                            >
+                                <option value="">Type d’ordonnance</option>
+                                <option value="balance_sheet">Bilan</option>
+                                <option value="treatment">Traitement</option>
+                            </select>
+                            </div>
+                            <div
+                                 x-bind="once"
+                                 x-data="PathologiesAutocomplete()"
+                                 class="action_search_wrapper pathology_autocomplete"
+                            >
+                                <div
+                                     x-text="$store.modalStore.content(&#x27;beforeSave&#x27;, &#x27;inputPathology&#x27;)"
+                                     class="action_field_label"
+                                >
+                                    {{Associer une pathologie à cette fiche conseil :}}
+                                </div>
+                                <div class="action_search_holder">
+                                    <div class="html-embed-39 w-embed">
+                                        <style>
+                                            select:nth-of-type(1) {
+                                                color: rgba(12, 14, 22, 0.6);
+                                            }
+                                        </style>
+                                        
+                                        <div id="pathology-autocomplete"></div>
+                                    </div>
+                                </div>
+                                <div class="search_result_wrapper context_comment">
+                                    <template x-bind="showSearchResults" class="template"
+                                    >
+                                        <div class="search_result_holder primary100">
+                                            <div class="inner_header">
+                                                <div x-bind="searchTitle">{{Pathologie}}</div>
+                                                <img
+                                                     x-on:click="clearSearchResults(pathology)"
+                                                     loading="lazy"
+                                                     alt="exit croix"
+                                                     src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6409a60abee24b0929f62f72_cross.svg"
+                                                     class="close_icon is_search"
+                                                />
+                                            </div>
+                                        </div
+                                        >
+                                    </template>
+                                </div>
+                            </div>
+                            <div class="action_input_wrapper">
+                                <label class="w-checkbox checkbox-field-2"
+                                ><input
+                                     id="aknowledgePrivacy-2"
+                                     type="checkbox"
+                                     name="aknowledgePrivacy-2"
+                                     data-name="Aknowledge Privacy 2"
+                                     required=""
+                                     class="w-checkbox-input checkbox padding-right--5rem"
+                                /><span
+                                     class="text-size-small w-form-label"
+                                     for="aknowledgePrivacy-2"
+                                >Je reconnais savoir qu&#x27;Ordotype n&#x27;est pas un
+                        hébergeur de données de santé et je confirme que ce
+                        document ne contient
+                        <strong class="text-size-small"
+                        >AUCUNE donnée personnelle</strong
+                        >.</span
+                                ></label
+                                >
+                            </div>
+                            <div
+                                 x-show="$store.modalStore.formError"
+                                 class="error_message_container"
+                            >
+                                <div
+                                     x-html="$store.modalStore.formErrorMessage"
+                                     x-cloak=""
+                                     class="form_error_text"
+                                >
+                                    {{Error text}}
+                                </div>
+                            </div>
+                            <div class="w-layout-grid action_btns_form">
+                                <a
+                                     x-bind="showBeforeSave(false)"
+                                     href="#"
+                                     class="button is-annuler w-inline-block"
+                                >
+                                    <div class="button_text">Annuler</div>
+                                </a
+                                ><input
+                                 type="submit"
+                                 data-wait="Patientez..."
+                                 x-bind="submitBtn"
+                                 id="w-node-_6d5d6422-2698-7006-c052-872c53c1f9f3-d39db01a"
+                                 class="button is-docs submit w-button"
+                                 value="Confirmer"
+                            />
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                         x-bind="beforeDeleteDialog"
+                         class="view_wrapper before_delete_dialog"
+                    >
+                        <div class="header_holder context_comment">
+                            <div class="inner_header">
+                                <div class="display-inlineflex text_space">Supprimer</div>
+                                <img
+                                     x-on:click="$store.modalStore.closeBeforeDelete()"
+                                     loading="lazy"
+                                     alt="exit croix"
+                                     src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6409a60abee24b0929f62f72_cross.svg"
+                                     class="close_icon is_corner"
+                                />
+                                <div
+                                     x-text="$store.modalStore.contentBeforeDelete(&#x27;beforeDelete&#x27;,&#x27;title&#x27;)"
+                                     class="display-inlineflex hide-mobile-landscape"
+                                >
+                                    {{une ordonnance}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comment_wrapper">
+                            <p
+                                 x-text="$store.modalStore.contentBeforeDelete(&#x27;beforeDelete&#x27;,&#x27;description&#x27;)"
+                                 class="context_comment text-weight-light"
+                            >
+                                {{Vous êtes sur le point de supprimer une ordonnance. Une
+                                fois la suppression confirmée, vous n’aurez plus accès à
+                                cette ordonnance.}}
+                            </p>
+                        </div>
+                        <div class="w-layout-grid action_btns_form ann">
+                            <a
+                                 x-on:click="$store.modalStore.closeBeforeDelete($event)"
+                                 href="#"
+                                 class="button is-annuler w-inline-block"
+                            >
+                                <div class="button_text">Annuler</div>
+                            </a
+                            ><a
+                             x-on:click="$store.modalStore.submitDelete($event)"
+                             href="#"
+                             class="button is-docs w-inline-block"
+                        >
+                            <div
+                                 class="lottie-anim-buttom"
+                                 data-w-id="6d5d6422-2698-7006-c052-872c53c1fa04"
+                                 data-animation-type="lottie"
+                                 data-src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/61f2cf4b2c288f34818ada35_52601-waiting.json"
+                                 data-loop="1"
+                                 data-direction="1"
+                                 data-autoplay="1"
+                                 data-is-ix2-target="0"
+                                 data-renderer="svg"
+                                 data-default-duration="3.0030028806881908"
+                                 data-duration="0"
+                            ></div>
+                            <div class="button_text">Confirmer</div>
+                        </a
+                        >
+                        </div>
+                    </div>
+                    <div x-show="false" class="view_wrapper r-voquer_partage">
+                        <div class="header_holder context_comment">
+                            <div class="inner_header">
+                                <div class="display-inlineflex text_space">Révoquer</div>
+                                <div class="display-inlineflex hide-mobile-landscape">
+                                    le partage
+                                </div>
+                                <img
+                                     loading="lazy"
+                                     src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6409a60abee24b0929f62f72_cross.svg"
+                                     alt="exit croix"
+                                     class="close_icon is_corner"
+                                />
+                            </div>
+                        </div>
+                        <div class="comment_wrapper">
+                            <p class="context_comment text-weight-light">
+                                Vous êtes sur le point de révoquer le partage de ce
+                                document. Une fois confirmée, les autres utilisateurs
+                                d’Ordotype n’auront plus accés à ce document.
+                            </p>
+                        </div>
+                        <div class="w-layout-grid action_btns_form ann">
+                            <a href="#" class="button is-annuler w-inline-block"
+                            >
+                                <div class="button_text">Annuler</div>
+                            </a
+                            ><a href="#" class="button is-docs w-inline-block"
+                        >
+                            <div class="button_text">Confirmer</div>
+                        </a
+                        >
+                        </div>
+                    </div>
+                    <div
+                         x-data="DocumentsShareModal"
+                         x-bind="shareModal"
+                         class="view_wrapper sauvegarder-ordonnance"
+                    >
+                        <div class="header_holder context_comment_partager">
+                            <div class="inner_header">
+                                <div class="display-inlineflex text_space">Partager</div>
+                                <div x-bind="noteTitle" class="display-inlineflex">
+                                    {{“Nom du document”}}
+                                </div>
+                                <img
+                                     x-bind="closeSharingModal"
+                                     loading="lazy"
+                                     alt="exit croix"
+                                     src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6409a60abee24b0929f62f72_cross.svg"
+                                     class="close_icon is_corner"
+                                />
+                            </div>
+                        </div>
+                        <figure class="activer_par_wrapper-2">
+                            <div class="toggle-sharing-options w-embed">
+                                <label class="slideon slideon-lg slideon-p2">
+                                    <input type="checkbox" x-bind="switchButton"/>
+                                    <span class="slideon-slider"></span>
+                                </label>
+                            </div>
+                            <div>
+                                <div class="text-size-regular text-weight-semibold">
+                                    Activer le partage de ce document
+                                </div>
+                                <div class="text-color-base-700 text-size-small">
+                                    Ce document pourra être partagé avec tous les utilisateurs
+                                    d’Ordotype
+                                </div>
+                            </div>
+                        </figure>
+                        <div
+                             x-bind="sharingOptionsWrapper"
+                             class="inputs_wrapper partage_inputs"
+                        >
+                            <div class="action_input_wrapper">
+                                <label
+                                     for="Ma-nouvelle-ordonnance"
+                                     class="action_field_label"
+                                >Partager par email</label
+                                >
+                                <div class="flex_horizontal no-wrap">
+                                    <input
+                                         class="action_text_field w-input"
+                                         autocomplete="off"
+                                         maxlength="256"
+                                         name="docEmailInvitee-2"
+                                         aria-autocomplete="none"
+                                         data-name="Doc Email Invitee 2"
+                                         x-bind="sharedEmailInput"
+                                         placeholder="nom.prénom@mail.com"
+                                         type="email"
+                                         id="docEmailInvitee-2"
+                                    /><a
+                                     x-bind="addEmailtoListBtn"
+                                     href="#"
+                                     class="button addemail w-button"
+                                >Ajouter</a
+                                >
+                                </div>
+                            </div>
+                            <div class="search_result_wrapper partage">
+                                <template x-bind="sharedEmailsList" class="template"
+                                >
+                                    <div class="search_result_holder">
+                                        <div class="inner_header isemail">
+                                            <div x-bind="sharedEmailName" class="emailtext">
+                                                {{name@mail.com}}
+                                            </div>
+                                            <img
+                                                 x-bind="deleteSharedEmail"
+                                                 loading="lazy"
+                                                 alt="exit croix"
+                                                 src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/6409a60abee24b0929f62f72_cross.svg"
+                                                 class="close_icon is_search"
+                                            />
+                                        </div>
+                                    </div
+                                    >
+                                </template>
+                            </div>
+                            <div class="w-layout-grid action_btns_form partage-btns">
+                                <div
+                                     id="w-node-_6d5d6422-2698-7006-c052-872c53c1fa38-d39db01a"
+                                     class="copy_link_wrapper"
+                                >
+                                    <a
+                                         id="copy-shared-link"
+                                         x-bind="copySharedLinkBtn"
+                                         href="#"
+                                         class="button is-copy part w-inline-block"
+                                    >
+                                        <div class="button_text">Copier le lien</div>
+                                        <img
+                                             loading="lazy"
+                                             src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/640e172a66334e596103b030_link.svg"
+                                             alt="URL"
+                                             class="icon_copy rt"
+                                        /></a>
+                                    <div
+                                         x-bind="copySharedLinkSuccessMsg"
+                                         class="copy_message"
+                                    >
+                                        <img
+                                             loading="lazy"
+                                             src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/640e151c4b3f3456e32acd02_check-circle.svg"
+                                             alt="copié"
+                                             class="copy_mark"
+                                        />
+                                        <div class="text-size-small text-weight-semibold">
+                                            Lien copié
+                                        </div>
+                                    </div>
+                                </div>
+                                <a
+                                     id="submit-share-btn"
+                                     x-bind="validateButton"
+                                     href="#"
+                                     class="button is-docs w-node-_6d5d6422-2698-7006-c052-872c53c1fa41-d39db01a w-inline-block"
+                                >
+                                    <div class="button_text">
+                                        <strong>Partager</strong>
+                                    </div>
+                                </a
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="w-form-done">
+                <div>Thank you! Your submission has been received!</div>
+            </div>
+            <div class="w-form-fail">
+                <div>Oops! Something went wrong while submitting the form.</div>
+            </div>
+        </div>
+    </div>
+</main>
 <script
      src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=604b9ac88b080efc7ce802bd"
      type="text/javascript"
@@ -1342,7 +1609,7 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
      crossorigin="anonymous"
 ></script>
 <script
-     src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/js/webflow.c2fbf0359.js"
+     src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/js/webflow.238a50074.js"
      type="text/javascript"
 ></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -1362,9 +1629,10 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
 <!-- End Google Tag Manager (noscript) -->
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<!--<script src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@7fad5463975578c62baf863fc2ada00db43f69a9/ordotype-index-2024-06-04.js"></script>-->
+
 <script
-     src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@7fad5463975578c62baf863fc2ada00db43f69a9/ordotype-index-2024-06-04.js"></script>
-<!--<script src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@f65ae708176b547cbef1fd96257159dcfbadb714/ordotype-index-2024-06-04.js"></script>-->
+     src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@aee4e97dfdf74a8951edb58f5b9a6fdfb064bc63/ordotype-index-2024-06-04.js"></script>
 
 <script>
     window.addEventListener("DOMContentLoaded", (event) => {
