@@ -148,6 +148,16 @@ components on the page
 
 `x-ordo-utils="tabs"`
 
+**Secondary Properties**
+
+`data-default-width=${number}`
+
+Optional. Fixes issue of current tab not displayed on first load, caused because when tabs are not in view. For example, when a tab is inside a hidden tab
+
+`data-default-left=${number}`
+
+Optional. Used alongside `data-default-width` in case there's padding so the tab is not all the way to the left
+
 **Code Example**
 
 ```html
