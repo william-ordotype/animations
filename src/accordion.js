@@ -4,6 +4,7 @@ function accordion() {
         const $accordion = $(elem);
         const $questions = $accordion.find('[data-accordion-elem=question]');
         const $answers = $accordion.find('[data-accordion-elem=answer]');
+        const $icons = $accordion.find('[data-accordion-elem=icon]');
 
         $answers.hide(); // Hide all answers initially
 
@@ -13,7 +14,9 @@ function accordion() {
             const $icon = $this.find('[data-accordion-elem=icon]');
 
             // Slide up all answers except the one being clicked
+            $questions.not(this).removeClass('open')
             $answers.not($answer).slideUp();
+            $icons.not($icon).css({'transform': 'rotate(0deg)', 'display': 'inline-block', transition: 'all 0.3s ease'});
 
             $this.toggleClass('open')
 
