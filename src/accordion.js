@@ -22,7 +22,7 @@ function accordion() {
                 duration: 300,
             });
             if ($this.hasClass('open')) {
-                $icon.css({'transform': 'rotate(45deg)', 'display': 'inline-block', transition: 'all 0.3s ease'});
+                $icon.css({'transform': 'rotate(90deg)', 'display': 'inline-block', transition: 'all 0.3s ease'});
             } else {
                 $icon.css({'transform': 'rotate(0deg)', 'display': 'inline-block', transition: 'all 0.3s ease'});
             }
