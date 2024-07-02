@@ -241,9 +241,11 @@ function PathologiesAutocomplete() {
     },
     clearSearchResults(obj) {
       // Delete obj from pathology array
-      const index = Alpine.store("modalStore").form.pathology.indexOf(obj);
+      const index = Alpine.store("modalStore").form.pathologies.indexOf(
+        obj._id
+      );
       if (index > -1) {
-        Alpine.store("modalStore").form.pathology.splice(index, 1);
+        Alpine.store("modalStore").form.pathologies.splice(index, 1);
       }
     },
     once() {
@@ -301,7 +303,6 @@ function PathologiesAutocomplete() {
                     if (pathologyExists) {
                       return;
                     }
-
                     Alpine.store("modalStore").form.pathologies.push({
                       _id: obj.item._id,
                       title: obj.itemInputValue,
