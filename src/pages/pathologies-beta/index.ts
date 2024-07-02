@@ -56,19 +56,19 @@ Alpine.store(StateStore.MODAL, modalStore);
 Alpine.store(StateStore.TOASTER, toasterStore);
 Alpine.store(StateStore.SHARE, shareStore);
 
-Alpine.data("PathologyTabList", PathologyTabList);
-Alpine.data("PathologyPaneList", PathologyPaneList);
-Alpine.data("PathologyPaneNoteItem", PathologyPaneNoteItem);
-
 Alpine.data("PathologiesNoteList", PathologiesNoteList);
 Alpine.data("PathologiesNoteItem", PathologiesNoteItem);
 Alpine.data("PathologiesAutocomplete", PathologiesAutocomplete);
 
 // Documents Modal
-Alpine.data("DocumentsModal", DocumentsModal);
+Alpine.data("DocumentsModal", DocumentsModal); // Order matters. It needs to create the modal Quill RTE
 Alpine.data("OpenModalByType", OpenModalByType);
 Alpine.data("PathologiesAutocomplete", PathologiesAutocomplete);
 Alpine.data("DeleteSelectedNotes", DeleteSelectedNotes);
+
+Alpine.data("PathologyTabList", PathologyTabList);
+Alpine.data("PathologyPaneList", PathologyPaneList);
+Alpine.data("PathologyPaneNoteItem", PathologyPaneNoteItem);
 
 // Documents Files located in drawer and modal
 Alpine.data("DocumentFileListItem", DocumentFileListItem);

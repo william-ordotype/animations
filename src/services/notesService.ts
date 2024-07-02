@@ -218,6 +218,8 @@ class NotesService extends ApiService {
     prescription_type?: "" | "balance_sheet" | "treatment";
     pathology_slug: string;
   }) {
+    this.createNewAbortController();
+
     const validatedPayload = await getListValidation({
       page,
       limit,
@@ -244,4 +246,4 @@ class NotesService extends ApiService {
   }
 }
 
-export default NotesService;
+export default new NotesService();

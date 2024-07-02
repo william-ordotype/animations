@@ -1,5 +1,5 @@
 /* global $ */
-
+import "nprogress/nprogress.css";
 import "../../styles.scss";
 import focus from "@alpinejs/focus";
 import Alpine from "alpinejs";
@@ -23,12 +23,10 @@ import {
   DocumentFileInput,
   DocumentFileListItem,
 } from "@components/DocumentsFiles.js";
-import pathologiesStore from "../../store/pathologies.store";
 import myNotesStore from "../../store/myNotes.store";
 import shareStore from "../../store/share.store";
 import { StateStore } from "@utils/enums";
 import DocumentsShareModal from "../../components/Notes/DocumentsShareModal";
-import NProgress from "nprogress";
 import { setLocale } from "yup";
 import { errorMessageFr } from "../../validation/errorMessages";
 import {
@@ -38,6 +36,12 @@ import {
 } from "@utils/toastMessages";
 import { noteFormMsg } from "@utils/modalMessages";
 import intersect from "@alpinejs/intersect";
+import UsersService from "@services/usersService";
+import {
+  PathologyPaneList,
+  PathologyPaneNoteItem,
+  PathologyTabList,
+} from "@components/view/pathology-tabs/pathologyTab.view";
 
 console.log("pathologies");
 
@@ -45,13 +49,12 @@ window.Alpine = Alpine;
 
 /**
  * Declaring global variables and running auth check before Alpine starts
- * @returns {Promise<void>}
  */
 async function init() {
   globals.run();
-  NProgress.start();
-  const getUser = await $memberstackDom.getCurrentMember();
-  Alpine.store(StateStore.USER, userStore(getUser));
+  const currentUser = await UsersService.getUser();
+
+  Alpine.store(StateStore.USER, userStore(currentUser));
   setLocale({ ...errorMessageFr, ...window.validationMsgCustom });
 }
 
@@ -63,7 +66,7 @@ Alpine.store(StateStore.MY_NOTES, myNotesStore);
 Alpine.store(StateStore.MODAL, modalStore);
 Alpine.store(StateStore.TOASTER, toasterStore);
 Alpine.store(StateStore.SHARE, shareStore);
-Alpine.store("pathologiesStore", pathologiesStore);
+// Alpine.store("pathologiesStore", pathologiesStore);
 
 /**
  * Declaring local state for each component
@@ -80,6 +83,10 @@ Alpine.data("DeleteSelectedNotes", DeleteSelectedNotes);
 Alpine.data("PathologiesNoteList", PathologiesNoteList);
 Alpine.data("PathologiesNoteItem", PathologiesNoteItem);
 Alpine.data("PathologiesAutocomplete", PathologiesAutocomplete);
+
+Alpine.data("PathologyTabList", PathologyTabList);
+Alpine.data("PathologyPaneList", PathologyPaneList);
+Alpine.data("PathologyPaneNoteItem", PathologyPaneNoteItem);
 
 // Documents Files located in drawer and modal
 Alpine.data("DocumentFileListItem", DocumentFileListItem);

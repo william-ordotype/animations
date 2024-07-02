@@ -2,18 +2,19 @@
 // @ts-nocheck
 
 import Alpine from "alpinejs";
-import NotesService from "../services/notesService";
 import { StateStore } from "@utils/enums";
 import {
   setDeleteNotes,
   setNoteList,
   setNoteOpened,
+  setRemoveNotes,
 } from "../actions/notesActions.js";
 import NProgress from "nprogress";
 import PathologiesService from "../services/pathologiesService";
-import { INotesStore } from "@store/myNotes.store";
+import { INotesStore, PathologyTab } from "@store/myNotes.store";
+import notesService from "@services/notesService";
+import { getNotesFromPathologyTab } from "@components/view/pathology-tabs/pathologyTab.controller";
 
-const notesService = new NotesService();
 const pathologiesService = new PathologiesService();
 
 const modalStore = {
@@ -81,21 +82,6 @@ const modalStore = {
         prescription_type: prescription_type,
       };
 
-      window.globals.createRTE = new Quill(".modal_text_editor_wrapper", {
-        theme: "snow",
-        modules: {
-          toolbar: [
-            [{ header: [1, 2, 3, 4, 5, 6, false] }],
-            ["bold", "italic", "underline", "strike"], // toggled buttons
-            [{ list: "ordered" }, { list: "bullet" }],
-            [{ align: [] }],
-            ["link", "image"],
-            ["blockquote", "code-block"],
-            [{ script: "sub" }, { script: "super" }], // superscript/subscript
-            [{ color: [] }, { background: [] }], // outdent/indent
-          ],
-        },
-      });
       window.globals.createRTE.clipboard.dangerouslyPasteHTML(rich_text_ordo);
       this.showModal = true;
       NProgress.done();
@@ -107,19 +93,21 @@ const modalStore = {
       this.form.type = config.type;
       this.showModal = true;
       if (window.location.pathname.includes("pathologies")) {
-        const pathologies = await pathologiesService.searchBySlug(
-          window.pathologies.slug
-        );
+        const pathologySlug =
+          location.host === "localhost:3021"
+            ? "acne"
+            : location.href.split("/")[4]!;
+        const res = await pathologiesService.searchBySlug(pathologySlug);
         this.form.pathologies = [
           {
-            _id: pathologies._id,
-            title: pathologies.title,
+            _id: res.data._id,
+            title: res.data.title,
           },
         ];
 
         window.pathology = {
-          _id: pathologies._id,
-          title: pathologies.title,
+          _id: res.data._id,
+          title: res.data.title,
         };
       } else {
         this.form.pathologies = [];
@@ -152,6 +140,36 @@ const modalStore = {
 
     NProgress.done();
   },
+
+  // TODO migrate this function to modal component
+  async submitDeleteFromPathologies(ev) {
+    const notesStore = Alpine.store(StateStore.MY_NOTES) as INotesStore;
+
+    NProgress.start();
+    ev.preventDefault();
+    this.closeBeforeDelete();
+    notesStore.drawerOpened = false;
+
+    try {
+      await setRemoveNotes(
+        { noteIds: this.deleteList },
+        { noteStore: notesStore }
+      );
+
+      await getNotesFromPathologyTab(
+        1,
+        notesStore.pathologyActiveTab,
+        location.host === "localhost:3021"
+          ? "acne"
+          : location.href.split("/")[4]!,
+        notesStore
+      );
+    } catch (err) {
+      console.error(err);
+    }
+    NProgress.done();
+  },
+
   // Shared notes modal
   removeShareNoteList: [],
 
@@ -232,7 +250,10 @@ const modalStore = {
           component.dispatchEvent(window.customEvents.loadingTrigger);
         });
 
-        if (Alpine.store("drawerStore").showDrawer === true) {
+        if (
+          Alpine.store("drawerStore") &&
+          Alpine.store("drawerStore").showDrawer === true
+        ) {
           await setNoteOpened(form._id, {
             noteStore: noteStore,
             modalStore: Alpine.store(StateStore.MODAL),

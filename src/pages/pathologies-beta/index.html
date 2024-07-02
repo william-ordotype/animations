@@ -606,7 +606,7 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                                     </nav>
                                                 </div>
                                                 <a
-                                                     x-bind="noteEdit"
+                                                     x-bind="actions.noteEdit"
                                                      href="#"
                                                      class="sub_link is-vew w-inline-block"
                                                 >
@@ -633,7 +633,7 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                                 </a
                                                 ><a href="#" class="sub_link is-vew w-inline-block"
                                             >
-                                                <div class="w-layout-grid grid_gap_8">
+                                                <div x-bind="actions.notePrint" class="w-layout-grid grid_gap_8">
                                                     <div class="tab_icon w-embed">
                                                         <svg
                                                              width="1.25rem"
@@ -654,7 +654,8 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                                     <div class="display-inlineflex">Imprimer</div>
                                                 </div>
                                             </a
-                                            ><a href="#" class="sub_link is-vew w-inline-block"
+                                            ><a x-bind="actions.noteShare" href="#"
+                                                class="sub_link is-vew w-inline-block"
                                             >
                                                 <div class="w-layout-grid grid_gap_8">
                                                     <div
@@ -680,6 +681,7 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                                 </div>
                                             </a
                                             ><a
+                                                 x-bind="actions.noteDelete"
                                                  href="#"
                                                  class="sub_link is-vew color-red w-inline-block"
                                             >

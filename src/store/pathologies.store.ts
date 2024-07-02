@@ -2,10 +2,14 @@
 // @ts-nocheck ToDo Refactor Loading State custom event
 
 import { setNoteList } from "../actions/notesActions";
+import { INotesStore } from "@store/myNotes.store";
+import Alpine from "alpinejs";
+import { StateStore } from "@utils/enums";
 
 const pathologiesStore = {
   pathologies: [],
   async init() {
+    const notesStore = Alpine.store(StateStore.MY_NOTES) as INotesStore;
     window.memberToken = window.$memberstackDom.getMemberCookie();
     console.log("note list init");
     if (!window.memberToken) {
@@ -65,11 +69,16 @@ const pathologiesStore = {
       window.pathologies = {
         slug: pathologySlug,
       };
-      await setNoteList({
-        page: 1,
-        limit: 50,
-        pathology_slug: pathologySlug,
-      });
+      await setNoteList(
+        {
+          page: 1,
+          limit: 50,
+          pathology_slug: pathologySlug,
+        },
+        {
+          noteStore: notesStore,
+        }
+      );
       noteListComponents.forEach((component) => {
         component.dispatchEvent(window.customEvents.loadingCancel);
       });

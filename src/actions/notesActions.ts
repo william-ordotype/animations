@@ -1,7 +1,7 @@
 import Alpine from "alpinejs";
 
 import { NotesUrls, StateStore } from "@utils/enums";
-import NotesService from "@services/notesService";
+import noteService from "@services/notesService";
 import { INotesStore } from "@store/myNotes.store";
 import { IToastStore } from "@store/toaster.store";
 import { IUserStore } from "@store/user.store";
@@ -9,8 +9,7 @@ import { handleCloseDrawer } from "@components/Notes/DocumentsDrawer.js";
 import toasterActions from "./toasterActions";
 import { InferType } from "yup";
 import { getListSchema } from "../validation/notesValidation";
-
-const noteService = new NotesService();
+import { isCancel } from "axios";
 
 /**
  * Populates noteList and noteMeta
@@ -200,7 +199,6 @@ async function setMixedNotesList(
   store: { noteStore: INotesStore }
 ) {
   const { noteStore } = store;
-
   try {
     noteStore.isNotesLoading = true;
     const res = await noteService.getNotesOwnedAndSharedWithMe(payload);
@@ -235,10 +233,32 @@ async function setMixedNotesList(
 
     return noteStore;
   } catch (error) {
-    if (error instanceof Error) {
+    if (isCancel(error)) {
+      return null;
+    } else if (error instanceof Error) {
       toasterActions.setToastMessage(error.message, "error");
     }
     console.error(error);
+  }
+}
+
+async function setRemoveNotes(
+  payload: { noteIds: string[] },
+  store: { noteStore: INotesStore }
+) {
+  const { noteIds } = payload;
+  const { noteStore } = store;
+  try {
+    await noteService.deleteMany({ noteIds });
+    noteStore.noteOpened = {
+      note: null,
+      member: null,
+    };
+
+    noteStore.removeShareNoteList = [];
+    noteStore.deleteList = [];
+  } catch (err) {
+    throw new Error("NoteIds not array");
   }
 }
 
@@ -316,4 +336,5 @@ export {
   setNotesSearched,
   setDeleteNotes,
   setMixedNotesList,
+  setRemoveNotes,
 };

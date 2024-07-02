@@ -7,6 +7,7 @@ import {
   isAxiosError,
   ResponseType,
   InternalAxiosRequestConfig,
+  isCancel,
 } from "axios";
 
 function requestInterceptor(config: InternalAxiosRequestConfig) {
@@ -28,10 +29,12 @@ class ApiService {
   private readonly API_URL: string;
   private readonly endpoint: string;
   private instance: AxiosInstance | undefined;
+  private controller: null | AbortController;
 
   constructor(endpoint: string) {
     this.API_URL = ORDOTYPE_API;
     this.endpoint = endpoint;
+    this.controller = null;
 
     if (window.axios) {
       // Axios is available from the pathology search
@@ -82,6 +85,7 @@ class ApiService {
       : `${this.endpoint}`;
 
     const config: AxiosRequestConfig<TBody> = {
+      signal: this.controller?.signal,
       method,
       url: fetchURL,
       data,
@@ -97,11 +101,24 @@ class ApiService {
     try {
       return await this.instance!.request(config);
     } catch (err) {
-      if (isAxiosError(err)) {
+      // if the reason behind the failure
+      // is a cancellation
+      if (isCancel(err)) {
+        console.error("Request canceled");
+      } else if (isAxiosError(err)) {
         console.error("Server Error" + err.message);
       }
       throw err;
     }
+  }
+
+  createNewAbortController() {
+    // Abort the previous controller if it exists
+    if (this.controller) {
+      this.controller.abort();
+    }
+    // Create a new controller for the new request
+    this.controller = new AbortController();
   }
 }
 

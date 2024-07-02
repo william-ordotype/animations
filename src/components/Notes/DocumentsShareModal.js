@@ -7,6 +7,7 @@ import { StateStore } from "@utils/enums";
 import NProgress from "nprogress";
 import { string } from "yup";
 import { STATUS_TYPES } from "@store/toaster.store";
+import toasterActions from "../../actions/toasterActions";
 
 const ShareNoteService = new ShareNotesService();
 
@@ -180,7 +181,8 @@ function DocumentsShareModal() {
             this.sharedEmailValue = "";
           } catch (err) {
             if (err.name === "ValidationError") {
-              toastStore.toasterMsg(err.errors, STATUS_TYPES.error);
+              toasterActions.setToastMessage(err.message, STATUS_TYPES.error);
+              // toastStore.toasterMsg(err.errors, STATUS_TYPES.error);
             }
             console.error(err);
           }

@@ -111,6 +111,7 @@ class ShareNotesService extends ApiService {
     pathology = [],
     state = ShareStates.AVAILABLE,
   }: InferType<typeof getSharedNotesSchema>) {
+    this.createNewAbortController();
     const validatedPayload = await getNotesValidation({
       page,
       limit,
