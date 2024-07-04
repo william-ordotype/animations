@@ -9,7 +9,7 @@ import { INotesStore } from "@store/myNotes.store";
 // ToDo refactor this component to execute only on tab change
 
 function PathologiesNoteList(): AlpineComponent<any> {
-  const noteStore = Alpine.store(StateStore.MY_NOTES) as INotesStore;
+  const notesStore = Alpine.store(StateStore.MY_NOTES) as INotesStore;
   return {
     // Binders
     openNotesModal() {
@@ -34,7 +34,7 @@ function PathologiesNoteList(): AlpineComponent<any> {
       return {
         ["x-on:click.prevent"]: async () =>
           await setNoteOpened(this.$data.doc._id, {
-            noteStore: noteStore,
+            noteStore: notesStore,
             modalStore: Alpine.store(StateStore.MODAL),
           }),
       };
@@ -43,9 +43,23 @@ function PathologiesNoteList(): AlpineComponent<any> {
       return {
         ["x-on:click.prevent"]: async () => {
           await setNoteOpened(this.$data.bilan._id, {
-            noteStore: noteStore,
+            noteStore: notesStore,
             modalStore: Alpine.store(StateStore.MODAL),
           });
+        },
+        ["x-bind:class"]: () => {
+          if (notesStore.isNotesLoading) {
+            return "skeleton-loader";
+          } else {
+            return "";
+          }
+        },
+        ["x-bind:style"]: () => {
+          return {
+            position: "relative",
+            width: "100%",
+            "margin-bottom": "10px",
+          };
         },
       };
     },
@@ -53,9 +67,23 @@ function PathologiesNoteList(): AlpineComponent<any> {
       return {
         ["x-on:click.prevent"]: async () => {
           await setNoteOpened(this.$data.treatment._id, {
-            noteStore: noteStore,
+            noteStore: notesStore,
             modalStore: Alpine.store(StateStore.MODAL),
           });
+        },
+        ["x-bind:class"]: () => {
+          if (notesStore.isNotesLoading) {
+            return "skeleton-loader";
+          } else {
+            return "";
+          }
+        },
+        ["x-bind:style"]: () => {
+          return {
+            position: "relative",
+            width: "100%",
+            "margin-bottom": "10px",
+          };
         },
       };
     },
@@ -63,9 +91,24 @@ function PathologiesNoteList(): AlpineComponent<any> {
       return {
         ["x-on:click.prevent"]: async () => {
           await setNoteOpened(this.$data.conseil._id, {
-            noteStore: noteStore,
+            noteStore: notesStore,
             modalStore: Alpine.store(StateStore.MODAL),
           });
+        },
+
+        ["x-bind:class"]: () => {
+          if (notesStore.isNotesLoading) {
+            return "skeleton-loader";
+          } else {
+            return "";
+          }
+        },
+        ["x-bind:style"]: () => {
+          return {
+            position: "relative",
+            width: "100%",
+            "margin-bottom": "10px",
+          };
         },
       };
     },
@@ -82,15 +125,23 @@ function PathologiesNoteItem() {
 
     // Sets file icon variables on load
     checkFileIcons() {
-      const ctx =
-        this.notes || this.doc || this.bilan || this.treatment || this.conseil;
+      try {
+        const ctx =
+          this.notes ||
+          this.doc ||
+          this.bilan ||
+          this.treatment ||
+          this.conseil;
 
-      const { documents } = ctx;
-      const allDocTypes = documents.map((elem) => {
-        return elem.mime_type;
-      });
-      const uniqueDocTypes = new Set(allDocTypes);
-      return [...uniqueDocTypes];
+        const { documents } = ctx;
+        const allDocTypes = documents?.map((elem) => {
+          return elem.mime_type;
+        });
+        const uniqueDocTypes = new Set(allDocTypes);
+        return [...uniqueDocTypes];
+      } catch (e) {
+        console.error(e);
+      }
     },
     noteFileIconsList() {
       return {
