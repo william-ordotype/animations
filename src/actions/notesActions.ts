@@ -3,7 +3,7 @@ import Alpine from "alpinejs";
 import { NotesUrls, StateStore } from "@utils/enums";
 import noteService from "@services/notesService";
 
-import { INotesStore } from "@store/myNotes.store";
+import { INotesStore, PathologyTab } from "@store/myNotes.store";
 import { IToastStore } from "@store/toaster.store";
 import { IUserStore } from "@store/user.store";
 import { handleCloseDrawer } from "@components/Notes/DocumentsDrawer";
@@ -11,6 +11,7 @@ import toasterActions from "./toasterActions";
 import { InferType } from "yup";
 import { getListSchema } from "../validation/notesValidation";
 import { isCancel } from "axios";
+import { getNotesFromPathologyTab } from "@components/view/pathology-tabs/pathologyTab.controller";
 
 /**
  * Populates noteList and noteMeta
@@ -300,6 +301,25 @@ async function setDeleteNotes(payload: { noteIds: string[] }) {
         window.toastActionMsg.notes.delete.success,
         "success"
       );
+
+      // If modal is open from pathologies page refresh the
+      // getList filtered by the pathology slug
+      if (window.location.pathname.includes("/pathologies")) {
+        const notesStore = Alpine.store(StateStore.MY_NOTES) as INotesStore;
+        const pathologySlug =
+          import.meta.env.MODE === "development"
+            ? "acne"
+            : location.href.split("/")[4]!;
+
+        await getNotesFromPathologyTab(
+          pageNumber,
+          notesStore.pathologyActiveTab as PathologyTab,
+          pathologySlug,
+          notesStore
+        );
+        return;
+      }
+
       await setNoteList(
         {
           page: pageNumber,
