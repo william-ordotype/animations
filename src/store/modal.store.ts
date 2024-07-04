@@ -251,38 +251,13 @@ const modalStore = {
       // If modal is open from pathologies page refresh the
       // getList filtered by the pathology slug
       if (window.location.pathname.includes("/pathologies")) {
-        if (notesStore.drawerOpened) {
-          await setNoteOpened(form._id, {
-            noteStore: notesStore,
-            modalStore: Alpine.store(StateStore.MODAL),
-          });
-        } else if (notesStore.pathologyActiveTab === "notes") {
-          await setNoteItemOpen(form._id, { noteStore: notesStore });
-          await setMixedNotesList(
-            {
-              page: notesStore.noteListMeta.pageNumber,
-              limit: 10,
-              pathology_slug: pathologySlug,
-              type: "notes",
-            },
-            {
-              noteStore: notesStore,
-            }
-          );
-          return;
-        }
-
-        await setNoteList(
-          {
-            page: 1,
-            direction: "DESC",
-            sort: "created_on",
-            pathology_slug: pathologySlug,
-            limit: 50,
-          },
-          { noteStore: notesStore }
+        await getNotesFromPathologyTab(
+          notesStore.noteListMeta.pageNumber,
+          notesStore.pathologyActiveTab,
+          pathologySlug,
+          notesStore
         );
-
+        await setNoteItemOpen(form._id, { noteStore: notesStore });
         return;
       }
 
@@ -303,9 +278,14 @@ const modalStore = {
         );
         // If modal is open from create button, refresh the getList documents
         // In order to update the table list
-        await setNoteList({
-          type: notesStore.noteListType,
-        });
+        await setNoteList(
+          {
+            type: notesStore.noteListType,
+          },
+          {
+            noteStore: notesStore,
+          }
+        );
       }
     } catch (err) {
       console.error(err);

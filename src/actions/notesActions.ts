@@ -196,13 +196,13 @@ async function setMixedNotesList(
     type: "" | "notes" | "prescriptions" | "recommendations";
     prescription_type?: "" | "balance_sheet" | "treatment";
     pathology_slug: string;
+    withShares?: boolean;
   },
   store: { noteStore: INotesStore }
 ) {
   const { noteStore } = store;
   try {
     noteStore.isNotesLoading = true;
-    debugger;
     const res = await noteService.getNotesOwnedAndSharedWithMe(payload);
     const { items_per_page, items_total, page_number, page_total, data } =
       res.data;

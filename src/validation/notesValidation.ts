@@ -1,4 +1,4 @@
-import { array, number, object, string } from "yup";
+import { array, boolean, number, object, string } from "yup";
 import { NoteTypes } from "@utils/enums";
 import { InferType } from "yup";
 
@@ -43,6 +43,7 @@ export const getListSchema = object({
   pathology: array().of(string()).optional(),
   pathology_slug: string().optional(),
   title: string(),
+  withShares: boolean().optional(),
 });
 
 const getListValidation = async (payload: InferType<typeof getListSchema>) => {

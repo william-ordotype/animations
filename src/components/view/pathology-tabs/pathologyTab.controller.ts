@@ -106,6 +106,21 @@ export async function getNotesFromPathologyTab(
         pathology_slug: pathologySlug,
         type: "prescriptions",
         prescription_type: pathologyTab,
+        withShares: false,
+      },
+      {
+        noteStore: notesStore,
+      }
+    );
+  } else if (pathologyTab === "notes") {
+    await setMixedNotesList(
+      {
+        page,
+        limit: 10,
+        pathology_slug: pathologySlug,
+        type: pathologyTab,
+        prescription_type: "",
+        withShares: true,
       },
       {
         noteStore: notesStore,
@@ -116,9 +131,10 @@ export async function getNotesFromPathologyTab(
       {
         page,
         limit: 10,
-        pathology_slug: "acne",
+        pathology_slug: pathologySlug,
         type: pathologyTab,
         prescription_type: "",
+        withShares: false,
       },
       {
         noteStore: notesStore,
