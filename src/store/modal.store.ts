@@ -94,7 +94,7 @@ const modalStore = {
       this.showModal = true;
       if (window.location.pathname.includes("pathologies")) {
         const pathologySlug =
-          location.host === "localhost:3021"
+          import.meta.env.MODE === "development"
             ? "acne"
             : location.href.split("/")[4]!;
         const res = await pathologiesService.searchBySlug(pathologySlug);
@@ -159,7 +159,7 @@ const modalStore = {
       await getNotesFromPathologyTab(
         1,
         notesStore.pathologyActiveTab,
-        location.host === "localhost:3021"
+        import.meta.env.MODE === "development"
           ? "acne"
           : location.href.split("/")[4]!,
         notesStore

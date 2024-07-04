@@ -121,7 +121,9 @@ export function PathologyPaneList(
   const userStore = Alpine.store(StateStore.USER) as IUserStore;
   const modalStore = Alpine.store(StateStore.MODAL) as any;
   const pathologySlug =
-    location.host === "localhost:3021" ? "acne" : location.href.split("/")[4]!;
+    import.meta.env.MODE === "development"
+      ? "acne"
+      : location.href.split("/")[4]!;
 
   return {
     init() {

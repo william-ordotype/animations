@@ -62,9 +62,10 @@ const pathologiesStore = {
       noteListComponents.forEach((component) => {
         component.dispatchEvent(window.customEvents.loadingTrigger);
       });
-      const pathologySlug = window.location.href.includes("localhost")
-        ? "acne"
-        : window.location.pathname.split("/")[2];
+      const pathologySlug =
+        import.meta.env.MODE === "development"
+          ? "acne"
+          : window.location.pathname.split("/")[2];
 
       window.pathologies = {
         slug: pathologySlug,
