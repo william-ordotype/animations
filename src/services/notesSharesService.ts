@@ -231,4 +231,4 @@ class ShareNotesService extends ApiService {
   }
 }
 
-export default ShareNotesService;
+export default new ShareNotesService();
