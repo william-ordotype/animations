@@ -251,13 +251,24 @@ const modalStore = {
       // If modal is open from pathologies page refresh the
       // getList filtered by the pathology slug
       if (window.location.pathname.includes("/pathologies")) {
-        await getNotesFromPathologyTab(
-          notesStore.noteListMeta.pageNumber,
-          notesStore.pathologyActiveTab,
-          pathologySlug,
-          notesStore
-        );
-        await setNoteItemOpen(form._id, { noteStore: notesStore });
+        if (notesStore.pathologyActiveTab === "notes") {
+          notesStore.noteOpened = {
+            note: null,
+            message: null,
+          };
+        }
+
+        await Promise.all([
+          getNotesFromPathologyTab(
+            notesStore.noteListMeta.pageNumber,
+            notesStore.pathologyActiveTab,
+            pathologySlug,
+            notesStore
+          ),
+          notesStore.pathologyActiveTab !== "notes" &&
+            setNoteItemOpen(form._id, { noteStore: notesStore }),
+        ]);
+
         return;
       }
 
