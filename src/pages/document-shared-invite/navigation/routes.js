@@ -1,24 +1,40 @@
 import Alpine from "alpinejs";
-import { hashToObject } from "../../../router/pagination";
+import { hashToObject } from "@utils/pagination";
 import ShareNotesService from "../../../services/notesSharesService";
-import { StateStore, ToasterMsgTypes } from "../../../utils/enums";
+import { StateStore } from "@utils/enums";
 import NProgress from "nprogress";
 import {
   setSharedNoteBasicInfo,
   setShowSharedNote,
 } from "../../../actions/sharedNotesActions";
+import { STATUS_TYPES } from "@store/toaster.store";
 
 const shareNoteService = new ShareNotesService();
 
 function router() {
+  const userStore = /**
+   * @type {import("@store/user.store").IUserStore}
+   */ (Alpine.store(StateStore.USER));
+
+  const toastStore = /**
+   * @type {import("@store/toaster.store").IToastStore}
+   */ (Alpine.store(StateStore.TOASTER));
+
+  const shareStore = /**
+   * @type {import("@store/share.store").IShareStore}
+   */ (Alpine.store(StateStore.SHARE));
+
   return {
+    /**
+     * @param {import("pinecone-router/dist/types").Context} context
+     */
     async home(context) {
       const { query } = context;
       const obj = hashToObject(query);
       const inviteId = obj["id"];
       const inviteType = obj["type"];
       const acceptId = obj["acceptId"];
-      const isAuth = Alpine.store(StateStore.USER).isAuth;
+      const isAuth = userStore.isAuth;
 
       try {
         if (acceptId) {
@@ -40,27 +56,27 @@ function router() {
           // ordotype.fr/my-documents-invitation?id=12345&type=email
           await setShowSharedNote({ inviteType, noteId: inviteId });
         } else {
-          Alpine.store(StateStore.TOASTER).toasterMsg(
+          toastStore.toasterMsg(
             window.toastActionMsg.navigation.invalidUrlInvitation,
-            ToasterMsgTypes.ERROR,
+            STATUS_TYPES.error,
             10000
           );
           console.error("Invalid URL. Missing type or id");
         }
       } catch (err) {
-        Alpine.store(StateStore.SHARE).isInvitedAllowed = false;
-        Alpine.store(StateStore.SHARE).isInvitationLoading = false;
+        shareStore.isInvitedAllowed = false;
+        shareStore.isInvitationLoading = false;
         console.error(err);
         if (err.response?.statusCode === 404) {
-          Alpine.store(StateStore.SHARE).invitationNotExists = true;
+          shareStore.invitationNotExists = true;
         }
       }
       NProgress.done();
     },
-    notfound(context) {
-      Alpine.store(StateStore.TOASTER).toasterMsg(
+    notfound() {
+      toastStore.toasterMsg(
         window.toastActionMsg.navigation.notFound,
-        ToasterMsgTypes.ERROR
+        STATUS_TYPES.error
       );
       console.log("URL not found");
     },
@@ -69,16 +85,23 @@ function router() {
 
 export { router };
 
+/**
+ * @param {any} acceptId
+ */
 async function acceptInvitation(acceptId) {
+  const toastStore = /**
+   * @type {import("@store/toaster.store").IToastStore}
+   */ (Alpine.store(StateStore.TOASTER));
+
   // ordotype.fr/my-documents-invitation?acceptId=12345
   const res = await shareNoteService.acceptNoteInvitation({ noteId: acceptId });
   NProgress.set(0.5);
 
-  const { noteId, alreadyAccepted } = res;
+  const { noteId, alreadyAccepted } = res.data;
   if (!alreadyAccepted) {
-    Alpine.store(StateStore.TOASTER).toasterMsg(
+    toastStore.toasterMsg(
       window.toastActionMsg.shareNotes.acceptedInvitation.success,
-      ToasterMsgTypes.SUCCESS
+      STATUS_TYPES.success
     );
   }
   location.href = `?id=${noteId}&type=email`;

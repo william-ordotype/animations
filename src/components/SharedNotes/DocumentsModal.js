@@ -1,9 +1,7 @@
 import NProgress from "nprogress";
-import { ShareStates, StateStore } from "../../utils/enums";
-import {
-  setRemoveSharedInvitations,
-  setSharedNoteList,
-} from "../../actions/sharedNotesActions";
+import { StateStore } from "@utils/enums";
+import { setRemoveSharedInvitations } from "../../actions/sharedNotesActions";
+import Alpine from "alpinejs";
 
 function BeforeRemoveSharedInvitationDialog() {
   return {
@@ -17,7 +15,9 @@ function BeforeRemoveSharedInvitationDialog() {
     modalAcceptBtn() {
       return {
         ["x-on:click.prevent"]: async () => {
-          const modalStore = Alpine.store(StateStore.MODAL);
+          const modalStore = /** @type {ToDo}*/ (
+            Alpine.store(StateStore.MODAL)
+          );
           NProgress.start();
           this.removedInvitationIsLoading = true;
           const noteIds = modalStore.removeShareNoteList;

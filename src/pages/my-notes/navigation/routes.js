@@ -1,51 +1,78 @@
 import Alpine from "alpinejs";
-import { StateStore, ToasterMsgTypes } from "../../../utils/enums";
+import { StateStore } from "@utils/enums";
 import NProgress from "nprogress";
-import { setNoteList, setNotesRuleStatus } from "../../../actions/notesActions";
+import {
+  setNoteList,
+  setNoteOpened,
+  setNotesRuleStatus,
+} from "../../../actions/notesActions";
+import toasterActions from "../../../actions/toasterActions";
+import { STATUS_TYPES } from "@store/toaster.store";
 
 window.router = () => {
+  const notesStore = /**
+   * @type {import("@store/myNotes.store").INotesStore}
+   */ (Alpine.store(StateStore.MY_NOTES));
+
   return {
+    /**
+     * @param {import("pinecone-router/dist/types").Context} context
+     */
     redirectToAll(context) {
       if (context.path === "/") {
         context.redirect("/list");
       }
     },
+    /**
+     * @param {import("pinecone-router/dist/types").Context} context
+     */
     async listDocuments(context) {
       let type;
       let listTitle;
       switch (context.params.type) {
         case "notes":
           type = context.params.type;
-          listTitle = globals.documentTypes["notes"];
+          listTitle = window.globals.documentTypes["notes"];
           break;
         case "recommendations":
           type = context.params.type;
-          listTitle = globals.documentTypes["recommendations"];
+          listTitle = window.globals.documentTypes["recommendations"];
           break;
         case "prescriptions":
           type = context.params.type;
-          listTitle = globals.documentTypes["prescriptions"];
+          listTitle = window.globals.documentTypes["prescriptions"];
           break;
         default:
           type = "";
           listTitle = "Tous mes documents";
       }
-      Alpine.store(StateStore.MY_NOTES).noteListType = listTitle;
+      notesStore.noteListType = listTitle;
       await handleRouter(context, { type });
     },
+    /**
+     * @param {import("pinecone-router/dist/types").Context} context
+     */
     async viewDocuments(context) {
       const id = context.params.id;
       if (id) {
         // Shows getOne drawer
-        await window.globals.drawer.handleDrawer({ id });
+        // await window.globals.drawer.handleDrawer({ id });
+        await setNoteOpened(id, {
+          noteStore: notesStore,
+          modalStore: Alpine.store(StateStore.MODAL),
+        });
         console.log("drawer");
       }
       NProgress.done();
     },
+    /**
+     * @param {import("pinecone-router/dist/types").Context} context
+     */
     createPrescription(context) {
       const type = context.path.split("/")[2];
       const qlEditor = $(".ql-editor");
       context.redirect("/");
+      // @ts-ignore
       Alpine.store("modalStore").openModal(null, {
         type,
       });
@@ -67,42 +94,53 @@ window.router = () => {
         localStorage.removeItem("pasteOnEditor");
       }
     },
-    notfound(context) {
+    notfound() {
       console.log("Not found");
-      Alpine.store(StateStore.TOASTER).toasterMsg(
+      toasterActions.setToastMessage(
         window.toastActionMsg.navigation.notFound,
-        ToasterMsgTypes.ERROR
+        STATUS_TYPES.error
       );
     },
   };
 };
 
+/**
+ * @param {import("pinecone-router/dist/types").Context} context
+ * @param {object} options
+ * @param { "" | "recommendations" | "notes" | "prescriptions"} options.type
+ */
+
 async function handleRouter(context, { type }) {
+  const notesStore = /**
+   * @type {import("@store/myNotes.store").INotesStore}
+   */ (Alpine.store(StateStore.MY_NOTES));
+
+  const userStore = /**
+   * @type {import("@store/user.store").IUserStore}
+   */ (Alpine.store(StateStore.USER));
+
   NProgress.start();
-  Alpine.store(StateStore.MY_NOTES).isRuleStatusLoading = true;
+  notesStore.isRuleStatusLoading = true;
 
   const { page, perPage, sort, direction } = context.params;
-  if (
-    !Alpine.store("userStore").isAuth ||
-    !Alpine.store("userStore").hasPaidSub
-  ) {
+  if (!userStore.isAuth || !userStore.hasPaidSub) {
     console.log("Not authorized to navigate");
     return;
   }
-  Alpine.store(StateStore.MY_NOTES).noteListType = type;
+  notesStore.noteListType = type;
 
   // Shows getList items
+  // @ts-ignore
   Alpine.store("modalStore").showModal = false;
-  Alpine.store("drawerStore").showDrawer = false;
 
   // Do a reload if necessary
-  // AKA if when closing the drawer there are not documents loaded
+  // AKA when closing the drawer there are not documents loaded
   if (
     !context.hash.split("/").includes("view") ||
-    Alpine.store(StateStore.MY_NOTES).noteList.length === 0
+    notesStore.noteList.length === 0
   ) {
-    Alpine.store(StateStore.MY_NOTES).isSearch = false;
-    Alpine.store(StateStore.MY_NOTES).searchValue = "";
+    notesStore.isSearch = false;
+    notesStore.searchValue = "";
     try {
       const payload = {
         page,
@@ -111,10 +149,14 @@ async function handleRouter(context, { type }) {
         direction,
         type,
       };
-      await Promise.all([setNoteList(payload), setNotesRuleStatus()]);
+      await Promise.all([
+        setNoteList(payload, { noteStore: notesStore }),
+        setNotesRuleStatus({ noteStore: notesStore, userStore: userStore }),
+      ]);
 
       NProgress.done();
     } catch (err) {
+      console.error(err);
       NProgress.done();
     }
   } else {

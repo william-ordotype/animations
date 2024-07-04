@@ -1,7 +1,5 @@
 // noinspection SpellCheckingInspection
 
-import { handleDrawer } from "../components/Notes/DocumentsDrawer";
-
 const globals = {};
 
 globals.documentTypes = {
@@ -15,7 +13,8 @@ globals.prescriptionTypes = {
   treatment: "Traitement",
 };
 
-globals.printDiv = async (divName) => {
+globals.printDiv = async (/** @type {any} */ divName) => {
+  // @ts-expect-error ToDo review module import
   await import("print-this");
 
   $(divName).printThis({
@@ -29,10 +28,6 @@ globals.printDiv = async (divName) => {
       $(divName).find(".w--open").show();
     },
   });
-};
-
-globals.drawer = {
-  handleDrawer,
 };
 
 globals.modal = {

@@ -1,0 +1,229 @@
+{
+  "page_number": 1,
+  "items_per_page": 10,
+  "page_total": 3,
+  "items_total": 25,
+  "data": [
+    {
+      "_id": "662c5d9b461b21b684746781",
+      "member_id": "mem_sb_clj28vbgk011o0tkzb48rewzh",
+      "title": "To share",
+      "type": "notes",
+      "prescription_type": "",
+      "pathologies": [
+        {
+          "_id": "63b4b1d5714fbf406661a0bb",
+          "title": "Acné",
+          "slug": "acne"
+        }
+      ],
+      "can_share": false,
+      "documents": [],
+      "created_on": "2024-04-27T02:06:19.232Z",
+      "updated_on": "2024-04-27T02:06:19.232Z",
+      "created_by": {
+        "email": "raquelcle+2@gmail.com",
+        "role": "client"
+      },
+      "updated_by": {
+        "email": "raquelcle+2@gmail.com",
+        "role": "client"
+      }
+    },
+    {
+      "_id": "661f012a461b21b6847466d7",
+      "member_id": "mem_sb_clj28vbgk011o0tkzb48rewzh",
+      "title": "aaaa",
+      "type": "prescriptions",
+      "prescription_type": "balance_sheet",
+      "pathologies": [
+        {
+          "_id": "65526a3e1df1fc610c40adce",
+          "title": "Anémie par carence martiale - UDR",
+          "slug": "anemie-par-carence-martiale-udr"
+        }
+      ],
+      "documents": [],
+      "created_on": "2024-04-16T22:52:26.707Z",
+      "updated_on": "2024-04-16T22:52:26.707Z",
+      "created_by": {
+        "role": "client",
+        "email": "raquelcle+2@gmail.com",
+        "full_name": "Lopez Raquel 2"
+      }
+    },
+    {
+      "_id": "6600d0bbff5d3087dd8a7e37",
+      "member_id": "mem_sb_clj28vbgk011o0tkzb48rewzh",
+      "title": "saved from template",
+      "type": "recommendations",
+      "prescription_type": "",
+      "documents": [],
+      "created_on": "2024-03-25T01:17:47.600Z",
+      "updated_on": "2024-03-25T01:17:47.600Z",
+      "created_by": {
+        "role": "client",
+        "email": "raquelcle+2@gmail.com",
+        "full_name": "Lopez Raquel 2"
+      }
+    },
+    {
+      "_id": "6600d066ff5d3087dd8a7e36",
+      "member_id": "mem_sb_clj28vbgk011o0tkzb48rewzh",
+      "title": "saved from diabetes pathology page",
+      "type": "recommendations",
+      "prescription_type": "",
+      "pathologies": [
+        {
+          "_id": "63b4b1d5714fbf406661a11d",
+          "title": "Diabète de type 2",
+          "slug": "diabete-de-type-2"
+        }
+      ],
+      "documents": [],
+      "created_on": "2024-03-25T01:16:22.417Z",
+      "updated_on": "2024-03-25T01:16:22.417Z",
+      "created_by": {
+        "role": "client",
+        "email": "raquelcle+2@gmail.com",
+        "full_name": "Lopez Raquel 2"
+      }
+    },
+    {
+      "_id": "65fef42b10853517d44e369f",
+      "member_id": "mem_sb_clj28vbgk011o0tkzb48rewzh",
+      "title": "test file thumb",
+      "type": "prescriptions",
+      "prescription_type": "balance_sheet",
+      "pathologies": [
+        {
+          "_id": "63b4b1d5714fbf406661a0bb",
+          "title": "Acné",
+          "slug": "acne"
+        }
+      ],
+      "documents": [
+        {
+          "mime_type": "image/png"
+        }
+      ],
+      "created_on": "2024-03-23T15:24:27.993Z",
+      "updated_on": "2024-03-23T15:24:27.993Z",
+      "created_by": {
+        "role": "client",
+        "email": "raquelcle+2@gmail.com",
+        "full_name": "Lopez Raquel 2"
+      }
+    },
+    {
+      "_id": "65fe494a10853517d44e369b",
+      "member_id": "mem_sb_clj28vbgk011o0tkzb48rewzh",
+      "title": "asdasdasdas",
+      "type": "prescriptions",
+      "prescription_type": "treatment",
+      "pathologies": [
+        {
+          "_id": "63b4b1d5714fbf406661a0bb",
+          "title": "Acné",
+          "slug": "acne"
+        }
+      ],
+      "documents": [],
+      "created_on": "2024-03-23T03:15:22.270Z",
+      "updated_on": "2024-03-23T03:15:22.270Z",
+      "created_by": {
+        "role": "client",
+        "email": "raquelcle+2@gmail.com",
+        "full_name": "Lopez Raquel 2"
+      }
+    },
+    {
+      "_id": "65fe460110853517d44e369a",
+      "member_id": "mem_sb_clj28vbgk011o0tkzb48rewzh",
+      "title": "asdasdsad",
+      "type": "prescriptions",
+      "prescription_type": "balance_sheet",
+      "pathologies": [
+        {
+          "_id": "63b4b1d5714fbf406661a0bb",
+          "title": "Acné",
+          "slug": "acne"
+        }
+      ],
+      "documents": [],
+      "created_on": "2024-03-23T03:01:21.989Z",
+      "updated_on": "2024-03-23T03:01:21.989Z",
+      "created_by": {
+        "role": "client",
+        "email": "raquelcle+2@gmail.com",
+        "full_name": "Lopez Raquel 2"
+      }
+    },
+    {
+      "_id": "65fe45ae10853517d44e3699",
+      "member_id": "mem_sb_clj28vbgk011o0tkzb48rewzh",
+      "title": "id not missing?",
+      "type": "prescriptions",
+      "prescription_type": "balance_sheet",
+      "pathologies": [
+        {
+          "_id": "63b4b1d5714fbf406661a0bb",
+          "title": "Acné",
+          "slug": "acne"
+        }
+      ],
+      "documents": [],
+      "created_on": "2024-03-23T02:59:58.300Z",
+      "updated_on": "2024-03-23T02:59:58.300Z",
+      "created_by": {
+        "role": "client",
+        "email": "raquelcle+2@gmail.com",
+        "full_name": "Lopez Raquel 2"
+      }
+    },
+    {
+      "_id": "65fe441310853517d44e3698",
+      "member_id": "mem_sb_clj28vbgk011o0tkzb48rewzh",
+      "title": "asdasd",
+      "type": "prescriptions",
+      "prescription_type": "balance_sheet",
+      "pathologies": [
+        {
+          "_id": "63b4b1d5714fbf406661a0bb",
+          "title": "Acné",
+          "slug": "acne"
+        }
+      ],
+      "documents": [],
+      "created_on": "2024-03-23T02:53:07.785Z",
+      "updated_on": "2024-03-23T02:53:07.785Z",
+      "created_by": {
+        "role": "client",
+        "email": "raquelcle+2@gmail.com",
+        "full_name": "Lopez Raquel 2"
+      }
+    },
+    {
+      "_id": "65fe436710853517d44e3697",
+      "member_id": "mem_sb_clj28vbgk011o0tkzb48rewzh",
+      "title": "asdasd",
+      "type": "recommendations",
+      "prescription_type": "",
+      "pathologies": [
+        {
+          "_id": "63b4b1d5714fbf406661a0bb",
+          "title": "Acné",
+          "slug": "acne"
+        }
+      ],
+      "documents": [],
+      "created_on": "2024-03-23T02:50:15.941Z",
+      "updated_on": "2024-03-23T02:50:15.941Z",
+      "created_by": {
+        "role": "client",
+        "email": "raquelcle+2@gmail.com",
+        "full_name": "Lopez Raquel 2"
+      }
+    }
+  ]
+}

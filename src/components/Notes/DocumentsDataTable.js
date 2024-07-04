@@ -1,15 +1,19 @@
 import Alpine from "alpinejs";
-import getFileExtByMimeType from "../../assets/file_ext.js";
-import ShareNotesService from "../../services/notesSharesService";
+import getFileExtByMimeType from "@assets/file_ext.js";
+import ShareNotesService from "@services/notesSharesService";
 import SkeletonLoaderEvent from "../../events/SkeletonLoaderEvent";
 import {
   handleItemsPerPage,
   handlePagination,
   handleSorting,
-} from "../../pages/my-notes/navigation/pagination";
-import { StateStore } from "../../utils/enums";
+} from "@pages/my-notes/navigation/pagination.js";
+import { StateStore } from "@utils/enums.js";
 
 const ShareNotes = new ShareNotesService();
+
+/**
+ * @return {import("alpinejs").AlpineComponent<any>}
+ */
 
 function DataTableListItem() {
   return {
@@ -28,16 +32,27 @@ function DataTableListItem() {
     },
     // Row items
     noteCheckBox() {
+      const notesStore =
+        /** @type {import("@store/myNotes.store").INotesStore} */ (
+          Alpine.store(StateStore.MY_NOTES)
+        );
+
       return {
         ["x-on:change"]: () => {
-          Alpine.store(StateStore.MY_NOTES).noteList[this.index].checked =
-            !Alpine.store(StateStore.MY_NOTES).noteList[this.index].checked;
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-expect-error
+          notesStore.noteList[this.$data.index].checked =
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-expect-error
+            !notesStore.noteList[this.$data.index].checked;
           // $store.documentsStore.getList.documents.some(e =&gt; e.completed)
-          Alpine.store(StateStore.MY_NOTES).areNotesSelected = Alpine.store(
-            StateStore.MY_NOTES
-          ).noteList.some((note) => note.checked);
+          notesStore.areNotesSelected = notesStore.noteList.some(
+            (note) => note.checked
+          );
         },
-        ["x-model"]: () => this.note.checked,
+        ["x-model"]: () => {
+          return this.$data.note;
+        },
         ["x-init"]: "$store.notesStore.noteList[index].checked = false;",
       };
     },
@@ -53,12 +68,19 @@ function DataTableListItem() {
       };
     },
     noteFileIconsList() {
+      /**
+       *
+       */
+      const notesStore =
+        /** @type {import("@store/myNotes.store").INotesStore} */ (
+          Alpine.store(StateStore.MY_NOTES)
+        );
+
       return {
         ["x-init"]: () => {
           Alpine.effect(() => {
             // Fix fileIcons not showing on pagination
-            if (Alpine.store(StateStore.MY_NOTES).noteList) {
-              const notesStore = Alpine.store(StateStore.MY_NOTES);
+            if (notesStore.noteList) {
               const noteAtIndex = notesStore.noteList[this.index];
 
               if (noteAtIndex) {
@@ -114,14 +136,25 @@ function DataTableListItem() {
     // Sets file icon variables on load
     checkFileIcons() {
       const { documents } = this.note;
-      const allDocTypes = documents.map((elem) => {
-        return elem.mime_type;
-      });
+
+      const allDocTypes = documents.map(
+        /**
+         * @param elem {ToDo}
+         */
+        (elem) => {
+          return elem.mime_type;
+        }
+      );
       const uniqueDocTypes = new Set(allDocTypes);
       return [...uniqueDocTypes];
     },
     // Returns fileType. Used in className and in icon text
+    /**
+     * @param {string } mime_type
+     */
     fileIconType(mime_type) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
       return getFileExtByMimeType[mime_type] || "file";
     },
     authorColumn: {
@@ -131,13 +164,21 @@ function DataTableListItem() {
   };
 }
 
+/**
+ * @return {import("alpinejs").AlpineComponent<any>}
+ */
+
 function DataTableListItemSubmenu() {
+  const shareStore = /** @type {import("@store/share.store").IShareStore} */ (
+    Alpine.store(StateStore.SHARE)
+  );
+
   return {
     deleteNote() {
       return {
         ["x-show"]: "true",
         ["@click.prevent"]: async () => {
-          const noteId = this.note._id;
+          const noteId = this.$data.note?._id;
           Alpine.store(StateStore.MODAL).deleteList = [noteId];
           Alpine.store(StateStore.MODAL).showBeforeDelete = true;
         },
@@ -146,9 +187,9 @@ function DataTableListItemSubmenu() {
     editNote() {
       return {
         ["x-show"]: "true",
-        ["@click.prevent"]: async (ev) => {
+        ["@click.prevent"]: async () => {
           await Alpine.store("modalStore").openModal(this.note, {
-            type: this.note.type,
+            type: this.$data.note.type,
           });
         },
       };
@@ -156,10 +197,11 @@ function DataTableListItemSubmenu() {
     shareNote() {
       return {
         ["x-show"]: "true",
-        ["@click.prevent"]: async (ev) => {
-          const note = this.note;
+        ["x-on:click.prevent"]: async () => {
+          const note = this.$data.note;
           const isShareActive = !!note["can_share"];
 
+          // To-Do redo loading skeleton
           SkeletonLoaderEvent.dispatchCustomEvent(
             document.querySelector(".search_result_wrapper.partage"),
             true
@@ -171,18 +213,23 @@ function DataTableListItemSubmenu() {
             true
           );
           Alpine.store("modalStore").showSharingOptions = true;
-          Alpine.store("shareStore").shareSwitch = isShareActive;
-          Alpine.store("shareStore").shareOptionsEnabled = isShareActive;
-          Alpine.store("shareStore").showSharingOptions = isShareActive;
-          Alpine.store("shareStore").activeNote = note;
+          shareStore.shareSwitch = isShareActive;
+          shareStore.shareOptionsEnabled = isShareActive;
+          shareStore.showSharingOptions = isShareActive;
+          shareStore.activeNote = note;
           if (isShareActive) {
-            const { emails, linkId } = await ShareNotes.getSharedInfoFromNote({
+            const res = await ShareNotes.getSharedInfoFromNote({
               noteId: note._id,
             });
-            Alpine.store("shareStore").activeNoteEmailList = emails;
-            Alpine.store("shareStore").activeNotePublicLink = linkId;
+            const { emails, linkId } = res.data;
+            shareStore.activeNoteEmailList = emails;
+            shareStore.activeNotePublicLink = linkId;
           }
+
+          // ToDo Redo skeleton logic. Maybe binding the class to the response time
           SkeletonLoaderEvent.dispatchCustomEvent(
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-expect-error
             document.querySelector(".search_result_wrapper.partage"),
             false
           );
@@ -232,6 +279,9 @@ function DataTableHeader() {
     },
   };
 
+  /**
+   * @param {string} direction
+   */
   function toggleDirection(direction) {
     if (direction === "ASC") {
       return "DESC";
@@ -242,6 +292,8 @@ function DataTableHeader() {
     return "DESC";
   }
 
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-expect-error
   function toggleActive(state, sortByN) {
     Array.from(Object.keys(state)).forEach((key) => {
       if (key === sortByN) {
@@ -291,25 +343,36 @@ function DataTableHeader() {
     },
     selectAll: false,
     selectAllCheckbox() {
+      const notesStore = /**
+       * @type {import("@store/myNotes.store").INotesStore}
+       */ (Alpine.store(StateStore.MY_NOTES));
       return {
-        ["x-on:click"]: (ev) => {
+        ["x-on:click"]: () => {
           this.selectAll = !this.selectAll;
-          Alpine.store(StateStore.MY_NOTES).noteList.forEach((noteItem) => {
+          notesStore.noteList.forEach((noteItem) => {
             noteItem.checked = this.selectAll;
           });
-          Alpine.store(StateStore.MY_NOTES).areNotesSelected = this.selectAll;
+          notesStore.areNotesSelected = this.selectAll;
         },
         ["x-model"]: this.selectAll,
       };
     },
     // Class bindings
     // -- Header
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
     sortByHeadClass(sortBy) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
       return this.state[sortBy].isActive && "active";
     },
 
     // -- Arrows
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
     sortByArrowClass(sortBy, direction) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
       if (this.state[sortBy].direction === direction) {
         return "active";
       }
@@ -324,7 +387,13 @@ function DataTableHeader() {
   };
 }
 
+/**
+ * @return {import("alpinejs").AlpineComponent<any>}
+ */
 function DataTablePaginationMenu() {
+  const notesStore = /**
+   * @type {import("@store/myNotes.store").INotesStore}
+   */ (Alpine.store(StateStore.MY_NOTES));
   return {
     paginationList() {
       return {
@@ -335,12 +404,15 @@ function DataTablePaginationMenu() {
       return {
         ["x-text"]: "pNumber",
         ["x-on:click"]: () => {
-          handlePagination(window.PineconeRouter.currentContext, this.pNumber);
+          handlePagination(
+            window.PineconeRouter.currentContext,
+            this.$data.pNumber
+          );
         },
         [":class"]: () => {
           return (
-            +Alpine.store(StateStore.MY_NOTES).noteListMeta.pageNumber ===
-              +this.pNumber && "active"
+            +notesStore.noteListMeta.pageNumber === +this.$data.pNumber &&
+            "active"
           );
         },
       };
@@ -348,7 +420,6 @@ function DataTablePaginationMenu() {
     pageNext() {
       return {
         ["x-on:click"]: () => {
-          const notesStore = Alpine.store(StateStore.MY_NOTES);
           const $router = window.PineconeRouter.currentContext;
           return (
             +notesStore.noteListMeta.pageNumber <
@@ -363,10 +434,18 @@ function DataTablePaginationMenu() {
 
 function DataTablePerPageDropdown() {
   return {
+    /**
+     * @param {any} number
+     */
     dropdownText(number) {
       return `Afficher ${number} par page`;
     },
     showDropdownText: "Afficher 10 par page",
+    /**
+     * @param {{ preventDefault: () => void; target: any; }} ev
+     * @param {any} routerParams
+     * @param {any} number
+     */
     changePerPage(ev, routerParams, number) {
       ev.preventDefault();
       $(ev.target)
@@ -382,6 +461,9 @@ function DataTablePerPageDropdown() {
   };
 }
 
+/**
+ * @return {import("alpinejs").AlpineComponent<any>}
+ */
 function LayoutContainer() {
   return {
     isMemberView() {

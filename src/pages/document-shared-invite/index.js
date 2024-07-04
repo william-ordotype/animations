@@ -3,21 +3,22 @@ import PineconeRouter from "pinecone-router";
 import alpineWebflow from "../../modules/alpine-webflow";
 import SkeletonLoaderEvent from "../../events/SkeletonLoaderEvent";
 import { router } from "./navigation/routes";
-import globals from "../../utils/globals";
-import userStore from "../../store/user.store";
-import { StateStore } from "../../utils/enums";
-import toasterStore from "../../store/toaster.store";
+import globals from "@utils/globals";
+import userStore from "@store/user.store";
+import { StateStore } from "@utils/enums";
+import toasterStore from "@store/toaster.store";
 import "nprogress/nprogress.css";
 import NProgress from "nprogress";
-import SharingInvitation from "../../components/SharedNotes/SharingInvitation";
-import shareStore from "../../store/share.store";
-import { DocumentFileListItem } from "../../components/DocumentsFiles";
+import SharingInvitation from "@components/SharedNotes/SharingInvitation";
+import shareStore from "@store/share.store";
+import { DocumentFileListItem } from "@components/DocumentsFiles";
 import "../../styles.scss";
 import {
   navigationToastMsgs,
   noteActionsToastMsgs,
   shareNoteActionsToastMsgs,
-} from "../../utils/toastMessages";
+} from "@utils/toastMessages";
+import UsersService from "@services/usersService";
 
 window.Alpine = Alpine;
 
@@ -32,8 +33,9 @@ async function init() {
   Alpine.store(StateStore.SHARE).isInvitedAllowed = false;
   Alpine.store(StateStore.SHARE).isInvitationLoading = true;
 
-  const getUser = await $memberstackDom.getCurrentMember();
-  Alpine.store(StateStore.USER, userStore(getUser));
+  const currentUser = await UsersService.getUser();
+
+  Alpine.store(StateStore.USER, userStore(currentUser));
 }
 
 Alpine.store(StateStore.TOASTER, toasterStore);
@@ -46,9 +48,6 @@ Alpine.data("DocumentFileListItem", DocumentFileListItem);
 /**
  Runs program
  */
-
-window.memberstack = window.memberstack || {};
-window.memberstack.instance = window.$memberstackDom;
 
 window.toastActionMsgCustom = window.toastActionMsgCustom || {};
 

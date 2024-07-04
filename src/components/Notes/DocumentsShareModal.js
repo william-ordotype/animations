@@ -1,20 +1,41 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import Alpine from "alpinejs";
 import ShareNotesService from "../../services/notesSharesService";
-import { StateStore, ToasterMsgTypes } from "../../utils/enums";
+import { StateStore } from "@utils/enums";
 import NProgress from "nprogress";
 import { string } from "yup";
+import { STATUS_TYPES } from "@store/toaster.store";
+import toasterActions from "../../actions/toasterActions";
 
 const ShareNoteService = new ShareNotesService();
 
+/**
+ * @return {import("alpinejs").AlpineComponent<any>}
+ */
+
 function DocumentsShareModal() {
+  const shareStore = /**
+   * @type {import("@store/share.store").IShareStore}
+   */ (Alpine.store(StateStore.SHARE));
+
+  const notesStore = /**
+   * @type {import("@store/myNotes.store").INotesStore}
+   */ (Alpine.store(StateStore.MY_NOTES));
+
+  const toastStore = /**
+   * @type {import("@store/toaster.store").IToastStore}
+   */ (Alpine.store(StateStore.TOASTER));
+
   return {
     // local state
     showSharingOptions: false,
     sharedEmailValue: "",
-    sharedEmailList: Alpine.store(StateStore.SHARE).activeNoteEmailList,
-    emailsToAdd: [],
-    emailsToDelete: [],
-    sharedLinkId: Alpine.store(StateStore.SHARE).activeNotePublicLink,
+    sharedEmailList: shareStore.activeNoteEmailList,
+    emailsToAdd: /** @type {string[]} */ [],
+    emailsToDelete: /** @type {string[]} */ [],
+    sharedLinkId: shareStore.activeNotePublicLink,
 
     // components
     shareModal() {
@@ -25,28 +46,29 @@ function DocumentsShareModal() {
     },
     noteTitle() {
       return {
-        ["x-text"]: "$store.shareStore.activeNote.title",
+        ["x-text"]: "$store.shareStore.activeNote?.title",
       };
     },
     switchButton() {
       return {
         ["x-bind:disabled"]: () => {
-          return Alpine.store(StateStore.SHARE).isShareSwitchLoading;
+          return shareStore.isShareSwitchLoading;
         },
         ["x-model"]: "$store.shareStore.shareSwitch",
-        ["x-on:change"]: async (ev) => {
+        ["x-on:change"]: async (
+          /** @type {{ preventDefault: () => void; }} */ ev
+        ) => {
           NProgress.start();
-          const shareStore = Alpine.store(StateStore.SHARE);
-          const notesStore = Alpine.store(StateStore.MY_NOTES);
-          const toastStore = Alpine.store(StateStore.TOASTER);
           const activeNote = shareStore.activeNote;
 
           shareStore.isShareSwitchLoading = true;
           try {
-            if (!activeNote["can_share"]) {
+            if (activeNote && !activeNote["can_share"]) {
               const res = await ShareNoteService.activateNote(activeNote._id);
               $(".partage_inputs").slideDown();
-              shareStore.activeNotePublicLink = res.linkId;
+              shareStore.activeNotePublicLink = res.data.linkId;
+
+              // ToDo Review the find check. Is probably wrong implemented
               notesStore.noteList.find((note) => note._id)["can_share"] = true;
 
               activeNote["can_share"] = true;
@@ -63,7 +85,7 @@ function DocumentsShareModal() {
           } catch (err) {
             toastStore.toasterMsg(
               window.toastActionMsg.shareNotes.switchShare.error,
-              ToasterMsgTypes.ERROR
+              STATUS_TYPES.error
             );
             console.error(err);
             ev.preventDefault();
@@ -81,8 +103,6 @@ function DocumentsShareModal() {
         ["x-model"]: "sharedEmailValue",
         ["x-on:keyup.enter"]: async () => {
           const userStore = Alpine.store(StateStore.USER);
-          const toastStore = Alpine.store(StateStore.TOASTER);
-          const shareStore = Alpine.store(StateStore.SHARE);
 
           try {
             const validateSharedEmailValueSchema = string()
@@ -96,7 +116,7 @@ function DocumentsShareModal() {
               toastStore.toasterMsg(
                 window.toastActionMsg.shareNotes.addEmailToList.error
                   .noSelfSharing,
-                ToasterMsgTypes.ERROR
+                STATUS_TYPES.error
               );
               return;
             }
@@ -105,7 +125,7 @@ function DocumentsShareModal() {
               toastStore.toasterMsg(
                 window.toastActionMsg.shareNotes.addEmailToList.error
                   .alreadyExists,
-                ToasterMsgTypes.ERROR
+                STATUS_TYPES.error
               );
               return;
             }
@@ -116,7 +136,7 @@ function DocumentsShareModal() {
             this.sharedEmailValue = "";
           } catch (err) {
             if (err.name === "ValidationError") {
-              toastStore.toasterMsg(err.errors, ToasterMsgTypes.ERROR);
+              toastStore.toasterMsg(err.errors, STATUS_TYPES.error);
             }
             console.error(err);
           }
@@ -127,8 +147,6 @@ function DocumentsShareModal() {
       return {
         ["x-on:click.prevent"]: async () => {
           const userStore = Alpine.store(StateStore.USER);
-          const toastStore = Alpine.store(StateStore.TOASTER);
-          const shareStore = Alpine.store(StateStore.SHARE);
 
           try {
             const validateSharedEmailValueSchema = string()
@@ -143,7 +161,7 @@ function DocumentsShareModal() {
               toastStore.toasterMsg(
                 window.toastActionMsg.shareNotes.addEmailToList.error
                   .noSelfSharing,
-                ToasterMsgTypes.ERROR
+                STATUS_TYPES.error
               );
               return;
             }
@@ -152,7 +170,7 @@ function DocumentsShareModal() {
               toastStore.toasterMsg(
                 window.toastActionMsg.shareNotes.addEmailToList.error
                   .alreadyExists,
-                ToasterMsgTypes.ERROR
+                STATUS_TYPES.error
               );
               return;
             }
@@ -163,7 +181,8 @@ function DocumentsShareModal() {
             this.sharedEmailValue = "";
           } catch (err) {
             if (err.name === "ValidationError") {
-              toastStore.toasterMsg(err.errors, ToasterMsgTypes.ERROR);
+              toasterActions.setToastMessage(err.message, STATUS_TYPES.error);
+              // toastStore.toasterMsg(err.errors, STATUS_TYPES.error);
             }
             console.error(err);
           }
@@ -181,16 +200,18 @@ function DocumentsShareModal() {
     deleteSharedEmail() {
       return {
         ["x-on:click.prevent"]: () => {
-          const currentEmail = this.eMail;
-          const modalEmailList = Alpine.store(
-            StateStore.SHARE
-          ).activeNoteEmailList;
+          const currentEmail = this.$data.eMail;
+          const modalEmailList = shareStore.activeNoteEmailList;
           const index = modalEmailList.indexOf(currentEmail);
           modalEmailList.splice(index, 1);
 
           // If email was recently added, delete it from the emailsToAdd array,
           // if not add it to emailsToDelete array to be deleted on validation submit
-          if (this.emailsToAdd.some((email) => email === currentEmail.email)) {
+          if (
+            this.emailsToAdd.some(
+              (/** @type {any} */ email) => email === currentEmail.email
+            )
+          ) {
             const emailsToAddIndex = this.emailsToAdd.indexOf(
               currentEmail.email
             );
@@ -213,30 +234,30 @@ function DocumentsShareModal() {
         ["x-on:click.prevent"]: async () => {
           try {
             if (this.sharedEmailValue !== "") {
-              Alpine.store(StateStore.TOASTER).toasterMsg(
+              toastStore.toasterMsg(
                 window.toastActionMsg.shareNotes.validateEmails.error
                   .dirtyInput,
-                ToasterMsgTypes.ERROR
+                STATUS_TYPES.error
               );
               return;
             }
             const payload = {
               emailsToAdd: this.emailsToAdd,
               emailsToRemove: this.emailsToDelete,
-              noteId: Alpine.store(StateStore.SHARE).activeNote._id,
+              noteId: shareStore.activeNote?._id,
             };
             await ShareNoteService.updateEmailsToNote(payload);
-            Alpine.store(StateStore.TOASTER).toasterMsg(
+            toastStore.toasterMsg(
               window.toastActionMsg.shareNotes.validateEmails.success,
-              ToasterMsgTypes.SUCCESS
+              STATUS_TYPES.success
             );
             this.emailsToAdd = [];
             this.emailsToDelete = [];
           } catch (err) {
             console.error(err);
-            Alpine.store(StateStore.TOASTER).toasterMsg(
+            toastStore.toasterMsg(
               window.toastActionMsg.shareNotes.validateEmails.error.submitError,
-              ToasterMsgTypes.ERROR
+              STATUS_TYPES.error
             );
           }
         },
@@ -255,10 +276,12 @@ function DocumentsShareModal() {
     copySharedLinkBtn: {
       ["x-on:click.prevent"]: () => {},
     },
-    copySharedLinkSuccessMsg: {
-      ["x-show"]: "$store.shareStore.showCopySuccessMsg",
-      ["x-transition:enter.duration.500ms"]: "",
-      ["x-transition:leave.duration.200ms"]: "",
+    copySharedLinkSuccessMsg() {
+      return {
+        ["x-show"]: "$store.shareStore.showCopySuccessMsg",
+        ["x-transition:enter.duration.500ms"]: "",
+        ["x-transition:leave.duration.200ms"]: "",
+      };
     },
   };
 }
