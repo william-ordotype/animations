@@ -46,6 +46,12 @@ type PathologyPaneListOptions = {
    *   preventing unnecessary undefined from inactive pane instances.
    */
   tabPane: () => object;
+
+  /**
+   * Local variable. It represents the noteList store but will be filled if the current tab is the same as the activeNote tab.
+   * This action will remove unused noteList components that are not in view. It's created inside `noteListIterator` function
+   */
+  localNoteList?: NoteList[] | SharedWithMeNoteList[] | [];
   /**
    * Direct child for `PathologyPaneList` component.
    * If noteList is loading it iterates over a static value (10) to show skeleton loading
@@ -242,11 +248,16 @@ export function PathologyPaneList(
     },
     noteListIterator() {
       return {
+        ["x-effect"]: () => {
+          this.$data.localNoteList = canShowActiveTab(pathologyTab, notesStore)
+            ? notesStore.noteList
+            : [];
+        },
         ["x-show"]: () =>
           notesStore.isNotesLoading ||
           (!notesStore.isNotesLoading && !notesStore.isEmpty),
         ["x-for"]:
-          "noteItem in $store.notesStore.isNotesLoading ? 10 : $store.notesStore.noteList",
+          "noteItem in $store.notesStore.isNotesLoading ? 10 : localNoteList",
       };
     },
     noteElement() {
