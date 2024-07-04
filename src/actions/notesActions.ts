@@ -67,8 +67,7 @@ async function setNoteList(
 
 async function setNoteOpened(
   noteId: string,
-  store: { noteStore: INotesStore; modalStore: any },
-  isShared: boolean = false
+  store: { noteStore: INotesStore; modalStore: any }
 ) {
   const { noteStore, modalStore } = store;
 
