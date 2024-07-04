@@ -30,8 +30,8 @@ window.router = () => {
      * @param {import("pinecone-router/dist/types").Context} context
      */
     async listDocuments(context) {
-      // @ts-expect-error ToDo review noteListType.
-      notesStore.noteListType = "shared";
+      // // @ts-expect-error ToDo review noteListType.
+      notesStore.noteListType = "";
       await handleRouter(context);
     },
     /**
@@ -41,8 +41,8 @@ window.router = () => {
       const id = context.params.id;
       if (id) {
         // Shows getOne drawer
-
         try {
+          notesStore.drawerOpened = true;
           await setSharedNoteOpened({ noteId: id });
           if (!notesStore.noteOpened.note?._id) {
             toastStore.toasterMsg("Document introuvable", "error", 4500);

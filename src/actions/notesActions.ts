@@ -2,10 +2,11 @@ import Alpine from "alpinejs";
 
 import { NotesUrls, StateStore } from "@utils/enums";
 import noteService from "@services/notesService";
+
 import { INotesStore } from "@store/myNotes.store";
 import { IToastStore } from "@store/toaster.store";
 import { IUserStore } from "@store/user.store";
-import { handleCloseDrawer } from "@components/Notes/DocumentsDrawer.js";
+import { handleCloseDrawer } from "@components/Notes/DocumentsDrawer";
 import toasterActions from "./toasterActions";
 import { InferType } from "yup";
 import { getListSchema } from "../validation/notesValidation";
@@ -66,7 +67,8 @@ async function setNoteList(
 
 async function setNoteOpened(
   noteId: string,
-  store: { noteStore: INotesStore; modalStore: any }
+  store: { noteStore: INotesStore; modalStore: any },
+  isShared: boolean = false
 ) {
   const { noteStore, modalStore } = store;
 
@@ -201,6 +203,7 @@ async function setMixedNotesList(
   const { noteStore } = store;
   try {
     noteStore.isNotesLoading = true;
+    debugger;
     const res = await noteService.getNotesOwnedAndSharedWithMe(payload);
     const { items_per_page, items_total, page_number, page_total, data } =
       res.data;

@@ -1,6 +1,6 @@
 import Alpine from "alpinejs";
 import getFileExtByMimeType from "@assets/file_ext.js";
-import ShareNotesService from "@services/notesSharesService";
+import shareNotesService from "@services/notesSharesService";
 import SkeletonLoaderEvent from "../../events/SkeletonLoaderEvent";
 import {
   handleItemsPerPage,
@@ -8,8 +8,6 @@ import {
   handleSorting,
 } from "@pages/my-notes/navigation/pagination.js";
 import { StateStore } from "@utils/enums.js";
-
-const ShareNotes = new ShareNotesService();
 
 /**
  * @return {import("alpinejs").AlpineComponent<any>}
@@ -84,6 +82,7 @@ function DataTableListItem() {
               const noteAtIndex = notesStore.noteList[this.index];
 
               if (noteAtIndex) {
+                // @ts-expect-error
                 noteAtIndex.fileIcons = [...this.checkFileIcons(this.note)];
               }
             }
@@ -218,7 +217,7 @@ function DataTableListItemSubmenu() {
           shareStore.showSharingOptions = isShareActive;
           shareStore.activeNote = note;
           if (isShareActive) {
-            const res = await ShareNotes.getSharedInfoFromNote({
+            const res = await shareNotesService.getSharedInfoFromNote({
               noteId: note._id,
             });
             const { emails, linkId } = res.data;

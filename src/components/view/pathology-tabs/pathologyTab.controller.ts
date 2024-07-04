@@ -5,10 +5,8 @@ import { IUserStore } from "@store/user.store";
 import getFileExtByMimeType from "@assets/file_ext";
 
 import { IShareStore } from "@store/share.store";
-import ShareNotesService from "@services/notesSharesService";
+import shareNotesService from "@services/notesSharesService";
 import { setMixedNotesList } from "../../../actions/notesActions";
-
-const ShareNotes = new ShareNotesService();
 
 /**
  * Use inside a click event to switch active tab
@@ -85,7 +83,7 @@ export async function shareNote(
   shareStore.showSharingOptions = isShareActive;
   shareStore.activeNote = note;
   if (isShareActive) {
-    const res = await ShareNotes.getSharedInfoFromNote({
+    const res = await shareNotesService.getSharedInfoFromNote({
       noteId: note._id,
     });
     const { emails, linkId } = res.data;
@@ -127,4 +125,11 @@ export async function getNotesFromPathologyTab(
       }
     );
   }
+}
+
+const MOBILE_SCREEN_WIDTH = 566;
+
+export function isSeenFromMobile() {
+  const currentScreenWidth = window.innerWidth;
+  return currentScreenWidth <= MOBILE_SCREEN_WIDTH;
 }

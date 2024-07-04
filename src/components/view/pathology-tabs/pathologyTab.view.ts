@@ -8,10 +8,11 @@ import {
   shareNote,
   getNotesFromPathologyTab,
   deleteNote,
+  isSeenFromMobile,
 } from "@components/view/pathology-tabs/pathologyTab.controller";
 import { INotesStore, PathologyTab } from "@store/myNotes.store";
 import { StateStore } from "@utils/enums";
-import { setNoteItemOpen } from "../../../actions/notesActions";
+import { setNoteItemOpen, setNoteOpened } from "../../../actions/notesActions";
 import { FileData, NoteList } from "@interfaces/apiTypes/notesTypes";
 import { SharedWithMeNoteList } from "@interfaces/apiTypes/notesSharesTypes";
 import getFileExtByMimeType from "@assets/file_ext";
@@ -20,7 +21,6 @@ import { PathologyItem } from "@interfaces/apiTypes/pathologiesTypes";
 import NProgress from "nprogress";
 import { setSharedNoteOpened } from "../../../actions/sharedNotesActions";
 import { IShareStore } from "@store/share.store";
-import { navigationToastMsgs } from "@utils/toastMessages";
 
 export type PathologyTabListOptions = {
   tab: (pathologyTab: PathologyTab) => void;
@@ -60,23 +60,39 @@ type PathologyPaneListOptions = {
    * Direct child of noteElement
    */
   noteTitle: () => object;
+  /**
+   * Iterates over icons found {@link NoteList} array
+   * @return {object}
+   */
   fileIconIterator: () => object;
+  /**
+   * Direct child of `fileIconIterator`. Handles file download
+   */
   fileIconElement: () => object;
 
   isNoteSharedIcon: () => object;
-
+  /**
+   * Layout metadata. Shows different components based on {@link NoteList.isEmpty}
+   */
   layout: {
     isEmpty: () => object;
     isNotEmpty: () => object;
   };
+  /**
+   * Pagination metadata from {@link INotesStore.noteListMeta }
+   */
   pagination: {
+    /**
+     * Iterates over {INotesStore.noteListMeta.pageTotal}  found
+     *
+     */
     paginationIterator: () => object;
     pageNumber: () => object;
     pageNext: () => object;
   };
   actions: {
     /**
-     * Opens modal with selected note type
+     * Opens modal with note type inherited from the tab that is currently opened
      */
     createModalNoteFromTab: () => object;
   };
@@ -105,7 +121,9 @@ export function PathologyPaneList(
   const userStore = Alpine.store(StateStore.USER) as IUserStore;
   const modalStore = Alpine.store(StateStore.MODAL) as any;
   const pathologySlug =
-    location.host === "localhost:3021" ? "acne" : location.href.split("/")[4]!;
+    import.meta.env.MODE === "development"
+      ? "acne"
+      : location.href.split("/")[4]!;
 
   return {
     init() {
@@ -243,12 +261,29 @@ export function PathologyPaneList(
           NProgress.start();
           if (isNoteShared(currentNote, userStore)) {
             console.log(`Opened shared note id ${currentNote._id}`);
-            await setSharedNoteOpened({ noteId: currentNote._id });
+            if (isSeenFromMobile()) {
+              //
+              notesStore.drawerOpened = true;
+              await setSharedNoteOpened({ noteId: currentNote._id });
+            } else {
+              await setSharedNoteOpened({ noteId: currentNote._id });
+            }
           } else {
             console.log(`Opened owned note id ${currentNote._id}`);
-            await setNoteItemOpen(currentNote._id, {
-              noteStore: notesStore,
-            });
+            if (isSeenFromMobile()) {
+              await setNoteOpened(
+                currentNote._id,
+                {
+                  noteStore: notesStore,
+                  modalStore,
+                },
+                false
+              );
+            } else {
+              await setNoteItemOpen(currentNote._id, {
+                noteStore: notesStore,
+              });
+            }
           }
           NProgress.done();
         },
@@ -465,7 +500,7 @@ export function PathologyPaneNoteItem(): AlpineComponent<PathologyPaneNoteItemOp
       notePrint() {
         return {
           ["x-on:click"]: async () => {
-            await printDiv("[x-data=PathologyPaneNoteItem]");
+            await printDiv("[x-bind='noteRichText']");
           },
         };
       },

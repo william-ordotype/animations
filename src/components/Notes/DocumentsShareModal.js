@@ -2,14 +2,12 @@
 // @ts-nocheck
 
 import Alpine from "alpinejs";
-import ShareNotesService from "../../services/notesSharesService";
+import shareNotesService from "../../services/notesSharesService";
 import { StateStore } from "@utils/enums";
 import NProgress from "nprogress";
 import { string } from "yup";
 import { STATUS_TYPES } from "@store/toaster.store";
 import toasterActions from "../../actions/toasterActions";
-
-const ShareNoteService = new ShareNotesService();
 
 /**
  * @return {import("alpinejs").AlpineComponent<any>}
@@ -64,7 +62,7 @@ function DocumentsShareModal() {
           shareStore.isShareSwitchLoading = true;
           try {
             if (activeNote && !activeNote["can_share"]) {
-              const res = await ShareNoteService.activateNote(activeNote._id);
+              const res = await shareNotesService.activateNote(activeNote._id);
               $(".partage_inputs").slideDown();
               shareStore.activeNotePublicLink = res.data.linkId;
 
@@ -74,7 +72,7 @@ function DocumentsShareModal() {
               activeNote["can_share"] = true;
             } else {
               $(".partage_inputs").slideUp();
-              await ShareNoteService.deactivateNote(activeNote._id);
+              await shareNotesService.deactivateNote(activeNote._id);
               shareStore.activeNotePublicLink = "";
               notesStore.noteList.find((note) => note._id)["can_share"] = false;
 
@@ -246,7 +244,7 @@ function DocumentsShareModal() {
               emailsToRemove: this.emailsToDelete,
               noteId: shareStore.activeNote?._id,
             };
-            await ShareNoteService.updateEmailsToNote(payload);
+            await shareNotesService.updateEmailsToNote(payload);
             toastStore.toasterMsg(
               window.toastActionMsg.shareNotes.validateEmails.success,
               STATUS_TYPES.success

@@ -1,8 +1,7 @@
 import Alpine from "alpinejs";
 
 import { NotesUrls, StateStore } from "@utils/enums";
-import ShareNotesService from "../services/notesSharesService";
-import { setNotesRuleStatus } from "./notesActions";
+import sharedNotesService from "../services/notesSharesService";
 import { INotesStore } from "@store/myNotes.store";
 import {
   IToastStore,
@@ -10,8 +9,6 @@ import {
   STATUS_TYPES,
 } from "@store/toaster.store.js";
 import shareStore from "@store/share.store.js";
-
-const sharedNotesService = new ShareNotesService();
 
 // Invitee: My shared documents
 async function setSharedNoteList(payload: ToDo) {
@@ -32,8 +29,6 @@ async function setSharedNoteList(payload: ToDo) {
   };
   noteStore.isEmpty = page_total <= 0;
   noteStore.isNotesLoading = false;
-
-  await setNotesRuleStatus();
 }
 
 async function setSharedNoteOpened({ noteId }: ToDo) {

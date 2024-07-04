@@ -22,10 +22,7 @@ const userStore = (
       try {
         if (!user) {
           this.isAuth = false;
-          if (
-            location.href.includes("localhost") ||
-            location.href.includes("static")
-          ) {
+          if (import.meta.env.MODE === "development") {
             window.$memberstackDom
               .openModal("LOGIN")
               .then((value) => {

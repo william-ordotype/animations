@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Last Published: Sun Jun 30 2024 00:18:07 GMT+0000 (Coordinated Universal Time) -->
+<!-- Last Published: Wed Jul 03 2024 21:38:48 GMT+0000 (Coordinated Universal Time) -->
 <html
      data-wf-domain="ordotype.webflow.io"
      data-wf-page="65a7f596a733dbc7f3f7098b"
@@ -37,7 +37,7 @@
          name="google-site-verification"
     />
     <link
-         href="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.8fab2618c.min.css"
+         href="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.2e9fb458a.min.css"
          rel="stylesheet"
          type="text/css"
     />
@@ -120,7 +120,7 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
     
     
     Memberstack webflow package -->
-    
+
     <script
          data-memberstack-domain="https://memberstack-client.ordotype.fr"
          data-memberstack-app="app_cl2r62rnv000w0uhy1nstfc3r"
@@ -287,17 +287,17 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
             display: none;
         }
     </style>
-    
+
     <meta
          name="google-site-verification"
          content="Sq3ZH7V9LReszDsgNbInbEJ_BR1M7e5yAukJv3MO7LA"
     />
-    
+
     <meta
          name="viewport"
          content="width=device-width, initial-scale=1, maximum-scale=1"
     />
-    
+
     <!-- [Attributes by Finsweet] CMS Load -->
     <script
          async
@@ -828,11 +828,10 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
             overflow-y: auto !important;
             scrollbar-width: none;
         }
-        
+
         .mes_notes_wrapper.rappels-cliniques.sidebar-open {
             display: block;
         }
-        
         .tableau-recap.hidden.w-richtext.sidebar-open {
             display: block;
         }
@@ -1968,7 +1967,7 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                             </div>
                             <div class="career_component">
                                 <div
-                                     data-current="Notes"
+                                     data-current="Conseil patient"
                                      data-easing="ease"
                                      data-duration-in="300"
                                      data-duration-out="100"
@@ -1990,20 +1989,20 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                          data-w-tab="Notes"
                                          x-bind="tab(&#x27;notes&#x27;)"
                                          data-ms-content="members"
-                                         class="career_tab-link v2 w-inline-block w-tab-link w--current"
+                                         class="career_tab-link v2 w-inline-block w-tab-link"
                                     >
                                         <div class="text-weight-semibold">Notes</div>
                                     </a
                                     ><a
-                                         x-bind="tab('balance_sheet')"
                                          data-w-tab="Bilans"
+                                         x-bind="tab(&#x27;balance_sheet&#x27;)"
                                          class="career_tab-link v2 w-inline-block w-tab-link"
                                     >
                                         <div class="text-weight-semibold">Bilans</div>
                                     </a
                                     ><a
-                                         x-bind="tab('treatment')"
                                          data-w-tab="Traitments"
+                                         x-bind="tab(&#x27;treatment&#x27;)"
                                          class="career_tab-link v2 w-inline-block w-tab-link"
                                     >
                                         <div class="text-weight-semibold">
@@ -2017,9 +2016,9 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                         <div class="text-weight-semibold">Courriers</div>
                                     </a
                                     ><a
-                                         x-bind="tab('recommendations')"
                                          data-w-tab="Conseil patient"
-                                         class="career_tab-link v2 w-inline-block w-tab-link"
+                                         x-bind="tab(&#x27;recommendations&#x27;)"
+                                         class="career_tab-link v2 w-inline-block w-tab-link w--current"
                                     >
                                         <div class="text-weight-semibold">
                                             Conseils patient
@@ -3644,7 +3643,7 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                         <div
                                              data-w-tab="Notes"
                                              x-data="PathologyPaneList(&#x27;notes&#x27;)"
-                                             class="w-tab-pane w--tab-active"
+                                             class="w-tab-pane"
                                         >
                                             <div class="div-block-421">
                                                 <div
@@ -3669,6 +3668,7 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                                         </div>
                                                     </div>
                                                     <a
+                                                         x-bind="actions.createModalNoteFromTab"
                                                          href="#"
                                                          class="button is-gradient w-inline-block"
                                                     >
@@ -4142,7 +4142,7 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                                                         <p
                                                                              class="text-size-regular text-color-base-600"
                                                                         >
-                                                                            Lorem ipsum dolor sit amet,
+                                                                            {{Lorem ipsum dolor sit amet,
                                                                             consectetur adipiscing elit.
                                                                             Suspendisse varius enim in eros
                                                                             elementum tristique. Duis cursus, mi
@@ -4151,7 +4151,7 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                                                             vitae erat. Aenean faucibus nibh et
                                                                             justo cursus id rutrum lorem
                                                                             imperdiet. Nunc ut sem vitae risus
-                                                                            tristique posuere.
+                                                                            tristique posuere.}}
                                                                         </p>
                                                                     </div>
                                                                     <div class="files-container">
@@ -4185,15 +4185,15 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                                                                             <div class="file_title">
                                                                                                 <div
                                                                                                      x-bind="noteFileTitle"
-                                                                                                     class="display-inlineflex"
+                                                                                                     class="fileicon_title_text"
                                                                                                 >
-                                                                                                    FileName
+                                                                                                    {{FileName}}
                                                                                                 </div>
                                                                                                 <div
                                                                                                      x-bind="noteFileExt"
                                                                                                      class="display-inlineflex extention"
                                                                                                 >
-                                                                                                    .ext
+                                                                                                    {{.ext}}
                                                                                                 </div>
                                                     </div>
                                                                                         </div>
@@ -4219,8 +4219,11 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                                 </div>
                                             </div>
                                         </div>
-                                        <div x-data="PathologyPaneList('balance_sheet')"
-                                             data-w-tab="Bilans" class="w-tab-pane">
+                                        <div
+                                             data-w-tab="Bilans"
+                                             x-data="PathologyPaneList(&#x27;balance_sheet&#x27;)"
+                                             class="w-tab-pane"
+                                        >
                                             <div class="pathologies_tab_row">
                                                 <div class="pathologies_tab_col-left">
                                                     <div class="warning-texte-wrapper">
@@ -4249,7 +4252,7 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                                         </div>
                                                     </div>
                                                     <div
-                                                         data-current="Pathology bilans"
+                                                         data-current="My bilans"
                                                          data-easing="ease"
                                                          data-duration-in="300"
                                                          data-duration-out="100"
@@ -4263,7 +4266,7 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                                         >
                                                             <a
                                                                  data-w-tab="Pathology bilans"
-                                                                 class="tab_link_docs w-inline-block w-tab-link w--current"
+                                                                 class="tab_link_docs w-inline-block w-tab-link"
                                                             >
                                                                 <div class="tab_menu_text">
                                                                     Ordotype
@@ -4271,7 +4274,7 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                                             </a
                                                             ><a
                                                              data-w-tab="My bilans"
-                                                             class="tab_link_docs w-inline-block w-tab-link"
+                                                             class="tab_link_docs w-inline-block w-tab-link w--current"
                                                         >
                                                             <div class="tab_menu_text">
                                                                 Mes bilans
@@ -4282,7 +4285,7 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                                         <div class="tabs-content-side w-tab-content">
                                                             <div
                                                                  data-w-tab="Pathology bilans"
-                                                                 class="tab_pane_side_pathologies w-tab-pane w--tab-active"
+                                                                 class="tab_pane_side_pathologies w-tab-pane"
                                                             >
                                                                 <div class="w-dyn-list">
                                                                     <div role="list" class="w-dyn-items">
@@ -4797,7 +4800,7 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                                             </div>
                                                             <div
                                                                  data-w-tab="My bilans"
-                                                                 class="tab_pane_side sec w-tab-pane"
+                                                                 class="tab_pane_side sec w-tab-pane w--tab-active"
                                                             >
                                                                 <div
                                                                      id="bilans-notes"
@@ -4811,7 +4814,7 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                                                         Mes bilans
                                                                     </h2>
                                                                     <div
-                                                                         x-show="$store.notesStore.noteList.filter((b, idx) =&gt; b.type === &#x27;prescriptions&#x27; &amp;&amp; b.prescription_type === &#x27;balance_sheet&#x27;).length === 0"
+                                                                         x-show="$store.notesStore.isEmpty"
                                                                          class="empty_state text-color-base-800"
                                                                     >
                                                                         <h3 class="heading-h3-docs emp">
@@ -4828,14 +4831,14 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                                                         </div>
                                                                     </div>
                                                                     <div
-                                                                         x-show="$store.notesStore.noteList.filter((b, idx) =&gt; b.type === &#x27;prescriptions&#x27; &amp;&amp; b.prescription_type === &#x27;balance_sheet&#x27;).length &gt; 0"
+                                                                         x-show="$store.notesStore.isNotesLoading ||           (!$store.notesStore.isNotesLoading &amp;&amp; !$store.notesStore.isEmpty)"
                                                                          class="mes_notes_holder"
                                                                     >
                                                                         <div
                                                                              class="list_item_notes flex-vertical-left"
                                                                         >
                                                                             <template
-                                                                                 x-for="(bilan, index) in $store.notesStore.noteList.filter((b, idx) =&gt; b.type === &#x27;prescriptions&#x27; &amp;&amp; b.prescription_type === &#x27;balance_sheet&#x27;)"
+                                                                                 x-for="(bilan, index) in $store.notesStore.isNotesLoading ? 10 : $store.notesStore.noteList"
                                                                                  class="template"
                                                                             >
                                                                                 <div
@@ -4916,8 +4919,11 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                                 </div>
                                             </div>
                                         </div>
-                                        <div data-w-tab="Traitments" x-data="PathologyPaneList('treatment')"
-                                             class="w-tab-pane">
+                                        <div
+                                             data-w-tab="Traitments"
+                                             x-data="PathologyPaneList(&#x27;treatment&#x27;)"
+                                             class="w-tab-pane"
+                                        >
                                             <div class="pathologies_tab_row">
                                                 <div class="pathologies_tab_col-left">
                                                     <div class="warning-texte-wrapper">
@@ -4946,7 +4952,7 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                                         </div>
                                                     </div>
                                                     <div
-                                                         data-current="Pathology traitements"
+                                                         data-current="My traitements"
                                                          data-easing="ease"
                                                          data-duration-in="300"
                                                          data-duration-out="100"
@@ -4960,7 +4966,7 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                                         >
                                                             <a
                                                                  data-w-tab="Pathology traitements"
-                                                                 class="tab_link_docs w-inline-block w-tab-link w--current"
+                                                                 class="tab_link_docs w-inline-block w-tab-link"
                                                             >
                                                                 <div class="tab_menu_text">
                                                                     Ordotype
@@ -4968,7 +4974,7 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                                             </a
                                                             ><a
                                                              data-w-tab="My traitements"
-                                                             class="tab_link_docs w-inline-block w-tab-link"
+                                                             class="tab_link_docs w-inline-block w-tab-link w--current"
                                                         >
                                                             <div class="tab_menu_text">
                                                                 Mes traitements
@@ -4979,7 +4985,7 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                                         <div class="tabs-content-side w-tab-content">
                                                             <div
                                                                  data-w-tab="Pathology traitements"
-                                                                 class="tab_pane_side_pathologies w-tab-pane w--tab-active"
+                                                                 class="tab_pane_side_pathologies w-tab-pane"
                                                             >
                                                                 <div class="w-dyn-list">
                                                                     <div role="list" class="w-dyn-items">
@@ -5494,7 +5500,7 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                                             </div>
                                                             <div
                                                                  data-w-tab="My traitements"
-                                                                 class="tab_pane_side sec w-tab-pane"
+                                                                 class="tab_pane_side sec w-tab-pane w--tab-active"
                                                             >
                                                                 <div
                                                                      id="treatments-notes"
@@ -5508,7 +5514,8 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                                                         Mes ordonnances
                                                                     </h2>
                                                                     <div
-                                                                         x-show="$store.notesStore.noteList.filter((b, idx) =&gt; b.type === &#x27;prescriptions&#x27; &amp;&amp; b.prescription_type === &#x27;treatment&#x27;).length === 0"
+                                                                         x-show="!$store.notesStore.isNotesLoading &&
+            $store.notesStore.isEmpty"
                                                                          class="empty_state text-color-base-800"
                                                                     >
                                                                         <h3 class="heading-h3-docs emp">
@@ -5525,14 +5532,14 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                                                         </div>
                                                                     </div>
                                                                     <div
-                                                                         x-show="$store.notesStore.noteList.filter((b, idx) =&gt; b.type === &#x27;prescriptions&#x27; &amp;&amp; b.prescription_type === &#x27;treatment&#x27;).length &gt; 0"
+                                                                         x-show="$store.notesStore.isNotesLoading ||           (!$store.notesStore.isNotesLoading &amp;&amp; !$store.notesStore.isEmpty)"
                                                                          class="mes_notes_holder"
                                                                     >
                                                                         <div
                                                                              class="list_item_notes flex-vertical-left"
                                                                         >
                                                                             <template
-                                                                                 x-for="(treatment, index) in $store.notesStore.noteList.filter((b, idx) =&gt; b.type === &#x27;prescriptions&#x27; &amp;&amp; b.prescription_type === &#x27;treatment&#x27;)"
+                                                                                 x-for="(treatment, index) in $store.notesStore.isNotesLoading ? 10 : $store.notesStore.noteList"
                                                                                  class="template"
                                                                             >
                                                                                 <div
@@ -5688,12 +5695,15 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                                 </div>
                                             </div>
                                         </div>
-                                        <div x-data="PathologyPaneList('recommendations')"
-                                             data-w-tab="Conseil patient" class="w-tab-pane">
+                                        <div
+                                             data-w-tab="Conseil patient"
+                                             x-data="PathologyPaneList(&#x27;recommendations&#x27;)"
+                                             class="w-tab-pane w--tab-active"
+                                        >
                                             <div class="pathologies_tab_row">
                                                 <div class="pathologies_tab_col-left">
                                                     <div
-                                                         data-current="Conseils patient"
+                                                         data-current="My conseils patient"
                                                          data-easing="ease"
                                                          data-duration-in="300"
                                                          data-duration-out="100"
@@ -5707,7 +5717,7 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                                         >
                                                             <a
                                                                  data-w-tab="Conseils patient"
-                                                                 class="tab_link_docs w-inline-block w-tab-link w--current"
+                                                                 class="tab_link_docs w-inline-block w-tab-link"
                                                             >
                                                                 <div class="tab_menu_text">
                                                                     Ordotype
@@ -5715,7 +5725,7 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                                             </a
                                                             ><a
                                                              data-w-tab="My conseils patient"
-                                                             class="tab_link_docs w-inline-block w-tab-link"
+                                                             class="tab_link_docs w-inline-block w-tab-link w--current"
                                                         >
                                                             <div class="tab_menu_text">
                                                                 Mes conseils patient
@@ -5726,7 +5736,7 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                                         <div class="tabs-content-side w-tab-content">
                                                             <div
                                                                  data-w-tab="Conseils patient"
-                                                                 class="tab_pane_side_pathologies w-tab-pane w--tab-active"
+                                                                 class="tab_pane_side_pathologies w-tab-pane"
                                                             >
                                                                 <div class="w-dyn-list">
                                                                     <div role="list" class="w-dyn-items">
@@ -5832,7 +5842,7 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                                             </div>
                                                             <div
                                                                  data-w-tab="My conseils patient"
-                                                                 class="tab_pane_side sec w-tab-pane"
+                                                                 class="tab_pane_side sec w-tab-pane w--tab-active"
                                                             >
                                                                 <div
                                                                      id="conseils-notes"
@@ -5846,7 +5856,7 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                                                         Mes fiches conseils
                                                                     </h2>
                                                                     <div
-                                                                         x-show="$store.notesStore.noteList.filter((b, idx) =&gt; b.type === &#x27;recommendations&#x27;).length === 0"
+                                                                         x-show="$store.notesStore.isEmpty"
                                                                          class="empty_state text-color-base-800"
                                                                     >
                                                                         <h3 class="heading-h3-docs emp">
@@ -5864,14 +5874,15 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                                                         </div>
                                                                     </div>
                                                                     <div
-                                                                         x-show="$store.notesStore.noteList.filter((b, idx) =&gt; b.type === &#x27;recommendations&#x27;).length &gt; 0"
+                                                                         x-show="$store.notesStore.isNotesLoading ||           (!$store.notesStore.isNotesLoading &amp;&amp; !$store.notesStore.isEmpty)"
                                                                          class="mes_notes_holder"
                                                                     >
                                                                         <div
                                                                              class="list_item_notes flex-vertical-left"
                                                                         >
                                                                             <template
-                                                                                 x-for="(conseil, index) in $store.notesStore.noteList.filter((b, idx) =&gt; b.type === &#x27;recommendations&#x27;)"
+                                                                                 x-for="(conseil, index) in $store.notesStore.isNotesLoading ? 10 : $store.notesStore.noteList"
+                                                                                 class="template"
                                                                             >
                                                                                 <div
                                                                                      x-data="PathologiesNoteItem"
@@ -6656,7 +6667,7 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                     </div>
                                     <nav class="sub_list_action w-dropdown-list">
                                         <a
-                                             x-on:click="drawerEdit($event)"
+                                             x-bind="actions.edit"
                                              href="#"
                                              class="sub_link w-inline-block"
                                         >
@@ -6708,7 +6719,7 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                         </div>
                                     </a
                                     ><a
-                                         x-bind="drawerShare"
+                                         x-bind="actions.share"
                                          href="#"
                                          class="sub_link borders w-inline-block"
                                     >
@@ -6734,7 +6745,7 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                         </div>
                                     </a
                                     ><a
-                                         x-on:click="drawerDeleteOne($event)"
+                                         x-bind="actions.delete"
                                          href="#"
                                          class="sub_link color_red w-inline-block"
                                     >
@@ -6837,7 +6848,8 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                  class="text_wrapper"
                             >
                                 <p class="text-size-body2">
-                                    Text de la note personnalisée ici.<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>.
+                                    {{Text de la note personnalisée
+                                    ici.}}<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>.
                                 </p>
                             </div>
                             <div x-data="" class="files_wrapper">
@@ -7564,7 +7576,7 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                                     <div class="button_text">Annuler</div>
                                 </a
                                 ><a
-                                 x-on:click="$store.modalStore.submitDeleteFromPathologies($event)"
+                                 x-on:click="$store.modalStore.submitDelete($event)"
                                  href="#"
                                  class="button is-docs w-inline-block"
                             >
@@ -8189,7 +8201,7 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                 key: "storedDateEssaiGratuitRemplaBlue",
             },
         ];
-        
+
         storageElements.forEach((elem) => {
             const element = document.getElementById(elem.id);
             if (element) {
@@ -8318,6 +8330,9 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
             );
             const isPastDueBrique = member.data.planConnections.some(
                  (plan) => plan.planId === "pln_brique-past-due-os1c808ai"
+            );
+            const isSepaTemporary = member.data.planConnections.some(
+                 (plan) => plan.planId === "pln_sepa-temporary-lj4w0oky"
             );
             const hasPastDuePlan = planConnections.some(
                  (plan) =>
@@ -8451,7 +8466,7 @@ window.addEventListener("load", (event) => {  console.log("Onload fired");
                  //	else if (isInterne && hasAllowedPlanId && date_since_signup > 8 && semestre >= requiredSemester) {
                  //   $('#banner-to-hide-fin-internat').css({'display': 'flex'});
             // }
-            else if (hasPastDuePlan && !isPastDueBrique) {
+            else if (hasPastDuePlan && !isPastDueBrique && !isSepaTemporary) {
                 window.location.replace("/membership/probleme-de-paiement");
             }
         });
@@ -8677,7 +8692,6 @@ Webflow.push(function(){$('.w-richtext p').html(function(){return $(this).html()
             const yHeight = ref.offset().top - headerHeight - 16;
             $("html,body").animate({scrollTop: yHeight}, "slow");
         }
-        
         $("body").on("click", "a[href^='#refer']", function (e) {
             e.preventDefault();
             const target = e.target;
@@ -8712,13 +8726,13 @@ Webflow.push(function(){$('.w-richtext p').html(function(){return $(this).html()
         const url = `${host}/${collection}/${slug}`;
         const currentIframeId = ev.currentTarget.getAttribute("data-iframe-id");
         const target = $(ev.currentTarget);
-        
+
         $(".content-item").removeClass("is-active");
-        
+
         // Loading state
         target.find(".tab_right-icon").hide();
         target.find(".loading-spinner").show();
-        
+
         // Desktop
         if (window.innerWidth > 767) {
             target.addClass("is-active");

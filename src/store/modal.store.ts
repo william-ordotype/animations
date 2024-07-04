@@ -94,7 +94,7 @@ const modalStore = {
       this.showModal = true;
       if (window.location.pathname.includes("pathologies")) {
         const pathologySlug =
-          location.host === "localhost:3021"
+          import.meta.env.MODE === "development"
             ? "acne"
             : location.href.split("/")[4]!;
         const res = await pathologiesService.searchBySlug(pathologySlug);
@@ -159,7 +159,7 @@ const modalStore = {
       await getNotesFromPathologyTab(
         1,
         notesStore.pathologyActiveTab,
-        location.host === "localhost:3021"
+        import.meta.env.MODE === "development"
           ? "acne"
           : location.href.split("/")[4]!,
         notesStore
@@ -243,13 +243,6 @@ const modalStore = {
       // If modal is open from pathologies page refresh the
       // getList filtered by the pathology slug
       if (window.location.pathname.includes("/pathologies")) {
-        const noteListComponents = document.querySelectorAll(
-          ".mes_notes_holder [x-text], .empty_state"
-        );
-        noteListComponents.forEach((component) => {
-          component.dispatchEvent(window.customEvents.loadingTrigger);
-        });
-
         if (
           Alpine.store("drawerStore") &&
           Alpine.store("drawerStore").showDrawer === true
@@ -267,15 +260,12 @@ const modalStore = {
             page: 1,
             direction: "DESC",
             sort: "created_on",
-            pathology_slug: window.pathologies.slug,
+            pathology_slug: window.pathology.slug,
             limit: 50,
           },
           { noteStore: notesStore }
         );
 
-        noteListComponents.forEach((component) => {
-          component.dispatchEvent(window.customEvents.loadingCancel);
-        });
         return;
       }
 

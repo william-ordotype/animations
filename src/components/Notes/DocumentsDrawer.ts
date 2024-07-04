@@ -1,30 +1,35 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 
-import Alpine from "alpinejs";
+import Alpine, { AlpineComponent } from "alpinejs";
 import { StateStore } from "@utils/enums.js";
 import { setNotesRuleStatus } from "../../actions/notesActions";
 import SkeletonLoaderEvent from "../../events/SkeletonLoaderEvent";
-import ShareNotesService from "../../services/notesSharesService";
+import shareNotesService from "../../services/notesSharesService";
 import {
   setCloneNote,
   setRemoveSharedInvitations,
 } from "../../actions/sharedNotesActions";
-
-const shareNotesService = new ShareNotesService();
+import { isNoteShared } from "@components/view/pathology-tabs/pathologyTab.controller";
 
 /**
  * @return {import("alpinejs").AlpineComponent<any>}
  */
 
-function DocumentsDrawer() {
-  const notesStore = /** @type {import("@store/myNotes.store").INotesStore} */ (
-    Alpine.store(StateStore.MY_NOTES)
-  );
+function DocumentsDrawer(): AlpineComponent<any> {
+  const notesStore =
+    /** @type {import("@store/myNotes.store").INotesStore} */ Alpine.store(
+      StateStore.MY_NOTES
+    );
 
   const shareStore =
-    /** @type import('../../store/share.store').IShareStore */ (
-      Alpine.store(StateStore.SHARE)
+    /** @type import('../../store/share.store').IShareStore */ Alpine.store(
+      StateStore.SHARE
+    );
+
+  const userStore =
+    /** @type {import("@store/user.store").IUserStore} */ Alpine.store(
+      StateStore.USER
     );
 
   return {
@@ -57,6 +62,70 @@ function DocumentsDrawer() {
       return {
         ["x-on:click.prevent.self"]: async () => await handleCloseDrawer(),
       };
+    },
+    actions: {
+      edit() {
+        return {
+          ["x-on:click.prevent"]: () => {
+            Alpine.store("modalStore").openModal(notesStore.noteOpened.note);
+          },
+          ["x-show"]: () => {
+            return (
+              notesStore.noteOpened.note &&
+              !isNoteShared(notesStore.noteOpened.note, userStore)
+            );
+          },
+        };
+      },
+      share() {
+        return {
+          ["x-show"]: () => {
+            return (
+              notesStore.noteOpened.note &&
+              !isNoteShared(notesStore.noteOpened.note!, userStore)
+            );
+          },
+          ["@click.prevent"]: async () => {
+            const note = notesStore.noteOpened?.note;
+            const isShareActive = note ? !!note["can_share"] : false;
+
+            Alpine.store(StateStore.MODAL).showSharingOptions = true;
+            shareStore.shareSwitch = isShareActive;
+            shareStore.shareOptionsEnabled = isShareActive;
+            shareStore.showSharingOptions = isShareActive;
+            shareStore.activeNote = note;
+            try {
+              if (isShareActive && note) {
+                const res = await shareNotesService.getSharedInfoFromNote({
+                  noteId: note._id,
+                });
+
+                const { emails, linkId } = res.data;
+
+                shareStore.activeNoteEmailList = emails;
+                shareStore.activeNotePublicLink = linkId;
+              }
+            } catch (err) {
+              console.error(err);
+            }
+          },
+        };
+      },
+      delete() {
+        return {
+          ["x-show"]: () => {
+            return (
+              notesStore.noteOpened.note &&
+              !isNoteShared(notesStore.noteOpened.note!, userStore)
+            );
+          },
+          ["x-on:click.prevent"]: () => {
+            const noteId = notesStore.noteOpened.note?._id;
+            Alpine.store(StateStore.MODAL).deleteList = [noteId];
+            Alpine.store(StateStore.MODAL).showBeforeDelete = true;
+          },
+        };
+      },
     },
 
     /**
@@ -222,7 +291,11 @@ function DocumentsDrawer() {
 export async function handleCloseDrawer() {
   const notesStore = /**
    * @type {import("@store/myNotes.store").INotesStore}
-   */ (Alpine.store(StateStore.MY_NOTES));
+   */ Alpine.store(StateStore.MY_NOTES);
+
+  const userStore = /**
+   * @type {import("@store/user.store").IUserStore}
+   */ Alpine.store(StateStore.USER);
 
   if (window.location.pathname.includes("/pathologies")) {
     notesStore.drawerOpened = false;
@@ -238,10 +311,10 @@ export async function handleCloseDrawer() {
     }`;
 
     window.PineconeRouter.currentContext.navigate(listRedirect);
+    await setNotesRuleStatus({ noteStore: notesStore, userStore });
   }
   // Reset document object in store
   console.log("close drawer");
-  await setNotesRuleStatus();
   notesStore.drawerOpened = false;
   notesStore.noteOpened = {
     note: null,

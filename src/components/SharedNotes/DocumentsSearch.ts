@@ -1,12 +1,7 @@
 import { setSharedNotesSearched } from "../../actions/sharedNotesActions";
 import NProgress from "nprogress";
-import Alpine from "alpinejs";
-import { StateStore } from "@utils/enums";
-import { INotesStore } from "@store/myNotes.store";
 
 function DocumentsSearch() {
-  const notesStore = Alpine.store(StateStore.NOTES) as INotesStore;
-
   return {
     handleSearchInput() {
       return {
@@ -17,9 +12,7 @@ function DocumentsSearch() {
           NProgress.done();
         },
         ["x-show"]: "true",
-        ["x-model"]: () => {
-          return notesStore.searchValue;
-        },
+        ["x-model"]: "$store.notesStore.searchValue",
       };
     },
   };
