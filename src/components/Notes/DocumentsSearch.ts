@@ -17,7 +17,7 @@ function DocumentsSearch(): AlpineComponent<any> {
           NProgress.done();
         },
         ["x-show"]: "true",
-        ["x-model"]: "$store.notesStore.searchValue",
+        ["x-model"]: "$store.notesStore?.searchValue",
       };
     },
   };
