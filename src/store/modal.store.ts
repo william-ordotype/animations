@@ -5,13 +5,15 @@ import Alpine from "alpinejs";
 import { StateStore } from "@utils/enums";
 import {
   setDeleteNotes,
+  setMixedNotesList,
+  setNoteItemOpen,
   setNoteList,
   setNoteOpened,
   setRemoveNotes,
 } from "../actions/notesActions.js";
 import NProgress from "nprogress";
 import PathologiesService from "../services/pathologiesService";
-import { INotesStore, PathologyTab } from "@store/myNotes.store";
+import { INotesStore } from "@store/myNotes.store";
 import notesService from "@services/notesService";
 import { getNotesFromPathologyTab } from "@components/view/pathology-tabs/pathologyTab.controller";
 
@@ -205,6 +207,12 @@ const modalStore = {
     this.loadSubmit = false;
   },
   async submitForm(ev) {
+    const notesStore = Alpine.store(StateStore.MY_NOTES) as INotesStore;
+    const pathologySlug =
+      import.meta.env.MODE === "development"
+        ? "acne"
+        : location.href.split("/")[4]!;
+
     ev.preventDefault();
     const purify = await import("dompurify");
     this.form.rich_text_ordo = window.globals.createRTE.root.innerHTML;
@@ -243,29 +251,13 @@ const modalStore = {
       // If modal is open from pathologies page refresh the
       // getList filtered by the pathology slug
       if (window.location.pathname.includes("/pathologies")) {
-        if (
-          Alpine.store("drawerStore") &&
-          Alpine.store("drawerStore").showDrawer === true
-        ) {
-          await setNoteOpened(form._id, {
-            noteStore: noteStore,
-            modalStore: Alpine.store(StateStore.MODAL),
-          });
-        }
-
-        const notesStore = Alpine.store(StateStore.MY_NOTES) as INotesStore;
-
-        await setNoteList(
-          {
-            page: 1,
-            direction: "DESC",
-            sort: "created_on",
-            pathology_slug: window.pathology.slug,
-            limit: 50,
-          },
-          { noteStore: notesStore }
+        await getNotesFromPathologyTab(
+          notesStore.noteListMeta.pageNumber,
+          notesStore.pathologyActiveTab,
+          pathologySlug,
+          notesStore
         );
-
+        await setNoteItemOpen(form._id, { noteStore: notesStore });
         return;
       }
 
@@ -274,7 +266,7 @@ const modalStore = {
       if (window.location.hash.includes("/view")) {
         Alpine.store("drawerStore").loadDrawer = true;
         await setNoteOpened(form._id, {
-          noteStore: noteStore,
+          noteStore: notesStore,
           modalStore: Alpine.store(StateStore.MODAL),
         });
         Alpine.store("drawerStore").loadDrawer = false;
@@ -286,9 +278,14 @@ const modalStore = {
         );
         // If modal is open from create button, refresh the getList documents
         // In order to update the table list
-        await setNoteList({
-          type: Alpine.store(StateStore.MY_NOTES).noteListType,
-        });
+        await setNoteList(
+          {
+            type: notesStore.noteListType,
+          },
+          {
+            noteStore: notesStore,
+          }
+        );
       }
     } catch (err) {
       console.error(err);

@@ -271,14 +271,10 @@ export function PathologyPaneList(
           } else {
             console.log(`Opened owned note id ${currentNote._id}`);
             if (isSeenFromMobile()) {
-              await setNoteOpened(
-                currentNote._id,
-                {
-                  noteStore: notesStore,
-                  modalStore,
-                },
-                false
-              );
+              await setNoteOpened(currentNote._id, {
+                noteStore: notesStore,
+                modalStore,
+              });
             } else {
               await setNoteItemOpen(currentNote._id, {
                 noteStore: notesStore,

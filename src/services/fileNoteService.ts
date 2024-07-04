@@ -10,6 +10,7 @@ class FileNoteService extends apiService {
     return await this.request({
       method: "POST",
       data: payload,
+      contentType: "multipart/form-data",
     });
   }
 

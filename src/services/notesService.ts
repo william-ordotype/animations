@@ -211,12 +211,14 @@ class NotesService extends ApiService {
     type,
     pathology_slug,
     prescription_type = "",
+    withShares = true,
   }: {
     page?: number;
     limit?: number;
     type: "" | "notes" | "prescriptions" | "recommendations";
     prescription_type?: "" | "balance_sheet" | "treatment";
     pathology_slug: string;
+    withShares?: boolean;
   }) {
     this.createNewAbortController();
 
@@ -228,6 +230,7 @@ class NotesService extends ApiService {
       type,
       pathology_slug,
       prescription_type,
+      withShares,
     });
     const sanitizedPayload = removeEmptyParams(validatedPayload);
 
@@ -239,7 +242,6 @@ class NotesService extends ApiService {
       method: "GET",
       queryParams: {
         ...sanitizedPayload,
-        withShares: true,
       },
       routeParams: "",
     });
