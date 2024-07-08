@@ -1,6 +1,6 @@
 import Alpine from "alpinejs";
 import { hashToObject } from "@utils/pagination";
-import ShareNotesService from "../../../services/notesSharesService";
+import shareNotesService from "../../../services/notesSharesService";
 import { StateStore } from "@utils/enums";
 import NProgress from "nprogress";
 import {
@@ -8,8 +8,6 @@ import {
   setShowSharedNote,
 } from "../../../actions/sharedNotesActions";
 import { STATUS_TYPES } from "@store/toaster.store";
-
-const shareNoteService = new ShareNotesService();
 
 function router() {
   const userStore = /**
@@ -94,7 +92,9 @@ async function acceptInvitation(acceptId) {
    */ (Alpine.store(StateStore.TOASTER));
 
   // ordotype.fr/my-documents-invitation?acceptId=12345
-  const res = await shareNoteService.acceptNoteInvitation({ noteId: acceptId });
+  const res = await shareNotesService.acceptNoteInvitation({
+    noteId: acceptId,
+  });
   NProgress.set(0.5);
 
   const { noteId, alreadyAccepted } = res.data;
