@@ -307,7 +307,8 @@ async function setDeleteNotes(payload: { noteIds: string[] }) {
       if (window.location.pathname.includes("/pathologies")) {
         const notesStore = Alpine.store(StateStore.MY_NOTES) as INotesStore;
         const pathologySlug =
-          import.meta.env.MODE === "development"
+          import.meta.env.MODE === "development" &&
+          location.host === "localhost:3021"
             ? "acne"
             : location.href.split("/")[4]!;
 

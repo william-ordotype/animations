@@ -96,7 +96,8 @@ const modalStore = {
       this.showModal = true;
       if (window.location.pathname.includes("pathologies")) {
         const pathologySlug =
-          import.meta.env.MODE === "development"
+          import.meta.env.MODE === "development" &&
+          location.host === "localhost:3021"
             ? "acne"
             : location.href.split("/")[4]!;
         const res = await pathologiesService.searchBySlug(pathologySlug);
@@ -161,7 +162,8 @@ const modalStore = {
       await getNotesFromPathologyTab(
         1,
         notesStore.pathologyActiveTab,
-        import.meta.env.MODE === "development"
+        import.meta.env.MODE === "development" &&
+          location.host === "localhost:3021"
           ? "acne"
           : location.href.split("/")[4]!,
         notesStore
@@ -209,7 +211,8 @@ const modalStore = {
   async submitForm(ev) {
     const notesStore = Alpine.store(StateStore.MY_NOTES) as INotesStore;
     const pathologySlug =
-      import.meta.env.MODE === "development"
+      import.meta.env.MODE === "development" &&
+      location.host === "localhost:3021"
         ? "acne"
         : location.href.split("/")[4]!;
 
