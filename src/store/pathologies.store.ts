@@ -63,7 +63,8 @@ const pathologiesStore = {
         component.dispatchEvent(window.customEvents.loadingTrigger);
       });
       const pathologySlug =
-        import.meta.env.MODE === "development"
+        import.meta.env.MODE === "development" &&
+        location.host === "localhost:3021"
           ? "acne"
           : window.location.pathname.split("/")[2];
 
