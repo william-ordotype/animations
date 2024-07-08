@@ -240,13 +240,12 @@ function PathologiesAutocomplete() {
       };
     },
     clearSearchResults(obj) {
-      // Delete obj from pathology array
-      const index = Alpine.store("modalStore").form.pathologies.indexOf(
-        obj._id
-      );
-      if (index > -1) {
-        Alpine.store("modalStore").form.pathologies.splice(index, 1);
-      }
+      // Delete obj from pathology object array
+      Alpine.store("modalStore").form.pathologies = Alpine.store(
+        "modalStore"
+      ).form.pathologies.filter((pathology) => {
+        return obj._id !== pathology._id;
+      });
     },
     once() {
       return {
