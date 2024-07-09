@@ -1,6 +1,5 @@
 import Alpine from "alpinejs";
 import PineconeRouter from "pinecone-router";
-import alpineWebflow from "../../modules/alpine-webflow";
 import SkeletonLoaderEvent from "../../events/SkeletonLoaderEvent";
 import { router } from "./navigation/routes";
 import globals from "@utils/globals";
@@ -68,8 +67,6 @@ window.toastActionMsg = {
 
 window.Webflow.push(() => {
   init().then(() => {
-    alpineWebflow();
-
     Alpine.plugin(PineconeRouter);
     Alpine.start();
 

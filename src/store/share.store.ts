@@ -1,5 +1,6 @@
 import { SharedEmailsInNote } from "@interfaces/apiTypes/notesSharesTypes";
 import { NoteItemData } from "@interfaces/apiTypes/notesTypes";
+import Alpine from "alpinejs";
 
 export interface IShareStore {
   shareOptionsEnabled: boolean;
@@ -20,6 +21,9 @@ export interface IShareStore {
 }
 
 const shareStore: IShareStore = {
+  init() {
+    console.log("init shareStore");
+  },
   // My documents page
   shareOptionsEnabled: false,
   shareSwitch: false,
