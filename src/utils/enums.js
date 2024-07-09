@@ -14,6 +14,10 @@ const ShareStates = {
   AVAILABLE: "available",
 };
 
+/**
+ * @enum {string}
+ *
+ */
 const ToasterMsgTypes = {
   ERROR: "error",
   SUCCESS: "success",

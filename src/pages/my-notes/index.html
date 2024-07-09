@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<!-- Last Published: Mon Mar 11 2024 00:51:53 GMT+0000 (Coordinated Universal Time) -->
+<!-- Last Published: Thu May 02 2024 02:42:00 GMT+0000 (Coordinated Universal Time) -->
 <html
-  data-wf-domain="www.ordotype.fr"
+     data-wf-domain="ordotype.webflow.io"
   data-wf-page="65a7f596a733dbc7f3f70a6c"
   data-wf-site="604b9ac88b080efc7ce802bd"
   lang="fr"
@@ -45,7 +45,7 @@
       name="google-site-verification"
     />
     <link
-      href="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.8802f61fa.min.css"
+         href="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.343587f91.min.css"
       rel="stylesheet"
       type="text/css"
     />
@@ -86,45 +86,45 @@
       rel="apple-touch-icon"
     />
     <link href="https://www.ordotype.fr/mes-documents" rel="canonical" />
-    <!-- Memberstack webflow package -->
-    <script defer>
-      window.addEventListener("load", (event) => {
-        console.log("Onload fired");
-        setTimeout(function () {
-          // If a member exists, create a cookie
-          // Check if the user has the "_ms-mid" item in local storage
-          if (localStorage.getItem("_ms-mid")) {
-            if (localStorage.getItem("userExists")) {
-              // If the user has already logged in and their cookie is registered, do nothing
-              return;
-            }
-            console.log("Found '_ms-mid' item in local storage");
-            // Set a flag to indicate that the user exists
-            localStorage.setItem("userExists", true);
+      <!-- Memberstack webflow package
+   <script defer>
+  window.addEventListener("load", (event) => {  console.log("Onload fired");
+    setTimeout(function () {
+      // If a member exists, create a cookie
+      // Check if the user has the "_ms-mid" item in local storage
+      if (localStorage.getItem("_ms-mid")) {
+        if (localStorage.getItem("userExists")) {
+          // If the user has already logged in and their cookie is registered, do nothing
+          return;
+        }
+        console.log("Found '_ms-mid' item in local storage");
+        // Set a flag to indicate that the user exists
+        localStorage.setItem("userExists", true);
+      } else {
+        // If a member does not exist
+        // Check if there was a previously set cookie
+        if (localStorage.getItem("userExists")) {
+          // Remove the existing cookie
+          localStorage.removeItem("userExists");
+  
+          // Inserting redirecting logic
+          // Check if the user is not already on the /modale-deconnexion page
+          if (window.location.pathname !== '/modale-deconnexion') {
+            console.log('Not on /modale-deconnexion, redirecting...');
+  
+            // Redirect the user to /modale-deconnexion
+            window.location.href = '/modale-deconnexion';
           } else {
-            // If a member does not exist
-            // Check if there was a previously set cookie
-            if (localStorage.getItem("userExists")) {
-              // Remove the existing cookie
-              localStorage.removeItem("userExists");
-
-              // Inserting redirecting logic
-              // Check if the user is not already on the /modale-deconnexion page
-              if (window.location.pathname !== "/modale-deconnexion") {
-                console.log("Not on /modale-deconnexion, redirecting...");
-
-                // Redirect the user to /modale-deconnexion
-                window.location.href = "/modale-deconnexion";
-              } else {
-                console.log("Already on /modale-deconnexion page");
-              }
-            }
+            console.log('Already on /modale-deconnexion page');
           }
-        }, 500);
-      });
-    </script>
+        }
+      }
+    }, 500);
+  });
+  </script> -->
+      
+      <!--<script data-memberstack-app="app_cl2r62rnv000w0uhy1nstfc3r" src="https://static.memberstack.com/scripts/v1/memberstack.js" type="text/javascript"></script> --->
 
-    <!-- Memberstack webflow package -->
     <script
       data-memberstack-domain="https://memberstack-client.ordotype.fr"
       data-memberstack-key="pk_sb_e80d8429a51c2ceb0530"
@@ -160,17 +160,23 @@
             .split("/");
           const removeDD = date.shift();
           const newDate = date.join("/");
-
-          const mainPlan =
-            data.planConnections.filter((plan) => {
-              return mainPlansIds.includes(plan.planId);
-            }) || "Not on main list";
+            
+            const mainPlan = data.planConnections.filter((plan) => {
+                return mainPlansIds.includes(plan.planId);
+            });
+            
+            if (mainPlan.length === 0) {
+                console.error("Not main plan found");
+                return;
+            }
 
           const dataPlan = mainPlan.length > 0 && {
             member_plan_id: mainPlan[0].planId,
             member_plan_status: mainPlan[0].status,
             member_plan_type: mainPlan[0].type,
           };
+            
+            window.dataPlan = dataPlan;
 
           dataLayer.push({
             event: "userData",
@@ -265,8 +271,8 @@
         right: 0;
         bottom: 0;
       }
-
-      /* iFrame Styles 
+      
+      /* iFrame Styles
         .iframe-src {
           width: 0;
           height: 0;
@@ -388,9 +394,12 @@
         background-size: 20px;
       }
     </style>
-
-    <script src="https://cdn.jsdelivr.net/gh/william-ordotype/yup-ordotype@main/toasters-doc-sharing.js"></script>
-    <script src="index.js" type="module"></script>
+      <script type="module" src="index.js"></script>
+      
+      <script
+           src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd%2F652d31f3dc22d7b4ee708e44%2F65c4b99013d2be46e4311665%2Fclarity_script-7.2.7.js"
+           type="text/javascript"
+      ></script>
   </head>
   <body>
     <div class="navigationhandler w-embed">
@@ -516,6 +525,14 @@
              display: -webkit-box;
              overflow: hidden;
              -webkit-line-clamp: 2;
+             -webkit-box-orient: vertical;
+         }
+         
+         /* Apply "..." after 2 lines of text */
+         .text-style-1line {
+             display: -webkit-box;
+             overflow: hidden;
+             -webkit-line-clamp: 1;
              -webkit-box-orient: vertical;
          }
 
@@ -888,7 +905,7 @@
             </div>
           </div>
           <nav role="navigation" class="navbar2_menu w-nav-menu">
-            <a href="/offres-v3" native="" class="navbar2_link w-nav-link"
+              <a href="/nos-offres" native="" class="navbar2_link w-nav-link"
               >Nos offres</a
             ><a href="/specialites" native="" class="navbar2_link w-nav-link"
               >Spécialités</a
@@ -916,7 +933,7 @@
               ><a
                 native=""
                 data-ms-content="!members"
-                href="/offres-v3"
+                href="/nos-offres"
                 class="button is-gradient navbar w-inline-block"
                 ><div class="button_text">Se créer un compte</div></a
               >
@@ -1744,8 +1761,7 @@
                           ><a
                             id="moyen-paiement-connected-btn"
                             native=""
-                            href="/offres-v3"
-                            target="_blank"
+                            href="#"
                             class="button is-gradient w-inline-block"
                             ><div>Se créer un compte</div></a
                           >
@@ -2245,7 +2261,8 @@
                         class="template"
                         x-bind="listItems"
                         x-data="DataTableListItem"
-                        ><div class="list_item">
+                      >
+                          <div x-bind="viewNote" class="list_item">
                           <a href="#" class="type_tag_icon w-inline-block"
                             ><div class="type_icon w-embed">
                               <svg
@@ -2325,7 +2342,6 @@
                               ><span
                                 class="plus-pathologies"
                                 x-show="note.pathologies?.length &gt; 1"
-                                class="plus-pathologies"
                                 x-html="&#x27;&lt;span&gt;+&lt;/span&gt;&lt;span&gt;&#x27;+ parseInt(note.pathologies?.length - 1) +&#x27;&lt;/span&gt;&#x27;"
                                 >{{+1}}</span
                               >
@@ -3121,7 +3137,7 @@
                             >
                               <img
                                 class="file_img"
-                                x-bind:src="isImg &amp;&amp; fileSrc"
+                                x-bind:src="isImg &amp;&amp; thumbnail_url"
                                 src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/649a52cf2ee9756547f93e3a_SCR-20230626-tzag.png"
                               /></div
                           ></template>
@@ -3139,7 +3155,11 @@
                                 </div>
                               </div>
                               <div class="file_title">
-                                <div x-text="fileName" class="file-label">
+                                  <div
+                                       x-bind:title="fileName"
+                                       x-text="fileName"
+                                       class="file-label"
+                                  >
                                   FileName
                                 </div>
                                 <div
@@ -3266,7 +3286,7 @@
                                 >
                                   <img
                                     class="file_img"
-                                    x-bind:src="isImg &amp;&amp; fileSrc"
+                                    x-bind:src="isImg &amp;&amp; thumbnail_url"
                                     src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/649a52cf2ee9756547f93e3a_SCR-20230626-tzag.png"
                                   /></div
                               ></template>
@@ -3284,7 +3304,11 @@
                                     </div>
                                   </div>
                                   <div class="file_title">
-                                    <div x-text="fileName" class="file-label">
+                                      <div
+                                           x-bind:title="fileName"
+                                           x-text="fileName"
+                                           class="file-label"
+                                      >
                                       {{FileName}}
                                     </div>
                                     <div
@@ -3849,7 +3873,7 @@
                       class="action_field_label"
                       >Partager par email</label
                     >
-                    <div class="flex_horizontal">
+                      <div class="flex_horizontal no-wrap">
                       <input
                         class="action_text_field w-input"
                         autocomplete="off"
@@ -4039,20 +4063,94 @@
                     <div class="margin-bottom-4 margin-small">
                       <div class="switch_tabs-wrapper">
                         <div class="button-footer">
-                          <img
-                            src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/62a8a85946267b2f7c2fd0f3_no-money.png"
-                            loading="lazy"
-                            id="w-node-_4b086624-82b9-59b6-0a84-10e719809c78-19809c67"
-                            sizes="(max-width: 479px) 7vw, (max-width: 767px) 4vw, (max-width: 1279px) 2vw, 1vw"
-                            alt="indépendant de l&#x27;industrie"
-                            srcset="
-                              https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/62a8a85946267b2f7c2fd0f3_no-money-p-500.png 500w,
-                              https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/62a8a85946267b2f7c2fd0f3_no-money.png       512w
-                            "
-                            class="image-9"
-                          />
-                          <div class="text-size-small smaller">
-                            100% indépendant de l’industrie pharmaceutique
+                            <div
+                                 class="flex_horizontal footer3_credit-text w-embed"
+                            >
+                                <svg
+                                     width="24"
+                                     height="24"
+                                     viewBox="0 0 24 24"
+                                     fill="none"
+                                     xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                         d="M13.0098 2.71205C14.1736 1.93619 15.7239 2.16113 16.6218 3.20888L16.7352 3.35019L19.1 6.50329C19.3485 6.83466 19.2814 7.30476 18.95 7.55329C18.6488 7.77923 18.2329 7.74426 17.973 7.48708L17.9 7.40329L15.5352 4.25019C15.1637 3.75484 14.4914 3.6109 13.9546 3.89311L13.8418 3.96013L8.34587 7.62409C8.00122 7.85385 7.53557 7.76072 7.30581 7.41608C7.09693 7.10276 7.15491 6.68944 7.42611 6.44426L7.51382 6.37601L13.0098 2.71205Z"
+                                         fill="white"
+                                    />
+                                    <path
+                                         fill-rule="evenodd"
+                                         clip-rule="evenodd"
+                                         d="M18.5 10.75H21C21.9665 10.75 22.75 11.5335 22.75 12.5V15.5C22.75 16.4665 21.9665 17.25 21 17.25H18.5C16.7845 17.25 15.3675 15.9169 15.2557 14.1886L15.25 14C15.25 12.2051 16.7051 10.75 18.5 10.75ZM21 12.25H18.5C17.5335 12.25 16.75 13.0335 16.7496 13.9757L16.7537 14.1158C16.8132 15.032 17.5765 15.75 18.5 15.75H21C21.1381 15.75 21.25 15.6381 21.25 15.5V12.5C21.25 12.3619 21.1381 12.25 21 12.25Z"
+                                         fill="white"
+                                    />
+                                    <path
+                                         d="M21 15.75C21.3797 15.75 21.6935 16.0322 21.7432 16.3982L21.75 16.5V18.5C21.75 20.233 20.3935 21.6492 18.6844 21.7449L18.5 21.75H12C11.5858 21.75 11.25 21.4142 11.25 21C11.25 20.6203 11.5322 20.3065 11.8982 20.2568L12 20.25H18.5C19.4182 20.25 20.1712 19.5429 20.2442 18.6435L20.25 18.5V16.5C20.25 16.0858 20.5858 15.75 21 15.75Z"
+                                         fill="white"
+                                    />
+                                    <path
+                                         fill-rule="evenodd"
+                                         clip-rule="evenodd"
+                                         d="M1.25 18C1.25 15.3766 3.37665 13.25 6 13.25C8.62335 13.25 10.75 15.3766 10.75 18C10.75 20.6234 8.62335 22.75 6 22.75C3.37665 22.75 1.25 20.6234 1.25 18ZM9.25 18C9.25 16.2051 7.79493 14.75 6 14.75C4.20507 14.75 2.75 16.2051 2.75 18C2.75 19.7949 4.20507 21.25 6 21.25C7.79493 21.25 9.25 19.7949 9.25 18Z"
+                                         fill="white"
+                                    />
+                                    <path
+                                         d="M18.5 6.25C20.233 6.25 21.6492 7.60645 21.7449 9.31558L21.75 9.5V11.5C21.75 11.9142 21.4142 12.25 21 12.25C20.6203 12.25 20.3065 11.9678 20.2568 11.6018L20.25 11.5V9.5C20.25 8.58183 19.5429 7.82881 18.6435 7.7558L18.5 7.75H5.5C4.58183 7.75 3.82881 8.45711 3.7558 9.35647L3.75 9.5V12C3.75 12.4142 3.41421 12.75 3 12.75C2.6203 12.75 2.30651 12.4678 2.25685 12.1018L2.25 12V9.5C2.25 7.76697 3.60645 6.35075 5.31558 6.25514L5.5 6.25H18.5Z"
+                                         fill="white"
+                                    />
+                                    <path
+                                         d="M6.46983 16.4701C6.76281 16.1773 7.23768 16.1775 7.53049 16.4704C7.79667 16.7368 7.82076 17.1535 7.60282 17.447L7.53017 17.5311L5.53017 19.5299C5.23719 19.8227 4.76232 19.8226 4.46951 19.5296C4.20333 19.2633 4.17924 18.8466 4.39718 18.553L4.46983 18.4689L6.46983 16.4701Z"
+                                         fill="white"
+                                    />
+                                    <path
+                                         d="M4.47042 16.4695C4.73677 16.2033 5.15344 16.1792 5.44698 16.3972L5.53108 16.4698L7.5299 18.4698C7.82271 18.7628 7.82257 19.2377 7.52959 19.5305C7.26324 19.7967 6.84657 19.8208 6.55303 19.6028L6.46893 19.5302L4.47011 17.5302C4.1773 17.2372 4.17744 16.7623 4.47042 16.4695Z"
+                                         fill="white"
+                                    />
+                                </svg
+                                >&nbsp;<span class="hide-mobile">100%&nbsp;</span>
+                                Indépendant de l’industrie pharmaceutique
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                      <div class="margin-bottom-4 margin-small">
+                          <div class="switch_tabs-wrapper">
+                              <div class="button-footer">
+                                  <div
+                                       class="flex_horizontal footer3_credit-text w-embed"
+                                  >
+                                      <svg
+                                           width="24"
+                                           height="24"
+                                           viewBox="0 0 24 24"
+                                           fill="none"
+                                           xmlns="http://www.w3.org/2000/svg"
+                                      >
+                                          <path
+                                               d="M13.172 2.25C13.8347 2.25 14.4732 2.48969 14.9713 2.92068L15.1163 3.05567L17.9443 5.88367C18.4131 6.35244 18.6954 6.97337 18.7429 7.63004L18.75 7.828V11C18.75 11.4142 18.4142 11.75 18 11.75C17.6203 11.75 17.3065 11.4678 17.2568 11.1018L17.25 11V7.828C17.25 7.5443 17.1531 7.26995 16.9778 7.04972L16.8837 6.94433L14.0557 4.11633C13.8547 3.9154 13.5922 3.78978 13.3129 3.75799L13.172 3.75H6C5.35239 3.75 4.82042 4.2415 4.75645 4.87212L4.75 5V19C4.75 19.6476 5.2415 20.1796 5.87212 20.2436L6 20.25H11C11.4142 20.25 11.75 20.5858 11.75 21C11.75 21.3797 11.4678 21.6935 11.1018 21.7432L11 21.75H6C4.53705 21.75 3.34157 20.6087 3.25502 19.1676L3.25 19V5C3.25 3.53705 4.39131 2.34157 5.83243 2.25502L6 2.25H13.172Z"
+                                               fill="white"
+                                          />
+                                          <path
+                                               d="M20.998 13.53C21.3777 13.53 21.6915 13.8122 21.7412 14.1783L21.748 14.28V15.827C21.748 16.2067 21.4659 16.5205 21.0998 16.5702L20.998 16.577H19.451C19.0368 16.577 18.701 16.2412 18.701 15.827C18.701 15.4473 18.9832 15.1335 19.3492 15.0839L19.451 15.077H20.248V14.28C20.248 13.9003 20.5302 13.5865 20.8962 13.5369L20.998 13.53Z"
+                                               fill="white"
+                                          />
+                                          <path
+                                               d="M15.992 18.423C16.4062 18.423 16.742 18.7588 16.742 19.173C16.742 19.5527 16.4599 19.8665 16.0938 19.9161L15.992 19.923H15.195V20.72C15.195 21.0997 14.9129 21.4135 14.5468 21.4631L14.445 21.47C14.0653 21.47 13.7515 21.1878 13.7019 20.8217L13.695 20.72V19.173C13.695 18.7933 13.9772 18.4795 14.3432 18.4298L14.445 18.423H15.992Z"
+                                               fill="white"
+                                          />
+                                          <path
+                                               d="M20.2907 18.4231C20.4254 18.0314 20.8521 17.823 21.2439 17.9577C21.6356 18.0924 21.8439 18.5191 21.7092 18.9108C21.5001 19.5191 21.1742 20.0586 20.7263 20.5053C19.0664 22.1652 16.3756 22.1652 14.7157 20.5053C14.4277 20.2173 14.1853 19.8908 13.99 19.5339C13.7912 19.1705 13.9247 18.7148 14.2881 18.516C14.6515 18.3172 15.1072 18.4506 15.306 18.814C15.4338 19.0476 15.5908 19.2591 15.7763 19.4446C16.8504 20.5187 18.5916 20.5187 19.6664 19.4439C19.947 19.1641 20.1536 18.822 20.2907 18.4231Z"
+                                               fill="white"
+                                          />
+                                          <path
+                                               d="M14.7157 14.4947C16.3756 12.8348 19.0664 12.8348 20.7252 14.4936C21.0136 14.7808 21.2556 15.1071 21.452 15.4661C21.6508 15.8295 21.5173 16.2852 21.1539 16.484C20.7905 16.6828 20.3348 16.5494 20.136 16.186C20.0072 15.9505 19.8512 15.7401 19.6657 15.5553C18.5916 14.4812 16.8504 14.4812 15.7763 15.5553C15.4931 15.8386 15.2837 16.183 15.1483 16.5769C15.0136 16.9686 14.5869 17.1769 14.1951 17.0423C13.8034 16.9076 13.5951 16.4809 13.7298 16.0892C13.9375 15.485 14.2666 14.9438 14.7157 14.4947Z"
+                                               fill="white"
+                                          />
+                                          <path
+                                               d="M13 2.25C13.3797 2.25 13.6935 2.53215 13.7432 2.89823L13.75 3V7C13.75 7.1181 13.8324 7.21742 13.9428 7.24338L14 7.25H18C18.4142 7.25 18.75 7.58579 18.75 8C18.75 8.3797 18.4678 8.69349 18.1018 8.74315L18 8.75H14C13.0821 8.75 12.3288 8.04263 12.2558 7.14349L12.25 7V3C12.25 2.58579 12.5858 2.25 13 2.25Z"
+                                               fill="white"
+                                          />
+                                      </svg
+                                      >&nbsp;Mises à jour continues et régulières
                           </div>
                         </div>
                       </div>
@@ -4060,42 +4158,47 @@
                     <div class="margin-bottom-4 margin-small">
                       <div class="flex_horizontal footer3_credit-text w-embed">
                         <svg
-                          width="22"
+                             width="20"
                           height="18"
                           viewBox="0 0 22 18"
-                          fill="white"
+                             fill="none"
                           xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
-                            d="M21 9H15L13 12H9L7 9H1M21 9V15C21 15.5304 20.7893 16.0391 20.4142 16.4142C20.0391 16.7893 19.5304 17 19 17H3C2.46957 17 1.96086 16.7893 1.58579 16.4142C1.21071 16.0391 1 15.5304 1 15V9M21 9L17.55 2.11C17.3844 1.77679 17.1292 1.49637 16.813 1.30028C16.4967 1.10419 16.1321 1.0002 15.76 1H6.24C5.86792 1.0002 5.50326 1.10419 5.18704 1.30028C4.87083 1.49637 4.61558 1.77679 4.45 2.11L1 9"
-                            stroke="#0C0E16"
+                               d="M21 3C21 1.9 20.1 1 19 1H3C1.9 1 1 1.9 1 3M21 3V15C21 16.1 20.1 17 19 17H3C1.9 17 1 16.1 1 15V3M21 3L11 10L1 3"
+                               stroke="white"
                             stroke-width="2"
                             stroke-linecap="round"
                             stroke-linejoin="round"
                           /></svg
-                        >&nbsp;
-                        <p>contact@ordotype.fr</p>
+                        >&nbsp;&nbsp;contact@ordotype.fr
                       </div>
                     </div>
                     <div class="margin-bottom-4 margin-small">
-                      <div class="flex_horizontal footer3_credit-text w-embed">
-                        <svg
-                          width="24"
-                          height="20"
-                          viewBox="0 0 20 20"
-                          fill="white"
-                          xmlns="http://www.w3.org/2000/svg"
+                        <a href="tel:+33744785503" class="w-inline-block"
                         >
-                          <path
-                            d="M21.9999 16.92V19.92C22.0011 20.1985 21.944 20.4741 21.8324 20.7293C21.7209 20.9845 21.5572 21.2136 21.352 21.4018C21.1468 21.5901 20.9045 21.7335 20.6407 21.8227C20.3769 21.9119 20.0973 21.945 19.8199 21.92C16.7428 21.5856 13.7869 20.5341 11.1899 18.85C8.77376 17.3146 6.72527 15.2661 5.18993 12.85C3.49991 10.2412 2.44818 7.27097 2.11993 4.17997C2.09494 3.90344 2.12781 3.62474 2.21643 3.3616C2.30506 3.09846 2.4475 2.85666 2.6347 2.6516C2.82189 2.44653 3.04974 2.28268 3.30372 2.1705C3.55771 2.05831 3.83227 2.00024 4.10993 1.99997H7.10993C7.59524 1.9952 8.06572 2.16705 8.43369 2.48351C8.80166 2.79996 9.04201 3.23942 9.10993 3.71997C9.23656 4.68004 9.47138 5.6227 9.80993 6.52997C9.94448 6.8879 9.9736 7.27689 9.89384 7.65086C9.81408 8.02482 9.6288 8.36809 9.35993 8.63998L8.08993 9.90997C9.51349 12.4135 11.5864 14.4864 14.0899 15.91L15.3599 14.64C15.6318 14.3711 15.9751 14.1858 16.3491 14.1061C16.723 14.0263 17.112 14.0554 17.4699 14.19C18.3772 14.5285 19.3199 14.7634 20.2799 14.89C20.7657 14.9585 21.2093 15.2032 21.5265 15.5775C21.8436 15.9518 22.0121 16.4296 21.9999 16.92Z"
-                            stroke="#0C0E16"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          /></svg
-                        >&nbsp;
-                        <p>+33 7 44 78 55 03</p>
-                      </div>
+                            <div
+                                 class="flex_horizontal footer3_credit-text w-embed"
+                            >
+                                <svg
+                                     width="20"
+                                     height="20"
+                                     viewBox="0 0 22 22"
+                                     fill="none"
+                                     xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                         d="M21 15.92V18.92C21.0011 19.1985 20.9441 19.4741 20.8325 19.7293C20.7209 19.9845 20.5573 20.2136 20.3521 20.4018C20.1468 20.5901 19.9046 20.7335 19.6407 20.8227C19.3769 20.9119 19.0974 20.945 18.82 20.92C15.7428 20.5856 12.787 19.5341 10.19 17.85C7.77382 16.3146 5.72533 14.2661 4.18999 11.85C2.49997 9.24118 1.44824 6.27097 1.11999 3.17997C1.095 2.90344 1.12787 2.62474 1.21649 2.3616C1.30512 2.09846 1.44756 1.85666 1.63476 1.6516C1.82196 1.44653 2.0498 1.28268 2.30379 1.1705C2.55777 1.05831 2.83233 1.00024 3.10999 0.999975H6.10999C6.5953 0.995198 7.06579 1.16705 7.43376 1.48351C7.80173 1.79996 8.04207 2.23942 8.10999 2.71997C8.23662 3.68004 8.47144 4.6227 8.80999 5.52997C8.94454 5.8879 8.97366 6.27689 8.8939 6.65086C8.81415 7.02482 8.62886 7.36809 8.35999 7.63998L7.08999 8.90997C8.51355 11.4135 10.5864 13.4864 13.09 14.91L14.36 13.64C14.6319 13.3711 14.9751 13.1858 15.3491 13.1061C15.7231 13.0263 16.1121 13.0554 16.47 13.19C17.3773 13.5285 18.3199 13.7634 19.28 13.89C19.7658 13.9585 20.2094 14.2032 20.5265 14.5775C20.8437 14.9518 21.0122 15.4296 21 15.92Z"
+                                         stroke="white"
+                                         stroke-width="2"
+                                         stroke-linecap="round"
+                                         stroke-linejoin="round"
+                                    />
+                                </svg
+                                >&nbsp;&nbsp;+33 7 44 78 55 03
+                            </div>
+                        </a
+                        >
                     </div>
                     <div class="margin-bottom-4 margin-small">
                       <div class="footer3_credit-text">
@@ -4158,6 +4261,11 @@
                         native=""
                         class="footer3_link"
                         >Demander une démo</a
+                    ><a
+                         href="/academie-homepage"
+                         native=""
+                         class="footer3_link"
+                    >Ordotype Académie</a
                       >
                     </div>
                   </div>
@@ -4175,7 +4283,7 @@
       crossorigin="anonymous"
     ></script>
     <script
-      src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/js/webflow.0a58e019e.js"
+         src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/js/webflow.f9e778101.js"
       type="text/javascript"
     ></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -4247,6 +4355,7 @@ Webflow.push(function(){$('.w-richtext p').html(function(){return $(this).html()
         });
       });
     </script>
+    
     <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script>
 
     <!---- <script defer src="https://static.ordotype.fr/my-notes.js"></script> ---->

@@ -1,0 +1,172 @@
+/* global $ */
+import "nprogress/nprogress.css";
+import "../../styles.scss";
+import "../../modules/slideon/slideon";
+import "../../modules/slideon/style.scss";
+import focus from "@alpinejs/focus";
+import Alpine from "alpinejs";
+
+import globals from "../../utils/globals";
+import userStore from "../../store/user.store";
+import {
+  PathologiesNoteList,
+  PathologiesNoteItem,
+} from "@components/PathologiesNoteList.js";
+import modalStore from "../../store/modal.store";
+import toasterStore from "../../store/toaster.store";
+import DocumentsDrawer from "../../components/Notes/DocumentsDrawer";
+import {
+  DeleteSelectedNotes,
+  DocumentsModal,
+  OpenModalByType,
+  PathologiesAutocomplete,
+} from "@components/Notes/DocumentsModal";
+import {
+  DocumentFileInput,
+  DocumentFileListItem,
+} from "@components/DocumentsFiles.js";
+import myNotesStore from "../../store/myNotes.store";
+import shareStore from "../../store/share.store";
+import { StateStore } from "@utils/enums";
+import DocumentsShareModal from "../../components/Notes/DocumentsShareModal";
+import { setLocale } from "yup";
+import { errorMessageFr } from "../../validation/errorMessages";
+import {
+  navigationToastMsgs,
+  noteActionsToastMsgs,
+  shareNoteActionsToastMsgs,
+} from "@utils/toastMessages";
+import { noteFormMsg } from "@utils/modalMessages";
+import intersect from "@alpinejs/intersect";
+import UsersService from "@services/usersService";
+import {
+  PathologyPaneList,
+  PathologyPaneNoteItem,
+  PathologyTabList,
+} from "@components/view/pathology-tabs/pathologyTab.view";
+
+console.log("pathologies");
+
+window.Alpine = Alpine;
+
+/**
+ * Declaring global variables and running auth check before Alpine starts
+ */
+async function init() {
+  globals.run();
+  const currentUser = await UsersService.getUser();
+
+  Alpine.store(StateStore.USER, userStore(currentUser));
+  setLocale({ ...errorMessageFr, ...window.validationMsgCustom });
+}
+
+/**
+ * Declaring global state to be shared among components
+ */
+
+Alpine.store(StateStore.MY_NOTES, myNotesStore);
+Alpine.store(StateStore.MODAL, modalStore);
+Alpine.store(StateStore.TOASTER, toasterStore);
+Alpine.store(StateStore.SHARE, shareStore);
+// Alpine.store("pathologiesStore", pathologiesStore);
+
+/**
+ * Declaring local state for each component
+ */
+
+Alpine.data("DocumentsDrawer", DocumentsDrawer);
+
+// Documents Modal
+Alpine.data("DocumentsModal", DocumentsModal);
+Alpine.data("OpenModalByType", OpenModalByType);
+Alpine.data("PathologiesAutocomplete", PathologiesAutocomplete);
+Alpine.data("DeleteSelectedNotes", DeleteSelectedNotes);
+
+Alpine.data("PathologiesNoteList", PathologiesNoteList);
+Alpine.data("PathologiesNoteItem", PathologiesNoteItem);
+Alpine.data("PathologiesAutocomplete", PathologiesAutocomplete);
+
+Alpine.data("PathologyTabList", PathologyTabList);
+Alpine.data("PathologyPaneList", PathologyPaneList);
+Alpine.data("PathologyPaneNoteItem", PathologyPaneNoteItem);
+
+// Documents Files located in drawer and modal
+Alpine.data("DocumentFileListItem", DocumentFileListItem);
+Alpine.data("DocumentFileInput", DocumentFileInput);
+
+// Sharing
+Alpine.data("DocumentsShareModal", DocumentsShareModal);
+
+/**
+ Runs program
+ */
+
+window.memberstack = window.memberstack || {};
+window.memberstack.instance = window.$memberstackDom;
+
+window.toastActionMsgCustom = window.toastActionMsgCustom || {};
+window.modalMsgCustom = window.modalMsgCustom || {};
+window.validationMsgCustom = window.validationMsgCustom || {};
+
+window.toastActionMsg = {
+  notes: {
+    ...noteActionsToastMsgs,
+    ...window.toastActionMsgCustom.notes,
+  },
+  shareNotes: {
+    ...shareNoteActionsToastMsgs,
+    ...toastActionMsgCustom.shareNotes,
+  },
+  navigation: {
+    ...navigationToastMsgs,
+    ...toastActionMsgCustom.navigation,
+  },
+};
+
+window.modalMsg = {
+  form: {
+    ...noteFormMsg,
+    ...modalMsgCustom,
+  },
+};
+
+$(".create_document_form").removeClass("w-form");
+
+if (!window.Webflow) {
+  window.Webflow = [];
+}
+
+window.Quill = Quill;
+
+window.Webflow.push(() => {
+  init().then(() => {
+    Alpine.plugin(focus);
+    Alpine.plugin(intersect);
+    Alpine.start();
+
+    $("#wf-form-mutateDocument").on("submit", async function (ev) {
+      console.log("WF form submit");
+      ev.preventDefault();
+      await Alpine.store("modalStore").submitForm(ev);
+      return false;
+    });
+
+    const sharedLinkClipboard = new ClipboardJS("#copy-shared-link", {
+      container: document.querySelector(".sauvegarder-ordonnance"),
+      text: function () {
+        const publicLinkId = Alpine.store("shareStore").activeNotePublicLink;
+        return `${location.host}/document-shared-invite?type=link&id=${publicLinkId}`;
+      },
+    });
+
+    sharedLinkClipboard.on("success", function (e) {
+      e.clearSelection();
+      Alpine.store(StateStore.SHARE).showCopySuccessMsg = true;
+
+      // Hide successfully copy text after 5 seconds
+      setTimeout(() => {
+        Alpine.store(StateStore.SHARE).showCopySuccessMsg = false;
+      }, 3000);
+    });
+  });
+});

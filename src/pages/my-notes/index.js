@@ -17,7 +17,6 @@ import globals from "../../utils/globals";
 import "../../styles.scss";
 
 import modalStore from "../../store/modal.store";
-import drawerStore from "../../store/drawer.store";
 import userStore from "../../store/user.store";
 import toasterStore from "../../store/toaster.store";
 import shareStore from "../../store/share.store";
@@ -30,7 +29,7 @@ import {
   DataTablePaginationMenu,
   DataTablePerPageDropdown,
   LayoutContainer,
-} from "../../components/Notes/DocumentsDataTable";
+} from "@components/Notes/DocumentsDataTable";
 import DocumentsTypeNavigation from "../../components/Notes/DocumentsTypeNavigation";
 import DocumentsDrawer from "../../components/Notes/DocumentsDrawer";
 import {
@@ -38,23 +37,24 @@ import {
   DocumentsModal,
   OpenModalByType,
   PathologiesAutocomplete,
-} from "../../components/Notes/DocumentsModal";
+} from "@components/Notes/DocumentsModal";
 import {
   DocumentFileInput,
   DocumentFileListItem,
-} from "../../components/DocumentsFiles";
+} from "@components/DocumentsFiles";
 import DocumentsSearch from "../../components/Notes/DocumentsSearch";
 import DocumentsShareModal from "../../components/Notes/DocumentsShareModal";
-import { DocumentAvailableSpaceGraphWidget } from "../../components/Notes/DocumentAvailableSpaceGraphWidget";
+import { DocumentAvailableSpaceGraphWidget } from "@components/Notes/DocumentAvailableSpaceGraphWidget";
 
-import { StateStore } from "../../utils/enums";
+import { StateStore } from "@utils/enums";
 import { errorMessageFr } from "../../validation/errorMessages";
 import {
   navigationToastMsgs,
   noteActionsToastMsgs,
   shareNoteActionsToastMsgs,
-} from "../../utils/toastMessages";
-import { noteFormMsg } from "../../utils/modalMessages";
+} from "@utils/toastMessages.js";
+import { noteFormMsg } from "@utils/modalMessages";
+import UsersService from "@services/usersService";
 
 window.Alpine = Alpine;
 
@@ -65,8 +65,9 @@ window.Alpine = Alpine;
 async function init() {
   globals.run();
   NProgress.start();
-  const getUser = await $memberstackDom.getCurrentMember();
-  Alpine.store(StateStore.USER, userStore(getUser));
+  const currentUser = await UsersService.getUser();
+
+  Alpine.store(StateStore.USER, userStore(currentUser));
   setLocale({ ...errorMessageFr, ...window.validationMsgCustom });
 }
 
@@ -76,7 +77,6 @@ async function init() {
 
 Alpine.store("notesStore", notesStore);
 Alpine.store("modalStore", modalStore);
-Alpine.store("drawerStore", drawerStore);
 Alpine.store("toasterStore", toasterStore);
 Alpine.store("shareStore", shareStore);
 
@@ -117,11 +117,9 @@ Alpine.data("DocumentsShareModal", DocumentsShareModal);
  Runs program
  */
 
-window.memberstack = window.memberstack || {};
 window.toastActionMsgCustom = window.toastActionMsgCustom || {};
 window.modalMsgCustom = window.modalMsgCustom || {};
 window.validationMsgCustom = window.validationMsgCustom || {};
-window.memberstack.instance = window.$memberstackDom;
 
 window.toastActionMsg = {
   notes: {

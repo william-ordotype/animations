@@ -1,0 +1,64 @@
+{
+  "note": {
+    "_id": "65ff0517ff5d3087dd8a7e24",
+    "created_by": {
+      "role": "client",
+      "email": "raquelcle@gmail.com",
+      "full_name": "name last name"
+    },
+    "member_id": "mem_cl9kd859p01fz0s8s0tgoh27v",
+    "title": "special char and pdf",
+    "type": "notes",
+    "rich_text_ordo": "<p>This is a text rich <strong>text</strong></p>",
+    "prescription_type": "",
+    "created_on": "2024-03-23T16:36:39.284Z",
+    "updated_on": "2024-05-21T17:52:44.815Z",
+    "pathologies": [
+      {
+        "_id": "63b4b1d5714fbf406661a0bb",
+        "title": "Acné",
+        "slug": "acne"
+      }
+    ],
+    "updated_by": {
+      "role": "client",
+      "email": "raquelcle@gmail.com",
+      "full_name": "name last name"
+    },
+    "documents": [
+      {
+        "_id": "65ff0517ff5d3087dd8a7e25",
+        "member_id": "mem_cl9kd859p01fz0s8s0tgoh27v",
+        "file_name": "pro__file__-fote___17112117994140.jpeg",
+        "file_url": "https://ordotype-assets.fra1.digitaloceanspaces.com/mem_cl9kd859p01fz0s8s0tgoh27v/pro__file__-fote___17112117994140.jpeg",
+        "size": 17405,
+        "mime_type": "image/jpeg",
+        "original_name": "proÌfileÌ-foteÌ.jpeg",
+        "thumbnail_name": "pro__file__-fote___17112117994140_thumbnail.jpeg",
+        "thumbnail_url": "https://ordotype-assets.fra1.digitaloceanspaces.com/mem_cl9kd859p01fz0s8s0tgoh27v/pro__file__-fote___17112117994140_thumbnail.jpeg",
+        "note_id": "65ff0517ff5d3087dd8a7e24",
+        "created_on": "2024-03-23T16:36:39.979Z",
+        "updated_on": "2024-03-23T16:36:39.979Z"
+      },
+      {
+        "_id": "65ff0518ff5d3087dd8a7e26",
+        "member_id": "mem_cl9kd859p01fz0s8s0tgoh27v",
+        "file_name": "recordatorio_abuelo_17112117994141.pdf",
+        "file_url": "https://ordotype-assets.fra1.digitaloceanspaces.com/mem_cl9kd859p01fz0s8s0tgoh27v/recordatorio_abuelo_17112117994141.pdf",
+        "size": 12399977,
+        "mime_type": "application/pdf",
+        "original_name": "recordatorio abuelo.pdf",
+        "thumbnail_name": "recordatorio_abuelo_17112117994141_thumbnail.png",
+        "thumbnail_url": "https://ordotype-assets.fra1.digitaloceanspaces.com/mem_cl9kd859p01fz0s8s0tgoh27v/recordatorio_abuelo_17112117994141_thumbnail.png",
+        "note_id": "65ff0517ff5d3087dd8a7e24",
+        "created_on": "2024-03-23T16:36:40.547Z",
+        "updated_on": "2024-03-23T16:36:40.547Z"
+      }
+    ]
+  },
+  "member": {
+    "name": "name",
+    "lastName": "last name",
+    "email": "raquelcle@gmail.com"
+  }
+}

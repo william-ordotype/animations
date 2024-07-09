@@ -1,8 +1,10 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 import Alpine from "alpinejs";
 
 import globals from "../../utils/globals";
 import PathologiesService from "../../services/pathologiesService";
-import { StateStore } from "../../utils/enums";
+import { StateStore } from "@utils/enums.js";
 
 const pathologiesService = new PathologiesService();
 function DocumentsModal() {
@@ -85,19 +87,18 @@ function DocumentsModal() {
       return {
         ["x-show"]: "modalStore.showModal",
         ["x-transition"]: "",
-        ["x-on:click.outside"]: (ev) => {
+        ["x-on:click.outside"]: (
+          /** @type {{ target: Element | null; }} */ ev
+        ) => {
           const modalStore = Alpine.store(StateStore.MODAL);
           // If clicks outside modal, close the modal
           if (
             !$(ev.target).parents(".modal_dialog_backdrop").length > 0 &&
             ev.target !== document.querySelector(".modal_dialog_backdrop")
           ) {
-            // If click inside autocomplete dropdown (which is outside of the modal) ignore close
-            if ($(ev.target).parents(".aa-Panel").length > 0) {
-              modalStore.showBeforeCancel = false;
-            } else {
-              modalStore.showBeforeCancel = true;
-            }
+            // If click inside autocomplete dropdown (which is outside the modal) ignore close
+            modalStore.showBeforeCancel =
+              $(ev.target).parents(".aa-Panel").length <= 0;
           }
         },
       };
@@ -239,11 +240,12 @@ function PathologiesAutocomplete() {
       };
     },
     clearSearchResults(obj) {
-      // Delete obj from pathology array
-      const index = Alpine.store("modalStore").form.pathology.indexOf(obj);
-      if (index > -1) {
-        Alpine.store("modalStore").form.pathology.splice(index, 1);
-      }
+      // Delete obj from pathology object array
+      Alpine.store("modalStore").form.pathologies = Alpine.store(
+        "modalStore"
+      ).form.pathologies.filter((pathology) => {
+        return obj._id !== pathology._id;
+      });
     },
     once() {
       return {
@@ -273,9 +275,13 @@ function PathologiesAutocomplete() {
                   sourceId: "pathologies",
                   getItems() {
                     return (
-                      res.data.filter((pathology) => {
-                        return pathology.is_ok_for_posos === "true";
-                      }) || []
+                      res.data.data.filter(
+                        (
+                          /** @type {{ is_ok_for_posos: string; }} */ pathology
+                        ) => {
+                          return pathology.is_ok_for_posos === "true";
+                        }
+                      ) || []
                     );
                   },
                   getItemInputValue({ item }) {
@@ -296,7 +302,6 @@ function PathologiesAutocomplete() {
                     if (pathologyExists) {
                       return;
                     }
-
                     Alpine.store("modalStore").form.pathologies.push({
                       _id: obj.item._id,
                       title: obj.itemInputValue,
@@ -351,19 +356,21 @@ function OpenModalByType() {
 }
 
 function DeleteSelectedNotes() {
+  const notesStore = /**
+   * @type {import("@store/myNotes.store").INotesStore}
+   */ (Alpine.store(StateStore.MY_NOTES));
+
   return {
     deleteManyButton: function () {
       return {
         ["x-show"]: "$store.notesStore.areNotesSelected",
-        ["x-on:click.prevent"]: (ev) => {
+        ["x-on:click.prevent"]: () => {
           const modalStore = Alpine.store("modalStore");
-          const selectedNotes = Alpine.store(StateStore.MY_NOTES).noteList.map(
-            (note) => {
-              if (note.checked) {
-                return note._id;
-              }
+          const selectedNotes = notesStore.noteList.map((note) => {
+            if (note.checked) {
+              return note._id;
             }
-          );
+          });
           modalStore.removeShareNoteList = selectedNotes;
           modalStore.deleteList = selectedNotes;
           modalStore.showBeforeRemoveSharedInvitation = true; // this dialog will show on my shared documents
