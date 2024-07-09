@@ -7,20 +7,16 @@ import {
   setSharedNoteBasicInfo,
   setShowSharedNote,
 } from "../../../actions/sharedNotesActions";
-import { STATUS_TYPES } from "@store/toaster.store";
+import { IToastStore, STATUS_TYPES } from "@store/toaster.store";
+import { IUserStore } from "@store/user.store";
+import { IShareStore } from "@store/share.store";
 
 function router() {
-  const userStore = /**
-   * @type {import("@store/user.store").IUserStore}
-   */ (Alpine.store(StateStore.USER));
+  const userStore = Alpine.store(StateStore.USER) as IUserStore;
 
-  const toastStore = /**
-   * @type {import("@store/toaster.store").IToastStore}
-   */ (Alpine.store(StateStore.TOASTER));
+  const toastStore = Alpine.store(StateStore.TOASTER) as IToastStore;
 
-  const shareStore = /**
-   * @type {import("@store/share.store").IShareStore}
-   */ (Alpine.store(StateStore.SHARE));
+  const shareStore = Alpine.store(StateStore.SHARE) as IShareStore;
 
   return {
     /**
@@ -52,7 +48,11 @@ function router() {
           }
 
           // ordotype.fr/my-documents-invitation?id=12345&type=email
-          await setShowSharedNote({ inviteType, noteId: inviteId });
+          debugger;
+          await setShowSharedNote(
+            { inviteType, noteId: inviteId },
+            { shareStore }
+          );
         } else {
           toastStore.toasterMsg(
             window.toastActionMsg.navigation.invalidUrlInvitation,
@@ -89,7 +89,7 @@ export { router };
 async function acceptInvitation(acceptId) {
   const toastStore = /**
    * @type {import("@store/toaster.store").IToastStore}
-   */ (Alpine.store(StateStore.TOASTER));
+   */ Alpine.store(StateStore.TOASTER);
 
   // ordotype.fr/my-documents-invitation?acceptId=12345
   const res = await shareNotesService.acceptNoteInvitation({

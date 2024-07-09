@@ -1,6 +1,8 @@
 /* global $ */
 import "nprogress/nprogress.css";
 import "../../styles.scss";
+import "../../modules/slideon/slideon";
+import "../../modules/slideon/style.scss";
 import focus from "@alpinejs/focus";
 import Alpine from "alpinejs";
 

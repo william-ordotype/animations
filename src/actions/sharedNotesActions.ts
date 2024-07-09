@@ -8,7 +8,7 @@ import {
   Status_Type,
   STATUS_TYPES,
 } from "@store/toaster.store.js";
-import shareStore from "@store/share.store.js";
+import { IShareStore } from "@store/share.store.js";
 
 // Invitee: My shared documents
 async function setSharedNoteList(payload: ToDo) {
@@ -48,7 +48,10 @@ async function setSharedNoteOpened({ noteId }: ToDo) {
   }
 }
 
-async function setShowSharedNote({ inviteType, noteId }: ToDo) {
+async function setShowSharedNote(
+  { inviteType, noteId }: ToDo,
+  { shareStore }: { shareStore: IShareStore }
+) {
   // ordotype.fr/my-documents-invitation?type=email&id=12345
 
   const res = await sharedNotesService.getNoteByType({
@@ -65,11 +68,12 @@ async function setShowSharedNote({ inviteType, noteId }: ToDo) {
   shareStore.isInvitedAllowed = true;
   if (res.data.note) {
     shareStore.invitationNote = {
-      ...res,
+      note: res.data.note,
+      member: res.data.member,
     };
   } else {
     shareStore.invitationNote = {
-      note: { ...res },
+      note: { ...res.data },
     };
   }
 }
@@ -154,7 +158,12 @@ async function setCloneNote(payload: ToDo) {
   }
 }
 
-async function setSharedNoteBasicInfo({ id, type }: ToDo) {
+async function setSharedNoteBasicInfo(
+  { id, type }: ToDo,
+  store: { shareStore: IShareStore }
+) {
+  const { shareStore } = store;
+
   const res = await sharedNotesService.getNoteBasicInfo({
     id,
     type,

@@ -1,23 +1,42 @@
 <!DOCTYPE html>
-<!-- Last Published: Wed Dec 13 2023 23:37:22 GMT+0000 (Coordinated Universal Time) -->
+<!-- Last Published: Mon Jul 01 2024 13:33:34 GMT+0000 (Coordinated Universal Time) -->
 <html
-  data-wf-domain="ordotype.webflow.io"
-  data-wf-page="65387564e32907f177e49208"
+     data-wf-domain="www.ordotype.fr"
+     data-wf-page="65a7f596a733dbc7f3f709c0"
   data-wf-site="604b9ac88b080efc7ce802bd"
   lang="fr"
 >
   <head>
     <meta charset="utf-8" />
-    <title>Document Shared Invite</title>
-    <meta content="Document Shared Invite" property="og:title" />
-    <meta content="Document Shared Invite" property="twitter:title" />
+      <title>
+          Ordotype: Documents Partagés - Gestion et Accès Sécurisé pour Médecins
+      </title>
+      <meta content="Partage de document sur Ordotype" name="description"/>
+      <meta
+           content="Ordotype: Documents Partagés - Gestion et Accès Sécurisé pour Médecins"
+           property="og:title"
+      />
+      <meta
+           content="Partage de document sur Ordotype"
+           property="og:description"
+      />
+      <meta
+           content="Ordotype: Documents Partagés - Gestion et Accès Sécurisé pour Médecins"
+           property="twitter:title"
+      />
+      <meta
+           content="Partage de document sur Ordotype"
+           property="twitter:description"
+      />
+      <meta property="og:type" content="website"/>
+      <meta content="summary_large_image" name="twitter:card"/>
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <meta
       content="Sq3ZH7V9LReszDsgNbInbEJ_BR1M7e5yAukJv3MO7LA"
       name="google-site-verification"
     />
     <link
-      href="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.f565b2520.min.css"
+         href="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/css/ordotype.webflow.8fab2618c.min.css"
       rel="stylesheet"
       type="text/css"
     />
@@ -49,59 +68,64 @@
       })(window, document);
     </script>
     <link
-      href="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/646489f6ff1b9504a8e033be_My%20project.png"
+         href="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/646489f6ff1b9504a8e033be_My%20project.png"
       rel="shortcut icon"
       type="image/x-icon"
     />
     <link
-      href="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/63e9f1ba593572dd6555b38a_logo_256_good-removebg-preview.png"
+         href="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/63e9f1ba593572dd6555b38a_logo_256_good-removebg-preview.png"
       rel="apple-touch-icon"
     />
     <link
       href="https://www.ordotype.fr/document-shared-invite"
       rel="canonical"
     />
-    <!-- Memberstack webflow package -->
-    <script defer>
-      window.addEventListener("load", (event) => {
-        console.log("Onload fired");
-        setTimeout(function () {
-          // If a member exists, create a cookie
-          // Check if the user has the "_ms-mid" item in local storage
-          if (localStorage.getItem("_ms-mid")) {
-            if (localStorage.getItem("userExists")) {
-              // If the user has already logged in and their cookie is registered, do nothing
-              return;
-            }
-            console.log("Found '_ms-mid' item in local storage");
-            // Set a flag to indicate that the user exists
-            localStorage.setItem("userExists", true);
+      <!-- Memberstack webflow package
+   <script defer>
+  window.addEventListener("load", (event) => {  console.log("Onload fired");
+    setTimeout(function () {
+      // If a member exists, create a cookie
+      // Check if the user has the "_ms-mid" item in local storage
+      if (localStorage.getItem("_ms-mid")) {
+        if (localStorage.getItem("userExists")) {
+          // If the user has already logged in and their cookie is registered, do nothing
+          return;
+        }
+        console.log("Found '_ms-mid' item in local storage");
+        // Set a flag to indicate that the user exists
+        localStorage.setItem("userExists", true);
+      } else {
+        // If a member does not exist
+        // Check if there was a previously set cookie
+        if (localStorage.getItem("userExists")) {
+          // Remove the existing cookie
+          localStorage.removeItem("userExists");
+  
+          // Inserting redirecting logic
+          // Check if the user is not already on the /modale-deconnexion page
+          if (window.location.pathname !== '/modale-deconnexion') {
+            console.log('Not on /modale-deconnexion, redirecting...');
+  
+            // Redirect the user to /modale-deconnexion
+            window.location.href = '/modale-deconnexion';
           } else {
-            // If a member does not exist
-            // Check if there was a previously set cookie
-            if (localStorage.getItem("userExists")) {
-              // Remove the existing cookie
-              localStorage.removeItem("userExists");
-
-              // Inserting redirecting logic
-              // Check if the user is not already on the /modale-deconnexion page
-              if (window.location.pathname !== "/modale-deconnexion") {
-                console.log("Not on /modale-deconnexion, redirecting...");
-
-                // Redirect the user to /modale-deconnexion
-                window.location.href = "/modale-deconnexion";
-              } else {
-                console.log("Already on /modale-deconnexion page");
-              }
-            }
+            console.log('Already on /modale-deconnexion page');
           }
-        }, 500);
-      });
-    </script>
+        }
+      }
+    }, 500);
+  });
+  
+  </script> -->
+      
+      <!--<script data-memberstack-app="app_cl2r62rnv000w0uhy1nstfc3r" src="https://static.memberstack.com/scripts/v1/memberstack.js" type="text/javascript"></script>
+      
+      
+      Memberstack webflow package -->
 
     <script
       data-memberstack-domain="https://memberstack-client.ordotype.fr"
-      data-memberstack-key="pk_sb_e80d8429a51c2ceb0530"
+      data-memberstack-app="app_cl2r62rnv000w0uhy1nstfc3r"
       src="https://static.memberstack.com/scripts/v1/memberstack.js"
       type="text/javascript"
     ></script>
@@ -111,10 +135,10 @@
 
     <link
       rel="preconnect"
-      href="https://assets-global.website-files.com/"
+      href="https://cdn.prod.website-files.com/"
       crossorigin
     />
-    <link rel="dns-prefetch" href="https://assets-global.website-files.com/" />
+      <link rel="dns-prefetch" href="https://cdn.prod.website-files.com/"/>
 
     <script defer>
       window.mainPlansIds = [
@@ -134,17 +158,23 @@
             .split("/");
           const removeDD = date.shift();
           const newDate = date.join("/");
-
-          const mainPlan =
-            data.planConnections.filter((plan) => {
-              return mainPlansIds.includes(plan.planId);
-            }) || "Not on main list";
+            
+            const mainPlan = data.planConnections.filter((plan) => {
+                return mainPlansIds.includes(plan.planId);
+            });
+            
+            if (mainPlan.length === 0) {
+                console.error("Not main plan found");
+                return;
+            }
 
           const dataPlan = mainPlan.length > 0 && {
             member_plan_id: mainPlan[0].planId,
             member_plan_status: mainPlan[0].status,
             member_plan_type: mainPlan[0].type,
           };
+            
+            window.dataPlan = dataPlan;
 
           dataLayer.push({
             event: "userData",
@@ -269,7 +299,20 @@
       name="viewport"
       content="width=device-width, initial-scale=1, maximum-scale=1"
     />
-
+      
+      <!-- [Attributes by Finsweet] CMS Load -->
+      <script
+           async
+           src="https://cdn.jsdelivr.net/npm/@finsweet/attributes-cmsload@1/cmsload.js"
+      ></script>
+      <meta name="robots" content="noindex,nofollow"/>
+      <!---- <link rel="stylesheet" href="https://static.ordotype.fr/document-shared-invite.css" />  ---->
+      
+      <script type="module" src="index.ts"></script>
+      <script
+           src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd%2F652d31f3dc22d7b4ee708e44%2F65c4b99013d2be46e4311665%2Fclarity_script-7.2.7.js"
+           type="text/javascript"
+      ></script>
   </head>
   <body>
     <div class="navigationhandler w-embed">
@@ -348,44 +391,55 @@
       >
         <div class="w-layout-grid non_membre_grid">
           <div
-            id="w-node-_98774d81-406f-a186-716c-f3c19e9ad8f1-77e49208"
+               id="w-node-_98774d81-406f-a186-716c-f3c19e9ad8f1-f3f709c0"
             class="doc_img_wrapper"
           >
             <img
-              src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/640dfd60ba6752466c0a01b9_Document%20Illustration.svg"
+                 src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/640dfd60ba6752466c0a01b9_Document%20Illustration.svg"
               loading="lazy"
-              alt=""
+                 alt="document"
               class="doc_img"
             />
           </div>
           <a href="#" class="logo_link w-inline-block"
             ><img
-              src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/63eb836f8481409a3f885c41_logo%20png.png"
+               src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/63eb836f8481409a3f885c41_logo%20png.png"
               loading="lazy"
-              id="w-node-_98774d81-406f-a186-716c-f3c19e9ad8f4-77e49208"
+               id="w-node-_98774d81-406f-a186-716c-f3c19e9ad8f4-f3f709c0"
               alt="logo Ordotype"
           /></a>
           <div
-            id="w-node-_98774d81-406f-a186-716c-f3c19e9ad8f5-77e49208"
+               id="w-node-_98774d81-406f-a186-716c-f3c19e9ad8f5-f3f709c0"
             class="member_wrapper"
           >
-            <div x-bind="noteAuthor" class="member_name">Leslie Alexander</div>
+              <div x-bind="noteAuthor" class="member_name">
+                  Un utilisateur Ordotype
+              </div>
             <div class="text-color-base-700 text-size-small">
               a partagé avec vous un document Ordotype
             </div>
           </div>
-          <h2 x-bind="noteTitle" class="heading-h2-docs">Nom du document qui est un peu long</h2>
+            <h2 x-bind="noteTitle" class="heading-h2-docs">
+                Nom du document qui est un peu long
+            </h2>
           <div class="text-color-base-700 text-size-small">
-            Vous devez être connecter en tant que membre premium pour pouvoir
-            accéder à de document:
+              Vous devez être connecté pour pouvoir accéder au document:<br/>
           </div>
           <div class="w-layout-grid action_btns_form partage-btns">
-            <a href="#" class="button is-docs text-size-small w-inline-block"
-              ><div class="button_text">Se connecter à Ordotype.fr</div></a
+              <a
+                   native=""
+                   href="/membership/login-ms"
+                   class="button is-docs text-size-small w-inline-block"
+              >
+                  <div class="button_text">Se connecter</div>
+              </a
             ><a
+               native=""
               href="#"
               class="button is-annuler text-size-small w-inline-block"
-              ><div class="button_text">S’inscrire à Ordotype.fr</div></a
+          >
+              <div class="button_text">S’inscrire</div>
+          </a
             >
           </div>
         </div>
@@ -397,14 +451,14 @@
       >
         <div class="w-layout-grid non_membre_grid">
           <div
-            id="w-node-_75226aa1-24bc-c496-dc98-de13dcfd7206-77e49208"
+               id="w-node-_75226aa1-24bc-c496-dc98-de13dcfd7206-f3f709c0"
             class="doc_img_wrapper _4--rows"
           >
             <div
               class="lottie_doc"
               data-w-id="75226aa1-24bc-c496-dc98-de13dcfd7207"
               data-animation-type="lottie"
-              data-src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/641c88dfac7f1bc7d272da1a_ordotype_doc%20(1).json"
+              data-src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/641c88dfac7f1bc7d272da1a_ordotype_doc%20(1).json"
               data-loop="1"
               data-direction="1"
               data-autoplay="1"
@@ -416,30 +470,68 @@
           </div>
           <a href="#" class="logo_link w-inline-block"
             ><img
-              src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/63eb836f8481409a3f885c41_logo%20png.png"
+               src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/63eb836f8481409a3f885c41_logo%20png.png"
               loading="lazy"
-              id="w-node-_75226aa1-24bc-c496-dc98-de13dcfd7209-77e49208"
+               id="w-node-_75226aa1-24bc-c496-dc98-de13dcfd7209-f3f709c0"
               alt="logo Ordotype"
           /></a>
-          <div class="text-size-regular text-weight-semibold">
-            Le document Ordotype auquel vous essayez d’accéder n’est
-            malheureusement plus accessible.
-          </div>
-          <div
-            id="w-node-_75226aa1-24bc-c496-dc98-de13dcfd720c-77e49208"
-            class="text-size-regular"
-          >
-            Connectez vous à Ordotype dès maintenant pour découvrir plus de
-            10000 documents créés par sa rédaction et ses centaines
-            d’utilisateurs.
+            <div id="w-node-_39b1954a-af64-8c36-6ec4-3ae1d65957e2-f3f709c0">
+                <div class="text-size-regular text-weight-semibold">
+                    Vous n&#x27;avez pas accès à ce document.
+                </div>
+                <div
+                     id="w-node-_75226aa1-24bc-c496-dc98-de13dcfd720c-f3f709c0"
+                     class="text-size-regular"
+                >
+                    Contactez l&#x27;auteur ou connectez-vous à un compte ayant accès
+                    à ce document.
+                </div>
+            </div>
+            <div id="w-node-_95fd412c-a0d8-512f-f511-acab452b2a85-f3f709c0">
+                <div
+                     data-ms-content="members"
+                     id="w-node-_1c5860b2-8963-f62b-40a4-21d02c111625-f3f709c0"
+                     class="flex_horizontal w-embed"
+                >
+                    <p class="text-size-regular">Vous êtes connecté avec</p>
+                    <p>&nbsp;</p>
+                    <p
+                         class="text-size-regular text-weight-semibold"
+                         data-ms-member="email"
+                    >
+                        email.
+                    </p>
+                </div>
+                <div data-ms-content="!members" class="text-size-regular">
+                    Vous n&#x27;êtes actuellement pas connecté.
+                </div>
           </div>
           <div class="w-layout-grid action_btns_form partage-btns">
-            <a href="#" class="button is-docs text-size-small w-inline-block"
-              ><div class="button_text">Se connecter à Ordotype.fr</div></a
+              <a
+                   data-ms-content="!members"
+                   native=""
+                   href="/membership/login-ms"
+                   class="button is-docs text-size-small w-inline-block"
+              >
+                  <div class="button_text">Se connecter</div>
+              </a
             ><a
+               data-ms-content="!members"
+               native=""
               href="#"
               class="button is-annuler text-size-small w-inline-block"
-              ><div class="button_text">S’inscrire à Ordotype.fr</div></a
+          >
+              <div class="button_text">S’inscrire</div>
+          </a
+          ><a
+               data-ms-content="members"
+               native=""
+               id="w-node-_7e09e3cb-f8d0-3de3-40ef-d9d22d3e2844-f3f709c0"
+               href="/"
+               class="button is-annuler text-size-small w-inline-block"
+          >
+              <div class="button_text">Retour à la page d&#x27;accueil</div>
+          </a
             >
           </div>
         </div>
@@ -454,10 +546,10 @@
             <h2 x-bind="noteTitle" class="view_heading">Nom de l’ordonnance</h2>
           </div>
           <div class="w-layout-grid action_btns partage">
-            <a
-              href="/debug/mes-documents#/list"
-              class="button is-annuler w-inline-block"
-              ><div class="button_text">Mes documents</div></a
+              <a native="" href="/" class="button is-annuler w-inline-block"
+              >
+                  <div class="button_text">Ne pas enregistrer</div>
+              </a
             ><a
               x-bind="cloneNote"
               href="#"
@@ -508,7 +600,7 @@
         </div>
         <div class="files_wrapper">
           <div class="files_holder">
-            <template class="template" x-bind="getFiles"
+              <template x-bind="getFiles" class="template"
               ><a
                 x-bind:href="fileSrc"
                 x-on:click="window.open(fileSrc, &#x27;_blank&#x27;)"
@@ -517,21 +609,21 @@
                 class="file_block w-inline-block"
                 ><div class="w-layout-grid file_grid">
                   <template
-                    id="w-node-db8c8572-090d-60b2-0610-f3989c9e8f60-77e49208"
+                       id="w-node-db8c8572-090d-60b2-0610-f3989c9e8f60-f3f709c0"
+                       x-if="isImg"
                     class="template"
-                    x-if="isImg"
                     ><div
-                      id="w-node-db8c8572-090d-60b2-0610-f3989c9e8f61-77e49208"
+                       id="w-node-db8c8572-090d-60b2-0610-f3989c9e8f61-f3f709c0"
                       class="file_img_wrapper"
                     >
                       <img
+                           x-bind:src="isImg &amp;&amp; thumbnail_url"
+                           src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/649a52cf2ee9756547f93e3a_SCR-20230626-tzag.png"
                         class="file_img"
-                        x-bind:src="isImg &amp;&amp; fileSrc"
-                        src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/649a52cf2ee9756547f93e3a_SCR-20230626-tzag.png"
                       /></div
                   ></template>
                   <figure
-                    id="w-node-db8c8572-090d-60b2-0610-f3989c9e8f63-77e49208"
+                       id="w-node-db8c8572-090d-60b2-0610-f3989c9e8f63-f3f709c0"
                     class="file_description"
                   >
                     <div class="flex_horizontal">
@@ -541,7 +633,13 @@
                         </div>
                       </div>
                       <div class="file_title">
-                        <div x-text="fileName" class="file-label">FileName</div>
+                          <div
+                               x-bind:title="fileName"
+                               x-text="fileName"
+                               class="file-label"
+                          >
+                              FileName
+                          </div>
                         <div x-text="&#x27;.&#x27;+fileExt" class="ext-label">
                           .ext
                         </div>
@@ -562,7 +660,7 @@
       crossorigin="anonymous"
     ></script>
     <script
-      src="https://assets-global.website-files.com/604b9ac88b080efc7ce802bd/js/webflow.111e17552.js"
+         src="https://cdn.prod.website-files.com/604b9ac88b080efc7ce802bd/js/webflow.2279d1644.js"
       type="text/javascript"
     ></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -580,17 +678,10 @@
     <!-- End Google Tag Manager (noscript) -->
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@a60450308412697672c5b94b4ce3ce97937c2dd9/ordotype-index-2023-10-23.js"></script>
-
-    <!--
-<script src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@a3c5f5c5088f78470f1651ab06ac4ef2e85750c2/ordotype-index-2023-12-12.js"></script> -->
-
-    <!--
-<script defer
-  src="https://cdn.jsdelivr.net/npm/algoliasearch@4.14.2/dist/algoliasearch.umd.js"
-  integrity="sha256-DRnoUQAweVMsVPRMhfHC5zPqUP8s2fWUqD39yBsWg+M="
-  crossorigin="anonymous"
-></script>-->
+    <!--<script src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@7fad5463975578c62baf863fc2ada00db43f69a9/ordotype-index-2024-06-04.js"></script>-->
+    
+    <script
+         src="https://cdn.jsdelivr.net/gh/william-ordotype/finder@aee4e97dfdf74a8951edb58f5b9a6fdfb064bc63/ordotype-index-2024-06-04.js"></script>
 
     <script>
       window.addEventListener("DOMContentLoaded", (event) => {
@@ -642,6 +733,20 @@ Webflow.push(function(){$('.w-richtext p').html(function(){return $(this).html()
         });
       });
     </script>
-    <script type="module" src="index.js"></script>
+    
+    <script
+         defer
+         src="https://cdn.jsdelivr.net/gh/william-ordotype/yup-ordotype@main/toasters-doc-sharing.js"
+    ></script>
+    
+    <!---- <script defer src="https://static.ordotype.fr/document-shared-invite.js">
+</script> ---->
+    
+    <!--- <script defer src="https://seashell-app-etfao.ondigitalocean.app/document-shared-invite.js">  
+</script>  ---->
+    
+    <script>
+        localStorage.setItem("locat", location.href);
+    </script>
   </body>
 </html>
