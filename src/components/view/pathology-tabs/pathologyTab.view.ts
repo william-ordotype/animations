@@ -407,6 +407,14 @@ export function PathologyPaneNoteItem(): AlpineComponent<PathologyPaneNoteItemOp
           ),
       };
     },
+    noteUpdatedOn() {
+      return {
+        ["x-text"]: () =>
+          new Date(notesStore.noteOpened.note!.updated_on).toLocaleDateString(
+            "fr-FR"
+          ),
+      };
+    },
     noteRichText() {
       return {
         ["x-html"]: () => notesStore.noteOpened.note!.rich_text_ordo,
