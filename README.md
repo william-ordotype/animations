@@ -76,8 +76,8 @@ a specific element:
 `x-ordo-utils="hide-element-onclick"`
 
 **Secondary Property**
-
-`data-element-to-show="${querySelector}"`
+data-element-to-show
+`="${querySelector}"`
 
 *Required.* Must add a css class or id of an available element as query selector to target which element is going to be
 shown
@@ -264,4 +264,30 @@ hidden
    </div>
 </div>
 ```
+
+### Show element after delay
+
+**Main Property**
+
+`x-ordo-utils="showElementAfterDelay"`
+
+
+**Secondary Properties**
+
+`data-delay-milliseconds=${milliseconds}"`
+*Required.* Number (in milliseconds) of time that should be spent before showing the element
+
+
+**Code Example**
+
+```html
+
+<script src="https://cdn.jsdelivr.net/gh/dndevs/ordotype-front-utils@latest/dist/showElementAfterDelay.js"></script>
+...
+<div class="hiddenElement" x-ordo-utils="showElementAfterDelay" data-delay-milliseconds="5000">This is the element to show after 5000 milliseconds (5 seconds)</div>
+<div class="hiddenElement" x-ordo-utils="showElementAfterDelay" data-delay-milliseconds="10000">This is another element to show after 10000 milliseconds (10 seconds)</div>
+```
+
+
+
 
