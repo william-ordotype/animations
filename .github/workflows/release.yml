@@ -1,12 +1,62 @@
+name: Build and Release on Tag
+
 on:
   push:
     tags:
-      - "v*"
+      - 'v*'  # This will trigger the workflow for tags starting with 'v'
 
-name: Release
 jobs:
-  release:
-    name: Release GitHub Actions
+  build-and-release:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: technote-space/release-github-actions@v6
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16' # Adjust the Node.js version if needed
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Create GitHub Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          body: |
+            Changes in this release:
+            - Description of changes
+          draft: false
+          prerelease: false
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./dist
+          asset_name: dist
+          asset_content_type: application/zip
+
+      - name: Zip dist folder
+        run: zip -r dist.zip ./dist
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: dist.zip
+          asset_name: dist.zip
+          asset_content_type: application/zip
