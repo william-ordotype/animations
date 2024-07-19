@@ -62,7 +62,7 @@ On the same page, add the `x-ordo-utils` attribute followed by the component nam
 a specific element:
 
 ```html
-<div x-ordo-utils="hide-element-onclick">
+<div x-ordo-utils="hideElementOnClick">
     <a href="#">I'm a button</a>
 </div>
 ```
@@ -73,7 +73,7 @@ a specific element:
 
 **Main Property**
 
-`x-ordo-utils="hide-element-onclick"`
+`x-ordo-utils="hideElementOnClick"`
 
 **Secondary Property**
 data-element-to-show
@@ -231,8 +231,6 @@ hidden
 
 `x-ordo-utils="accordion"`
 
-
-
 **Secondary Properties**
 
 `data-accordion-elem="question"`
@@ -289,5 +287,56 @@ hidden
 ```
 
 
+Toggle Elements
+Main Property
 
+x-ordo-utils="toggleElementsOnClick"
 
+Secondary Properties
+
+data-element-to-show
+Optional. Selector of the element to show when the button is clicked.
+
+data-element-to-hide
+Optional. Selector of the element to hide when the button is clicked.
+
+Code Example
+
+```html
+<script src="https://cdn.jsdelivr.net/gh/dndevs/ordotype-front-utils@latest/dist/toggleElementsOnClick.js"></script>
+...
+<!-- Example with both show and hide functionality -->
+<button x-ordo-utils="toggleElementsOnClick" data-element-to-show="#elementToShow" data-element-to-hide="#elementToHide">
+    Toggle Elements
+</button>
+
+<!-- Example with only show functionality -->
+<button x-ordo-utils="toggleElementsOnClick" data-element-to-show="#elementToShowOnly">
+    Show Element
+</button>
+
+<!-- Example with only hide functionality -->
+<button x-ordo-utils="toggleElementsOnClick" data-element-to-hide="#elementToHideOnly">
+    Hide Element
+</button>
+
+<!-- Elements to show/hide -->
+<div id="elementToShow" style="display: none;">
+    This element will be shown.
+</div>
+<div id="elementToHide">
+    This element will be hidden.
+</div>
+<div id="elementToShowOnly" style="display: none;">
+    This element will be shown only.
+</div>
+<div id="elementToHideOnly">
+    This element will be hidden only.
+</div>
+```
+Usage Notes:
+
+- Assign the x-ordo-utils="toggleElementsOnClick" attribute to the buttons or elements that will trigger the show/hide actions.
+- Use the data-element-to-show attribute to specify the ID of the element that should be shown when the button is clicked.
+- Use the data-element-to-hide attribute to specify the ID of the element that should be hidden when the button is clicked.
+- Both attributes can be used together or separately depending on the required functionality.
