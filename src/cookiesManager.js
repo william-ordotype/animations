@@ -29,3 +29,5 @@ function toggleCookiesManager() {
         }, 400);
     })
 }
+
+toggleCookiesManager();

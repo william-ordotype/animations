@@ -1,1 +1,1 @@
-
+function c(){const o=document.querySelector('[x-ordo-utils="cookieManagerButton"]'),t=document.querySelector('[x-ordo-utils="cookieManagerClose"]');o.addEventListener("click",e=>{$(o).css({display:"block",opacity:1,bottom:"0"}).animate({opacity:0,bottom:"-100%"},800)}),t.addEventListener("click",e=>{$(o).css({display:"block",opacity:0,bottom:"-100%"}).animate({opacity:1,bottom:"0"},400)})}c();
