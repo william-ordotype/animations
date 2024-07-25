@@ -28,7 +28,7 @@ function toggleCookiesManager() {
             opacity: 1,
             bottom: '0'
         }, 400);
-    }, false)
+    })
 
     cookieManagerBannerClose.on('click', (e) => {
         $('[fs-cc="banner"]').css({
