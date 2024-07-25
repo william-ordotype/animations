@@ -1,11 +1,11 @@
 'use strict';
 
 function toggleCookiesManager() {
-    const cookieManagerButton = document.querySelector('[x-ordo-utils="cookieManagerButton"]');
-    const cookieManagerClose = document.querySelector('[x-ordo-utils="cookieManagerClose"]');
+    const cookieManagerButton = $('[x-ordo-utils="cookieManagerButton"]');
+    const cookieManagerClose = $('[x-ordo-utils="cookieManagerClose"]');
 
     // Open manager
-    cookieManagerButton.addEventListener('click', (e) => {
+    cookieManagerButton.on('click', (e) => {
         $(cookieManagerButton)
             .css({
                 display: 'block',
@@ -18,7 +18,7 @@ function toggleCookiesManager() {
     });
 
     // Close manager
-    cookieManagerClose.addEventListener('click', (e) => {
+    cookieManagerClose.on('click', (e) => {
         $(cookieManagerButton).css({
             display: 'block',
             opacity: 0,

@@ -287,20 +287,20 @@ hidden
 ```
 
 
-Toggle Elements
-Main Property
+### Toggle Elements
+**Main Property**
 
-x-ordo-utils="toggleElementsOnClick"
+`x-ordo-utils="toggleElementsOnClick"`
 
-Secondary Properties
+**Secondary Properties**
 
-data-element-to-show
+`data-element-to-show`
 Optional. Selector of the element to show when the button is clicked.
 
-data-element-to-hide
+`data-element-to-hide`
 Optional. Selector of the element to hide when the button is clicked.
 
-Code Example
+**Code Example**
 
 ```html
 <script src="https://cdn.jsdelivr.net/gh/dndevs/ordotype-front-utils@latest/dist/toggleElementsOnClick.js"></script>
@@ -340,3 +340,13 @@ Usage Notes:
 - Use the data-element-to-show attribute to specify the ID of the element that should be shown when the button is clicked.
 - Use the data-element-to-hide attribute to specify the ID of the element that should be hidden when the button is clicked.
 - Both attributes can be used together or separately depending on the required functionality.
+
+
+## Toggle Cookies Manager
+**Main Property**
+
+`x-ordo-utils="cookieManagerButton"`
+This property should be assigned to the open cookie manager button
+
+`x-ordo-utils="cookieManagerClose"`
+This property should be assigned in any element that's going to act as a closing button
