@@ -3,9 +3,11 @@
 function toggleCookiesManager() {
     const cookieManagerButton = $('[x-ordo-utils="cookieManagerButton"]');
     const cookieManagerClose = $('[x-ordo-utils="cookieManagerClose"]');
+    const cookieManagerBannerClose = $('[x-ordo-utils="cookieManagerBannerClose"]')
 
     // Open manager
     cookieManagerButton.on('click', (e) => {
+        e.stopPropagation();
         $(cookieManagerButton)
             .css({
                 display: 'block',
@@ -19,6 +21,7 @@ function toggleCookiesManager() {
 
     // Close manager
     cookieManagerClose.on('click', (e) => {
+        e.stopPropagation();
         $(cookieManagerButton).css({
             display: 'block',
             opacity: 0,
@@ -28,6 +31,30 @@ function toggleCookiesManager() {
             bottom: '0'
         }, 400);
     })
+
+    cookieManagerBannerClose.on('click', (e) => {
+        e.stopPropagation();
+        $('[fs-cc="banner"]').css({
+            display: 'block',
+            opacity: 1,
+            bottom: '0'
+        }).animate({
+            opacity: 0,
+            bottom: '-100%'
+        }, 800);
+
+        cookieManagerButton.css({
+            display: 'block',
+            opacity: 0,
+            bottom: '-100%'
+        }).animate({
+            opacity: 1,
+            bottom: '0'
+        }, 400);
+    })
+
+
+
 }
 
 toggleCookiesManager();

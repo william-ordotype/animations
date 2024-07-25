@@ -343,10 +343,13 @@ Usage Notes:
 
 
 ## Toggle Cookies Manager
-**Main Property**
+**Main Properties**
 
 `x-ordo-utils="cookieManagerButton"`
 This property should be assigned to the open cookie manager button
 
 `x-ordo-utils="cookieManagerClose"`
-This property should be assigned in any element that's going to act as a closing button
+This property should be assigned in any element that's going to act as a closing button for the cookie manager panel
+
+`x-ordo-utils="cookieManagerBannerClose"`
+This property should be added to the cookie banner buttons to hide the banner
