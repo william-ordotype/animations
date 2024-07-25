@@ -7,7 +7,6 @@ function toggleCookiesManager() {
 
     // Open manager
     cookieManagerButton.on('click', (e) => {
-        e.stopPropagation();
         $(cookieManagerButton)
             .css({
                 display: 'block',
@@ -21,7 +20,6 @@ function toggleCookiesManager() {
 
     // Close manager
     cookieManagerClose.on('click', (e) => {
-        e.stopPropagation();
         $(cookieManagerButton).css({
             display: 'block',
             opacity: 0,
@@ -30,10 +28,9 @@ function toggleCookiesManager() {
             opacity: 1,
             bottom: '0'
         }, 400);
-    })
+    }, false)
 
     cookieManagerBannerClose.on('click', (e) => {
-        e.stopPropagation();
         $('[fs-cc="banner"]').css({
             display: 'block',
             opacity: 1,
@@ -52,9 +49,6 @@ function toggleCookiesManager() {
             bottom: '0'
         }, 400);
     })
-
-
-
 }
 
 toggleCookiesManager();
