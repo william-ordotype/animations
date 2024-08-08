@@ -10,7 +10,7 @@ async function toggleCookiesManager() {
         .find((row) => row.startsWith("fs-cc="))
         ?.split("=")[1];
 
-    if(hasSeenCookieBanner)
+    if(!hasSeenCookieBanner)
     setTimeout(() => {
         $(cookieBanner).fadeIn();
     }, 2000);
