@@ -1,7 +1,7 @@
 'use strict';
 
 function showOnScroll() {
-    const element = document.querySelector('[data-show-on-scroll]')
+    const element = document.querySelector('[x-ordo-utils="showOnScroll"]')
     const offset = element.dataset.scrollOffset ?? 0
     const elementPos = element.getBoundingClientRect()
 
@@ -14,7 +14,7 @@ function showOnScroll() {
         }
     }
 
-    window.addEventListener('scroll', handleScroll);
+    document.addEventListener('scroll', handleScroll);
 }
 
 showOnScroll()

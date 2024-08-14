@@ -353,3 +353,15 @@ This property should be assigned in any element that's going to act as a closing
 
 `x-ordo-utils="cookieManagerBannerClose"`
 This property should be added to the cookie banner buttons to hide the banner
+
+## Show on Scroll
+
+This script will hide the element until the page is scrolled past a specified point, considering any offset provided. If no offset is provided, the default value is 0 (element is shown when its top reaches the viewport).
+
+**Main Properties**
+
+`x-ordo-utils="showOnScroll"` The main attribute used to identify elements that should be shown/hidden on scroll.
+
+`data-scroll-offset` An optional attribute to specify how much before or after the element's position the visibility should toggle.
+
+
