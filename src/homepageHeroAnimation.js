@@ -20,7 +20,9 @@ const observer = new IntersectionObserver((entries, observer) => {
     threshold: 0 // Trigger when 10% of the element is visible
 });
 
-observer.observe(targetElement);
+Webflow.push(function () {
+    observer.observe(targetElement);
+})
 
 function startScrollTracking() {
     window.addEventListener('scroll', handleScroll);
@@ -47,7 +49,6 @@ function handleScroll() {
 
         animateFeatures(scrollPercentage);
         animateBrowzer(scrollPercentage);
-        console.log(scrollPercentage)
     }
 }
 
