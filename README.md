@@ -364,4 +364,9 @@ This script will hide the element until the page is scrolled past a specified po
 
 `data-scroll-offset` An optional attribute to specify how much before or after the element's position the visibility should toggle.
 
+## Homepage Hero Animation
+This script applies a homepage animation to a specific component
 
+**Main Properties**
+
+`[x-ordo-utils="homepageHeroAnimation"]`

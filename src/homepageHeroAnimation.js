@@ -1,7 +1,7 @@
-var Webflow = Webflow || [];
+var Webflow = window.Webflow || [];
 
 // Select the target element
-const targetElement = document.querySelector('.hero');
+const targetElement = document.querySelector('[x-ordo-utils="homepageHeroAnimation"]');
 
 let isElementInView = false;
 
@@ -17,10 +17,16 @@ const observer = new IntersectionObserver((entries, observer) => {
     });
 }, {
     root: null, // Use the viewport as the root
-    threshold: 0 // Trigger when 10% of the element is visible
+    threshold: 0 // Trigger when 0% of the element is visible
 });
 
-Webflow.push(function () {
+window.addEventListener('DOMContentLoaded', (event) => {
+    // DOMready has fired
+    // May now use jQuery
+    if(!targetElement) {
+        console.error("No targetElement found");
+        return
+    }
     observer.observe(targetElement);
 })
 
